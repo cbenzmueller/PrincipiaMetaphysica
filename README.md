@@ -38,7 +38,7 @@ abstract objects and the functional foundation of HOL
 
 * Combining static evaluation of certain language constructs (e.g. actuality and
   definite description) wrt to a fixed current world with a dynamic
-  evaluation of the other language constructs wrt to possible world
+  evaluation of the other language constructs wrt to the possible world
   under consideration
 
 
