@@ -1,6 +1,15 @@
 # Principia Metaphysica
 ========================================
 
+Contributors
+-----------------------
+
+* [Christoph Benzmüller](http://christoph-benzmueller.de/)
+* [Edward Zalta](https://mally.stanford.edu/zalta.html)
+
+Outline
+-----------------------
+
 This repository contains computer-assisted formalizations of Ed
 Zalta's Principia Metaphysica, which is based on Zalta's Theory of
 Abstract Objects. This work is based on Second-Order Modal Logic that uses a
@@ -12,16 +21,9 @@ HOL. This enables the use of the following proof assistants, theorem
 provers and model finders:
 
 * [Isabelle/HOL](https://isabelle.in.tum.de/)
-* [LEO-II](http://page.mi.fu-berlin.de/cbenzmueller/leo/) and 
-* [Satallax](https://mathgate.info/cebrown/satallax/)).
+* [LEO-II](http://page.mi.fu-berlin.de/cbenzmueller/leo/) 
+* [Satallax](https://mathgate.info/cebrown/satallax/)
 * [Nitpick](http://www4.in.tum.de/~blanchet/nitpick.html)
-
-Contributors
------------------------
-
-* [Christoph Benzmüller](http://christoph-benzmueller.de/)
-
-* [Edward Zalta](https://mally.stanford.edu/zalta.html)
 
 
 
