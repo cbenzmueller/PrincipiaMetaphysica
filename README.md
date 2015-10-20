@@ -41,7 +41,3 @@ Abstract Objects and the functional foundation of HOL
   under consideration
 
 
-Scientific Publications
------------------------
-
-None yet.
