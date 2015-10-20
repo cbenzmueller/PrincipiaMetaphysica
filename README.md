@@ -11,8 +11,8 @@ Outline
 -----------------------
 
 This repository contains a computer-assisted formalization of Ed
-Zalta's Principia Metaphysica, which is based on Zalta's Theory of
-Abstract Objects. This work is based on a second-order modal logic
+Zalta's principia metaphysica, which is based on Zalta's theory of
+abstract objects. This work is based on a second-order modal logic
 which employs 
 relational type theory as a foundation.
 
