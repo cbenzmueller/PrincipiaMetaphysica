@@ -274,6 +274,9 @@ lemma "[(\<exists>(\<lambda>F. <a\<circ>.F.>))]" apply (simp) by auto
 
 lemma "isWff ,(\<lambda>w. True)," apply (simp) done
 
+lemma "[(\<exists>(\<lambda>F. ,F,))]" apply (simp) by auto
+lemma "[(\<exists>(\<lambda>F. ;F;))]" apply (simp) by auto
+
 (*<*) 
 end
 (*>*)
