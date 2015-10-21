@@ -38,6 +38,33 @@ consts r :: "(i\<Rightarrow>i\<Rightarrow>bool)"
 
 
 
+text {* Meta-logical Predicates. *}
+
+
+abbreviation isWff :: "'a opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | _ \<Rightarrow> True"
+abbreviation isForm :: "'a opt\<Rightarrow>bool" where "isForm \<phi> \<equiv> case \<phi> of Form \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isPropForm :: "'a opt\<Rightarrow>bool" where "isPropForm \<phi> \<equiv> case \<phi> of PropForm \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isTerm :: "'a opt\<Rightarrow>bool" where "isTerm \<phi> \<equiv> case \<phi> of Term \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isError :: "'a opt\<Rightarrow>bool" where "isError \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+
+(*<*) no_syntax "_list" :: "args\<Rightarrow>e list" ("[(_)]") (*>*) 
+abbreviation valid :: "io opt\<Rightarrow>bool" (*<*)("[_]")(*>*) where "[\<phi>] \<equiv> case \<phi> of 
+    PropForm \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
+  | Form \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
+  | _ \<Rightarrow> False"
+abbreviation satifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
+    PropForm \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
+  | Form \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
+  | _ \<Rightarrow> False"
+abbreviation countersatifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
+    PropForm \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
+  | Form \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
+  | _ \<Rightarrow> False"
+abbreviation invalid :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>i\<^sup>n\<^sup>v")(*>*) where "[\<phi>]\<^sup>i\<^sup>n\<^sup>v \<equiv> case \<phi> of 
+    PropForm \<psi> \<Rightarrow> \<forall>w.\<not>(\<psi> w)
+  | Form \<psi> \<Rightarrow> \<forall>w.\<not>(\<psi> w)
+  | _ \<Rightarrow> False"
+
 
 section {* Encoding of the Language *}
 
@@ -140,45 +167,17 @@ abbreviation z_exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt"(*<*)("\<exis
   | _ \<Rightarrow> Error dIO"
 abbreviation z_dia::"io opt\<Rightarrow>io opt"(*<*)("\<diamond>\<^sup>r_")(*>*) where "\<diamond>\<^sup>r \<phi> \<equiv> \<not>\<^sup>z \<box>\<^sup>r (\<not>\<^sup>z \<phi>)"
 
+(* abbreviation z_true::"io opt"(*<*)("\<top>\<^sup>z")(*>*) where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
+(* abbreviation z_false::"io opt"(*<*)("\<bottom>\<^sup>z")(*>*) where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
 
-text {* Meta-logical Predicates. *}
 
-
-abbreviation isWff :: "'a opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | _ \<Rightarrow> True"
-abbreviation isForm :: "'a opt\<Rightarrow>bool" where "isForm \<phi> \<equiv> case \<phi> of Form \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isPropForm :: "'a opt\<Rightarrow>bool" where "isPropForm \<phi> \<equiv> case \<phi> of PropForm \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isTerm :: "'a opt\<Rightarrow>bool" where "isTerm \<phi> \<equiv> case \<phi> of Term \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isError :: "'a opt\<Rightarrow>bool" where "isError \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-
-(*<*) no_syntax "_list" :: "args\<Rightarrow>e list" ("[(_)]") (*>*) 
-abbreviation valid :: "io opt\<Rightarrow>bool" (*<*)("[_]")(*>*) where "[\<phi>] \<equiv> case \<phi> of 
-    PropForm \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
-  | Form \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
-  | _ \<Rightarrow> False"
-abbreviation satifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
-    PropForm \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
-  | Form \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
-  | _ \<Rightarrow> False"
-abbreviation countersatifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
-    PropForm \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
-  | Form \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
-  | _ \<Rightarrow> False"
-abbreviation invalid :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>i\<^sup>n\<^sup>v")(*>*) where "[\<phi>]\<^sup>i\<^sup>n\<^sup>v \<equiv> case \<phi> of 
-    PropForm \<psi> \<Rightarrow> \<forall>w.\<not>(\<psi> w)
-  | Form \<psi> \<Rightarrow> \<forall>w.\<not>(\<psi> w)
-  | _ \<Rightarrow> False"
-
+section {* Some shorthands for the constructors *}
 
 abbreviation mkPropForm ::  "io\<Rightarrow>io opt"(*<*)(",_,")(*>*)  where ",p, \<equiv> PropForm p" 
 abbreviation mkForm ::  "io\<Rightarrow>io opt"(*<*)(";_;")(*>*)  where ";p; \<equiv> Form p" 
 abbreviation mkTerm ::  "'a\<Rightarrow>'a opt"(*<*)("._.")(*>*)  where ".t. \<equiv> Term t" 
 
-(*
-abbreviation mkTerm ::  "e\<Rightarrow>e opt"(*<*)("._.")(*>*)  where ".t. \<equiv> Term t" 
-abbreviation mkRel1 ::  "(e\<Rightarrow>io)\<Rightarrow>(e\<Rightarrow>io) opt"(*<*)("|_|")(*>*)  where "|t| \<equiv> Term t"
-abbreviation mkRel2 ::  "(e\<Rightarrow>e\<Rightarrow>io)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt"(*<*)("|_|\<^sup>2")(*>*)  where "|t|\<^sup>2 \<equiv> Term t"
-abbreviation mkRel3 ::  "(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt"(*<*)("|_|\<^sup>3")(*>*)  where "|t|\<^sup>3 \<equiv> Term t"
-*)
+
 
 section {* Some Basic Tests *}
 
@@ -270,6 +269,10 @@ lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z a =\<^sub>E a]" apply (simp)
 
 lemma "[(\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.x.>))]" apply (simp) done
 lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z <\<lambda>\<^sup>1(\<lambda>x. .x. =\<^sub>E a)\<bullet>a>]" apply (simp) done
+
+lemma "[(\<exists>(\<lambda>F. <a\<circ>.F.>))]" apply (simp) by auto
+
+lemma "isWff ,(\<lambda>w. True)," apply (simp) done
 
 (*<*) 
 end
