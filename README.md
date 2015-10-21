@@ -5,6 +5,7 @@ Contributors
 -----------------------
 
 * [Christoph Benzmüller](http://christoph-benzmueller.de/)
+* [Paul Oppenheimer](http://peoppenheimer.org)
 * [Edward Zalta](https://mally.stanford.edu/zalta.html)
 
 Outline
