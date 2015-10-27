@@ -6,46 +6,30 @@ begin
 (*>*)
 
 section {* Introduction *}
-
-text {* This work significantly adapts and extends the embedding presented in \cite{J23}; say more ... *}
+text {* This work is related to \cite{J23}, which is significantly extends ... *}
 
 section {* Preliminaries *}
-
 typedecl i
 -- "the type possible worlds; the formalism explicitly encodes Kripke style semantics"
-
 type_synonym io = "(i \<Rightarrow> bool)" 
--- "modal logic formulas (or propositional formulas) are essentially of this type: predicates on"
--- "worlds"
-
+-- "formulas are essentially of this type"
+-- "predicates on worlds"
 typedecl e
 -- "the raw type of entities/objects (abstract or ordinary)"
-
 datatype 'a opt = Error 'a | Term 'a | Form 'a | PropForm 'a
 
 
 consts cw :: i 
--- "some fixed current world"
-
+-- "the distinguished actual world"
 consts dE::"e" dIO::"io" dEIO::"e\<Rightarrow>io" dEEIO::"e=>e\<Rightarrow>io" dEEEIO::"e=>e=>e\<Rightarrow>io" dA::'a
--- "some fixed dummy symbols; we anyway assume that the domains are on-empty"
+-- "some fixed dummy symbols; we anyway assume that the domains are non-empty"
 -- "needed as dummy object in some cases below"
 
-
-(* consts sRE :: e 
--- "some fixed entity; we anyway assume that the domain of objects is non-empty" *)
-
-
-text {* We consider an arbitrary but fixed accessibility relation r *}
-
-consts r :: "(i\<Rightarrow>i\<Rightarrow>bool)" 
-
+(* 'a indicates polymorphism *)
 
 
 text {* Meta-logical predicates. *}
-
-
-abbreviation isWff :: "'a opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | _ \<Rightarrow> True"
+abbreviation isWff :: "'a opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | Term \<psi> \<Rightarrow> False |_ \<Rightarrow> True"
 abbreviation isForm :: "'a opt\<Rightarrow>bool" where "isForm \<phi> \<equiv> case \<phi> of Form \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
 abbreviation isPropForm :: "'a opt\<Rightarrow>bool" where "isPropForm \<phi> \<equiv> case \<phi> of PropForm \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
 abbreviation isTerm :: "'a opt\<Rightarrow>bool" where "isTerm \<phi> \<equiv> case \<phi> of Term \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
@@ -114,7 +98,6 @@ abbreviation z_implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt"(*<*)(infi
 text {* implication operator; @{text "\<phi> \<rightarrow>\<^sup>z \<psi>"} returns returns a PropForm if both are PropForms, Form if both are Forms,
 otherwise it returns Error *}
 
-
 abbreviation z_forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt"(*<*)("\<forall>")(*>*) where "\<forall> \<Phi> \<equiv> case (\<Phi> dA) of
     PropForm \<phi> \<Rightarrow> PropForm (\<lambda>w. \<forall>x. case (\<Phi> x) of PropForm \<psi> \<Rightarrow> \<psi> w)
   | Form \<phi> \<Rightarrow> Form (\<lambda>w. \<forall>x. case (\<Phi> x) of Form \<psi> \<Rightarrow> \<psi> w)
@@ -122,12 +105,12 @@ abbreviation z_forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt"(*<*)("\<fora
 text {* universal quantification; @{text "\<forall>(\<lambda>x.\<phi>)"} inherits its kind (Form or PropForm) from @{text "\<phi>"}; Error is passed on
 @{text "\<forall>(\<lambda>x.\<phi>)"} is mapped to @{text "(\<lambda>w.\<forall>x.\<phi>xw)"} as expected *}
 
-
 abbreviation z_box::"io opt\<Rightarrow>io opt"(*<*)("\<box>\<^sup>r_")(*>*) where "\<box>\<^sup>r \<phi> \<equiv> case \<phi> of 
-    Form \<psi> \<Rightarrow> Form (\<lambda>w. \<forall>v. (r w v) \<longrightarrow> \<psi> v)
-  | PropForm \<psi> \<Rightarrow> PropForm (\<lambda>w. \<forall>v. (r w v) \<longrightarrow> \<psi> v)
+    Form \<psi> \<Rightarrow> Form (\<lambda>w. \<forall>v. \<psi> v)
+  | PropForm \<psi> \<Rightarrow> PropForm (\<lambda>w. \<forall>v. \<psi> v)
   | _ \<Rightarrow> Error dIO"  
-text {* box operator; @{text "\<box>\<^sup>r \<phi>"} inherits its type (Form or PropForm) from @{text "\<phi>"}; Error is passed on *} 
+text {* box operator; @{text "\<box> \<phi>"} inherits its type (Form or PropForm) from @{text "\<phi>"}; Error is passed on.
+Note that the @{text "\<box>"}-operator is defined here without an accessibility relation; this is ok since we assume logic S5. *} 
 
 abbreviation lam0::"io opt\<Rightarrow>io opt"(*<*)("\<lambda>\<^sup>0")(*>*) where "\<lambda>\<^sup>0 \<phi> \<equiv> case \<phi> of 
     PropForm \<psi> \<Rightarrow> PropForm \<psi>
@@ -152,7 +135,6 @@ abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarr
 text {* 3-arity lambda abstraction; @{text "\<lambda>\<^sup>2(\<lambda>xyz.\<phi>)"} returns Term @{text "(\<lambda>xyz.\<phi>)"} if @{text "\<phi>"} is a PropForm, 
 otherwise Error; we could, of course, introduce further operators: @{text "\<lambda>\<^sup>4"}, @{text "\<lambda>\<^sup>5"}, etc. *}
 
-
 abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt"(*<*)("\<epsilon>")(*>*) where "\<epsilon> \<Phi> \<equiv> case (\<Phi> dE) of
     PropForm \<phi> \<Rightarrow> Term (THE x. case (\<Phi> x) of PropForm \<psi> \<Rightarrow> \<psi> cw)
   | _ \<Rightarrow> Error dE"
@@ -161,9 +143,7 @@ operator is used and evaluation is wrt to the current world cw; moreover, applic
 is allowed if @{text "(\<Phi> sRE)"} is a PropForm, otherwise Error is passed on for some someRawEntity *}
 
 
-
 section {* Further logical connectives *}
-
 
 abbreviation z_and::"io opt\<Rightarrow>io opt\<Rightarrow>io opt"(*<*)(infixr "\<and>\<^sup>z" 53)(*>*) where "\<phi> \<and>\<^sup>z \<psi> \<equiv> \<not>\<^sup>z(\<phi> \<rightarrow>\<^sup>z \<not>\<^sup>z\<psi>)"
 abbreviation z_or::"io opt\<Rightarrow>io opt\<Rightarrow>io opt"(*<*)(infixr "\<or>\<^sup>z" 52)(*>*) where "\<phi> \<or>\<^sup>z \<psi> \<equiv> (\<not>\<^sup>z\<phi> \<rightarrow>\<^sup>z \<psi>)"
@@ -178,7 +158,7 @@ abbreviation z_dia::"io opt\<Rightarrow>io opt"(*<*)("\<diamond>\<^sup>r_")(*>*)
 (* abbreviation z_false::"io opt"(*<*)("\<bottom>\<^sup>z")(*>*) where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
 
 
-section {* Some shorthands for the constructors *}
+section {* Some shortcuts for the constructors *}
 
 abbreviation mkPropForm ::  "io\<Rightarrow>io opt"(*<*)(",_,")(*>*)  where ",p, \<equiv> PropForm p" 
 abbreviation mkForm ::  "io\<Rightarrow>io opt"(*<*)(";_;")(*>*)  where ";p; \<equiv> Form p" 
@@ -188,8 +168,7 @@ abbreviation mkTerm ::  "'a\<Rightarrow>'a opt"(*<*)("._.")(*>*)  where ".t. \<e
 
 section {* Some basic tests *}
 
-
-text {* An example signature; entities and relations *}
+text {* Example signature; entities and relations *}
 
 consts a_0 :: "e" abbreviation a  where "a \<equiv> .a_0."
 consts b_0 :: "e" abbreviation b  where "b \<equiv> .b_0."
@@ -201,7 +180,7 @@ consts R_2 :: "e\<Rightarrow>e\<Rightarrow>io" abbreviation R2  where "R2 \<equi
 consts R_3 :: "e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io"  abbreviation R3  where "R3 \<equiv> .R_3."
 
 
-text {* Testing some term and formula constructions *}
+text {* Testing term and formula constructions *}
 
 lemma "[<R1\<bullet>a>]" nitpick oops
 lemma "isPropForm <R1\<bullet>a>" apply (simp) done
@@ -234,7 +213,7 @@ lemma "[\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ
 lemma "\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>.R.>) = X" apply (simp) oops
 
 
-section {* Get the priorities right *}
+section {* Are the priorities set correctly?*}
 
 lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> (,\<phi>, \<and>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z ,\<chi>," apply (simp) done
 lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> ,\<phi>, \<and>\<^sup>z (,\<psi>, \<rightarrow>\<^sup>z ,\<chi>,)" apply (simp) nitpick oops
@@ -246,17 +225,13 @@ lemma "(,\<phi>, \<and>\<^sup>z ,\<psi>, \<equiv>\<^sup>z ,\<phi>, \<and>\<^sup>
 section {* E!, O!, A! and =E *}
 
 consts E::"(e\<Rightarrow>io)"
-text {* Distinguished 1-place Relation Constant: E! (read: ‘being concrete’ or ‘concreteness’) *}
-
+text {* Distinguished 1-place relation constant: E! (read: ‘being concrete’ or ‘concreteness’) *}
 
 abbreviation z_ordinary::"(e\<Rightarrow>io) opt"(*<*)("O\<^sup>!")(*>*) where "O\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<diamond>\<^sup>r <.E.\<bullet>.x.>)"
 text {* Being ordinary is being possibly concrete. *}
-text {* Question: is the term above a Form or a PropForm? *}
 
 abbreviation z_abstract::"(e\<Rightarrow>io) opt"(*<*)("A\<^sup>!")(*>*) where "A\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<not>\<^sup>z \<diamond>\<^sup>r <.E.\<bullet>.x.>)"
 text {* Being abstract is not possibly being concrete. *}
-text {* Question: is the term above a Form or a PropForm? *}
-
 
 abbreviation z_identity::"(e\<Rightarrow>e\<Rightarrow>io) opt"(*<*)("=\<^sub>e\<^sup>z")(*>*) where "=\<^sub>e\<^sup>z \<equiv> 
   \<lambda>\<^sup>2(\<lambda>x y. ((<O\<^sup>!\<bullet>.x.> \<and>\<^sup>z <O\<^sup>!\<bullet>.y.>) \<and>\<^sup>z \<box>\<^sup>r (\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.y.>))))"
@@ -265,7 +240,7 @@ abbreviation z_identityE::"(e opt\<Rightarrow>e opt\<Rightarrow>io opt)"(*<*)(in
 
 
 
-section {* Some further examples *}
+section {* Further test examples *}
 
 lemma "[\<forall>(\<lambda>x. \<exists>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply (simp) by auto
 lemma "[\<forall>(\<lambda>x. \<forall>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply (simp) nitpick oops

@@ -20,7 +20,7 @@
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-This work significantly adapts and extends the embedding presented in \cite{J23}; say more ...%
+This work is related to \cite{J23}, which is significantly extends ...%
 \end{isamarkuptext}%
 \isamarkuptrue%
 %
@@ -33,24 +33,21 @@ This work significantly adapts and extends the embedding presented in \cite{J23}
 \isamarkupcmt{the type possible worlds; the formalism explicitly encodes Kripke style semantics%
 }
 \isanewline
-\isanewline
 \isacommand{type{\isacharunderscore}synonym}\isamarkupfalse%
 \ io\ {\isacharequal}\ {\isachardoublequoteopen}{\isacharparenleft}i\ {\isasymRightarrow}\ bool{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
 %
-\isamarkupcmt{modal logic formulas (or propositional formulas) are essentially of this type: predicates on%
+\isamarkupcmt{formulas are essentially of this type%
 }
 \isanewline
 %
-\isamarkupcmt{worlds%
+\isamarkupcmt{predicates on worlds%
 }
-\isanewline
 \isanewline
 \isacommand{typedecl}\isamarkupfalse%
 \ e\isanewline
 %
 \isamarkupcmt{the raw type of entities/objects (abstract or ordinary)%
 }
-\isanewline
 \isanewline
 \isacommand{datatype}\isamarkupfalse%
 \ {\isacharprime}a\ opt\ {\isacharequal}\ Error\ {\isacharprime}a\ {\isacharbar}\ Term\ {\isacharprime}a\ {\isacharbar}\ Form\ {\isacharprime}a\ {\isacharbar}\ PropForm\ {\isacharprime}a\isanewline
@@ -59,14 +56,13 @@ This work significantly adapts and extends the embedding presented in \cite{J23}
 \isacommand{consts}\isamarkupfalse%
 \ cw\ {\isacharcolon}{\isacharcolon}\ i\ \isanewline
 %
-\isamarkupcmt{some fixed current world%
+\isamarkupcmt{the distinguished actual world%
 }
-\isanewline
 \isanewline
 \isacommand{consts}\isamarkupfalse%
 \ dE{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isachardoublequoteclose}\ dIO{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io{\isachardoublequoteclose}\ dEIO{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isasymRightarrow}io{\isachardoublequoteclose}\ dEEIO{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isacharequal}{\isachargreater}e{\isasymRightarrow}io{\isachardoublequoteclose}\ dEEEIO{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isacharequal}{\isachargreater}e{\isacharequal}{\isachargreater}e{\isasymRightarrow}io{\isachardoublequoteclose}\ dA{\isacharcolon}{\isacharcolon}{\isacharprime}a\isanewline
 %
-\isamarkupcmt{some fixed dummy symbols; we anyway assume that the domains are on-empty%
+\isamarkupcmt{some fixed dummy symbols; we anyway assume that the domains are non-empty%
 }
 \isanewline
 %
@@ -74,17 +70,11 @@ This work significantly adapts and extends the embedding presented in \cite{J23}
 }
 %
 \begin{isamarkuptext}%
-We consider an arbitrary but fixed accessibility relation r%
-\end{isamarkuptext}%
-\isamarkuptrue%
-\isacommand{consts}\isamarkupfalse%
-\ r\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}i{\isasymRightarrow}i{\isasymRightarrow}bool{\isacharparenright}{\isachardoublequoteclose}%
-\begin{isamarkuptext}%
 Meta-logical predicates.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
-\ isWff\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isWff\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ True{\isachardoublequoteclose}\isanewline
+\ isWff\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isWff\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}\ Term\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}{\isacharunderscore}\ {\isasymRightarrow}\ True{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
 \ isForm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isForm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Form\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
@@ -190,11 +180,12 @@ universal quantification; \isa{{\isasymforall}{\isacharparenleft}{\isasymlambda}
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
 \ z{\isacharunderscore}box{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymbox}\isactrlsup r\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ \isanewline
-\ \ \ \ Form\ {\isasympsi}\ {\isasymRightarrow}\ Form\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}v{\isachardot}\ {\isacharparenleft}r\ w\ v{\isacharparenright}\ {\isasymlongrightarrow}\ {\isasympsi}\ v{\isacharparenright}\isanewline
-\ \ {\isacharbar}\ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ PropForm\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}v{\isachardot}\ {\isacharparenleft}r\ w\ v{\isacharparenright}\ {\isasymlongrightarrow}\ {\isasympsi}\ v{\isacharparenright}\isanewline
+\ \ \ \ Form\ {\isasympsi}\ {\isasymRightarrow}\ Form\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}v{\isachardot}\ {\isasympsi}\ v{\isacharparenright}\isanewline
+\ \ {\isacharbar}\ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ PropForm\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}v{\isachardot}\ {\isasympsi}\ v{\isacharparenright}\isanewline
 \ \ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ Error\ dIO{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-box operator; \isa{{\isasymbox}\isactrlsup r\ {\isasymphi}} inherits its type (Form or PropForm) from \isa{{\isasymphi}}; Error is passed on%
+box operator; \isa{{\isasymbox}\ {\isasymphi}} inherits its type (Form or PropForm) from \isa{{\isasymphi}}; Error is passed on.
+Note that the \isa{{\isasymbox}}-operator is defined here without an accessibility relation; this is ok since we assume logic S5.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
@@ -259,7 +250,7 @@ is allowed if \isa{{\isacharparenleft}{\isasymPhi}\ sRE{\isacharparenright}} is 
 \ \ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ Error\ dIO{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
 \ z{\isacharunderscore}dia{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymdiamond}\isactrlsup r\ {\isasymphi}\ {\isasymequiv}\ {\isasymnot}\isactrlsup z\ {\isasymbox}\isactrlsup r\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isasymphi}{\isacharparenright}{\isachardoublequoteclose}%
-\isamarkupsection{Some shorthands for the constructors%
+\isamarkupsection{Some shortcuts for the constructors%
 }
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
@@ -273,7 +264,7 @@ is allowed if \isa{{\isacharparenleft}{\isasymPhi}\ sRE{\isacharparenright}} is 
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-An example signature; entities and relations%
+Example signature; entities and relations%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{consts}\isamarkupfalse%
@@ -299,7 +290,7 @@ An example signature; entities and relations%
 \ R{\isacharunderscore}{\isadigit{3}}\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isachardoublequoteclose}\ \ \isacommand{abbreviation}\isamarkupfalse%
 \ R{\isadigit{3}}\ \ \isakeyword{where}\ {\isachardoublequoteopen}R{\isadigit{3}}\ {\isasymequiv}\ {\isachardot}R{\isacharunderscore}{\isadigit{3}}{\isachardot}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-Testing some term and formula constructions%
+Testing term and formula constructions%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
@@ -683,7 +674,7 @@ Testing some term and formula constructions%
 %
 \endisadelimproof
 %
-\isamarkupsection{Get the priorities right%
+\isamarkupsection{Are the priorities set correctly?%
 }
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
@@ -789,7 +780,7 @@ Testing some term and formula constructions%
 \isacommand{consts}\isamarkupfalse%
 \ E{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-Distinguished 1-place Relation Constant: E! (read: ‘being concrete’ or ‘concreteness’)%
+Distinguished 1-place relation constant: E! (read: ‘being concrete’ or ‘concreteness’)%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
@@ -798,20 +789,10 @@ Distinguished 1-place Relation Constant: E! (read: ‘being concrete’ or ‘co
 Being ordinary is being possibly concrete.%
 \end{isamarkuptext}%
 \isamarkuptrue%
-%
-\begin{isamarkuptext}%
-Question: is the term above a Form or a PropForm?%
-\end{isamarkuptext}%
-\isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
 \ z{\isacharunderscore}abstract{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}A\isactrlsup {\isacharbang}\ {\isasymequiv}\ {\isasymlambda}\isactrlsup {\isadigit{1}}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymnot}\isactrlsup z\ {\isasymdiamond}\isactrlsup r\ {\isacharless}{\isachardot}E{\isachardot}{\isasymbullet}{\isachardot}x{\isachardot}{\isachargreater}{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Being abstract is not possibly being concrete.%
-\end{isamarkuptext}%
-\isamarkuptrue%
-%
-\begin{isamarkuptext}%
-Question: is the term above a Form or a PropForm?%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
@@ -820,7 +801,7 @@ Question: is the term above a Form or a PropForm?%
 \isanewline
 \isacommand{abbreviation}\isamarkupfalse%
 \ z{\isacharunderscore}identityE{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}io\ opt{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isacharequal}\isactrlsub E\ y\ {\isasymequiv}\ {\isacharparenleft}Exe{\isadigit{2}}\ {\isacharequal}\isactrlsub e\isactrlsup z\ x\ y{\isacharparenright}{\isachardoublequoteclose}%
-\isamarkupsection{Some further examples%
+\isamarkupsection{Further test examples%
 }
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
