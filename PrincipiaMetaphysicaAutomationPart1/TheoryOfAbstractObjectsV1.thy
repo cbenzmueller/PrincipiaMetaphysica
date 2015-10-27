@@ -21,7 +21,7 @@ datatype 'a opt = Error 'a | Term 'a | Form 'a | PropForm 'a
 
 consts cw :: i 
 -- "the distinguished actual world"
-consts dE::"e" dIO::"io" dEIO::"e\<Rightarrow>io" dEEIO::"e=>e\<Rightarrow>io" dEEEIO::"e=>e=>e\<Rightarrow>io" dA::'a
+consts dE::"e" dIO::"io" dEIO::"e\<Rightarrow>io" dEEIO::"e\<Rightarrow>e\<Rightarrow>io" dEEEIO::"e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io" dA::'a
 -- "some fixed dummy symbols; we anyway assume that the domains are non-empty"
 -- "needed as dummy object in some cases below"
 
