@@ -29,11 +29,11 @@ consts dE::"e" dIO::"io" dEIO::"e\<Rightarrow>io" dEEIO::"e\<Rightarrow>e\<Right
 
 
 text {* Meta-logical predicates. *}
-abbreviation isWff :: "'a opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | Term \<psi> \<Rightarrow> False |_ \<Rightarrow> True"
-abbreviation isForm :: "'a opt\<Rightarrow>bool" where "isForm \<phi> \<equiv> case \<phi> of Form \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isPropForm :: "'a opt\<Rightarrow>bool" where "isPropForm \<phi> \<equiv> case \<phi> of PropForm \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isTerm :: "'a opt\<Rightarrow>bool" where "isTerm \<phi> \<equiv> case \<phi> of Term \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
-abbreviation isError :: "'a opt\<Rightarrow>bool" where "isError \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isWff :: "io opt\<Rightarrow>bool" where "isWff \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> False | Term \<psi> \<Rightarrow> False |_ \<Rightarrow> True"
+abbreviation isForm :: "io opt\<Rightarrow>bool" where "isForm \<phi> \<equiv> case \<phi> of Form \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isPropForm :: "io opt\<Rightarrow>bool" where "isPropForm \<phi> \<equiv> case \<phi> of PropForm \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isTerm :: "io opt\<Rightarrow>bool" where "isTerm \<phi> \<equiv> case \<phi> of Term \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
+abbreviation isError :: "io opt\<Rightarrow>bool" where "isError \<phi> \<equiv> case \<phi> of Error \<psi> \<Rightarrow> True | _ \<Rightarrow> False"
 
 (*<*) no_syntax "_list" :: "args\<Rightarrow>e list" ("[(_)]") (*>*) 
 abbreviation valid :: "io opt\<Rightarrow>bool" (*<*)("[_]")(*>*) where "[\<phi>] \<equiv> case \<phi> of 
@@ -44,7 +44,7 @@ abbreviation satisfiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>s\<^sup>a
     PropForm \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
   | Form \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
   | _ \<Rightarrow> False"
-abbreviation countersatifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
+abbreviation countersatisfiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
     PropForm \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
   | Form \<psi> \<Rightarrow> \<exists>w.\<not>(\<psi> w)
   | _ \<Rightarrow> False"
@@ -164,54 +164,72 @@ section {* Some shortcuts for the constructors *}
 abbreviation mkPropForm ::  "io\<Rightarrow>io opt"(*<*)(",_,")(*>*)  where ",p, \<equiv> PropForm p" 
 abbreviation mkForm ::  "io\<Rightarrow>io opt"(*<*)(";_;")(*>*)  where ";p; \<equiv> Form p" 
 abbreviation mkTerm ::  "'a\<Rightarrow>'a opt"(*<*)("._.")(*>*)  where ".t. \<equiv> Term t" 
+abbreviation mkError ::  "'a\<Rightarrow>'a opt"(*<*)("*_*")(*>*)  where "*t* \<equiv> Term t" 
 
 
-section {* Some basic tests *}
+section {* Some Basic Tests *}
 
-text {* Verifying Modal Logic Principles *}
+subsection {* Meta-Logic *}
+
+lemma "(\<forall>\<phi>. [,\<phi>,]) \<longleftrightarrow> [\<forall>(\<lambda>\<phi>. ,\<phi>,)]" apply simp by auto 
+lemma "(\<forall>\<phi>. [;\<phi>;]) \<longleftrightarrow> [\<forall>(\<lambda>\<phi>. ;\<phi>;)]" apply simp by auto 
+
+
+subsection {* Verifying Modal Logic Principles *}
 
 text {* Necessitation holds *}
-lemma necessitation_PropForm: "\<forall>\<phi>. [,\<phi>,] \<longrightarrow> [\<box> ,\<phi>,]" apply (simp) done
-lemma necessitation_Form:     "\<forall>\<phi>. [;\<phi>;] \<longrightarrow> [\<box> ;\<phi>;]" apply (simp) done
+lemma necessitation_PropForm: "[,\<phi>,] \<longrightarrow> [\<box> ,\<phi>,]" apply simp done
+lemma necessitation_Form:     "[;\<phi>;] \<longrightarrow> [\<box> ;\<phi>;]" apply simp done
 
 text {* Modal Collapse does not hold *}
-lemma modalCollapse_PropForm: "\<forall>\<phi>. [,\<phi>, \<rightarrow>\<^sup>z \<box> ,\<phi>,]" apply (simp) nitpick oops
-lemma modalCollapse_Form:     "\<forall>\<phi>. [;\<phi>; \<rightarrow>\<^sup>z \<box> ;\<phi>;]" apply (simp) nitpick oops
+lemma modalCollapse_PropForm: "[,\<phi>, \<rightarrow>\<^sup>z \<box> ,\<phi>,]" apply simp nitpick oops
+lemma modalCollapse_Form:     "[;\<phi>; \<rightarrow>\<^sup>z \<box> ;\<phi>;]" apply simp nitpick oops
 
 
-text {* Verifying S5 Principles *}
+subsection {* S5 Principles *}
 
-lemma axiom_M_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z ,\<phi>,)]" apply (simp) done
-lemma axiom_M_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z ;\<phi>;)]" apply (simp) done
+lemma axiom_T_PF: "[(\<box> ,\<phi>,) \<rightarrow>\<^sup>z ,\<phi>,]" apply simp done
+lemma axiom_T_F:  "[(\<box> ;\<phi>;) \<rightarrow>\<^sup>z ;\<phi>;]" apply simp done
 
-lemma axiom_B_PropForm: "[\<forall>(\<lambda>\<phi>. ,\<phi>, \<rightarrow>\<^sup>z (\<box> (\<diamond> ,\<phi>,)))]" apply (simp) by auto
-lemma axiom_B_Form:     "[\<forall>(\<lambda>\<phi>. ;\<phi>; \<rightarrow>\<^sup>z (\<box> (\<diamond> ;\<phi>;)))]" apply (simp) by auto
+lemma axiom_B_PF: "[,\<phi>, \<rightarrow>\<^sup>z (\<box> (\<diamond> ,\<phi>,))]" apply simp done
+lemma axiom_B_F:  "[;\<phi>; \<rightarrow>\<^sup>z (\<box> (\<diamond> ;\<phi>;))]" apply simp done
 
-lemma axiom_D_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z (\<box> (\<box> ,\<phi>,)))]" apply (simp) done
-lemma axiom_D_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z (\<box> (\<box> ;\<phi>;)))]" apply (simp) done
+lemma axiom_D_PF: "[\<box> ,\<phi>, \<rightarrow>\<^sup>z \<box> (\<box> ,\<phi>,)]" apply simp done
+lemma axiom_D_F:  "[\<box> ;\<phi>; \<rightarrow>\<^sup>z \<box> (\<box> ;\<phi>;)]" apply simp done
 
-lemma axiom_4_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by auto
-lemma axiom_4_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by auto
+lemma axiom_4_PF: "[\<box> ,\<phi>, \<rightarrow>\<^sup>z \<diamond> ,\<phi>,]" apply simp by auto
+lemma axiom_4_F:  "[\<box> ;\<phi>; \<rightarrow>\<^sup>z \<diamond> ;\<phi>;]" apply simp by auto
 
-lemma axiom_5_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> ,\<phi>,) \<rightarrow>\<^sup>z (\<box> (\<diamond> ,\<phi>,)))]" apply (simp) done
-lemma axiom_5_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> ;\<phi>;) \<rightarrow>\<^sup>z (\<box> (\<diamond> ;\<phi>;)))]" apply (simp) done
-
-
-lemma test_A_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> (\<diamond> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) done
-lemma test_A_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> (\<diamond> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) done
-
-lemma test_B_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by auto
-lemma test_B_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by auto
-
-lemma test_C_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by metis
-lemma test_C_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by metis
-
-lemma test_D_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<box> ,\<phi>,))]" apply (simp) done
-lemma test_D_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<box> ;\<phi>;))]" apply (simp) done
+lemma axiom_5_PF: "[\<diamond> ,\<phi>, \<rightarrow>\<^sup>z \<box> (\<diamond> ,\<phi>,)]" apply simp done
+lemma axiom_5_F:  "[\<diamond> ;\<phi>; \<rightarrow>\<^sup>z \<box> (\<diamond> ;\<phi>;)]" apply simp done
 
 
+lemma test_A_PF: "[\<box> (\<diamond> ,\<phi>,) \<rightarrow>\<^sup>z \<diamond> ,\<phi>,]" apply simp done
+lemma test_A_F:  "[\<box> (\<diamond> ;\<phi>;) \<rightarrow>\<^sup>z \<diamond> ;\<phi>;]" apply simp done
 
-text {* Example signature; entities and relations *}
+lemma test_B_PF: "[\<diamond> (\<box> ,\<phi>,) \<rightarrow>\<^sup>z \<diamond> ,\<phi>,]" apply simp by auto
+lemma test_B_F:  "[\<diamond> (\<box> ;\<phi>;) \<rightarrow>\<^sup>z \<diamond> ;\<phi>;]" apply simp by auto
+
+lemma test_C_PF: "[\<box> (\<diamond> ,\<phi>,) \<rightarrow>\<^sup>z \<box> ,\<phi>,]" apply simp nitpick oops
+lemma test_C_F:  "[\<box> (\<diamond> ;\<phi>;) \<rightarrow>\<^sup>z \<box> ;\<phi>;]" apply simp nitpick oops
+
+lemma test_D_PF: "[\<diamond> (\<box> ,\<phi>,) \<rightarrow>\<^sup>z \<box> ,\<phi>,]" apply simp done
+lemma test_D_F:  "[\<diamond> (\<box> ;\<phi>;) \<rightarrow>\<^sup>z \<box> ;\<phi>;]" apply simp done
+
+
+subsection {* Validity, Satisfiabilty, Countersatisfiability and Invalidity *}
+lemma  "[,\<phi>,] \<longleftrightarrow> \<not> [,\<phi>,]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" apply simp done
+lemma  "[,\<phi>,]\<^sup>s\<^sup>a\<^sup>t \<longleftrightarrow> \<not> [,\<phi>,]\<^sup>i\<^sup>n\<^sup>v" apply simp done
+lemma  "[;\<phi>;] \<longleftrightarrow> \<not> [;\<phi>;]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" apply simp done
+lemma  "[;\<phi>;]\<^sup>s\<^sup>a\<^sup>t \<longleftrightarrow> \<not> [;\<phi>;]\<^sup>i\<^sup>n\<^sup>v" apply simp done
+
+text {* For Terms and Error objects the above correspondences do not apply *}
+lemma  "[.\<phi>.] \<longleftrightarrow> \<not> [.\<phi>.]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" nitpick oops
+lemma  "[.\<phi>.]\<^sup>s\<^sup>a\<^sup>t \<longleftrightarrow> \<not> [.\<phi>.]\<^sup>i\<^sup>n\<^sup>v" nitpick oops
+lemma  "[*\<phi>*] \<longleftrightarrow> \<not> [*\<phi>*]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" nitpick oops
+lemma  "[*\<phi>*]\<^sup>s\<^sup>a\<^sup>t \<longleftrightarrow> \<not> [*\<phi>*]\<^sup>i\<^sup>n\<^sup>v" nitpick oops
+
+subsection {* Example signature; entities and relations *}
 
 consts a_0 :: "e" abbreviation a  where "a \<equiv> .a_0."
 consts b_0 :: "e" abbreviation b  where "b \<equiv> .b_0."
@@ -226,43 +244,43 @@ consts R_3 :: "e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io"  abbreviation R3  w
 text {* Testing term and formula constructions *}
 
 lemma "[<R1\<bullet>a>]" nitpick oops
-lemma "isPropForm <R1\<bullet>a>" apply (simp) done
-lemma "<R1\<bullet>a> = X" apply (simp) oops
+lemma "isPropForm <R1\<bullet>a>" apply simp done
+lemma "<R1\<bullet>a> = X" apply simp oops
 
 lemma "[<a\<circ>R1>]" nitpick oops
-lemma "isPropForm <a\<circ>R1>" apply (simp) oops
-lemma "isForm <a\<circ>R1>" apply (simp) done
-lemma "<a\<circ>R1> = X" apply (simp) oops
+lemma "isPropForm <a\<circ>R1>" apply simp oops
+lemma "isForm <a\<circ>R1>" apply simp done
+lemma "<a\<circ>R1> = X" apply simp oops
 
-lemma "[<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)\<bullet>a>]" apply (simp) done
-lemma "<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)\<bullet>a> = X" apply (simp) oops
+lemma "[<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)\<bullet>a>]" apply simp done
+lemma "<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)\<bullet>a> = X" apply simp oops
 
-lemma "\<not> isWff (<R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)" apply (simp) done
-lemma "\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply (simp) oops
+lemma "\<not> isWff (<R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)" apply simp done
+lemma "\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply simp oops
 
-lemma "[<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)\<bullet>a>]" apply (simp) oops
-lemma "<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)\<bullet>a> = X" apply (simp) oops
+lemma "[<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)\<bullet>a>]" apply simp oops
+lemma "<\<lambda>\<^sup>1(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)\<bullet>a> = X" apply simp oops
 
-lemma "[\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)]" apply (simp) done
-lemma "[\<forall>(\<lambda>R. \<forall>(\<lambda>x. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.R.\<bullet>.x.>))]" apply (simp) done
-lemma "\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>) = X" apply (simp) oops
+lemma "[\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>)]" apply simp done
+lemma "[\<forall>(\<lambda>R. \<forall>(\<lambda>x. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.R.\<bullet>.x.>))]" apply simp done
+lemma "\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <R1\<bullet>.x.>) = X" apply simp oops
 
-lemma "[\<forall>(\<lambda>x. <.x.\<circ>R1> \<rightarrow>\<^sup>z <.x.\<circ>R1>)]" apply (simp) done
-lemma "\<forall>(\<lambda>x. <.x.\<circ>R1> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply (simp) oops
+lemma "[\<forall>(\<lambda>x. <.x.\<circ>R1> \<rightarrow>\<^sup>z <.x.\<circ>R1>)]" apply simp done
+lemma "\<forall>(\<lambda>x. <.x.\<circ>R1> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply simp oops
 
-lemma "[\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)]" apply (simp) oops
-lemma "\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply (simp) oops
-lemma "[\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>.R.>)]" apply (simp) oops
-lemma "\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>.R.>) = X" apply (simp) oops
+lemma "[\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)]" apply simp oops
+lemma "\<forall>(\<lambda>x. <R1\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>R1>) = X" apply simp oops
+lemma "[\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>.R.>)]" apply simp oops
+lemma "\<forall>(\<lambda>R. <.R.\<bullet>.x.> \<rightarrow>\<^sup>z <.x.\<circ>.R.>) = X" apply simp oops
 
 
 section {* Are the priorities set correctly?*}
 
-lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> (,\<phi>, \<and>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z ,\<chi>," apply (simp) done
-lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> ,\<phi>, \<and>\<^sup>z (,\<psi>, \<rightarrow>\<^sup>z ,\<chi>,)" apply (simp) nitpick oops
+lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> (,\<phi>, \<and>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z ,\<chi>," apply simp done
+lemma ",\<phi>, \<and>\<^sup>z ,\<psi>, \<rightarrow>\<^sup>z ,\<chi>, \<equiv> ,\<phi>, \<and>\<^sup>z (,\<psi>, \<rightarrow>\<^sup>z ,\<chi>,)" apply simp nitpick oops
 
-lemma "(,\<phi>, \<and>\<^sup>z ,\<psi>, \<equiv>\<^sup>z ,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv> ((,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv>\<^sup>z (,\<phi>, \<and>\<^sup>z ,\<psi>,))" apply (simp) done
-lemma "(,\<phi>, \<and>\<^sup>z ,\<psi>, \<equiv>\<^sup>z ,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv> (,\<phi>, \<and>\<^sup>z (,\<psi>, \<equiv>\<^sup>z ,\<phi>,) \<and>\<^sup>z ,\<psi>,)" apply (simp) nitpick oops
+lemma "(,\<phi>, \<and>\<^sup>z ,\<psi>, \<equiv>\<^sup>z ,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv> ((,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv>\<^sup>z (,\<phi>, \<and>\<^sup>z ,\<psi>,))" apply simp done
+lemma "(,\<phi>, \<and>\<^sup>z ,\<psi>, \<equiv>\<^sup>z ,\<phi>, \<and>\<^sup>z ,\<psi>,) \<equiv> (,\<phi>, \<and>\<^sup>z (,\<psi>, \<equiv>\<^sup>z ,\<phi>,) \<and>\<^sup>z ,\<psi>,)" apply simp nitpick oops
 
 
 section {* E!, O!, A! and =E *}
@@ -285,22 +303,76 @@ abbreviation z_identityE::"(e opt\<Rightarrow>e opt\<Rightarrow>io opt)"(*<*)(in
 
 section {* Further test examples *}
 
-lemma "[\<forall>(\<lambda>x. \<exists>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply (simp) by auto
-lemma "[\<forall>(\<lambda>x. \<forall>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply (simp) nitpick oops
+lemma "[\<forall>(\<lambda>x. \<exists>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply simp by auto
+lemma "[\<forall>(\<lambda>x. \<forall>(\<lambda>R. (<.x.\<circ>.R.> \<rightarrow>\<^sup>z <.x.\<circ>R1>)))]" apply simp nitpick oops
 
-lemma "[a =\<^sub>E a]" apply (simp) nitpick oops
+lemma "[a =\<^sub>E a]" apply simp nitpick oops
 
-lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z a =\<^sub>E a]" apply (simp) done
+lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z a =\<^sub>E a]" apply simp done
 
-lemma "[(\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.x.>))]" apply (simp) done
-lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z <\<lambda>\<^sup>1(\<lambda>x. .x. =\<^sub>E a)\<bullet>a>]" apply (simp) done
+lemma "[(\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.x.>))]" apply simp done
+lemma "[<O\<^sup>!\<bullet>a> \<rightarrow>\<^sup>z <\<lambda>\<^sup>1(\<lambda>x. .x. =\<^sub>E a)\<bullet>a>]" apply simp done
 
-lemma "[(\<exists>(\<lambda>F. <a\<circ>.F.>))]" apply (simp) by auto
+lemma "[(\<exists>(\<lambda>F. <a\<circ>.F.>))]" apply simp by auto
 
-lemma "isWff ,(\<lambda>w. True)," apply (simp) done
+lemma "isWff ,(\<lambda>w. True)," apply simp done
 
-lemma "[(\<exists>(\<lambda>F. ,F,))]" apply (simp) by auto
-lemma "[(\<exists>(\<lambda>F. ;F;))]" apply (simp) by auto
+lemma "[(\<exists>(\<lambda>\<phi>. ,\<phi>,))]" apply simp by auto
+lemma "[(\<exists>(\<lambda>\<phi>. ;\<phi>;))]" apply simp by auto
+
+
+section {* Axioms *}
+
+subsection {* Axioms for Negations and Conditionals *}
+
+lemma a21_1_PF: "[,\<phi>, \<rightarrow>\<^sup>z (,\<phi>, \<rightarrow>\<^sup>z ,\<phi>,)]" apply simp done
+lemma a21_1_F:  "[;\<phi>; \<rightarrow>\<^sup>z (;\<phi>; \<rightarrow>\<^sup>z ;\<phi>;)]" apply simp done
+lemma a21_2_PF: "[(,\<phi>, \<rightarrow>\<^sup>z (,\<psi>, \<rightarrow>\<^sup>z ,\<chi>,)) \<rightarrow>\<^sup>z ((,\<phi>, \<rightarrow>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z (,\<phi>, \<rightarrow>\<^sup>z ,\<chi>,))]" apply simp done
+lemma a21_2_F:  "[(;\<phi>; \<rightarrow>\<^sup>z (;\<psi>; \<rightarrow>\<^sup>z ;\<chi>;)) \<rightarrow>\<^sup>z ((;\<phi>; \<rightarrow>\<^sup>z ;\<psi>;) \<rightarrow>\<^sup>z (;\<phi>; \<rightarrow>\<^sup>z ;\<chi>;))]" apply simp done
+lemma a21_3_PF: "[(\<not>\<^sup>z ,\<phi>, \<rightarrow>\<^sup>z \<not>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z (\<not>\<^sup>z ,\<phi>, \<rightarrow>\<^sup>z ,\<psi>,) \<rightarrow>\<^sup>z ,\<phi>,]" apply simp done
+lemma a21_3_F:  "[(\<not>\<^sup>z ;\<phi>; \<rightarrow>\<^sup>z \<not>\<^sup>z ;\<psi>;) \<rightarrow>\<^sup>z (\<not>\<^sup>z ;\<phi>; \<rightarrow>\<^sup>z ;\<psi>;) \<rightarrow>\<^sup>z ;\<phi>;]" apply simp done
+
+subsection {* Axioms of Identity *}
+text {* todo *}
+
+subsection {* Axioms of Quantification *}
+text {* todo *}
+
+subsection {* Axioms of Actuality *}
+
+lemma a31_1_PF: "[\<A> (\<not>\<^sup>z ,\<phi>,) \<equiv>\<^sup>z (\<not>\<^sup>z (\<A> ,\<phi>,))]" apply simp done
+lemma a31_1_F: "[\<A> (\<not>\<^sup>z ;\<phi>;) \<equiv>\<^sup>z (\<not>\<^sup>z (\<A> ;\<phi>;))]" apply simp done
+lemma a31_2_PF: "[\<A> (,\<phi>, \<rightarrow>\<^sup>z ,\<psi>,) \<equiv>\<^sup>z (\<A> ,\<phi>, \<rightarrow>\<^sup>z \<A> ,\<psi>,)]" apply simp done
+lemma a31_2_F: "[\<A> (;\<phi>; \<rightarrow>\<^sup>z ;\<psi>;) \<equiv>\<^sup>z (\<A> ;\<phi>; \<rightarrow>\<^sup>z \<A> ;\<psi>;)]" apply simp done
+lemma a31_3_PF: "[(\<A> (\<forall>(\<lambda>x. ,\<phi>,)) \<equiv>\<^sup>z \<forall>(\<lambda>x. \<A> ,\<phi>,))]" apply simp done
+lemma a31_3_F: "[(\<A> (\<forall>(\<lambda>x. ;\<phi>;)) \<equiv>\<^sup>z \<forall>(\<lambda>x. \<A> ;\<phi>;))]" apply simp done
+lemma a31_4_PF: "[\<A> ,\<phi>, \<equiv>\<^sup>z \<A> (\<A> ,\<phi>,)]" apply simp done
+lemma a31_4_F: "[\<A> ;\<phi>; \<equiv>\<^sup>z \<A> (\<A> ;\<phi>;)]" apply simp done
+
+subsection {* Axioms of Necessity *}
+
+lemma a32_1_PF: "[\<box> (,\<phi>, \<rightarrow>\<^sup>z ,\<phi>,) \<rightarrow>\<^sup>z (\<box> ,\<phi>, \<rightarrow>\<^sup>z \<box> ,\<phi>,)]" apply simp done       (* K Schema *)
+lemma a32_1_F:  "[\<box> (;\<phi>; \<rightarrow>\<^sup>z ;\<phi>;) \<rightarrow>\<^sup>z (\<box> ;\<phi>; \<rightarrow>\<^sup>z \<box> ;\<phi>;)]" apply simp done       (* K Schema *)
+lemma a32_2_PF: "[\<box> ,\<phi>, \<rightarrow>\<^sup>z ,\<phi>,]" apply simp done                               (* T Schema *)
+lemma a32_2_F:  "[\<box> ;\<phi>; \<rightarrow>\<^sup>z ;\<phi>;]" apply simp done                               (* T Schema *)
+lemma a32_3_PF: "[\<box> (\<diamond> ,\<phi>,) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,)]" apply simp done                       (* 5 Schema *)
+lemma a32_3_F:  "[\<box> (\<diamond> ;\<phi>;) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;)]" apply simp done                       (* 5 Schema *)
+lemma a32_4_PF: "[(\<forall>(\<lambda>x. \<box> ,\<phi>,)) \<rightarrow>\<^sup>z \<box> (\<forall>(\<lambda>x. ,\<phi>,))]" apply simp done           (* BF *)
+lemma a32_4_F:  "[(\<forall>(\<lambda>x. \<box> ;\<phi>;)) \<rightarrow>\<^sup>z \<box> (\<forall>(\<lambda>x. ;\<phi>;))]" apply simp done           (* BF *)
+
+text {* The following needs to be an axiom; it does not follow for free: it is possible that there 
+are contingently concrete individuals and it is possible that there are not: *}
+axiomatization where
+  a32_5_PF: "[\<diamond> (\<exists>(\<lambda>x. <.E.\<bullet>.x.> \<and>\<^sup>z (\<diamond> (\<not>\<^sup>z <.E.\<bullet>.x.>)))) \<and>\<^sup>z \<diamond> (\<not>\<^sup>z (\<exists>(\<lambda>x. <.E.\<bullet>.x.> \<and>\<^sup>z (\<diamond> (\<not>\<^sup>z <.E.\<bullet>.x.>)))))]"
+
+subsection {* Axioms of Necessity and Actuality *}
+
+lemma a33_1_PF: "[\<A> ,\<phi>, \<rightarrow>\<^sup>z \<box> (\<A> ,\<phi>,)]" apply simp done
+lemma a33_1_F:  "[\<A> ;\<phi>; \<rightarrow>\<^sup>z \<box> (\<A> ;\<phi>;)]" apply simp done
+lemma a33_2_PF: "[\<box> ,\<phi>, \<equiv>\<^sup>z (\<A> (\<box> ,\<phi>,))]" apply simp done
+lemma a33_2_F:  "[\<box> ;\<phi>; \<equiv>\<^sup>z (\<A> (\<box> ;\<phi>;))]" apply simp done
+
+
 
 (*<*) 
 end

@@ -74,15 +74,15 @@ Meta-logical predicates.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
-\ isWff\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isWff\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}\ Term\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}{\isacharunderscore}\ {\isasymRightarrow}\ True{\isachardoublequoteclose}\isanewline
+\ isWff\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isWff\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}\ Term\ {\isasympsi}\ {\isasymRightarrow}\ False\ {\isacharbar}{\isacharunderscore}\ {\isasymRightarrow}\ True{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ isForm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isForm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Form\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
+\ isForm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isForm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Form\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ isPropForm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isPropForm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
+\ isPropForm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isPropForm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ isTerm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isTerm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Term\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
+\ isTerm\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isTerm\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Term\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ isError\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharprime}a\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isError\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
+\ isError\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \isakeyword{where}\ {\isachardoublequoteopen}isError\ {\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ Error\ {\isasympsi}\ {\isasymRightarrow}\ True\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
 \ valid\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymphi}{\isacharbrackright}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ \isanewline
 \ \ \ \ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ {\isasymforall}w{\isachardot}{\isacharparenleft}{\isasympsi}\ w{\isacharparenright}\isanewline
@@ -94,7 +94,7 @@ Meta-logical predicates.%
 \ \ {\isacharbar}\ Form\ {\isasympsi}\ {\isasymRightarrow}\ {\isasymexists}w{\isachardot}{\isacharparenleft}{\isasympsi}\ w{\isacharparenright}\isanewline
 \ \ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ countersatifiable\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymphi}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymequiv}\ \ case\ {\isasymphi}\ of\ \isanewline
+\ countersatisfiable\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}io\ opt{\isasymRightarrow}bool{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymphi}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymequiv}\ \ case\ {\isasymphi}\ of\ \isanewline
 \ \ \ \ PropForm\ {\isasympsi}\ {\isasymRightarrow}\ {\isasymexists}w{\isachardot}{\isasymnot}{\isacharparenleft}{\isasympsi}\ w{\isacharparenright}\isanewline
 \ \ {\isacharbar}\ Form\ {\isasympsi}\ {\isasymRightarrow}\ {\isasymexists}w{\isachardot}{\isasymnot}{\isacharparenleft}{\isasympsi}\ w{\isacharparenright}\isanewline
 \ \ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ False{\isachardoublequoteclose}\isanewline
@@ -258,14 +258,52 @@ is allowed if \isa{{\isacharparenleft}{\isasymPhi}\ sRE{\isacharparenright}} is 
 \isacommand{abbreviation}\isamarkupfalse%
 \ mkForm\ {\isacharcolon}{\isacharcolon}\ \ {\isachardoublequoteopen}io{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isacharsemicolon}p{\isacharsemicolon}\ {\isasymequiv}\ Form\ p{\isachardoublequoteclose}\ \isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ mkTerm\ {\isacharcolon}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharprime}a{\isasymRightarrow}{\isacharprime}a\ opt{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isachardot}t{\isachardot}\ {\isasymequiv}\ Term\ t{\isachardoublequoteclose}%
-\isamarkupsection{Some basic tests%
+\ mkTerm\ {\isacharcolon}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharprime}a{\isasymRightarrow}{\isacharprime}a\ opt{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isachardot}t{\isachardot}\ {\isasymequiv}\ Term\ t{\isachardoublequoteclose}\ \isanewline
+\isacommand{abbreviation}\isamarkupfalse%
+\ mkError\ {\isacharcolon}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharprime}a{\isasymRightarrow}{\isacharprime}a\ opt{\isachardoublequoteclose}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isacharasterisk}t{\isacharasterisk}\ {\isasymequiv}\ Term\ t{\isachardoublequoteclose}%
+\isamarkupsection{Some Basic Tests%
 }
 \isamarkuptrue%
 %
-\begin{isamarkuptext}%
-Verifying Modal Logic Principles%
-\end{isamarkuptext}%
+\isamarkupsubsection{Meta-Logic%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Verifying Modal Logic Principles%
+}
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
@@ -273,14 +311,14 @@ Necessitation holds%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
-\ necessitation{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\ {\isasymlongrightarrow}\ {\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\ necessitation{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\ {\isasymlongrightarrow}\ {\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -290,14 +328,14 @@ Necessitation holds%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ necessitation{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\ {\isasymlongrightarrow}\ {\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\ necessitation{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\ {\isasymlongrightarrow}\ {\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -311,14 +349,14 @@ Modal Collapse does not hold%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
-\ modalCollapse{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\ modalCollapse{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -342,14 +380,14 @@ Modal Collapse does not hold%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ modalCollapse{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isasymforall}{\isasymphi}{\isachardot}\ {\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\ modalCollapse{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -372,19 +410,436 @@ Modal Collapse does not hold%
 %
 \endisadelimproof
 %
+\isamarkupsubsection{S5 Principles%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}T{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}T{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}B{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}B{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}D{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}D{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}{\isadigit{5}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ axiom{\isacharunderscore}{\isadigit{5}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}A{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}A{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}B{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}B{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}C{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}C{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}D{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ test{\isacharunderscore}D{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Validity, Satisfiabilty, Countersatisfiability and Invalidity%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}\isactrlsup i\isactrlsup n\isactrlsup v{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}\isactrlsup i\isactrlsup n\isactrlsup v{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
 \begin{isamarkuptext}%
-Verifying S5 Principles%
+For Terms and Error objects these correspondences do not apply%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}M{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isachardot}{\isasymphi}{\isachardot}{\isacharbrackright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isachardot}{\isasymphi}{\isachardot}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -394,67 +849,14 @@ Verifying S5 Principles%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}M{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isachardot}{\isasymphi}{\isachardot}{\isacharbrackright}\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isachardot}{\isasymphi}{\isachardot}{\isacharbrackright}\isactrlsup i\isactrlsup n\isactrlsup v{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}B{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}B{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}D{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -464,67 +866,14 @@ Verifying S5 Principles%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}D{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharasterisk}{\isasymphi}{\isacharasterisk}{\isacharbrackright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharasterisk}{\isasymphi}{\isacharasterisk}{\isacharbrackright}\isactrlsup c\isactrlsup s\isactrlsup a\isactrlsup t{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}{\isadigit{5}}{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -534,155 +883,14 @@ Verifying S5 Principles%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ axiom{\isacharunderscore}{\isadigit{5}}{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharasterisk}{\isasymphi}{\isacharasterisk}{\isacharbrackright}\isactrlsup s\isactrlsup a\isactrlsup t\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharbrackleft}{\isacharasterisk}{\isasymphi}{\isacharasterisk}{\isacharbrackright}\isactrlsup i\isactrlsup n\isactrlsup v{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}A{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}A{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}B{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}B{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}C{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ metis%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}C{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ metis%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}D{\isacharunderscore}PropForm{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\isanewline
-\isacommand{lemma}\isamarkupfalse%
-\ test{\isacharunderscore}D{\isacharunderscore}Form{\isacharcolon}\ \ \ \ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -691,9 +899,8 @@ Verifying S5 Principles%
 %
 \endisadelimproof
 %
-\begin{isamarkuptext}%
-Example signature; entities and relations%
-\end{isamarkuptext}%
+\isamarkupsubsection{Example signature; entities and relations%
+}
 \isamarkuptrue%
 \isacommand{consts}\isamarkupfalse%
 \ a{\isacharunderscore}{\isadigit{0}}\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isachardoublequoteclose}\ \isacommand{abbreviation}\isamarkupfalse%
@@ -746,7 +953,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -763,7 +970,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -798,7 +1005,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -815,7 +1022,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -832,7 +1039,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -850,7 +1057,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -867,7 +1074,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -885,7 +1092,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -902,7 +1109,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -920,7 +1127,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -937,7 +1144,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -955,7 +1162,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -972,7 +1179,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -989,7 +1196,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1007,7 +1214,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1024,7 +1231,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1042,7 +1249,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1059,7 +1266,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1076,7 +1283,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1093,7 +1300,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{oops}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1113,7 +1320,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1130,7 +1337,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1162,7 +1369,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1179,7 +1386,7 @@ Testing term and formula constructions%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1240,7 +1447,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
 \ auto%
 \endisatagproof
 {\isafoldproof}%
@@ -1257,7 +1464,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1289,7 +1496,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1321,7 +1528,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1339,7 +1546,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1356,7 +1563,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1374,7 +1581,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
 \ auto%
 \endisatagproof
 {\isafoldproof}%
@@ -1392,7 +1599,7 @@ Being abstract is not possibly being concrete.%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1403,14 +1610,14 @@ Being abstract is not possibly being concrete.%
 \isanewline
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}F{\isachardot}\ {\isacharcomma}F{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
+\ simp\ \isacommand{by}\isamarkupfalse%
 \ auto%
 \endisatagproof
 {\isafoldproof}%
@@ -1420,15 +1627,501 @@ Being abstract is not possibly being concrete.%
 \endisadelimproof
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}F{\isachardot}\ {\isacharsemicolon}F{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}{\isasymphi}{\isachardot}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ {\isacharparenleft}simp{\isacharparenright}\ \isacommand{by}\isamarkupfalse%
-\ auto\isanewline
+\ simp\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsection{Axioms%
+}
+\isamarkuptrue%
+%
+\isamarkupsubsection{Axioms for Negations and Conditionals%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharcomma}{\isasympsi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymchi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasympsi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymchi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharsemicolon}{\isasympsi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymchi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasympsi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymchi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymnot}\isactrlsup z\ {\isacharcomma}{\isasympsi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasympsi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{2}}{\isadigit{1}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymnot}\isactrlsup z\ {\isacharsemicolon}{\isasympsi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasympsi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Axioms of Identity%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+todo%
+\end{isamarkuptext}%
+\isamarkuptrue%
+%
+\isamarkupsubsection{Axioms of Quantification%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+todo%
+\end{isamarkuptext}%
+\isamarkuptrue%
+%
+\isamarkupsubsection{Axioms of Actuality%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}F{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasympsi}{\isacharcomma}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymA}\ {\isacharcomma}{\isasympsi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}F{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasympsi}{\isacharsemicolon}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymA}\ {\isacharsemicolon}{\isasympsi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymA}\ {\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}F{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymA}\ {\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymequiv}\isactrlsup z\ {\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymequiv}\isactrlsup z\ {\isasymA}\ {\isacharparenleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{1}}{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}F{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymequiv}\isactrlsup z\ {\isasymA}\ {\isacharparenleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Axioms of Necessity%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{3}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{4}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The following needs to be an axiom; it does not follow for free: it is possible that there 
+are contingently concrete individuals and it is possible that there are not:%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\isacommand{axiomatization}\isamarkupfalse%
+\ \isakeyword{where}\isanewline
+\ \ a{\isadigit{3}}{\isadigit{2}}{\isacharunderscore}{\isadigit{5}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharless}{\isachardot}E{\isachardot}{\isasymbullet}{\isachardot}x{\isachardot}{\isachargreater}\ {\isasymand}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharless}{\isachardot}E{\isachardot}{\isasymbullet}{\isachardot}x{\isachardot}{\isachargreater}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ {\isasymand}\isactrlsup z\ {\isasymdiamond}\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharparenleft}{\isasymexists}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isacharless}{\isachardot}E{\isachardot}{\isasymbullet}{\isachardot}x{\isachardot}{\isachargreater}\ {\isasymand}\isactrlsup z\ {\isacharparenleft}{\isasymdiamond}\ {\isacharparenleft}{\isasymnot}\isactrlsup z\ {\isacharless}{\isachardot}E{\isachardot}{\isasymbullet}{\isachardot}x{\isachardot}{\isachargreater}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isamarkupsubsection{Axioms of Necessity and Actuality%
+}
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{3}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymA}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{3}}{\isacharunderscore}{\isadigit{1}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymrightarrow}\isactrlsup z\ {\isasymbox}\ {\isacharparenleft}{\isasymA}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{3}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}PF{\isacharcolon}\ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharparenleft}{\isasymbox}\ {\isacharcomma}{\isasymphi}{\isacharcomma}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ a{\isadigit{3}}{\isadigit{3}}{\isacharunderscore}{\isadigit{2}}{\isacharunderscore}F{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharbrackleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}\ {\isasymequiv}\isactrlsup z\ {\isacharparenleft}{\isasymA}\ {\isacharparenleft}{\isasymbox}\ {\isacharsemicolon}{\isasymphi}{\isacharsemicolon}{\isacharparenright}{\isacharparenright}{\isacharbrackright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+\isanewline
+\isanewline
+\isanewline
 %
 \endisatagproof
 {\isafoldproof}%
