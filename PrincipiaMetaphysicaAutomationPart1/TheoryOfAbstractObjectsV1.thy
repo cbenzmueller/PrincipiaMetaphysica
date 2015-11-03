@@ -40,7 +40,7 @@ abbreviation valid :: "io opt\<Rightarrow>bool" (*<*)("[_]")(*>*) where "[\<phi>
     PropForm \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
   | Form \<psi> \<Rightarrow> \<forall>w.(\<psi> w)
   | _ \<Rightarrow> False"
-abbreviation satifiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
+abbreviation satisfiable :: "io opt\<Rightarrow>bool" (*<*)("[_]\<^sup>s\<^sup>a\<^sup>t")(*>*) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
     PropForm \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
   | Form \<psi> \<Rightarrow> \<exists>w.(\<psi> w)
   | _ \<Rightarrow> False"
@@ -105,7 +105,7 @@ abbreviation z_forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt"(*<*)("\<fora
 text {* universal quantification; @{text "\<forall>(\<lambda>x.\<phi>)"} inherits its kind (Form or PropForm) from @{text "\<phi>"}; Error is passed on
 @{text "\<forall>(\<lambda>x.\<phi>)"} is mapped to @{text "(\<lambda>w.\<forall>x.\<phi>xw)"} as expected *}
 
-abbreviation z_box::"io opt\<Rightarrow>io opt"(*<*)("\<box>\<^sup>r_")(*>*) where "\<box>\<^sup>r \<phi> \<equiv> case \<phi> of 
+abbreviation z_box::"io opt\<Rightarrow>io opt"(*<*)("\<box>")(*>*) where "\<box> \<phi> \<equiv> case \<phi> of 
     Form \<psi> \<Rightarrow> Form (\<lambda>w. \<forall>v. \<psi> v)
   | PropForm \<psi> \<Rightarrow> PropForm (\<lambda>w. \<forall>v. \<psi> v)
   | _ \<Rightarrow> Error dIO"  
@@ -143,6 +143,7 @@ operator is used and evaluation is wrt to the current world cw; moreover, applic
 is allowed if @{text "(\<Phi> sRE)"} is a PropForm, otherwise Error is passed on for some someRawEntity *}
 
 
+
 section {* Further logical connectives *}
 
 abbreviation z_and::"io opt\<Rightarrow>io opt\<Rightarrow>io opt"(*<*)(infixr "\<and>\<^sup>z" 53)(*>*) where "\<phi> \<and>\<^sup>z \<psi> \<equiv> \<not>\<^sup>z(\<phi> \<rightarrow>\<^sup>z \<not>\<^sup>z\<psi>)"
@@ -152,7 +153,7 @@ abbreviation z_exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt"(*<*)("\<exis
     PropForm \<phi> \<Rightarrow> PropForm (\<lambda>w. \<exists>x. case (\<Phi> x) of PropForm \<psi> \<Rightarrow> \<psi> w)
   | Form \<phi> \<Rightarrow> Form (\<lambda>w. \<exists>x. case (\<Phi> x) of Form \<psi> \<Rightarrow> \<psi> w)
   | _ \<Rightarrow> Error dIO"
-abbreviation z_dia::"io opt\<Rightarrow>io opt"(*<*)("\<diamond>\<^sup>r_")(*>*) where "\<diamond>\<^sup>r \<phi> \<equiv> \<not>\<^sup>z \<box>\<^sup>r (\<not>\<^sup>z \<phi>)"
+abbreviation z_dia::"io opt\<Rightarrow>io opt"(*<*)("\<diamond>")(*>*) where "\<diamond> \<phi> \<equiv> \<not>\<^sup>z (\<box> (\<not>\<^sup>z \<phi>))"
 
 (* abbreviation z_true::"io opt"(*<*)("\<top>\<^sup>z")(*>*) where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
 (* abbreviation z_false::"io opt"(*<*)("\<bottom>\<^sup>z")(*>*) where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
@@ -165,8 +166,50 @@ abbreviation mkForm ::  "io\<Rightarrow>io opt"(*<*)(";_;")(*>*)  where ";p; \<e
 abbreviation mkTerm ::  "'a\<Rightarrow>'a opt"(*<*)("._.")(*>*)  where ".t. \<equiv> Term t" 
 
 
-
 section {* Some basic tests *}
+
+text {* Verifying Modal Logic Principles *}
+
+text {* Necessitation holds *}
+lemma necessitation_PropForm: "\<forall>\<phi>. [,\<phi>,] \<longrightarrow> [\<box> ,\<phi>,]" apply (simp) done
+lemma necessitation_Form:     "\<forall>\<phi>. [;\<phi>;] \<longrightarrow> [\<box> ;\<phi>;]" apply (simp) done
+
+text {* Modal Collapse does not hold *}
+lemma modalCollapse_PropForm: "\<forall>\<phi>. [,\<phi>, \<rightarrow>\<^sup>z \<box> ,\<phi>,]" apply (simp) nitpick oops
+lemma modalCollapse_Form:     "\<forall>\<phi>. [;\<phi>; \<rightarrow>\<^sup>z \<box> ;\<phi>;]" apply (simp) nitpick oops
+
+
+text {* Verifying S5 Principles *}
+
+lemma axiom_M_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z ,\<phi>,)]" apply (simp) done
+lemma axiom_M_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z ;\<phi>;)]" apply (simp) done
+
+lemma axiom_B_PropForm: "[\<forall>(\<lambda>\<phi>. ,\<phi>, \<rightarrow>\<^sup>z (\<box> (\<diamond> ,\<phi>,)))]" apply (simp) by auto
+lemma axiom_B_Form:     "[\<forall>(\<lambda>\<phi>. ;\<phi>; \<rightarrow>\<^sup>z (\<box> (\<diamond> ;\<phi>;)))]" apply (simp) by auto
+
+lemma axiom_D_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z (\<box> (\<box> ,\<phi>,)))]" apply (simp) done
+lemma axiom_D_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z (\<box> (\<box> ;\<phi>;)))]" apply (simp) done
+
+lemma axiom_4_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> ,\<phi>,) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by auto
+lemma axiom_4_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> ;\<phi>;) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by auto
+
+lemma axiom_5_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> ,\<phi>,) \<rightarrow>\<^sup>z (\<box> (\<diamond> ,\<phi>,)))]" apply (simp) done
+lemma axiom_5_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> ;\<phi>;) \<rightarrow>\<^sup>z (\<box> (\<diamond> ;\<phi>;)))]" apply (simp) done
+
+
+lemma test_A_PropForm: "[\<forall>(\<lambda>\<phi>. (\<box> (\<diamond> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) done
+lemma test_A_Form:     "[\<forall>(\<lambda>\<phi>. (\<box> (\<diamond> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) done
+
+lemma test_B_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by auto
+lemma test_B_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by auto
+
+lemma test_C_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<diamond> ,\<phi>,))]" apply (simp) by metis
+lemma test_C_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<diamond> ;\<phi>;))]" apply (simp) by metis
+
+lemma test_D_PropForm: "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ,\<phi>,)) \<rightarrow>\<^sup>z (\<box> ,\<phi>,))]" apply (simp) done
+lemma test_D_Form:     "[\<forall>(\<lambda>\<phi>. (\<diamond> (\<box> ;\<phi>;)) \<rightarrow>\<^sup>z (\<box> ;\<phi>;))]" apply (simp) done
+
+
 
 text {* Example signature; entities and relations *}
 
@@ -227,14 +270,14 @@ section {* E!, O!, A! and =E *}
 consts E::"(e\<Rightarrow>io)"
 text {* Distinguished 1-place relation constant: E! (read: ‘being concrete’ or ‘concreteness’) *}
 
-abbreviation z_ordinary::"(e\<Rightarrow>io) opt"(*<*)("O\<^sup>!")(*>*) where "O\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<diamond>\<^sup>r <.E.\<bullet>.x.>)"
+abbreviation z_ordinary::"(e\<Rightarrow>io) opt"(*<*)("O\<^sup>!")(*>*) where "O\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<diamond> <.E.\<bullet>.x.>)"
 text {* Being ordinary is being possibly concrete. *}
 
-abbreviation z_abstract::"(e\<Rightarrow>io) opt"(*<*)("A\<^sup>!")(*>*) where "A\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<not>\<^sup>z \<diamond>\<^sup>r <.E.\<bullet>.x.>)"
+abbreviation z_abstract::"(e\<Rightarrow>io) opt"(*<*)("A\<^sup>!")(*>*) where "A\<^sup>! \<equiv> \<lambda>\<^sup>1(\<lambda>x. \<not>\<^sup>z (\<diamond> <.E.\<bullet>.x.>))"
 text {* Being abstract is not possibly being concrete. *}
 
 abbreviation z_identity::"(e\<Rightarrow>e\<Rightarrow>io) opt"(*<*)("=\<^sub>e\<^sup>z")(*>*) where "=\<^sub>e\<^sup>z \<equiv> 
-  \<lambda>\<^sup>2(\<lambda>x y. ((<O\<^sup>!\<bullet>.x.> \<and>\<^sup>z <O\<^sup>!\<bullet>.y.>) \<and>\<^sup>z \<box>\<^sup>r (\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.y.>))))"
+  \<lambda>\<^sup>2(\<lambda>x y. ((<O\<^sup>!\<bullet>.x.> \<and>\<^sup>z <O\<^sup>!\<bullet>.y.>) \<and>\<^sup>z \<box> (\<forall>(\<lambda>F. <.F.\<bullet>.x.> \<equiv>\<^sup>z <.F.\<bullet>.y.>))))"
 
 abbreviation z_identityE::"(e opt\<Rightarrow>e opt\<Rightarrow>io opt)"(*<*)(infixr "=\<^sub>E" 63)(*>*) where "x =\<^sub>E y \<equiv> (Exe2 =\<^sub>e\<^sup>z x y)" 
 
