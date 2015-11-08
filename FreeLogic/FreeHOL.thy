@@ -5,14 +5,17 @@ imports Main
 begin
 (*>*)
 
-  typedecl \<iota>                -- "the type for indiviuals"   
-  type_synonym \<sigma> = "bool"   -- "the type for Booleans"   
+typedecl \<iota>                -- "the type for indiviuals"   
+type_synonym \<sigma> = "bool"   -- "the type for Booleans"   
 
-  consts  f_r  :: "\<iota> \<Rightarrow> \<iota> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>r" 70)(*>*) 
+consts  f_r  :: "\<iota> \<Rightarrow> \<iota> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>r" 70)(*>*) 
    
-  consts f_e :: "'a \<Rightarrow> \<sigma>" (*<*)("\<^bold>e")(*>*)
+consts f_e :: "'a \<Rightarrow> \<sigma>" (*<*)("\<^bold>e")(*>*)
 
- 
+consts f_star :: "'a" (*<*)("\<^bold>\<star>")(*>*)
+
+axiomatization where f_star_axiom: "\<not> \<^bold>e \<^bold>\<star>"
+  
 
 abbreviation f_not :: "\<sigma> \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<not>")(*>*) 
   where "\<^bold>\<not> \<phi> \<equiv> \<not> \<phi>"    
@@ -28,6 +31,8 @@ abbreviation f_forall :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*
   where "\<^bold>\<forall> \<Phi> \<equiv> \<forall>x. \<^bold>e x \<longrightarrow>  \<Phi> x"   
 abbreviation f_mexists :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<exists>")(*>*) 
   where "\<^bold>\<exists> \<Phi> \<equiv> \<exists>x. \<^bold>e x \<and> \<Phi> x"
+abbreviation f_that :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>I")(*>*) 
+  where "\<^bold>I \<Phi> \<equiv> "
 
 
 lemma "x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x" apply simp done
