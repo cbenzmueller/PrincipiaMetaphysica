@@ -5,16 +5,19 @@ imports Main
 begin
 (*>*)
 
-  typedecl \<iota>                -- "the type for indiviuals" 
-  typedecl \<omega>                -- "the type for possible worlds"     
-  type_synonym \<sigma> = "\<omega> \<Rightarrow> bool"   -- "the type for Booleans"   
+typedecl \<iota>                -- "the type for indiviuals" 
+typedecl \<omega>                -- "the type for possible worlds"     
+type_synonym \<sigma> = "\<omega> \<Rightarrow> bool"   -- "the type for Booleans"   
 
-  consts  f_r  :: "\<iota> \<Rightarrow> \<iota> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>r" 70)(*>*) 
-  consts  f_ar  :: "\<omega> \<Rightarrow> \<omega> \<Rightarrow> bool" (*<*)(infixr "\<^bold>a\<^bold>r" 70)(*>*)
+consts  f_r  :: "\<iota> \<Rightarrow> \<iota> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>r" 70)(*>*) 
+consts  f_ar  :: "\<omega> \<Rightarrow> \<omega> \<Rightarrow> bool" (*<*)(infixr "\<^bold>a\<^bold>r" 70)(*>*)
   
    
-  consts f_e :: "'a \<Rightarrow> \<sigma>" (*<*)("\<^bold>e")(*>*)
+consts f_e :: "'a \<Rightarrow> \<sigma>" (*<*)("\<^bold>e")(*>*)
 
+consts f_star :: "'a" (*<*)("\<^bold>\<star>")(*>*)
+
+axiomatization where f_star_axiom: "\<forall>w. \<not> \<^bold>e \<^bold>\<star> w"
  
 
 abbreviation f_not :: "\<sigma> \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<not>")(*>*) 
@@ -31,6 +34,8 @@ abbreviation f_forall :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*
   where "\<^bold>\<forall> \<Phi> \<equiv> (\<lambda> w. \<forall>x. \<^bold>e x w \<longrightarrow>  \<Phi> x w)"   
 abbreviation f_mexists :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<exists>")(*>*) 
   where "\<^bold>\<exists> \<Phi> \<equiv> (\<lambda> w. \<exists>x. \<^bold>e x w \<and> \<Phi> x w)"
+abbreviation f_that :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<omega> \<Rightarrow> 'a" (*<*)("\<^bold>I")(*>*) 
+  where "\<^bold>I \<Phi> \<equiv> (\<lambda> w. if \<exists>x. (\<Phi> x w) \<and> (\<forall>y. (\<Phi> y w) \<longrightarrow> y = x) then THE x. (\<Phi> x w) else \<^bold>\<star>)"
 abbreviation f_mbox :: "\<sigma> \<Rightarrow> \<sigma>" ("\<^bold>\<box>") 
   where "\<^bold>\<box> \<phi> \<equiv> (\<lambda>w. \<forall>v. w \<^bold>a\<^bold>r v \<longrightarrow> \<phi> v)"
 abbreviation f_mdia :: "\<sigma> \<Rightarrow> \<sigma>" ("\<^bold>\<diamond>") 

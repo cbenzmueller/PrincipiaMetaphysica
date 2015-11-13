@@ -26,13 +26,13 @@ abbreviation f_or :: "\<sigma> \<Rightarrow> \<sigma> \<Rightarrow> \<sigma>" (*
 abbreviation f_implies :: "\<sigma> \<Rightarrow> \<sigma> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>\<rightarrow>" 49)(*>*) 
   where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> \<phi> \<longrightarrow> \<psi>"  
 abbreviation f_equals :: "\<iota> \<Rightarrow> \<iota> \<Rightarrow> \<sigma>" (*<*)(infixr "\<^bold>=" 49)(*>*) 
-  where "\<phi> \<^bold>= \<psi> \<equiv> \<phi> = \<psi>"
+  where "x \<^bold>= y \<equiv> x = y"
 abbreviation f_forall :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<forall>")(*>*) 
   where "\<^bold>\<forall> \<Phi> \<equiv> \<forall>x. \<^bold>e x \<longrightarrow>  \<Phi> x"   
 abbreviation f_mexists :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>\<exists>")(*>*) 
   where "\<^bold>\<exists> \<Phi> \<equiv> \<exists>x. \<^bold>e x \<and> \<Phi> x"
-abbreviation f_that :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> \<sigma>" (*<*)("\<^bold>I")(*>*) 
-  where "\<^bold>I \<Phi> \<equiv> "
+abbreviation f_that :: "('a \<Rightarrow> \<sigma>) \<Rightarrow> 'a" (*<*)("\<^bold>I")(*>*) 
+  where "\<^bold>I \<Phi> \<equiv> if \<exists>x. (\<Phi> x) \<and> (\<forall>y. (\<Phi> y) \<longrightarrow> y = x) then THE x. (\<Phi> x) else \<^bold>\<star>"
 
 
 lemma "x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x" apply simp done
