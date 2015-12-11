@@ -1,9 +1,47 @@
 \begin{thebibliography}{1}
 
+\bibitem{ECAI}
+C.~Benzm{\"u}ller and B.~W. Paleo.
+\newblock Automating {G\"{o}del's} ontological proof of {God}'s existence with
+  higher-order automated theorem provers.
+\newblock In T.~Schaub, G.~Friedrich, and B.~O'Sullivan, editors, {\em ECAI
+  2014}, volume 263 of {\em Frontiers in Artificial Intelligence and
+  Applications}, pages 93 -- 98. IOS Press, 2014.
+
 \bibitem{J23}
 C.~Benzm{\"u}ller and L.~Paulson.
 \newblock Quantified multimodal logics in simple type theory.
 \newblock {\em Logica Universalis (Special Issue on Multimodal Logics)},
   7(1):7--20, 2013.
+
+\bibitem{C40}
+C.~Benzm{\"u}ller and B.~Woltzenlogel~Paleo.
+\newblock Automating {G\"{o}del's} ontological proof of {God}'s existence with
+  higher-order automated theorem provers.
+\newblock In T.~Schaub, G.~Friedrich, and B.~O'Sullivan, editors, {\em ECAI
+  2014}, volume 263 of {\em Frontiers in Artificial Intelligence and
+  Applications}, pages 93 -- 98. IOS Press, 2014.
+
+\bibitem{Church40}
+A.~Church.
+\newblock A formulation of the simple theory of types.
+\newblock {\em Journal of Symbolic Logic}, 5:56--68, 1940.
+
+\bibitem{Isabelle}
+T.~Nipkow, L.~Paulson, and M.~Wenzel.
+\newblock {\em {Isabelle/HOL: A Proof Assistant for Higher-Order Logic}}.
+\newblock Number 2283 in LNCS. Springer, 2002.
+
+\bibitem{zalta:_princ_metap}
+E.~N. Zalta.
+\newblock Principia metaphysica, a compilation of the theorems of the theory of
+  abstract objects.
+\newblock Available at \texttt{https://mally.stanford.edu/publications.html}.
+
+\bibitem{zalta11:_relat_versus_funct_found_logic}
+E.~N. Zalta and P.~E. Oppenheimer.
+\newblock Relations versus functions at the foundations of logic:
+  Type-theoretic considerations.
+\newblock {\em Journal of Logic and Computation}, (21):351–374, 2011.
 
 \end{thebibliography}

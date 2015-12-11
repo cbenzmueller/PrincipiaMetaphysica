@@ -138,10 +138,10 @@ section {* Embedding of Modal Relational Type Theory *}
 
  text {* The actuality operator @{text "\<A>"} when applied to a formula or propositional formula 
  @{text "\<phi>"} evaluates @{text "\<phi>"} wrt the fixed given world @{text "cw"}. 
- The compound expression @{text "\<A> \<phi>"} inherits its syntactical category  (@{text "Form"} or
- @{text "PropForm"}) from @{text "\<phi>"}. If the syntactical catagory of  @{text "\<phi>"} is 
- @{text "Error"} or @{text "Term"}, then the syntactical catagory of @{text "\<A> \<phi>"} 
- is @{text "Error"} and a dummy entity of appropriate type is returned. This illustrates the very 
+ The compound expression @{text "\<A> \<phi>"} inherits its syntactical category  @{text "F"} (formula) or
+ @{text "P"} (propositional formula from @{text "\<phi>"}. If the syntactical catagory of  @{text "\<phi>"} is 
+ @{text "E"} (error) or @{text "T"} (term), then the syntactical catagory of @{text "\<A> \<phi>"} 
+ is @{text "E"} and a dummy entity of appropriate type is returned. This illustrates the very 
  idea of our explicit structure and constraints and this scheme will repeated below
  for all the other language constructs of modal relational type theory. 
  *}
@@ -212,25 +212,27 @@ lemma bla2 : "(\<^bold>\<forall>x. \<phi>) = (\<^bold>\<forall>(\<lambda>x. \<ph
 abbreviation box::"io opt\<Rightarrow>io opt"(**)("\<^bold>\<box>")(**) where "\<^bold>\<box>\<phi> \<equiv> case \<phi> of 
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<forall>v. \<psi> v) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<forall>v. \<psi> v) | _ \<Rightarrow> ERR(dio)"  
 
- text {* n-ary lambda abstraction @{text "\<lambda>\<^sup>0,\<lambda>\<^sup>1,\<lambda>\<^sup>2,\<lambda>\<^sup>3,..."}, for $n\geq 0$, is supported in the Principia
- Metaphysica only for propositional formulas. ... say more about @{text "\<lambda>\<^sup>0"} ... Their embedding is 
- straightforward: @{text "\<lambda>\<^sup>0"} is mapped to identity and @{text "\<lambda>\<^sup>1,\<lambda>\<^sup>2,\<lambda>\<^sup>3,..."} are mapped to n-ary
- lambda abstractions, that is, @{text "\<lambda>\<^sup>2(\<lambda>xy.\<phi>)"} is e.g. mapped to @{text "(\<lambda>xy.\<phi>)"}.
+ text {* n-ary lambda abstraction @{text "\<^bold>\<lambda>\<^sup>0,\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2\<^sup>,\<^bold>\<lambda>\<^sup>3,..."}, for $n\geq 0$, is supported in the Principia
+ Metaphysica only for propositional formulas. ... say more about @{text "\<^bold>\<lambda>\<^sup>0"} ... Their embedding is 
+ straightforward: @{text "\<^bold>\<lambda>\<^sup>0"} is mapped to identity and @{text "\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2,\<^bold>\<lambda>\<^sup>3,..."} are mapped to n-ary
+ lambda abstractions, that is, @{text "\<^bold>\<lambda>(\<lambda>x.\<phi>)"} is mapped to @{text "(\<lambda>x.\<phi>)"} and @{text "\<^bold>\<lambda>\<^sup>2(\<lambda>xy.\<phi>)"} 
+ to @{text "(\<lambda>xy.\<phi>)"}.
  For pragmatical reasons we restrict ourselves here to the cases where $n\leq 0$. 
  *}
 
 abbreviation lam0::"io opt\<Rightarrow>io opt"(**)("\<^bold>\<lambda>\<^sup>0")(**) where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> P(\<psi>) | _ \<Rightarrow> ERR dio"  
 
-abbreviation lam1::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt"(**)("\<^bold>\<lambda>\<^sup>1")(**) where "(\<^bold>\<lambda>\<^sup>1\<Phi>) \<equiv> case (\<Phi> de) of
+abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt"(**)("\<^bold>\<lambda>")(**) where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x. case (\<Phi> x) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x. dio)"
-abbreviation lam1Binder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>\<^sup>1" [9] 9)  where "\<^bold>\<lambda>\<^sup>1 x. \<phi> x \<equiv> \<^bold>\<lambda>\<^sup>1 \<phi>"
+abbreviation lam1Binder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [9] 9)  where "\<^bold>\<lambda> x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
 
 abbreviation lam2::"(e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt"(**)("\<^bold>\<lambda>\<^sup>2")(**) where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> de de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x y. case (\<Phi> x y) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y. dio)"
 
-abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt"(**)("\<^bold>\<lambda>")(**) where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de de de) of
+abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt"(**)("\<^bold>\<lambda>\<^sup>3")(**) where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> de de de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x y z. case (\<Phi> x y z) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y z. dio)"
+
 
  text {* The Principia Metaphysica supports rigid definite descriptions. Our definition maps
  @{text "\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> cw)"}, that is Isabelle's inbuilt description operator THE 
@@ -345,10 +347,6 @@ lemma necessitationP: "[\<phi>\<^sup>P] = \<top> \<longrightarrow> [\<^bold>\<bo
 lemma modalCollapseF: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>(\<phi>\<^sup>F)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
 lemma modalCollapseP: "[\<phi>\<^sup>P \<^bold>\<rightarrow> \<^bold>\<box>(\<phi>\<^sup>P)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
 
- text {* We also tried to prove the statement @{text "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>(\<phi>\<^sup>F)]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = \<top>"} with automated reasoners.
- This was however not successful ... (check again and check why).
- *}
-
 (*
 lemma modalCollapseFcsa: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<phi>\<^sup>F] = \<top>" sledgehammer [remote_leo2 remote_satallax]
 lemma modalCollapseFcsa: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>(\<phi>\<^sup>F)]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = \<top>" sledgehammer [remote_leo2 remote_satallax]
@@ -414,7 +412,7 @@ lemma "\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = (X\<^sup>F) \<and> \<
  text {* Most importantly, we have that the following language constructing is evaluated as erroneous at validity
  level. *}
 
-lemma "[\<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr>] = *" apply simp done
+lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr>] = *" apply simp done
 
  text {* This is also confirmed as follows in Isabelle: Isabelle simplifies the following expression
  to @{text "dio\<^sup>E = X"} (simply move the curse on @{text "simp"} to see this). *}
@@ -423,13 +421,13 @@ lemma "[\<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> 
 
  text {* Todo: ... select, adapt, and explain some of examples below ... *}
 
-lemma "\<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops
+lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops
 
-lemma "\<exists>X. \<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = (X\<^sup>P)" apply simp done -- {* Solution: @{text "(\<lambda>w. True) = X"} *}
-lemma "[\<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr>] = \<top>" apply simp done
+lemma "\<exists>X. \<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = (X\<^sup>P)" apply simp done -- {* Solution: @{text "(\<lambda>w. True) = X"} *}
+lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr>] = \<top>" apply simp done
 
-lemma "\<lparr>\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = (X\<^sup>P)" apply simp oops
-lemma "(\<^bold>\<lambda>\<^sup>1x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = (X\<^sup>P)" apply simp oops
+lemma "(\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
 
 lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
 lemma "[(\<^bold>\<forall>R. \<^bold>\<forall>(\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>))] = \<top>" apply simp done
@@ -437,6 +435,8 @@ lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<righta
 
 lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
 lemma "(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+
+lemma "[(\<^bold>\<exists>x y. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>y\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
 
 lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = *" apply simp done
 lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = X" apply simp oops
@@ -462,11 +462,11 @@ consts E::"(e\<Rightarrow>io)"
  
  text {* Being ordinary is defined as being possibly concrete. *}
 
-abbreviation ordinaryObject::"(e\<Rightarrow>io) opt"(**)("O!")(**) where "O! \<equiv> \<^bold>\<lambda>\<^sup>1x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
+abbreviation ordinaryObject::"(e\<Rightarrow>io) opt"(**)("O!")(**) where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
 
  text {* Being abstract is is defined as not possibly being concrete. *}
 
-abbreviation abstractObject::"(e\<Rightarrow>io) opt"(**)("A!")(**) where "A! \<equiv> \<^bold>\<lambda>\<^sup>1x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
+abbreviation abstractObject::"(e\<Rightarrow>io) opt"(**)("A!")(**) where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
 
  text {* Identity @{text "=\<^sub>e"} is defined as .... Subsequenty, the infix operator @{text "=\<^sub>E"} is 
  introduced. 
@@ -490,7 +490,7 @@ lemma "[(a\<^sup>T) \<^bold>=\<^sub>E (a\<^sup>T)] = \<top>" apply simp nitpick 
 lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> (a\<^sup>T) \<^bold>=\<^sub>E (a\<^sup>T)] = \<top>" apply simp done
 
 lemma "[(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
-lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>(\<^bold>\<lambda>\<^sup>1x. (x\<^sup>T) \<^bold>=\<^sub>E (a\<^sup>T)),a\<^sup>T\<rparr>] = \<top>" apply simp done
+lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>(\<^bold>\<lambda>x. (x\<^sup>T) \<^bold>=\<^sub>E (a\<^sup>T)),a\<^sup>T\<rparr>] = \<top>" apply simp done
 
 lemma "[(\<^bold>\<exists>F. \<lbrace>a\<^sup>T,F\<^sup>T\<rbrace>)] = \<top>" apply simp by auto
 

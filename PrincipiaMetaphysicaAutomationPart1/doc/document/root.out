@@ -1,21 +1,21 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Preliminaries}{}% 2
-\BOOKMARK [1][-]{section.3}{Encoding of the language}{}% 3
-\BOOKMARK [1][-]{section.4}{Further logical connectives}{}% 4
-\BOOKMARK [1][-]{section.5}{Some shortcuts for the constructors}{}% 5
+\BOOKMARK [1][-]{section.3}{Embedding of Modal Relational Type Theory}{}% 3
+\BOOKMARK [1][-]{section.4}{Further Logical Connectives}{}% 4
+\BOOKMARK [1][-]{section.5}{Meta-Logic}{}% 5
 \BOOKMARK [1][-]{section.6}{Some Basic Tests}{}% 6
-\BOOKMARK [2][-]{subsection.6.1}{Meta-Logic}{section.6}% 7
-\BOOKMARK [2][-]{subsection.6.2}{Verifying Modal Logic Principles}{section.6}% 8
-\BOOKMARK [2][-]{subsection.6.3}{S5 Principles}{section.6}% 9
-\BOOKMARK [2][-]{subsection.6.4}{Validity, Satisfiabilty, Countersatisfiability and Invalidity}{section.6}% 10
-\BOOKMARK [2][-]{subsection.6.5}{Example signature; entities and relations}{section.6}% 11
-\BOOKMARK [1][-]{section.7}{Are the priorities set correctly?}{}% 12
-\BOOKMARK [1][-]{section.8}{E!, O!, A! and =E}{}% 13
-\BOOKMARK [1][-]{section.9}{Further test examples}{}% 14
-\BOOKMARK [1][-]{section.10}{Axioms}{}% 15
-\BOOKMARK [2][-]{subsection.10.1}{Axioms for Negations and Conditionals}{section.10}% 16
-\BOOKMARK [2][-]{subsection.10.2}{Axioms of Identity}{section.10}% 17
-\BOOKMARK [2][-]{subsection.10.3}{Axioms of Quantification}{section.10}% 18
-\BOOKMARK [2][-]{subsection.10.4}{Axioms of Actuality}{section.10}% 19
-\BOOKMARK [2][-]{subsection.10.5}{Axioms of Necessity}{section.10}% 20
-\BOOKMARK [2][-]{subsection.10.6}{Axioms of Necessity and Actuality}{section.10}% 21
+\BOOKMARK [2][-]{subsection.6.1}{Verifying Necessitation}{section.6}% 7
+\BOOKMARK [2][-]{subsection.6.2}{Modal Collapse is Countersatisfiable}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.3}{Verifying S5 Principles }{section.6}% 9
+\BOOKMARK [2][-]{subsection.6.4}{Relations between Meta-Logical Notions}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.5}{Testing for the Correct Propagation of Syntactical Category Information}{section.6}% 11
+\BOOKMARK [2][-]{subsection.6.6}{Are Priorities Defined Correctly?}{section.6}% 12
+\BOOKMARK [1][-]{section.7}{E!, O!, A! and =E}{}% 13
+\BOOKMARK [1][-]{section.8}{Further Test Examples}{}% 14
+\BOOKMARK [1][-]{section.9}{Axioms}{}% 15
+\BOOKMARK [2][-]{subsection.9.1}{Axioms for Negations and Conditionals}{section.9}% 16
+\BOOKMARK [2][-]{subsection.9.2}{Axioms of Identity}{section.9}% 17
+\BOOKMARK [2][-]{subsection.9.3}{Axioms of Quantification}{section.9}% 18
+\BOOKMARK [2][-]{subsection.9.4}{Axioms of Actuality}{section.9}% 19
+\BOOKMARK [2][-]{subsection.9.5}{Axioms of Necessity}{section.9}% 20
+\BOOKMARK [2][-]{subsection.9.6}{Axioms of Necessity and Actuality}{section.9}% 21
