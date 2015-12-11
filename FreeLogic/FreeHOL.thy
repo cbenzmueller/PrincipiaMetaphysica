@@ -70,8 +70,7 @@ axiomatization where I1: "\<^bold>\<forall>y. (y \<^bold>= (\<^bold>Ix. \<phi>(x
 
 lemma I2: "\<^bold>\<not>(\<^bold>\<exists>y. (y \<^bold>= (\<^bold>Ix. \<phi>(x)))) \<^bold>\<rightarrow> ( \<^bold>\<star> \<^bold>= (\<^bold>Ix. \<phi>(x)))" apply simp nitpick oops
 
-lemma ext: "(\<^bold>\<forall>x. \<phi>(x) \<^bold>\<leftrightarrow> \<psi>(x)) \<^bold>\<rightarrow> (\<^bold>Ix. \<phi>(x)) \<^bold>= (\<^bold>Ix. \<psi>(x))" apply simp sledgehammer
-nitpick oops
+lemma ext: "(\<^bold>\<forall>x. \<phi>(x) \<^bold>\<leftrightarrow> \<psi>(x)) \<^bold>\<rightarrow> (\<^bold>Ix. \<phi>(x)) \<^bold>= (\<^bold>Ix. \<psi>(x))" apply simp nitpick oops
 
 
 
