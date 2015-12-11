@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  11 DEC 2015 11:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  11 DEC 2015 20:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -363,21 +363,21 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
  [1
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<ModalRelationalTypeTheory.png, id=115, 512.91624pt x 282.05376pt>
+<ModalRelationalTypeTheory.png, id=119, 512.91624pt x 282.05376pt>
 File: ModalRelationalTypeTheory.png Graphic file (type png)
 
 <use ModalRelationalTypeTheory.png>
-Package pdftex.def Info: ModalRelationalTypeTheory.png used on input line 76.
+Package pdftex.def Info: ModalRelationalTypeTheory.png used on input line 77.
 (pdftex.def)             Requested size: 284.57797pt x 156.49014pt.
 
-<ModalRelationalTypeTheory2.png, id=117, 280.04625pt x 222.8325pt>
+<ModalRelationalTypeTheory2.png, id=121, 280.04625pt x 222.8325pt>
 File: ModalRelationalTypeTheory2.png Graphic file (type png)
 
 <use ModalRelationalTypeTheory2.png>
-Package pdftex.def Info: ModalRelationalTypeTheory2.png used on input line 76.
+Package pdftex.def Info: ModalRelationalTypeTheory2.png used on input line 77.
 (pdftex.def)             Requested size: 160.91423pt x 128.0374pt.
 
-Overfull \hbox (2.83846pt too wide) in paragraph at lines 76--79
+Overfull \hbox (2.83846pt too wide) in paragraph at lines 77--80
 [][][] 
  []
 
@@ -389,17 +389,30 @@ Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
 [2 <./ModalRelationalTypeTheory.png> <./ModalRelationalTypeTheory2.png>]
 [3]
-Overfull \hbox (4.83177pt too wide) in paragraph at lines 206--207
+Overfull \hbox (7.38731pt too wide) in paragraph at lines 207--208
 []\OT1/cmr/bx/n/10 abbreviation \OT1/cmr/m/it/10 Exe2$\OT1/cmr/m/n/10 :$$:$$($\
 OT1/cmr/m/it/10 e$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 e$\OMS/cmsy/m/n/10 )$\OT1
 /cmr/m/it/10 io$\OT1/cmr/m/n/10 )$ \OT1/cmr/m/it/10 opt$\OMS/cmsy/m/n/10 )$\OT1
 /cmr/m/it/10 e opt$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 e opt$\OMS/cmsy/m/n/10 )
-$\OT1/cmr/m/it/10 io opt$\OT1/cmr/m/n/10 ($$[]$[]$\OML/cmm/m/it/10 ;$[]$;$[]$[]
-$$\OT1/cmr/m/n/10 )$ \OT1/cmr/bx/n/10 where $[]$$\OT1/cmr/m/n/10 ^^H$$\OML/cmm/
-m/it/10 ;$\OT1/cmr/m/it/10 x1$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x2$[]$ $\OMS/
-cmsy/m/n/10 ^^Q$ \OT1/cmr/m/it/10 case $\OT1/cmr/m/n/10 ($$^^H$$\OML/cmm/m/it/1
-0 ;$\OT1/cmr/m/it/10 x1$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x2$\OT1/cmr/m/n/10 
-)$
+$\OT1/cmr/m/it/10 io opt $\OT1/cmr/m/n/10 ($$[]$[]$\OML/cmm/m/it/10 ;$[]$;$[]$[
+]$$\OT1/cmr/m/n/10 )$ \OT1/cmr/bx/n/10 where $[]$$\OT1/cmr/m/n/10 ^^H$$\OML/cmm
+/m/it/10 ;$\OT1/cmr/m/it/10 x1$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x2$[]$ $\OMS
+/cmsy/m/n/10 ^^Q$ \OT1/cmr/m/it/10 case $\OT1/cmr/m/n/10 ($$^^H$$\OML/cmm/m/it/
+10 ;$\OT1/cmr/m/it/10 x1$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x2$\OT1/cmr/m/n/10
+ )$
+ []
+
+
+Overfull \hbox (0.33034pt too wide) in paragraph at lines 209--211
+[][]\OT1/cmr/bx/n/10 abbreviation \OT1/cmr/m/it/10 Exe3$\OT1/cmr/m/n/10 :$$:$$(
+$\OT1/cmr/m/it/10 e$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 e$\OMS/cmsy/m/n/10 )$\O
+T1/cmr/m/it/10 e$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 io$\OT1/cmr/m/n/10 )$ \OT1
+/cmr/m/it/10 opt$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 e opt$\OMS/cmsy/m/n/10 )$\
+OT1/cmr/m/it/10 e opt$\OMS/cmsy/m/n/10 )$\OT1/cmr/m/it/10 e opt$\OMS/cmsy/m/n/1
+0 )$\OT1/cmr/m/it/10 io opt $\OT1/cmr/m/n/10 ($$[]$[]$\OML/cmm/m/it/10 ;$[]$;$[
+]$;$[]$[]$$\OT1/cmr/m/n/10 )$  \OT1/cmr/bx/n/10 where $[]$$\OT1/cmr/m/n/10 ^^H$
+$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x1$\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x2$
+\OML/cmm/m/it/10 ;$\OT1/cmr/m/it/10 x3$[]$
  []
 
 [4] [5] [6] [7]
@@ -415,19 +428,19 @@ Missing character: There is no ˜ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [8] [9])) (./root.bbl
+ [8] [9])) (./root.bbl [10]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 77.
- [10]
+ [11]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 77.
  (./root.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 77.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 77.
 Package rerunfilecheck Info: File `root.out' has not changed.
-(rerunfilecheck)             Checksum: F39179D9E2BB1C5E5280E62735B28BB0;1453.
+(rerunfilecheck)             Checksum: D2EF750B4295ADD852D367045BEA2422;1540.
 
 
 LaTeX Warning: There were undefined references.
@@ -435,13 +448,13 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 77.
  ) 
 Here is how much of TeX's memory you used:
- 7113 strings out of 493117
- 99911 string characters out of 6135433
- 200067 words of memory out of 5000000
- 10424 multiletter control sequences out of 15000+600000
+ 7116 strings out of 493117
+ 99958 string characters out of 6135433
+ 199067 words of memory out of 5000000
+ 10425 multiletter control sequences out of 15000+600000
  19848 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,7n,35p,1186b,494s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,7n,35p,1174b,494s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
 b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
@@ -460,10 +473,10 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/
 14/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
 4/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2014
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on root.pdf (10 pages, 317781 bytes).
+Output written on root.pdf (11 pages, 318926 bytes).
 PDF statistics:
- 243 PDF objects out of 1000 (max. 8388607)
- 206 compressed objects within 3 object streams
- 41 named destinations out of 1000 (max. 500000)
- 179 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 252 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 43 named destinations out of 1000 (max. 500000)
+ 187 words of extra memory for PDF output out of 10000 (max. 10000000)
 
