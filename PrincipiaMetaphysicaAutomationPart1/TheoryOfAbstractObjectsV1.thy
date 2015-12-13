@@ -147,7 +147,7 @@ section {* Embedding of Modal Relational Type Theory *}
  for all the other language constructs of modal relational type theory. 
  *}
 
-abbreviation \<A>::"io opt \<Rightarrow> io opt" where "\<A> \<phi> \<equiv> case \<phi> of 
+abbreviation actual ::"io opt \<Rightarrow> io opt" ("\<^bold>\<A>_" [70] 71) where "\<^bold>\<A>\<phi> \<equiv> case \<phi> of 
     F(\<psi>) \<Rightarrow> F(\<lambda>w. \<psi> cw) | P(\<psi>) \<Rightarrow> P(\<lambda>w. \<psi> cw) | _ \<Rightarrow> ERR(dio)"
 
  text {* The Principia Metaphysica distinguishes between encoding and exemplifying, ... say more ...
@@ -182,9 +182,9 @@ abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarr
  formulas, and their embeddings are straightforward.
  *}  
 
-abbreviation not::"io opt\<Rightarrow>io opt" (**) ("\<^bold>\<not> _" [58] 59)(**) where "\<^bold>\<not> \<phi> \<equiv> case \<phi> of 
+abbreviation not::"io opt\<Rightarrow>io opt" (**) ("\<^bold>\<not>_" [58] 59)(**) where "\<^bold>\<not>\<phi> \<equiv> case \<phi> of 
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<not>(\<psi> w)) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<not>(\<psi> w)) | _ \<Rightarrow> ERR(dio)"  
-abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<rightarrow>" 51)(**) where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> case (\<phi>,\<psi>) of 
+abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<rightarrow>" 51)(**) where "\<phi>\<^bold>\<rightarrow>\<psi> \<equiv> case (\<phi>,\<psi>) of 
     (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | _ \<Rightarrow> ERR(dio)"  
 
  text {* Also universal quantification @{text "\<^bold>\<forall>(\<lambda>x.\<phi>)"} (first-order and higher-order) is supported 
@@ -194,9 +194,9 @@ abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl
  introduce binder notation @{text "\<^bold>\<forall>x.\<phi>"} as syntactic sugar for @{text "\<^bold>\<forall>(\<lambda>x.\<phi>)"}.
  *}
 
-abbreviation forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (**)("\<^bold>\<forall>")(**) where "\<^bold>\<forall> \<Phi> \<equiv> case (\<Phi> da) of
+abbreviation forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (**)("\<^bold>\<forall>")(**) where "\<^bold>\<forall>\<Phi> \<equiv> case (\<Phi> da) of
     F(\<phi>) \<Rightarrow> F(\<lambda>w.\<forall>x. case (\<Phi> x) of F(\<psi>) \<Rightarrow> \<psi> w) | P(\<phi>) \<Rightarrow> P(\<lambda>w.\<forall>x. case (\<Phi> x) of P(\<psi>) \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR(dio)"
-abbreviation forallBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<forall>" [8] 9)  where "\<^bold>\<forall> x. \<phi> x \<equiv> \<^bold>\<forall> \<phi>"
+abbreviation forallBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<forall>" [8] 9)  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall> \<phi>"
 
 (*<*)
 lemma bla : "(\<^bold>\<forall>x. \<phi> x) = (\<^bold>\<forall>(\<lambda>x. \<phi> x))" by simp
@@ -227,7 +227,7 @@ abbreviation lam0::"io opt\<Rightarrow>io opt" (**)("\<^bold>\<lambda>\<^sup>0")
 
 abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (**)("\<^bold>\<lambda>")(**) where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x. case (\<Phi> x) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x. dio)"
-abbreviation lamBinder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda> x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
+abbreviation lamBinder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda>x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
 
 (*
 abbreviation lamtest::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (**)("lamm")(**) where "lamm \<Phi> \<equiv> case (\<Phi> de) of
@@ -252,9 +252,9 @@ abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarr
  reported (for dummy entity @{text "de"}). We again introduce binder notation.
  *}
  
-abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (**)("\<iota>")(**)  where "\<iota> \<Phi> \<equiv> case (\<Phi> de) of
+abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (**)("\<^bold>\<iota>")(**)  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> de) of
     P(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> cw) | _ \<Rightarrow> ERR(de)"
-abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<iota>" [8] 9)  where "\<iota> x. \<phi> x \<equiv> \<iota> \<phi>"
+abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
 
 
 section {* Further Logical Connectives *}
@@ -271,7 +271,7 @@ abbreviation equivalent::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(inf
 abbreviation diamond::"io opt\<Rightarrow>io opt" (**)("\<^bold>\<diamond> _" [62] 63)(**) where "\<^bold>\<diamond>\<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>\<phi>)"
 abbreviation exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (**)("\<^bold>\<exists>")(**) where "\<^bold>\<exists>\<Phi> \<equiv> case (\<Phi> da) of
     P \<phi> \<Rightarrow> P(\<lambda>w.\<exists>x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> w) | F \<phi> \<Rightarrow> F(\<lambda>w. \<exists>x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR dio" 
-abbreviation existsBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<exists>" [8] 9)  where "\<^bold>\<exists> x. \<phi> x \<equiv> \<^bold>\<exists> \<phi>"
+abbreviation existsBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<exists>" [8] 9)  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists> \<phi>"
 
 (* abbreviation true::"io opt" (**)("\<top>\<^sup>z")(**) where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
 (* abbreviation alse::"io opt" (**)("\<bottom>\<^sup>z")(**) where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
@@ -410,54 +410,24 @@ lemma  "[\<phi>\<^sup>F]\<^sup>s\<^sup>a\<^sup>t = \<top> \<longleftrightarrow> 
 
  text {* However, for terms we have *}
 
-lemma  "[\<phi>\<^sup>T] = *" apply simp done
-lemma  "[\<phi>\<^sup>T]\<^sup>s\<^sup>a\<^sup>t = *" apply simp done
-lemma  "[\<phi>\<^sup>T]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = *" apply simp done
-lemma  "[\<phi>\<^sup>T]\<^sup>i\<^sup>n\<^sup>v = *" apply simp done
+lemma  "[\<phi>\<^sup>T] = * \<and> [\<phi>\<^sup>T]\<^sup>s\<^sup>a\<^sup>t = * \<and> [\<phi>\<^sup>T]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = * \<and> [\<phi>\<^sup>T]\<^sup>i\<^sup>n\<^sup>v = *" apply simp done
 
  subsection {* Testing for the Correct Propagation of Syntactical Category Information *}
 
 lemma "\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>P \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>F) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>E)" apply simp done
 lemma "\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>F \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>P) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>E)" apply simp done
 
- text {* Most importantly, we have that the following language constructing is evaluated as erroneous at validity
- level. *}
+ text {* Most importantly, we have that the following formula is not eligible, that is,
+ it evaluates to error. 
+ *}
 
 lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr>] = *" apply simp done
 
  text {* This is also confirmed as follows in Isabelle: Isabelle simplifies the following expression
  to @{text "dio\<^sup>E = X"} (simply move the curse on @{text "simp"} to see this). *}
 
-
-
- text {* Todo: ... select, adapt, and explain some of examples below ... *}
-
 lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops
 
-lemma "\<exists>X. \<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = X\<^sup>P" apply simp done -- {* Solution: @{text "(\<lambda>w. True) = X"} *}
-lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr>] = \<top>" apply simp done
-
-lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = X\<^sup>P" apply simp oops
-lemma "(\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
-
-lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
-lemma "[(\<^bold>\<forall>R. \<^bold>\<forall>(\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>))] = \<top>" apply simp done
-lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>) = X" apply simp oops
-
-lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
-lemma "(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
-
-lemma "[(\<^bold>\<exists>x y. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>y\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
-
-
-lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = *" apply simp done
-lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = X" apply simp oops
-lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
-lemma "[(\<^bold>\<forall>R. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = *" apply simp done
-lemma "(\<^bold>\<forall>R. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
-
-lemma "[(\<^bold>\<forall>x. \<^bold>\<exists>(\<lambda>R. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>))] = \<top>" apply simp done
-lemma "[(\<^bold>\<exists>x. \<^bold>\<forall>(\<lambda>R. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>))] = \<top>" apply simp done
 
 
  subsection {* Are Priorities Defined Correctly? *}
@@ -507,7 +477,6 @@ lemma "[a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T] = \<top>" apply simp nitpick oops
 
 lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T] = \<top>" apply simp done
 
-lemma "[(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
 lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>\<^bold>\<lambda>x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T,a\<^sup>T\<rparr>] = \<top>" apply simp done
 
 lemma "[(\<^bold>\<exists>F. \<lbrace>a\<^sup>T,F\<^sup>T\<rbrace>)] = \<top>" apply simp by auto
@@ -535,14 +504,14 @@ text {* todo *}
 
 subsection {* Axioms of Actuality *}
 
-lemma a31_1_P: "[\<A>(\<^bold>\<not>\<phi>\<^sup>P) \<^bold>\<equiv> \<^bold>\<not>\<A>(\<phi>\<^sup>P)] = \<top>" apply simp done
-lemma a31_1_F: "[\<A>(\<^bold>\<not>\<phi>\<^sup>F) \<^bold>\<equiv> \<^bold>\<not>\<A>(\<phi>\<^sup>F)] = \<top>" apply simp done
-lemma a31_2_P: "[\<A>(\<phi>\<^sup>P \<^bold>\<rightarrow> \<psi>\<^sup>P) \<^bold>\<equiv> (\<A>(\<phi>\<^sup>P) \<^bold>\<rightarrow> \<A>(\<psi>\<^sup>P))] = \<top>" apply simp done
-lemma a31_2_F: "[\<A>(\<phi>\<^sup>F \<^bold>\<rightarrow> \<psi>\<^sup>F) \<^bold>\<equiv> (\<A>(\<phi>\<^sup>F) \<^bold>\<rightarrow> \<A>(\<psi>\<^sup>F))] = \<top>" apply simp done
-lemma a31_3_P: "[\<A>(\<^bold>\<forall>x. \<phi>\<^sup>P) \<^bold>\<equiv> (\<^bold>\<forall>x. \<A>(\<phi>\<^sup>P))] = \<top>" apply simp done
-lemma a31_3_F: "[(\<A>(\<^bold>\<forall>x. \<phi>\<^sup>F) \<^bold>\<equiv> (\<^bold>\<forall>x. \<A>(\<phi>\<^sup>F)))] = \<top>" apply simp done
-lemma a31_4_P: "[\<A>(\<phi>\<^sup>P) \<^bold>\<equiv> \<A>(\<A>(\<phi>\<^sup>P))] = \<top>" apply simp done
-lemma a31_4_F: "[\<A>(\<phi>\<^sup>F) \<^bold>\<equiv> \<A>(\<A>(\<phi>\<^sup>F))] = \<top>" apply simp done
+lemma a31_1_P: "[\<^bold>\<A>(\<^bold>\<not>\<phi>\<^sup>P) \<^bold>\<equiv> \<^bold>\<not>\<^bold>\<A>(\<phi>\<^sup>P)] = \<top>" apply simp done
+lemma a31_1_F: "[\<^bold>\<A>(\<^bold>\<not>\<phi>\<^sup>F) \<^bold>\<equiv> \<^bold>\<not>\<^bold>\<A>(\<phi>\<^sup>F)] = \<top>" apply simp done
+lemma a31_2_P: "[\<^bold>\<A>(\<phi>\<^sup>P \<^bold>\<rightarrow> \<psi>\<^sup>P) \<^bold>\<equiv> (\<^bold>\<A>(\<phi>\<^sup>P) \<^bold>\<rightarrow> \<^bold>\<A>(\<psi>\<^sup>P))] = \<top>" apply simp done
+lemma a31_2_F: "[\<^bold>\<A>(\<phi>\<^sup>F \<^bold>\<rightarrow> \<psi>\<^sup>F) \<^bold>\<equiv> (\<^bold>\<A>(\<phi>\<^sup>F) \<^bold>\<rightarrow> \<^bold>\<A>(\<psi>\<^sup>F))] = \<top>" apply simp done
+lemma a31_3_P: "[\<^bold>\<A>(\<^bold>\<forall>x. \<phi>\<^sup>P) \<^bold>\<equiv> (\<^bold>\<forall>x. \<^bold>\<A>(\<phi>\<^sup>P))] = \<top>" apply simp done
+lemma a31_3_F: "[(\<^bold>\<A>(\<^bold>\<forall>x. \<phi>\<^sup>F) \<^bold>\<equiv> (\<^bold>\<forall>x. \<^bold>\<A>(\<phi>\<^sup>F)))] = \<top>" apply simp done
+lemma a31_4_P: "[\<^bold>\<A>(\<phi>\<^sup>P) \<^bold>\<equiv> \<^bold>\<A>(\<^bold>\<A>(\<phi>\<^sup>P))] = \<top>" apply simp done
+lemma a31_4_F: "[\<^bold>\<A>(\<phi>\<^sup>F) \<^bold>\<equiv> \<^bold>\<A>(\<^bold>\<A>(\<phi>\<^sup>F))] = \<top>" apply simp done
 
 subsection {* Axioms of Necessity *}
 
@@ -567,10 +536,10 @@ lemma "[\<^bold>\<diamond>(\<^bold>\<exists>x. \<lparr>E\<^sup>T,x\<^sup>T\<rpar
 
 subsection {* Axioms of Necessity and Actuality *}
 
-lemma a33_1_P: "[\<A>(\<phi>\<^sup>P) \<^bold>\<rightarrow> \<^bold>\<box>\<A>(\<phi>\<^sup>P)] = \<top>" apply simp done
-lemma a33_1_F: "[\<A>(\<phi>\<^sup>F) \<^bold>\<rightarrow> \<^bold>\<box>\<A>(\<phi>\<^sup>F)] = \<top>" apply simp done
-lemma a33_2_P: "[\<^bold>\<box>\<phi>\<^sup>P \<^bold>\<equiv> \<A>(\<^bold>\<box>\<phi>\<^sup>P)] = \<top>" apply simp done
-lemma a33_2_F: "[\<^bold>\<box>\<phi>\<^sup>F \<^bold>\<equiv> \<A>(\<^bold>\<box>\<phi>\<^sup>F)] = \<top>" apply simp done
+lemma a33_1_P: "[\<^bold>\<A>(\<phi>\<^sup>P) \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<A>(\<phi>\<^sup>P)] = \<top>" apply simp done
+lemma a33_1_F: "[\<^bold>\<A>(\<phi>\<^sup>F) \<^bold>\<rightarrow> \<^bold>\<box>\<^bold>\<A>(\<phi>\<^sup>F)] = \<top>" apply simp done
+lemma a33_2_P: "[\<^bold>\<box>\<phi>\<^sup>P \<^bold>\<equiv> \<^bold>\<A>(\<^bold>\<box>\<phi>\<^sup>P)] = \<top>" apply simp done
+lemma a33_2_F: "[\<^bold>\<box>\<phi>\<^sup>F \<^bold>\<equiv> \<^bold>\<A>(\<^bold>\<box>\<phi>\<^sup>F)] = \<top>" apply simp done
 
 
 subsection {* Axioms for Descriptions *}
@@ -579,8 +548,43 @@ subsection {* Axioms for Descriptions *}
  formulas result in errors, check carefully again definition of equality and description ... *}
 
 
-lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<iota> x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)) \<^bold>\<equiv> (\<^bold>\<forall> z. (\<A>\<lparr>R\<^sup>T,z\<^sup>T\<rparr> \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = *" apply simp done
-lemma a34_Inst_2: "[(x\<^sup>T \<^bold>= (\<iota> x. (\<phi>(x))\<^sup>T)) \<^bold>\<equiv> (\<^bold>\<forall> z. (\<A>((\<phi>(z))\<^sup>T) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = *" apply simp done
+lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lparr>R\<^sup>T,x\<^sup>T\<rparr>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>\<lparr>R\<^sup>T,z\<^sup>T\<rparr> \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = *" apply simp done
+lemma a34_Inst_2: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x. (\<phi>(x))\<^sup>T)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>((\<phi>(z))\<^sup>T) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = *" apply simp done
+
+
+
+ text {* Appendix:  ... various tests ... *}
+
+
+lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = X\<^sup>P" apply simp oops -- {* Solution: @{text "(\<lambda>w. True) = X"} *}
+lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr>] = \<top>" apply simp done
+
+lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,a\<^sup>T\<rparr> = X\<^sup>P" apply simp oops
+lemma "(\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+
+lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
+lemma "[(\<^bold>\<forall>R. \<^bold>\<forall>(\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>))] = \<top>" apply simp done
+lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>) = X" apply simp oops
+
+lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
+lemma "(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+
+lemma "[(\<^bold>\<exists>x y. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>y\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
+
+
+lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = *" apply simp done
+lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = X" apply simp oops
+lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+lemma "[(\<^bold>\<forall>R. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = *" apply simp done
+lemma "(\<^bold>\<forall>R. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+
+lemma "[(\<^bold>\<forall>x. \<^bold>\<exists>(\<lambda>R. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>))] = \<top>" apply simp done
+lemma "[(\<^bold>\<exists>x. \<^bold>\<forall>(\<lambda>R. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>))] = \<top>" apply simp done
+
+
+
+
+
 
 (*
 lemma a34_Inst_test1: "(x\<^sup>T \<^bold>= (\<iota> x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)) = X" apply simp oops
