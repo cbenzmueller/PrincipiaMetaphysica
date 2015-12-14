@@ -31,21 +31,24 @@ section {* Introduction *}
 
   The motivating research questions for the work presented below include:
   \begin{itemize} 
-  \item Can functional type theory, despite the problems as pointed by Zalta and Oppenheimer, 
+  \item Can functional type theory, despite the problems pointed at by Zalta and Oppenheimer, 
    be utilized to encode the Theory of Abstract Objects when following the embeddings approach?
-  \item How elegant and user-friendly is the resulting formalization? In other
-   words, to what extend can Isabelle's  user interface be facilitated to hide 
+  \item How elegant and user-friendly is the resulting formalization? 
+   To what extend can Isabelle's  user interface be facilitated to hide 
    unpleasant technicalities of the (extended) embedding from the user?
   \item How far can automation be pushed in the approach? How much user interaction can
    be avoided in the formalization of the (first part) of the Principia Metaphysica? 
   \item Can the consistency of the theory be validated with the available automated 
    reasoning tools?
   \item Can the reasoners eventually even contribute some new knowledge? 
+  \item Suggestions for improvements in Isabelle? Any particular problems detected in the course 
+  of the study?
   \ldots
   \end{itemize}
   *}
 
-  text {* The encoding of modal functional type theory in functional type theory as explored in 
+  text {* 
+  The encoding of modal functional type theory in functional type theory as explored in 
   previous work \cite{J23,C40} is simple: modal logic formulas are identified with certain functional 
   type theory formulas of predicate type @{text "i\<Rightarrow>bool"} (abbreviated as @{text "io"} below). 
   Possible worlds are explicitly represented by 
@@ -62,7 +65,7 @@ section {* Introduction *}
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
   \caption{Grammar of Modal Relational Type Theory. \label{mmrt}
   Note that two kinds of (complex) formulas are introduced: ones that may have encoding subformulas and 
-  ones that don’t. The latter are designated as propositional formulas, the former ones simply as formulas. }
+  ones that do not. The latter are designated as propositional formulas, the former ones simply as formulas. }
   \end{figure}
 
   To achieve this  we provide means to explicitly represents and maintain information and constraints on the 
@@ -102,8 +105,8 @@ section {* Preliminaries *}
   (identifies propositional formulas), @{text "F 'a"} (identifies  formulas), and @{text "T 'a"} (identifies 
   terms, such as lambda abstractions). The embeddings approach will be suitably adapted below so that 
   for each language expression (in the embedded modal relational type theory) the respective datatype 
-  is identified and appropriately propagated. The encapsulated expressions (the polymorphic type @{text "'a"} 
-  will be instantiated below) realize the actual modeling of the logic embedding analogous 
+  is identified and appropriately propagated. The encapsulated expressions  
+  realize the actual modeling of the logic embedding analogous 
   to previous work for modal functional type theory.  
   *}
 
@@ -118,7 +121,7 @@ section {* Preliminaries *}
  abbreviation mkT::"'a\<Rightarrow>'a opt" ("_\<^sup>T" [109] 110)  where "\<phi>\<^sup>T \<equiv> T \<phi>"
  abbreviation mkE::"'a\<Rightarrow>'a opt" ("_\<^sup>E" [109] 110)  where "\<phi>\<^sup>E \<equiv> ERR \<phi>" 
 
-  text {* Some language constructs in the theory of abstract types, e.g. the actuality operator  
+  text {* Some language constructs in the Principia Metaphysica, e.g. the actuality operator  
   @{text "\<^bold>\<A>"} ("it is actually the case that"), refer to a (fixed) given world. To model such a 
   global world reference we introduce a
   constant symbol (name) @{text "cw"} of world type @{text "i"}. Moreover, for technical reasons, 
@@ -157,38 +160,41 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
 
- abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" (**)("\<lbrace>_,_\<rbrace>")(**) where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
+ abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
     (T(y),T(Q)) \<Rightarrow> F(\<lambda>w.(Q y) w) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Exemplifying formulas @{text "\<Pi>\<^sup>1\<kappa>\<^sub>1"} are noted here as @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}.  
-  Exemplification yields propositional formulas and never formulas. In the embedding exemplification 
+  Exemplification yields propositional formulas. In the embedding exemplification 
   is identified with predicate application, just as encoding.
   *}
 
- abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" (**)("\<lparr>_,_\<rparr>")(**) where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
+ abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
     (T(Q),T(y)) \<Rightarrow> P(\<lambda>w.(Q y) w) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
-  The Principia Metaphysica supports $n$-ary exemplification constructions. For pragmatical 
-  reasons we consider here the cases only for $n\leq 3$.
+  The Principia Metaphysica supports @{text "n"}-ary exemplification constructions. For pragmatical 
+  reasons we consider here the cases only for @{text "n\<le>3"}.
   *}  
 
- abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" (**)("\<lparr>_,_,_\<rparr>")(**) 
+ abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
   where "\<lparr>\<Phi>,x1,x2\<rparr> \<equiv> case (\<Phi>,x1,x2) of 
     (T(Q),T(y1),T(y2)) \<Rightarrow> P(\<lambda>w.(Q y1 y2) w) | _ \<Rightarrow> ERR(dio)"
- abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" (**)("\<lparr>_,_,_,_\<rparr>") (**) 
+ abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
   where "\<lparr>\<Phi>,x1,x2,x3\<rparr> \<equiv> case (\<Phi>,x1,x2,x3) of 
     (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(\<lambda>w.(Q y1 y2 y3) w) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
-  Formations with negation and implication are supported for both, formulas  and propositional
-  formulas, and their embeddings are straightforward.
+  Formations with negation and implication are supported for both, formulas and propositional
+  formulas, and their embeddings are straightforward. In the case of implication the compound formula
+  is a propositional formula only of both subformulas are propositional formulas. If at one is a formula
+  and the other one a (propositional) formula, then the compound formula is a formula. In all other
+  cases an ERR-Formula is returned. 
   *}  
 
- abbreviation not::"io opt\<Rightarrow>io opt" (**) ("\<^bold>\<not> _" [58] 59)(**) where "\<^bold>\<not> \<phi> \<equiv> case \<phi> of 
+ abbreviation not::"io opt\<Rightarrow>io opt" ("\<^bold>\<not> _" [58] 59) where "\<^bold>\<not> \<phi> \<equiv> case \<phi> of 
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<not>(\<psi> w)) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<not>(\<psi> w)) | _ \<Rightarrow> ERR(dio)"  
- abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<rightarrow>" 51)(**) where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> case (\<phi>,\<psi>) of 
+ abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<rightarrow>" 51) where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | 
     (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | 
     _ \<Rightarrow> ERR(dio)"  
@@ -201,10 +207,10 @@ section {* Embedding of Modal Relational Type Theory *}
   introduce binder notation @{text "\<^bold>\<forall>x.\<phi>"} as syntactic sugar for @{text "\<^bold>\<forall>(\<lambda>x.\<phi>)"}.
   *}
 
- abbreviation forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (**)("\<^bold>\<forall>")(**) where "\<^bold>\<forall>\<Phi> \<equiv> case (\<Phi> da) of
+ abbreviation forall::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" ("\<^bold>\<forall>") where "\<^bold>\<forall>\<Phi> \<equiv> case (\<Phi> da) of
     F(\<phi>) \<Rightarrow> F(\<lambda>w.\<forall>x. case (\<Phi> x) of F(\<psi>) \<Rightarrow> \<psi> w) 
   | P(\<phi>) \<Rightarrow> P(\<lambda>w.\<forall>x. case (\<Phi> x) of P(\<psi>) \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR(dio)"
- abbreviation forallBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<forall>" [8] 9)  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall> \<phi>"
+ abbreviation forallBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<forall>" [8] 9)  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall>\<phi>"
 
  (*<*)
  lemma bla : "(\<^bold>\<forall>x. \<phi> x) = (\<^bold>\<forall>(\<lambda>x. \<phi> x))" by simp
@@ -215,47 +221,48 @@ section {* Embedding of Modal Relational Type Theory *}
   of possible worlds each world is reachable from any other world, the guarding accessibility clause
   in the usual definition of the @{text "\<^bold>\<box>"} operator can be omitted. This is convenient and should also
   ease theorem proving. In Section \ref{sec:S5} we will actually demonstrate that the expected S5 properties
-  are validated by our modeling of @{text "\<^bold>\<box>"}.
+  are validated by our modeling of @{text "\<^bold>\<box>"}.  @{text "\<^bold>\<box>\<phi>"} is supported 
+  for formulas  and propositional formulas.
   *}
 
- abbreviation box::"io opt\<Rightarrow>io opt" (**)("\<^bold>\<box>_" [62] 63)(**) where "\<^bold>\<box>\<phi> \<equiv> case \<phi> of 
+ abbreviation box::"io opt\<Rightarrow>io opt" ("\<^bold>\<box>_" [62] 63) where "\<^bold>\<box>\<phi> \<equiv> case \<phi> of 
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<forall>v. \<psi> v) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<forall>v. \<psi> v) | _ \<Rightarrow> ERR(dio)"  
 
   text {* 
   n-ary lambda abstraction @{text "\<^bold>\<lambda>\<^sup>0,\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2\<^sup>,\<^bold>\<lambda>\<^sup>3,..."}, for $n\geq 0$, is supported in the Principia
-  Metaphysica only for propositional formulas. ... say more about @{text "\<^bold>\<lambda>\<^sup>0"} ... Their embedding is 
+  Metaphysica only over propositional formulas. ... say more about @{text "\<^bold>\<lambda>\<^sup>0"} ... Their embedding is 
   straightforward: @{text "\<^bold>\<lambda>\<^sup>0"} is mapped to identity and @{text "\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2,\<^bold>\<lambda>\<^sup>3,..."} are mapped to n-ary
   lambda abstractions, that is, @{text "\<^bold>\<lambda>(\<lambda>x.\<phi>)"} is mapped to @{text "(\<lambda>x.\<phi>)"} and @{text "\<^bold>\<lambda>\<^sup>2(\<lambda>xy.\<phi>)"} 
-  to @{text "(\<lambda>xy.\<phi>)"}.
-  For pragmatical reasons we restrict ourselves here to the cases where $n\leq 0$. Binder notation is
-  introduced for @{text "\<^bold>\<lambda>"} (... unfortuntaley, I don't know yet how this can be achieved as well 
-  for @{text "\<^bold>\<lambda>\<^sup>2,\<^bold>\<lambda>\<^sup>3,..."} ...)
+  to @{text "(\<lambda>xy.\<phi>)"}, etc.
+  For pragmatical reasons we restrict ourselves here to the cases where $n\leq 3$. Binder notation is
+  introduced for @{text "\<^bold>\<lambda>"} (... unfortuntaley, I don't know yet how binder notation can be 
+  achieved also for @{text "\<^bold>\<lambda>\<^sup>2,\<^bold>\<lambda>\<^sup>3,..."} ... need to find out.). 
   *}
 
- abbreviation lam0::"io opt\<Rightarrow>io opt" (**)("\<^bold>\<lambda>\<^sup>0")(**) where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
+ abbreviation lam0::"io opt\<Rightarrow>io opt" ("\<^bold>\<lambda>\<^sup>0") where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> P(\<psi>) | _ \<Rightarrow> ERR dio"  
 
- abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (**)("\<^bold>\<lambda>")(**) where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
+ abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" ("\<^bold>\<lambda>") where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x. case (\<Phi> x) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x. dio)"
  abbreviation lamBinder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda>x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
 
- abbreviation lam2::"(e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt" (**)("\<^bold>\<lambda>\<^sup>2")(**) where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> de de) of
+ abbreviation lam2::"(e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>2") where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> de de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x y. case (\<Phi> x y) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y. dio)"
 
- abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt" (**)("\<^bold>\<lambda>\<^sup>3")(**) where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> de de de) of
+ abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>3") where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> de de de) of
     P(\<phi>) \<Rightarrow> T(\<lambda>x y z. case (\<Phi> x y z) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y z. dio)"
 
 
   text {* 
   The Principia Metaphysica supports rigid definite descriptions. Our definition maps
-  @{text "\<^bold>\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> cw)"}, that is Isabelle's inbuilt description operator THE 
+  @{text "\<^bold>\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> cw)"}, that is Isabelle's inbuilt definite description operator THE 
   is utilized and evaluation is rigidly carried out with respect to the current world @{text "cw"}.
-  Moreover, application of that is allowed only if the body of @{text "\<Phi>"}, computed by clause 
-  @{text "(\<Phi> de)"}, is a propositional formula. In this case a term is returned and otherwise error 
-  reported (for dummy entity @{text "de"}). We again introduce binder notation.
+  Moreover, application of @{text "\<^bold>\<iota>"} to @{text "\<^bold>\<Phi>"} is allowed only if the body of @{text "\<Phi>"}, 
+  computed by clause @{text "(\<Phi> de)"}, is a propositional formula. In this case a term is returned 
+  and otherwise an ERR-term is returned. We again introduce binder notation for @{text "\<^bold>\<iota>"}.
   *}
  
- abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (**)("\<^bold>\<iota>")(**)  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> de) of
+ abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" ("\<^bold>\<iota>")  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> de) of
     F(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> cw) | P(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> cw) | _ \<Rightarrow> ERR(de)"
  abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
 
@@ -271,17 +278,17 @@ section {* Further Logical Connectives *}
   to prefer native introductions for all connectives. 
   *}
 
- abbreviation conj::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<and>" 53)(**) where "\<phi>\<^bold>\<and>\<psi> \<equiv> \<^bold>\<not>(\<phi>\<^bold>\<rightarrow>\<^bold>\<not>\<psi>)"
- abbreviation or::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<or>" 52)(**) where "\<phi>\<^bold>\<or>\<psi> \<equiv> \<^bold>\<not>\<phi>\<^bold>\<rightarrow>\<psi>"
- abbreviation equivalent::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>\<equiv>" 51)(**) where "\<phi>\<^bold>\<equiv>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"
- abbreviation diamond::"io opt\<Rightarrow>io opt" (**)("\<^bold>\<diamond> _" [62] 63)(**) where "\<^bold>\<diamond>\<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>\<phi>)"
- abbreviation exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (**)("\<^bold>\<exists>")(**) where "\<^bold>\<exists>\<Phi> \<equiv> case (\<Phi> da) of
+ abbreviation conj::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<and>" 53) where "\<phi>\<^bold>\<and>\<psi> \<equiv> \<^bold>\<not>(\<phi>\<^bold>\<rightarrow>\<^bold>\<not>\<psi>)"
+ abbreviation or::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<or>" 52) where "\<phi>\<^bold>\<or>\<psi> \<equiv> \<^bold>\<not>\<phi>\<^bold>\<rightarrow>\<psi>"
+ abbreviation equivalent::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<equiv>" 51) where "\<phi>\<^bold>\<equiv>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"
+ abbreviation diamond::"io opt\<Rightarrow>io opt" ("\<^bold>\<diamond> _" [62] 63) where "\<^bold>\<diamond>\<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>\<phi>)"
+ abbreviation exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" ("\<^bold>\<exists>") where "\<^bold>\<exists>\<Phi> \<equiv> case (\<Phi> da) of
     P \<phi> \<Rightarrow> P(\<lambda>w.\<exists>x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> w) 
   | F \<phi> \<Rightarrow> F(\<lambda>w. \<exists>x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR dio" 
  abbreviation existsBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<exists>" [8] 9)  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists>\<phi>"
 
- (* abbreviation true::"io opt" (**)("\<top>\<^sup>z")(**) where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
- (* abbreviation alse::"io opt" (**)("\<bottom>\<^sup>z")(**) where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
+ (* abbreviation true::"io opt" ("\<top>\<^sup>z") where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
+ (* abbreviation alse::"io opt" ("\<bottom>\<^sup>z") where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
 
 
 section {* Meta-Logic*}
@@ -290,24 +297,24 @@ section {* Meta-Logic*}
   Our approach to rigorously distinguish between proper and improper language constructions 
   and to explicitly maintain respective information is continued also at meta-level. For this 
   we introduce three truth values @{text "tt"},
-  @{text "ff"} and @{text "err"}, representing truth, falsity and error. These values can also 
-  be noted as @{text "\<top>"}, @{text "\<bottom>"} and @{text "*"}. We could, of course, also introduce  
-  respective logical connectives for the meta-level, but in our applications so far (see below)
+  @{text "ff"} and @{text "err"}, representing truth, falsity and error. These values aro also 
+  noted as @{text "\<top>"}, @{text "\<bottom>"} and @{text "*"}. We could, of course, also introduce  
+  respective logical connectives for the meta-level, but in our applications (see below)
   this was not yet relevant.
   *}
 
  datatype mf = tt ("\<top>") | ff ("\<bottom>") | err ("*")
 
  (*
- abbreviation meta_not::"mf \<Rightarrow> mf" (**)("\<not>\<^sup>m")(**) where "\<not>\<^sup>m \<phi>  \<equiv> case \<phi> of 
+ abbreviation meta_not::"mf \<Rightarrow> mf" ("\<not>\<^sup>m") where "\<not>\<^sup>m \<phi>  \<equiv> case \<phi> of 
     error \<Rightarrow> error | tt \<Rightarrow> ff | ff \<Rightarrow> tt"  
- abbreviation meta_implies::"mf \<Rightarrow> mf \<Rightarrow>mf" (**)(infixr "\<longrightarrow>\<^sup>m" 51)(**) where "\<phi> \<longrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
+ abbreviation meta_implies::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixr "\<longrightarrow>\<^sup>m" 51) where "\<phi> \<longrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,ff) \<Rightarrow> ff | _ \<Rightarrow> tt"  
- abbreviation meta_or::"mf \<Rightarrow> mf \<Rightarrow>mf" (**)(infixl "\<or>\<^sup>m" 51)(**) where "\<phi> \<or>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
+ abbreviation meta_or::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<or>\<^sup>m" 51) where "\<phi> \<or>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (ff,ff) \<Rightarrow> ff | _ \<Rightarrow> tt"  
- abbreviation meta_and::"mf \<Rightarrow> mf \<Rightarrow>mf" (**)(infixl "\<and>\<^sup>m" 51)(**) where "\<phi> \<and>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
+ abbreviation meta_and::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<and>\<^sup>m" 51) where "\<phi> \<and>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,tt) \<Rightarrow> tt | _ \<Rightarrow> ff"  
- abbreviation meta_equiv::"mf \<Rightarrow> mf \<Rightarrow>mf" (**)(infixl "\<longleftrightarrow>\<^sup>m" 51)(**) where "\<phi> \<longleftrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
+ abbreviation meta_equiv::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<longleftrightarrow>\<^sup>m" 51) where "\<phi> \<longleftrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,tt) \<Rightarrow> tt | (ff,ff) \<Rightarrow> tt | _ \<Rightarrow> ff"  
  *)
 
@@ -316,20 +323,21 @@ section {* Meta-Logic*}
   countersatisfiability and invalidity for our embedded modal relational type theory. To support
   concise formula representations in the remainder we introduce the following notations: @{text "[\<phi>]"} 
   (for @{text "\<phi>"} is valid), @{text "[\<phi>]\<^sup>s\<^sup>a\<^sup>t "} (@{text "\<phi>"} is satisfiability), @{text "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t"} 
-  (@{text "\<phi>"} is countersatisfiability) and @{text "[\<phi>]\<^sup>i\<^sup>n\<^sup>v"} (@{text "\<phi>"} is invalid).
+  (@{text "\<phi>"} is countersatisfiability) and @{text "[\<phi>]\<^sup>i\<^sup>n\<^sup>v"} (@{text "\<phi>"} is invalid). Actually, so far 
+  we only use validity.
   *}
 
  (*<*) no_syntax "_list" :: "args \<Rightarrow> 'a list" ("[(_)]") (*>*) 
- abbreviation valid :: "io opt\<Rightarrow>mf" (**)("[_]" [1])(**) where "[\<phi>] \<equiv> case \<phi> of 
+ abbreviation valid :: "io opt\<Rightarrow>mf" ("[_]" [1]) where "[\<phi>] \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> if \<forall>w.(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> 
   | F(\<psi>) \<Rightarrow> if \<forall>w.(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> | _ \<Rightarrow> *"
- abbreviation satisfiable :: "io opt\<Rightarrow>mf" (**)("[_]\<^sup>s\<^sup>a\<^sup>t" [1])(**) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
+ abbreviation satisfiable :: "io opt\<Rightarrow>mf" ("[_]\<^sup>s\<^sup>a\<^sup>t" [1]) where "[\<phi>]\<^sup>s\<^sup>a\<^sup>t \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> if \<exists>w.(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> 
   | F(\<psi>) \<Rightarrow> if \<exists>w.(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> | _ \<Rightarrow> *"
- abbreviation countersatisfiable :: "io opt\<Rightarrow>mf" (**)("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" [1])(**) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
+ abbreviation countersatisfiable :: "io opt\<Rightarrow>mf" ("[_]\<^sup>c\<^sup>s\<^sup>a\<^sup>t" [1]) where "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t \<equiv>  case \<phi> of 
     P(\<psi>) \<Rightarrow> if \<exists>w.\<not>(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> 
   | F(\<psi>) \<Rightarrow> if \<exists>w.\<not>(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> | _ \<Rightarrow> *"
- abbreviation invalid :: "io opt\<Rightarrow>mf" (**)("[_]\<^sup>i\<^sup>n\<^sup>v" [1])(**) where "[\<phi>]\<^sup>i\<^sup>n\<^sup>v \<equiv> case \<phi> of 
+ abbreviation invalid :: "io opt\<Rightarrow>mf" ("[_]\<^sup>i\<^sup>n\<^sup>v" [1]) where "[\<phi>]\<^sup>i\<^sup>n\<^sup>v \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> if \<forall>w.\<not>(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> 
   | F(\<psi>) \<Rightarrow> if \<forall>w.\<not>(\<psi> w) \<longleftrightarrow> True then \<top> else \<bottom> | _ \<Rightarrow> *"
 
@@ -338,8 +346,8 @@ section {* Some Basic Tests *}
 
   text {* 
   Question: What are the next two lemmata expected to return? So far they return truth. If that should
-  be disabled (in the definition of implication), the  we might run into a problem with the definition 
-  of @{text "x \<^bold>=\<^sub>E y"} below. Discuss. 
+  be disabled (I guess that should then happen in the definition of implication), then we might run 
+  into a problem with the definition of @{text "x \<^bold>=\<^sub>E y"} below. Discuss. 
   *}
 
  lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
@@ -347,7 +355,7 @@ section {* Some Basic Tests *}
 
  subsection {* Verifying Necessitation *}
 
-  text {* The next two lemmata show that necessitation holds for arbitrary formulas 
+  text {* The next two lemmata show that neccessitation holds for arbitrary formulas 
   and arbitrary propositional formulas. We present the lemma in both variants. 
   *}
  
@@ -376,9 +384,10 @@ section {* Some Basic Tests *}
 
   text {* 
   @{text "\<box>"} could have been modeled by employing an equivalence relation @{text "r"} in a 
-  guarding clause. This has been done in previous work. In a simpler, alternative approach we omit 
-  this clause here (since all worlds are reachable from any world in an equivalence relation). The 
-  following lemmata, which check various conditions for S5,  ensure that we have indeed 
+  guarding clause. This has been done in previous work. Our alternative, simpler definition of 
+  @{text "\<box>"} above omits
+  this clause (since all worlds are reachable from any world in an equivalence relation). The 
+  following lemmata, which check various conditions for S5, confirm that we have indeed 
   obtain a correct modeling of S5.
   *}
 
@@ -426,7 +435,7 @@ section {* Some Basic Tests *}
  lemma  "[\<phi>\<^sup>T]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = *" apply simp done
  lemma  "[\<phi>\<^sup>T]\<^sup>i\<^sup>n\<^sup>v = *" apply simp done
 
- subsection {* Testing for the Correct Propagation of Syntactical Category Information *}
+ subsection {* Testing the Propagation of Syntactical Category Information *}
 
  lemma "\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>P \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>F) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>E)" apply simp done
  lemma "\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>F \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>P) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>E)" apply simp done
@@ -443,6 +452,7 @@ section {* Some Basic Tests *}
   to @{text "dio\<^sup>E = X"} (simply move the curse on @{text "simp"} to see this). 
   *}
 
+ lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops     -- {* X is @{text "dio\<^sup>E"} *}
 
  subsection {* Are Priorities Defined Correctly? *}
 
@@ -465,7 +475,7 @@ section {* E!, O!, A! and =E *}
   Being ordinary is defined as being possibly concrete. 
   *}
 
- abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" (**)("O!")(**) where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
+ abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
 
  lemma "O! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. Ex (E x))\<^sup>T"} *}
 
@@ -473,7 +483,7 @@ section {* E!, O!, A! and =E *}
   Being abstract is is defined as not possibly being concrete. 
   *}
 
- abbreviation abstractObject::"(e\<Rightarrow>io) opt" (**)("A!")(**) where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
+ abbreviation abstractObject::"(e\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
 
  lemma "A! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. \<forall>xa. \<not> E x xa)\<^sup>T"} *}
 
@@ -482,7 +492,7 @@ section {* E!, O!, A! and =E *}
   Identity relations @{text "\<^bold>=\<^sub>E"} and @{text "\<^bold>="} are introduced. 
   *}
 
- abbreviation identityE::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (**)(infixl "\<^bold>=\<^sub>E" 63)(**) where "x \<^bold>=\<^sub>E y \<equiv> 
+ abbreviation identityE::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sub>E" 63) where "x \<^bold>=\<^sub>E y \<equiv> 
     \<lparr>O!,x\<rparr> \<^bold>\<and> \<lparr>O!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,y\<rparr>)"
 
  lemma "a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T = X" apply simp oops      -- {* X is "@{text "(\<lambda>w. \<exists>x. E a x)\<^sup>P"} *}
@@ -490,7 +500,7 @@ section {* E!, O!, A! and =E *}
 
  subsection {* Identity on Individuals *}
 
- abbreviation identityI::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (**)(infixl "\<^bold>=" 63)(**) where "x \<^bold>= y \<equiv> 
+ abbreviation identityI::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=" 63) where "x \<^bold>= y \<equiv> 
     x \<^bold>=\<^sub>E y \<^bold>\<or> (\<lparr>A!,x\<rparr> \<^bold>\<and> \<lparr>A!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lbrace>y,F\<^sup>T\<rbrace>))"
 
 
@@ -509,14 +519,14 @@ section {* E!, O!, A! and =E *}
 
  subsection {* Identitiy on Relations *}
 
- abbreviation identityRel1::" ((e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>io) opt)\<Rightarrow>io opt" (**)(infixl "\<^bold>=\<^sup>1" 63)(**) 
+ abbreviation identityRel1::" ((e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>1" 63) 
    where "F1 \<^bold>=\<^sup>1 G1 \<equiv> \<^bold>\<box>(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,F1\<rbrace> \<^bold>\<equiv> \<lbrace>x\<^sup>T,G1\<rbrace>)"
 
- abbreviation identityRel2::" ((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (**)(infixl "\<^bold>=\<^sup>2" 63)(**) 
+ abbreviation identityRel2::" ((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>2" 63) 
    where "F2 \<^bold>=\<^sup>2 G2 \<equiv> \<^bold>\<forall>x1.(  (\<^bold>\<lambda>y.\<lparr>F2,y\<^sup>T,x1\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,y\<^sup>T,x1\<^sup>T\<rparr>)
                           \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F2,x1\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,x1\<^sup>T,y\<^sup>T\<rparr>))"
 
- abbreviation identityRel3::" ((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (**)(infixl "\<^bold>=\<^sup>3" 63)(**) 
+ abbreviation identityRel3::" ((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>3" 63) 
    where "F3 \<^bold>=\<^sup>3 G3 \<equiv> \<^bold>\<forall>x1 x2.(  (\<^bold>\<lambda>y.\<lparr>F3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>)
                              \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>)
                              \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>))"
@@ -528,7 +538,7 @@ section {* E!, O!, A! and =E *}
  lemma "\<lparr>F1\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>G1\<^sup>T,x\<^sup>T\<rparr> = X" apply simp oops -- {* X is @{text "(...)\<^sup>P"} *}   
  lemma "(\<^bold>\<lambda>y.\<lparr>F2\<^sup>T,y\<^sup>T,x1\<^sup>T\<rparr>)= X" apply simp oops -- {* X is @{text "(...)\<^sup>T"} *}  
 
- abbreviation equalityRel0::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (**)(infixl "\<^bold>=\<^sup>0" 63)(**) 
+ abbreviation equalityRel0::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>0" 63) 
    where "F0 \<^bold>=\<^sup>0 G0 \<equiv> (\<^bold>\<lambda>y . F0) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. G0)"
 
  lemma "F1\<^sup>T \<^bold>=\<^sup>1 G1\<^sup>T = X" apply simp oops -- {* X is @{text "(\<lambda>w. \<forall>w x. (F1 x w \<longrightarrow> G1 x w) \<and> (G1 x w \<longrightarrow> F1 x w))\<^sup>F"} *}
