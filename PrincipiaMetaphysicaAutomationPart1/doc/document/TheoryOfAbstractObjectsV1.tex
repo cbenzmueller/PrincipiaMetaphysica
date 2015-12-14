@@ -156,7 +156,7 @@ Some language constructs in the Principia Metaphysica, e.g. the actuality operat
 \ \isacommand{consts}\isamarkupfalse%
 \ cw\ {\isacharcolon}{\isacharcolon}\ i\ \isanewline
 \ \isacommand{consts}\isamarkupfalse%
-\ de{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isachardoublequoteclose}\ dio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io{\isachardoublequoteclose}\ da{\isacharcolon}{\isacharcolon}{\isacharprime}a%
+\ de{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isachardoublequoteclose}\ dio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io{\isachardoublequoteclose}\ deio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isasymRightarrow}io{\isachardoublequoteclose}\ da{\isacharcolon}{\isacharcolon}{\isacharprime}a%
 \isamarkupsection{Embedding of Modal Relational Type Theory%
 }
 \isamarkuptrue%
@@ -181,38 +181,53 @@ The actuality operator \isa{\isactrlbold {\isasymA}} when applied to a formula o
 \ Actual{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io\ opt\ {\isasymRightarrow}\ io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymA}\ {\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{6}}{\isadigit{4}}{\isacharbrackright}\ {\isadigit{6}}{\isadigit{5}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymA}{\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ \isanewline
 \ \ \ \ F{\isacharparenleft}{\isasympsi}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasympsi}\ cw{\isacharparenright}\ {\isacharbar}\ P{\isacharparenleft}{\isasympsi}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasympsi}\ cw{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-The Principia Metaphysica distinguishes between encoding and exemplifying, ... say more ...
+The Principia Metaphysica distinguishes between encoding \isa{{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymPi}\isactrlsup {\isadigit{1}}} and 
+  exemplifying  \isa{{\isasymPi}\isactrlsup n{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isachardot}{\isachardot}{\isacharcomma}{\isasymkappa}\isactrlsub n}. ... say more ...
+  Exemplification is supported here only for  \isa{{\isadigit{1}}{\isasymle}n{\isasymle}{\isadigit{3}}}.
 
-  Encoding \isa{{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymPi}\isactrlsup {\isadigit{1}}} is noted here as \isa{{\isasymlbrace}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymrbrace}}. 
-  Encoding yields formulas and never propositional formulas. In the embedding encoding 
-  is identified with predicate application.%
+  First we introduce the following primitive constants. These basic primitives are employed 
+  below in the definition of our type-raised (to \isa{{\isacharprime}a\ opt}-types) operations  
+  \isa{{\isasymlbrace}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymrbrace}} (for encoding) and  \isa{{\isasymlparr}{\isasymPi}\isactrlsup {\isadigit{1}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymrparr}}, \isa{{\isasymlparr}{\isasymPi}\isactrlsup {\isadigit{2}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{2}}{\isasymrparr}} and \isa{{\isasymlparr}{\isasymPi}\isactrlsup {\isadigit{3}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{2}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{3}}{\isasymrparr}}
+  (for exemplification).%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\ \isacommand{consts}\isamarkupfalse%
+\ enc{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isasymRightarrow}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}{\isasymRightarrow}io{\isachardoublequoteclose}\isanewline
+\ \isacommand{consts}\isamarkupfalse%
+\ exe{\isadigit{1}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}{\isasymRightarrow}e{\isasymRightarrow}io{\isachardoublequoteclose}\isanewline
+\ \isacommand{consts}\isamarkupfalse%
+\ exe{\isadigit{2}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}io{\isacharparenright}{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isachardoublequoteclose}\ \isanewline
+\ \isacommand{consts}\isamarkupfalse%
+\ exe{\isadigit{3}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isacharparenright}{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isachardoublequoteclose}%
+\begin{isamarkuptext}%
+Encoding \isa{{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymPi}\isactrlsup {\isadigit{1}}} is noted below as \isa{{\isasymlbrace}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymrbrace}}.
+  Encoding yields formulas and never propositional formulas.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ Enc{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e\ opt{\isasymRightarrow}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymlbrace}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isasymrbrace}{\isachardoublequoteclose}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymlbrace}x{\isacharcomma}{\isasymPhi}{\isasymrbrace}\ {\isasymequiv}\ case\ {\isacharparenleft}x{\isacharcomma}{\isasymPhi}{\isacharparenright}\ of\ \isanewline
-\ \ \ \ {\isacharparenleft}T{\isacharparenleft}y{\isacharparenright}{\isacharcomma}T{\isacharparenleft}Q{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isacharparenleft}Q\ y{\isacharparenright}\ w{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
+\ \ \ \ {\isacharparenleft}T{\isacharparenleft}y{\isacharparenright}{\isacharcomma}T{\isacharparenleft}Q{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}enc\ y\ Q{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Exemplifying formulas \isa{{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymkappa}\isactrlsub {\isadigit{1}}} are noted here as \isa{{\isasymlparr}{\isasymPi}\isactrlsup {\isadigit{1}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymrparr}}.  
-  Exemplification yields propositional formulas. In the embedding exemplification 
-  is identified with predicate application, just as encoding.%
+  Exemplification yields propositional formulas.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ Exe{\isadigit{1}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymlparr}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isasymrparr}{\isachardoublequoteclose}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymlparr}{\isasymPhi}{\isacharcomma}x{\isasymrparr}\ {\isasymequiv}\ case\ {\isacharparenleft}{\isasymPhi}{\isacharcomma}x{\isacharparenright}\ of\ \isanewline
-\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isacharparenleft}Q\ y{\isacharparenright}\ w{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
+\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}exe{\isadigit{1}}\ Q\ y{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-The Principia Metaphysica supports \isa{n}-ary exemplification constructions. For pragmatical 
-  reasons we consider here the cases only for \isa{n{\isasymle}{\isadigit{3}}}.%
+The Principia Metaphysica supports \isa{n}-ary exemplification constructions. 
+  We support the cases for \isa{{\isadigit{1}}{\isasymle}n{\isasymle}{\isadigit{3}}}.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ Exe{\isadigit{2}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymlparr}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isasymrparr}{\isachardoublequoteclose}{\isacharparenright}\isanewline
 \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymlparr}{\isasymPhi}{\isacharcomma}x{\isadigit{1}}{\isacharcomma}x{\isadigit{2}}{\isasymrparr}\ {\isasymequiv}\ case\ {\isacharparenleft}{\isasymPhi}{\isacharcomma}x{\isadigit{1}}{\isacharcomma}x{\isadigit{2}}{\isacharparenright}\ of\ \isanewline
-\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{1}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{2}}{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isacharparenleft}Q\ y{\isadigit{1}}\ y{\isadigit{2}}{\isacharparenright}\ w{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{1}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{2}}{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}exe{\isadigit{2}}\ Q\ y{\isadigit{1}}\ y{\isadigit{2}}{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}\isanewline
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ Exe{\isadigit{3}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}e\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymlparr}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isasymrparr}{\isachardoublequoteclose}{\isacharparenright}\ \isanewline
 \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymlparr}{\isasymPhi}{\isacharcomma}x{\isadigit{1}}{\isacharcomma}x{\isadigit{2}}{\isacharcomma}x{\isadigit{3}}{\isasymrparr}\ {\isasymequiv}\ case\ {\isacharparenleft}{\isasymPhi}{\isacharcomma}x{\isadigit{1}}{\isacharcomma}x{\isadigit{2}}{\isacharcomma}x{\isadigit{3}}{\isacharparenright}\ of\ \isanewline
-\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{1}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{2}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{3}}{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isacharparenleft}Q\ y{\isadigit{1}}\ y{\isadigit{2}}\ y{\isadigit{3}}{\isacharparenright}\ w{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
+\ \ \ \ {\isacharparenleft}T{\isacharparenleft}Q{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{1}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{2}}{\isacharparenright}{\isacharcomma}T{\isacharparenleft}y{\isadigit{3}}{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}exe{\isadigit{3}}\ Q\ y{\isadigit{1}}\ y{\isadigit{2}}\ y{\isadigit{3}}{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Formations with negation and implication are supported for both, formulas and propositional
   formulas, and their embeddings are straightforward. In the case of implication the compound formula
@@ -244,13 +259,15 @@ Also universal quantification \isa{\isactrlbold {\isasymforall}{\isacharparenlef
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ forallBinder{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}{\isacharprime}a{\isasymRightarrow}io\ opt{\isacharparenright}{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{binder}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{9}}{\isacharparenright}\ \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymphi}\ x\ {\isasymequiv}\ \isactrlbold {\isasymforall}{\isasymphi}{\isachardoublequoteclose}\isanewline
 \isanewline
-\ %
+\ \isacommand{lemma}\isamarkupfalse%
+\ binderTest{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymphi}\ x{\isacharparenright}\ {\isacharequal}\ \isactrlbold {\isasymforall}{\isacharparenleft}{\isasymlambda}x{\isachardot}\ {\isasymphi}\ x{\isacharparenright}{\isachardoublequoteclose}%
 \isadelimproof
-%
+\ %
 \endisadelimproof
 %
 \isatagproof
-%
+\isacommand{by}\isamarkupfalse%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -276,9 +293,9 @@ n-ary lambda abstraction \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit
   straightforward: \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{0}}} is mapped to identity and \isa{\isactrlbold {\isasymlambda}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isacharcomma}{\isachardot}{\isachardot}{\isachardot}} are mapped to n-ary
   lambda abstractions, that is, \isa{\isactrlbold {\isasymlambda}{\isacharparenleft}{\isasymlambda}x{\isachardot}{\isasymphi}{\isacharparenright}} is mapped to \isa{{\isacharparenleft}{\isasymlambda}x{\isachardot}{\isasymphi}{\isacharparenright}} and \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}{\isacharparenleft}{\isasymlambda}xy{\isachardot}{\isasymphi}{\isacharparenright}} 
   to \isa{{\isacharparenleft}{\isasymlambda}xy{\isachardot}{\isasymphi}{\isacharparenright}}, etc.
-  For pragmatical reasons we restrict ourselves here to the cases where $n\leq 3$. Binder notation is
+  Similar to before, we support only the cases where $n\leq 3$. Binder notation is
   introduced for \isa{\isactrlbold {\isasymlambda}} (... unfortuntaley, I don't know yet how binder notation can be 
-  achieved also for \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isacharcomma}{\isachardot}{\isachardot}{\isachardot}} ... need to find out.).%
+  achieved also for \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}} ... need to find out.).%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{abbreviation}\isamarkupfalse%
@@ -404,13 +421,83 @@ Next we define the meta-logical notions of validity, satisfiability,
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-Question: What are the next two lemmata expected to return? So far they return truth. If that should
-  be disabled (I guess that should then happen in the definition of implication), then we might run 
-  into a problem with the definition of \isa{x\ \isactrlbold {\isacharequal}\isactrlsub E\ y} below. Discuss.%
+The next two statements are not theorems; Nitpick reports countermodels%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymrightarrow}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Countermodel by Nitpick%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Countermodel by Nitpick%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+However, the next two statements are of course valid.%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -427,7 +514,7 @@ Question: What are the next two lemmata expected to return? So far they return t
 \endisadelimproof
 \isanewline
 \ \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -1728,7 +1815,7 @@ Some further tests:%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
+\ simp\ \isacommand{oops}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
@@ -1746,8 +1833,8 @@ Some further tests:%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{by}\isamarkupfalse%
-\ auto%
+\ simp\ \isacommand{oops}\isamarkupfalse%
+%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1790,6 +1877,20 @@ Some further tests:%
 %
 \endisadelimproof
 %
+\isamarkupsubsection{Negation of Properties%
+}
+\isamarkuptrue%
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ notProp{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isacharparenright}{\isasymRightarrow}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymsim}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{5}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{5}}{\isadigit{9}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymsim}\ {\isasymPhi}\ {\isasymequiv}\ case\ {\isasymPhi}\ of\ \isanewline
+\ \ \ \ T{\isacharparenleft}{\isasymPsi}{\isacharparenright}\ {\isasymRightarrow}\ \isactrlbold {\isasymlambda}x{\isachardot}\isactrlbold {\isasymnot}{\isasymlparr}{\isasymPhi}{\isacharcomma}x\isactrlsup T{\isasymrparr}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}deio{\isacharparenright}{\isachardoublequoteclose}%
+\isamarkupsubsection{Individual Constant \isa{\isactrlbold a\isactrlsub V} and Function Term \isa{\isactrlbold a\isactrlsub G}%
+}
+\isamarkuptrue%
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ a{\isacharunderscore}V{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold a\isactrlsub V{\isachardoublequoteclose}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold a\isactrlsub V\ {\isasymequiv}\ \isactrlbold {\isasymiota}x{\isachardot}\ {\isacharparenleft}{\isasymlparr}A{\isacharbang}{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}F{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}F\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymequiv}\ {\isacharparenleft}F\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ F\isactrlsup T{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ a{\isacharunderscore}G{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}e\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold a\isactrlsub {\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{5}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{5}}{\isadigit{9}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold a\isactrlsub G\ {\isasymequiv}\ \isactrlbold {\isasymiota}x{\isachardot}\ {\isacharparenleft}{\isasymlparr}A{\isacharbang}{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}F{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}F\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymequiv}\ {\isacharparenleft}F\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ G{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
 \isamarkupsection{Axioms%
 }
 \isamarkuptrue%
@@ -2369,19 +2470,6 @@ A brief check that this axiom is well-formed, i.e. does not return error%
 For the following two lemmata the simplifier does not get back.%
 \end{isamarkuptext}%
 \isamarkuptrue%
-%
-\isadelimproof
-%
-\endisadelimproof
-%
-\isatagproof
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
 %
 \isadelimproof
 %
