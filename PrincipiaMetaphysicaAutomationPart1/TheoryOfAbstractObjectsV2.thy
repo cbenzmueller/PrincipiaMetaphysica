@@ -1,5 +1,5 @@
 (*<*) 
-theory TheoryOfAbstractObjectsV1
+theory TheoryOfAbstractObjectsV2
 imports Main
 
 begin
@@ -183,7 +183,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
-    (T(Q),T(y)) \<Rightarrow> P(exe1 Q y) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y)) \<Rightarrow> P(Q y) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   The Principia Metaphysica supports @{text "n"}-ary exemplification constructions. 
@@ -192,10 +192,10 @@ section {* Embedding of Modal Relational Type Theory *}
 
  abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
   where "\<lparr>\<Phi>,x1,x2\<rparr> \<equiv> case (\<Phi>,x1,x2) of 
-    (T(Q),T(y1),T(y2)) \<Rightarrow> P(exe2 Q y1 y2) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2)) \<Rightarrow> P(Q y1 y2) | _ \<Rightarrow> ERR(dio)"
  abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
   where "\<lparr>\<Phi>,x1,x2,x3\<rparr> \<equiv> case (\<Phi>,x1,x2,x3) of 
-    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(exe3 Q y1 y2 y3) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(Q y1 y2 y3) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Formations with negation and implication are supported for both, formulas and propositional

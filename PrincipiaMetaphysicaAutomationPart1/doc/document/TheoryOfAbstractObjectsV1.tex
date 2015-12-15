@@ -1373,7 +1373,7 @@ Being ordinary is defined as being possibly concrete.%
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}x\ w{\isachardot}\ Ex\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\isactrlsup T}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}x\ w{\isachardot}\ Ex\ {\isacharparenleft}exe{\isadigit{1}}\ E\ x{\isacharparenright}{\isacharparenright}\isactrlsup T}%
 }
 %
 \endisatagproof
@@ -1400,7 +1400,7 @@ Being abstract is is defined as not possibly being concrete.%
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}x\ w{\isachardot}\ {\isasymforall}xa{\isachardot}\ {\isasymnot}\ E\ x\ xa{\isacharparenright}\isactrlsup T}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}x\ w{\isachardot}\ {\isasymforall}xa{\isachardot}\ {\isasymnot}\ exe{\isadigit{1}}\ E\ x\ xa{\isacharparenright}\isactrlsup T}%
 }
 %
 \endisatagproof
@@ -1428,7 +1428,7 @@ Identity relations \isa{\isactrlbold {\isacharequal}\isactrlsub E} and \isa{\isa
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ %
-\isamarkupcmt{X is "\isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymexists}x{\isachardot}\ E\ a\ x{\isacharparenright}\isactrlsup P}%
+\isamarkupcmt{X is "\isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup P}%
 }
 %
 \endisatagproof
@@ -1456,7 +1456,7 @@ Identity relations \isa{\isactrlbold {\isacharequal}\isactrlsub E} and \isa{\isa
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ True{\isacharparenright}\isactrlsup F}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup F}%
 }
 %
 \endisatagproof
@@ -1476,7 +1476,7 @@ Identity relations \isa{\isactrlbold {\isacharequal}\isactrlsub E} and \isa{\isa
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}x{\isachardot}\ {\isasymnot}\ E\ a\ x{\isacharparenright}\isactrlsup F}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup F}%
 }
 %
 \endisatagproof
@@ -1496,7 +1496,7 @@ Identity relations \isa{\isactrlbold {\isacharequal}\isactrlsub E} and \isa{\isa
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}x{\isachardot}\ {\isasymnot}\ E\ a\ x{\isacharparenright}\isactrlsup P}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup P}%
 }
 %
 \endisatagproof
@@ -1516,7 +1516,7 @@ Identity relations \isa{\isactrlbold {\isacharequal}\isactrlsub E} and \isa{\isa
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ True{\isacharparenright}\isactrlsup F}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup F}%
 }
 %
 \endisatagproof
@@ -1599,7 +1599,7 @@ As intended: the following two lambda-abstractions are not well-formed/eligible
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}w\ x{\isachardot}\ {\isacharparenleft}F{\isadigit{1}}\ x\ w\ {\isasymlongrightarrow}\ G{\isadigit{1}}\ x\ w{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}G{\isadigit{1}}\ x\ w\ {\isasymlongrightarrow}\ F{\isadigit{1}}\ x\ w{\isacharparenright}{\isacharparenright}\isactrlsup F}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup F}%
 }
 %
 \endisatagproof
@@ -1715,7 +1715,7 @@ As intended: the following two lambda-abstractions are not well-formed/eligible
 \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}F{\isadigit{0}}\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{0}}\ G{\isadigit{0}}\ {\isasymequiv}\ {\isacharparenleft}\isactrlbold {\isasymlambda}y\ {\isachardot}\ F{\isadigit{0}}{\isacharparenright}\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ {\isacharparenleft}\isactrlbold {\isasymlambda}y{\isachardot}\ G{\isadigit{0}}{\isacharparenright}{\isachardoublequoteclose}\isanewline
 \isanewline
 \ \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}F{\isadigit{1}}\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ G{\isadigit{1}}\isactrlsup T\ {\isacharequal}\ X{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}F{\isadigit{1}}\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ F{\isadigit{1}}\isactrlsup T\ {\isacharequal}\ X{\isachardoublequoteclose}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -1724,8 +1724,59 @@ As intended: the following two lambda-abstractions are not well-formed/eligible
 \isacommand{apply}\isamarkupfalse%
 \ simp\ \isacommand{oops}\isamarkupfalse%
 \ %
-\isamarkupcmt{X is \isa{{\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}w\ x{\isachardot}\ {\isacharparenleft}F{\isadigit{1}}\ x\ w\ {\isasymlongrightarrow}\ G{\isadigit{1}}\ x\ w{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}G{\isadigit{1}}\ x\ w\ {\isasymlongrightarrow}\ F{\isadigit{1}}\ x\ w{\isacharparenright}{\isacharparenright}\isactrlsup F}%
+\isamarkupcmt{X is \isa{{\isacharparenleft}{\isachardot}{\isachardot}{\isachardot}{\isacharparenright}\isactrlsup F}%
 }
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharbrackleft}F{\isadigit{1}}\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{1}}\ F{\isadigit{1}}\isactrlsup T{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharbrackleft}F{\isadigit{2}}\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{2}}\ F{\isadigit{2}}\isactrlsup T{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharbrackleft}F{\isadigit{3}}\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ F{\isadigit{3}}\isactrlsup T{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{apply}\isamarkupfalse%
+\ simp\ \isacommand{done}\isamarkupfalse%
 %
 \endisatagproof
 {\isafoldproof}%
