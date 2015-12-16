@@ -157,29 +157,23 @@ section {* Embedding of Modal Relational Type Theory *}
   exemplifying  @{text "\<Pi>\<^sup>n,\<kappa>\<^sub>1,..,\<kappa>\<^sub>n"}. ... say more ...
   Exemplification is supported here only for  @{text "1\<le>n\<le>3"}.
 
-  First we introduce the following primitive constants. These basic primitives are employed 
-  below in the definition of our type-raised (to @{text "'a opt"}-types) operations  
-  @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"} (for encoding) and  @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}, @{text "\<lparr>\<Pi>\<^sup>2,\<kappa>\<^sub>1,\<kappa>\<^sub>2\<rparr>"} and @{text "\<lparr>\<Pi>\<^sup>3,\<kappa>\<^sub>1,\<kappa>\<^sub>2,\<kappa>\<^sub>3\<rparr>"}
-  (for exemplification). 
+  First we introduce the primitive constant @{text "enc"}. This basic primitives is employed 
+  below in the definition of the encoding operation @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}. 
   *}
   
  consts enc::"e\<Rightarrow>(e\<Rightarrow>io)\<Rightarrow>io"
- consts exe1::"(e\<Rightarrow>io)\<Rightarrow>e\<Rightarrow>io"
- consts exe2::"(e\<Rightarrow>e\<Rightarrow>io)\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io" 
- consts exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io)\<Rightarrow>e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io" 
 
   text {* 
   Encoding @{text "\<kappa>\<^sub>1\<Pi>\<^sup>1"} is noted below as @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}.
   Encoding yields formulas and never propositional formulas.
   *}
 
-
  abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
     (T(y),T(Q)) \<Rightarrow> F(enc y Q) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Exemplifying formulas @{text "\<Pi>\<^sup>1\<kappa>\<^sub>1"} are noted here as @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}.  
-  Exemplification yields propositional formulas. 
+  Exemplification yields propositional formulas. Exemplification is mapped to predicate application.
   *}
 
  abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
@@ -187,7 +181,7 @@ section {* Embedding of Modal Relational Type Theory *}
 
   text {* 
   The Principia Metaphysica supports @{text "n"}-ary exemplification constructions. 
-  We support the cases for @{text "1\<le>n\<le>3"}.
+  We support the cases for @{text "1\<le>n\<le>3"}. Exemplification is mapped to predicate application.
   *}  
 
  abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
@@ -283,16 +277,28 @@ section {* Embedding of Modal Relational Type Theory *}
 section {* Further Logical Connectives *}
 
   text {* 
-  Further logical connectives can be defined as usual. For existential quantification we
-  prefer a native introduction, even though a definition based on @{text "\<^bold>\<not>"} and @{text "\<^bold>\<forall>"} is also
-  possible (but syntactically not more elegant). For pragmatic reasons it eventually makes sense to 
-  to prefer native introductions for all connectives. 
+  Further logical connectives can be defined as usual. For pragmatic reasons (to avoid the blow-up of
+  abbreviation expansions) we prefer direct definitions in all cases.
   *}
 
- abbreviation conj::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<and>" 53) where "\<phi>\<^bold>\<and>\<psi> \<equiv> \<^bold>\<not>(\<phi>\<^bold>\<rightarrow>\<^bold>\<not>\<psi>)"
- abbreviation or::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<or>" 52) where "\<phi>\<^bold>\<or>\<psi> \<equiv> \<^bold>\<not>\<phi>\<^bold>\<rightarrow>\<psi>"
- abbreviation equivalent::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<equiv>" 51) where "\<phi>\<^bold>\<equiv>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"
- abbreviation diamond::"io opt\<Rightarrow>io opt" ("\<^bold>\<diamond> _" [62] 63) where "\<^bold>\<diamond>\<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>(\<^bold>\<not>\<phi>)"
+ abbreviation conj::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<and>" 53) where "\<phi> \<^bold>\<and> \<psi> \<equiv> case (\<phi>,\<psi>) of
+    (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<and> \<beta> w) | (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<and> \<beta> w) | 
+    (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<and> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<and> \<beta> w) | 
+    _ \<Rightarrow> ERR(dio)"  
+
+ abbreviation disj::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<or>" 52) where "\<phi> \<^bold>\<or> \<psi> \<equiv> case (\<phi>,\<psi>) of
+    (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<or> \<beta> w) | (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<or> \<beta> w) | 
+    (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<or> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<or> \<beta> w) | 
+    _ \<Rightarrow> ERR(dio)"  
+
+ abbreviation equiv::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<equiv>" 51) where "\<phi> \<^bold>\<equiv> \<psi>\<equiv> case (\<phi>,\<psi>) of
+    (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<longleftrightarrow> \<beta> w) | (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longleftrightarrow> \<beta> w) | 
+    (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longleftrightarrow> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longleftrightarrow> \<beta> w) | 
+    _ \<Rightarrow> ERR(dio)"  
+
+ abbreviation diamond::"io opt\<Rightarrow>io opt" ("\<^bold>\<diamond> _" [62] 63) where "\<^bold>\<diamond>\<phi> \<equiv> case \<phi> of 
+    F(\<psi>) \<Rightarrow> F(\<lambda>w.\<exists>v. \<psi> v) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<exists>v. \<psi> v) | _ \<Rightarrow> ERR(dio)"
+
  abbreviation exists::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" ("\<^bold>\<exists>") where "\<^bold>\<exists>\<Phi> \<equiv> case (\<Phi> da) of
     P \<phi> \<Rightarrow> P(\<lambda>w.\<exists>x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> w) 
   | F \<phi> \<Rightarrow> F(\<lambda>w. \<exists>x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR dio" 
@@ -682,16 +688,14 @@ section {* Axioms *}
 
 
  lemma "(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) = X" apply simp oops    -- {* X is @{text "(...)\<^sup>F"} *}
-(* lemma "(\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T))) = X" apply simp oops    -- {* X is @{text "(...)\<^sup>F"} *} *)
+ lemma "(\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T))) = X" apply simp oops    -- {* X is @{text "(...)\<^sup>F"} *} 
 
   text {* 
-  For the following two lemmata the simplifier does not get back.
+  For the following lemma cannot yet be automatically proved, since proof automation for definite
+  descriptions is still not well enough developed in ATPs. 
   *}
  
-(*
-  lemma "((x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))) = X" apply simp oops
-  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp done
-*)
+  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp oops 
 
 
 (*<*)
