@@ -1,0 +1,103 @@
+
+ No.of.Axioms: 0
+
+ Length.of.Defs: 0
+
+ Contains.Choice.Funs: false
+(rf:0,axioms:0,ps:3,u:6,ude:true,rLeibEQ:true,rAndEQ:true,use_choice:true,use_extuni:true,use_extcnf_combined:true,expand_extuni:false,foatp:e,atp_timeout:25,atp_calls_frequency:10,ordering:none,proof_output:2,protocol_output:false,clause_count:2,loop_count:0,foatp_calls:0,translation:fof_full)........
+
+********************************
+*   All subproblems solved!    *
+********************************
+% SZS status Theorem for FriedmanProblem.p : (rf:0,axioms:0,ps:3,u:6,ude:true,rLeibEQ:true,rAndEQ:true,use_choice:true,use_extuni:true,use_extcnf_combined:true,expand_extuni:false,foatp:e,atp_timeout:25,atp_calls_frequency:10,ordering:none,proof_output:2,protocol_output:false,clause_count:370,loop_count:0,foatp_calls:2,translation:fof_full)
+
+%**** Beginning of derivation protocol ****
+% SZS output start CNFRefutation
+ thf(tp_qML_i,type,(qML_i: $tType)).
+ thf(tp_phi,type,(phi: (qML_i>$o))).
+ thf(tp_qML_r,type,(qML_r: (qML_i>(qML_i>$o)))).
+ thf(tp_sK10_E,type,(sK10_E: ((qML_i>(qML_i>$o))>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK11_E,type,(sK11_E: ((qML_i>(qML_i>$o))>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK12_E,type,(sK12_E: ((qML_i>qML_i)>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK13_E,type,(sK13_E: ((qML_i>(qML_i>qML_i))>((qML_i>qML_i)>((qML_i>(qML_i>(qML_i>$o)))>qML_i))))).
+ thf(tp_sK14_E,type,(sK14_E: ((qML_i>(qML_i>qML_i))>((qML_i>(qML_i>(qML_i>$o)))>((qML_i>(qML_i>$o))>qML_i))))).
+ thf(tp_sK15_E,type,(sK15_E: ((qML_i>(qML_i>qML_i))>((qML_i>(qML_i>(qML_i>$o)))>((qML_i>(qML_i>$o))>qML_i))))).
+ thf(tp_sK16_E,type,(sK16_E: ((qML_i>(qML_i>$o))>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK17_E,type,(sK17_E: ((qML_i>(qML_i>$o))>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK1_W,type,(sK1_W: qML_i)).
+ thf(tp_sK2_SY8,type,(sK2_SY8: ((qML_i>$o)>qML_i))).
+ thf(tp_sK3_SY14,type,(sK3_SY14: ((qML_i>$o)>(qML_i>$o)))).
+ thf(tp_sK4_SY13,type,(sK4_SY13: ((qML_i>$o)>qML_i))).
+ thf(tp_sK5_E,type,(sK5_E: ((qML_i>(qML_i>$o))>qML_i))).
+ thf(tp_sK6_E,type,(sK6_E: ((qML_i>(qML_i>$o))>qML_i))).
+ thf(tp_sK7_E,type,(sK7_E: ((qML_i>(qML_i>$o))>qML_i))).
+ thf(tp_sK8_E,type,(sK8_E: ((qML_i>qML_i)>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(tp_sK9_E,type,(sK9_E: ((qML_i>(qML_i>$o))>((qML_i>(qML_i>$o))>qML_i)))).
+ thf(1,conjecture,(![W:qML_i]: ((~ (phi@W)) | (?[X:(qML_i>$o)]: ((X@W) & (![V:qML_i]: ((~ ((qML_r@W)@V)) | ((![Va:qML_i]: ((~ ((qML_r@V)@Va)) | (~ (X@Va)))) | (![Xa:(qML_i>$o)]: ((~ (Xa@V)) | (?[Va2:qML_i]: (((qML_r@V)@Va2) & ((?[Vb:qML_i]: (((qML_r@Va2)@Vb) & (Xa@Vb))) & (phi@Va2))))))))))))),file('FriedmanProblem.p',conj_0)).
+ thf(2,negated_conjecture,(((![W:qML_i]: ((~ (phi@W)) | (?[X:(qML_i>$o)]: ((X@W) & (![V:qML_i]: ((~ ((qML_r@W)@V)) | ((![Va:qML_i]: ((~ ((qML_r@V)@Va)) | (~ (X@Va)))) | (![Xa:(qML_i>$o)]: ((~ (Xa@V)) | (?[Va2:qML_i]: (((qML_r@V)@Va2) & ((?[Vb:qML_i]: (((qML_r@Va2)@Vb) & (Xa@Vb))) & (phi@Va2)))))))))))))=$false)),inference(negate_conjecture,[status(cth)],[1])).
+ thf(3,plain,(((![W:qML_i]: ((~ (phi@W)) | (?[X:(qML_i>$o)]: ((X@W) & (![V:qML_i]: ((~ ((qML_r@W)@V)) | ((![Va:qML_i]: ((~ ((qML_r@V)@Va)) | (~ (X@Va)))) | (![Xa:(qML_i>$o)]: ((~ (Xa@V)) | (?[Va2:qML_i]: (((qML_r@V)@Va2) & ((?[Vb:qML_i]: (((qML_r@Va2)@Vb) & (Xa@Vb))) & (phi@Va2)))))))))))))=$false)),inference(unfold_def,[status(thm)],[2])).
+ thf(4,plain,((((~ (phi@sK1_W)) | (?[SY7:(qML_i>$o)]: ((SY7@sK1_W) & (![SY8:qML_i]: ((~ ((qML_r@sK1_W)@SY8)) | ((![Va:qML_i]: ((~ ((qML_r@SY8)@Va)) | (~ (SY7@Va)))) | (![Xa:(qML_i>$o)]: ((~ (Xa@SY8)) | (?[Va2:qML_i]: (((qML_r@SY8)@Va2) & ((?[Vb:qML_i]: (((qML_r@Va2)@Vb) & (Xa@Vb))) & (phi@Va2))))))))))))=$false)),inference(extcnf_forall_neg,[status(esa)],[3])).
+ thf(5,plain,(((~ ((~ (phi@sK1_W)) | (?[SY7:(qML_i>$o)]: ((SY7@sK1_W) & (![SY8:qML_i]: ((~ ((qML_r@sK1_W)@SY8)) | ((![Va:qML_i]: ((~ ((qML_r@SY8)@Va)) | (~ (SY7@Va)))) | (![Xa:(qML_i>$o)]: ((~ (Xa@SY8)) | (?[Va2:qML_i]: (((qML_r@SY8)@Va2) & ((?[Vb:qML_i]: (((qML_r@Va2)@Vb) & (Xa@Vb))) & (phi@Va2)))))))))))))=$true)),inference(polarity_switch,[status(thm)],[4])).
+ thf(6,plain,((((phi@sK1_W) & (![SY7:(qML_i>$o)]: ((((qML_r@sK1_W)@(sK2_SY8@SY7)) & ((((qML_r@(sK2_SY8@SY7))@(sK4_SY13@SY7)) & (SY7@(sK4_SY13@SY7))) & (((sK3_SY14@SY7)@(sK2_SY8@SY7)) & (![SY17:qML_i]: (((![SY18:qML_i]: ((~ ((sK3_SY14@SY7)@SY18)) | (~ ((qML_r@SY17)@SY18)))) | (~ (phi@SY17))) | (~ ((qML_r@(sK2_SY8@SY7))@SY17))))))) | (~ (SY7@sK1_W)))))=$true)),inference(extcnf_combined,[status(esa)],[5])).
+ thf(7,plain,((((phi@sK1_W) & (![SY7:(qML_i>$o)]: ((((qML_r@sK1_W)@(sK2_SY8@SY7)) & ((((qML_r@(sK2_SY8@SY7))@(sK4_SY13@SY7)) & (SY7@(sK4_SY13@SY7))) & (((sK3_SY14@SY7)@(sK2_SY8@SY7)) & (![SY17:qML_i]: (((![SY18:qML_i]: ((~ ((sK3_SY14@SY7)@SY18)) | (~ ((qML_r@SY17)@SY18)))) | (~ (phi@SY17))) | (~ ((qML_r@(sK2_SY8@SY7))@SY17))))))) | (~ (SY7@sK1_W)))))=$true)),inference(copy,[status(thm)],[6])).
+ thf(8,plain,(((~ ((~ (phi@sK1_W)) | (~ (![SX0:(qML_i>$o)]: ((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SX0))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SX0))@(sK4_SY13@SX0))) | (~ (SX0@(sK4_SY13@SX0)))))) | (~ (~ ((~ ((sK3_SY14@SX0)@(sK2_SY8@SX0))) | (~ (![SX1:qML_i]: (((![SX2:qML_i]: ((~ ((sK3_SY14@SX0)@SX2)) | (~ ((qML_r@SX1)@SX2)))) | (~ (phi@SX1))) | (~ ((qML_r@(sK2_SY8@SX0))@SX1))))))))))))) | (~ (SX0@sK1_W)))))))=$true)),inference(unfold_def,[status(thm)],[7])).
+ thf(9,plain,((((~ (phi@sK1_W)) | (~ (![SX0:(qML_i>$o)]: ((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SX0))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SX0))@(sK4_SY13@SX0))) | (~ (SX0@(sK4_SY13@SX0)))))) | (~ (~ ((~ ((sK3_SY14@SX0)@(sK2_SY8@SX0))) | (~ (![SX1:qML_i]: (((![SX2:qML_i]: ((~ ((sK3_SY14@SX0)@SX2)) | (~ ((qML_r@SX1)@SX2)))) | (~ (phi@SX1))) | (~ ((qML_r@(sK2_SY8@SX0))@SX1))))))))))))) | (~ (SX0@sK1_W))))))=$false)),inference(extcnf_not_pos,[status(thm)],[8])).
+ thf(10,plain,(((~ (phi@sK1_W))=$false)),inference(extcnf_or_neg,[status(thm)],[9])).
+ thf(11,plain,(((~ (![SX0:(qML_i>$o)]: ((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SX0))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SX0))@(sK4_SY13@SX0))) | (~ (SX0@(sK4_SY13@SX0)))))) | (~ (~ ((~ ((sK3_SY14@SX0)@(sK2_SY8@SX0))) | (~ (![SX1:qML_i]: (((![SX2:qML_i]: ((~ ((sK3_SY14@SX0)@SX2)) | (~ ((qML_r@SX1)@SX2)))) | (~ (phi@SX1))) | (~ ((qML_r@(sK2_SY8@SX0))@SX1))))))))))))) | (~ (SX0@sK1_W)))))=$false)),inference(extcnf_or_neg,[status(thm)],[9])).
+ thf(12,plain,(((phi@sK1_W)=$true)),inference(extcnf_not_neg,[status(thm)],[10])).
+ thf(13,plain,(((![SX0:(qML_i>$o)]: ((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SX0))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SX0))@(sK4_SY13@SX0))) | (~ (SX0@(sK4_SY13@SX0)))))) | (~ (~ ((~ ((sK3_SY14@SX0)@(sK2_SY8@SX0))) | (~ (![SX1:qML_i]: (((![SX2:qML_i]: ((~ ((sK3_SY14@SX0)@SX2)) | (~ ((qML_r@SX1)@SX2)))) | (~ (phi@SX1))) | (~ ((qML_r@(sK2_SY8@SX0))@SX1))))))))))))) | (~ (SX0@sK1_W))))=$true)),inference(extcnf_not_neg,[status(thm)],[11])).
+ thf(14,plain,(![SV1:(qML_i>$o)]: ((((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SV1))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))))))))))) | (~ (SV1@sK1_W)))=$true))),inference(extcnf_forall_pos,[status(thm)],[13])).
+ thf(15,plain,(![SV1:(qML_i>$o)]: (((~ ((~ ((qML_r@sK1_W)@(sK2_SY8@SV1))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19)))))))))))))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_pos,[status(thm)],[14])).
+ thf(16,plain,(![SV1:(qML_i>$o)]: ((((~ ((qML_r@sK1_W)@(sK2_SY8@SV1))) | (~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))))))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[15])).
+ thf(17,plain,(![SV1:(qML_i>$o)]: (((~ ((qML_r@sK1_W)@(sK2_SY8@SV1)))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[16])).
+ thf(18,plain,(![SV1:(qML_i>$o)]: (((~ (~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19)))))))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[16])).
+ thf(19,plain,(![SV1:(qML_i>$o)]: ((((qML_r@sK1_W)@(sK2_SY8@SV1))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[17])).
+ thf(20,plain,(![SV1:(qML_i>$o)]: (((~ ((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))))))))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[18])).
+ thf(21,plain,(![SV1:(qML_i>$o)]: (((SV1@sK1_W)=$false) | (((qML_r@sK1_W)@(sK2_SY8@SV1))=$true))),inference(extcnf_not_pos,[status(thm)],[19])).
+ thf(22,plain,(![SV1:(qML_i>$o)]: ((((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))) | (~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19)))))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[20])).
+ thf(23,plain,(![SV1:(qML_i>$o)]: (((~ (~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[22])).
+ thf(24,plain,(![SV1:(qML_i>$o)]: (((~ (~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[22])).
+ thf(25,plain,(![SV1:(qML_i>$o)]: (((~ ((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1)))))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[23])).
+ thf(26,plain,(![SV1:(qML_i>$o)]: (((~ ((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19)))))))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[24])).
+ thf(27,plain,(![SV1:(qML_i>$o)]: ((((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))) | (~ (SV1@(sK4_SY13@SV1))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[25])).
+ thf(28,plain,(![SV1:(qML_i>$o)]: ((((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1))) | (~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[26])).
+ thf(29,plain,(![SV1:(qML_i>$o)]: (((~ ((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1)))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[27])).
+ thf(30,plain,(![SV1:(qML_i>$o)]: (((~ (SV1@(sK4_SY13@SV1)))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[27])).
+ thf(31,plain,(![SV1:(qML_i>$o)]: (((~ ((sK3_SY14@SV1)@(sK2_SY8@SV1)))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[28])).
+ thf(32,plain,(![SV1:(qML_i>$o)]: (((~ (![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19)))))=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_neg,[status(thm)],[28])).
+ thf(33,plain,(![SV1:(qML_i>$o)]: ((((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[29])).
+ thf(34,plain,(![SV1:(qML_i>$o)]: (((SV1@(sK4_SY13@SV1))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[30])).
+ thf(35,plain,(![SV1:(qML_i>$o)]: ((((sK3_SY14@SV1)@(sK2_SY8@SV1))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[31])).
+ thf(36,plain,(![SV1:(qML_i>$o)]: (((![SY19:qML_i]: (((![SY20:qML_i]: ((~ ((sK3_SY14@SV1)@SY20)) | (~ ((qML_r@SY19)@SY20)))) | (~ (phi@SY19))) | (~ ((qML_r@(sK2_SY8@SV1))@SY19))))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_neg,[status(thm)],[32])).
+ thf(37,plain,(![SV1:(qML_i>$o)]: (((SV1@sK1_W)=$false) | (((qML_r@(sK2_SY8@SV1))@(sK4_SY13@SV1))=$true))),inference(extcnf_not_pos,[status(thm)],[33])).
+ thf(38,plain,(![SV1:(qML_i>$o)]: (((SV1@sK1_W)=$false) | ((SV1@(sK4_SY13@SV1))=$true))),inference(extcnf_not_pos,[status(thm)],[34])).
+ thf(39,plain,(![SV1:(qML_i>$o)]: (((SV1@sK1_W)=$false) | (((sK3_SY14@SV1)@(sK2_SY8@SV1))=$true))),inference(extcnf_not_pos,[status(thm)],[35])).
+ thf(40,plain,(![SV2:qML_i,SV1:(qML_i>$o)]: (((((![SY21:qML_i]: ((~ ((sK3_SY14@SV1)@SY21)) | (~ ((qML_r@SV2)@SY21)))) | (~ (phi@SV2))) | (~ ((qML_r@(sK2_SY8@SV1))@SV2)))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_forall_pos,[status(thm)],[36])).
+ thf(41,plain,(![SV2:qML_i,SV1:(qML_i>$o)]: ((((![SY21:qML_i]: ((~ ((sK3_SY14@SV1)@SY21)) | (~ ((qML_r@SV2)@SY21)))) | (~ (phi@SV2)))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_pos,[status(thm)],[40])).
+ thf(42,plain,(![SV2:qML_i,SV1:(qML_i>$o)]: (((![SY21:qML_i]: ((~ ((sK3_SY14@SV1)@SY21)) | (~ ((qML_r@SV2)@SY21))))=$true) | ((~ (phi@SV2))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_pos,[status(thm)],[41])).
+ thf(43,plain,(![SV2:qML_i,SV3:qML_i,SV1:(qML_i>$o)]: ((((~ ((sK3_SY14@SV1)@SV3)) | (~ ((qML_r@SV2)@SV3)))=$true) | ((~ (phi@SV2))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_forall_pos,[status(thm)],[42])).
+ thf(44,plain,(![SV2:qML_i,SV3:qML_i,SV1:(qML_i>$o)]: (((~ ((sK3_SY14@SV1)@SV3))=$true) | ((~ ((qML_r@SV2)@SV3))=$true) | ((~ (phi@SV2))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_or_pos,[status(thm)],[43])).
+ thf(45,plain,(![SV2:qML_i,SV3:qML_i,SV1:(qML_i>$o)]: ((((sK3_SY14@SV1)@SV3)=$false) | ((~ ((qML_r@SV2)@SV3))=$true) | ((~ (phi@SV2))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[44])).
+ thf(46,plain,(![SV1:(qML_i>$o),SV3:qML_i,SV2:qML_i]: ((((qML_r@SV2)@SV3)=$false) | (((sK3_SY14@SV1)@SV3)=$false) | ((~ (phi@SV2))=$true) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[45])).
+ thf(47,plain,(![SV3:qML_i,SV1:(qML_i>$o),SV2:qML_i]: (((phi@SV2)=$false) | (((sK3_SY14@SV1)@SV3)=$false) | (((qML_r@SV2)@SV3)=$false) | ((~ ((qML_r@(sK2_SY8@SV1))@SV2))=$true) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[46])).
+ thf(48,plain,(![SV3:qML_i,SV2:qML_i,SV1:(qML_i>$o)]: ((((qML_r@(sK2_SY8@SV1))@SV2)=$false) | (((qML_r@SV2)@SV3)=$false) | (((sK3_SY14@SV1)@SV3)=$false) | ((phi@SV2)=$false) | ((~ (SV1@sK1_W))=$true))),inference(extcnf_not_pos,[status(thm)],[47])).
+ thf(49,plain,(![SV3:qML_i,SV2:qML_i,SV1:(qML_i>$o)]: (((SV1@sK1_W)=$false) | ((phi@SV2)=$false) | (((sK3_SY14@SV1)@SV3)=$false) | (((qML_r@SV2)@SV3)=$false) | (((qML_r@(sK2_SY8@SV1))@SV2)=$false))),inference(extcnf_not_pos,[status(thm)],[48])).
+ thf(53,plain,(((sK1_W = sK1_W)=$false) | (((qML_r@sK1_W)@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(prim_subst,[status(thm)],[21:[bind(SV1,$thf(^[SV8:qML_i]: (SV8 = sK1_W)))]])).
+ thf(57,plain,(((sK1_W = sK1_W)=$false) | (((qML_r@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))@(sK4_SY13@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(prim_subst,[status(thm)],[37:[bind(SV1,$thf(^[SV8:qML_i]: (SV8 = sK1_W)))]])).
+ thf(61,plain,(((sK1_W = sK1_W)=$false) | (((sK4_SY13@(^[SX0:qML_i]: (SX0 = sK1_W))) = sK1_W)=$true)),inference(prim_subst,[status(thm)],[38:[bind(SV1,$thf(^[SV8:qML_i]: (SV8 = sK1_W)))]])).
+ thf(65,plain,(((sK1_W = sK1_W)=$false) | (((sK3_SY14@(^[SX0:qML_i]: (SX0 = sK1_W)))@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(prim_subst,[status(thm)],[39:[bind(SV1,$thf(^[SV8:qML_i]: (SV8 = sK1_W)))]])).
+ thf(69,plain,(![SV3:qML_i,SV2:qML_i]: (((sK1_W = sK1_W)=$false) | ((phi@SV2)=$false) | (((sK3_SY14@(^[SX0:qML_i]: (SX0 = sK1_W)))@SV3)=$false) | (((qML_r@SV2)@SV3)=$false) | (((qML_r@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))@SV2)=$false))),inference(prim_subst,[status(thm)],[49:[bind(SV1,$thf(^[SV8:qML_i]: (SV8 = sK1_W)))]])).
+ thf(346,plain,((((qML_r@sK1_W)@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(extuni,[status(esa)],[53])).
+ thf(347,plain,((((qML_r@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))@(sK4_SY13@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(extuni,[status(esa)],[57])).
+ thf(348,plain,((((sK4_SY13@(^[SX0:qML_i]: (SX0 = sK1_W))) = sK1_W)=$true)),inference(extuni,[status(esa)],[61])).
+ thf(349,plain,((((sK3_SY14@(^[SX0:qML_i]: (SX0 = sK1_W)))@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))=$true)),inference(extuni,[status(esa)],[65])).
+ thf(350,plain,(![SV3:qML_i,SV2:qML_i]: ((((qML_r@(sK2_SY8@(^[SX0:qML_i]: (SX0 = sK1_W))))@SV2)=$false) | (((qML_r@SV2)@SV3)=$false) | (((sK3_SY14@(^[SX0:qML_i]: (SX0 = sK1_W)))@SV3)=$false) | ((phi@SV2)=$false))),inference(extuni,[status(esa)],[69])).
+ thf(370,plain,((($false)=$true)),inference(fo_atp_e,[status(thm)],[348,346,349,12,347,350])).
+ thf(371,plain,($false),inference(solved_all_splits,[solved_all_splits(join,[])],[370])).
+% SZS output end CNFRefutation
+
+%**** End of derivation protocol ****
+%**** no. of clauses in derivation: 61 ****
+%**** clause counter: 370 ****
+
+% SZS status Theorem for FriedmanProblem.p : (rf:0,axioms:0,ps:3,u:6,ude:true,rLeibEQ:true,rAndEQ:true,use_choice:true,use_extuni:true,use_extcnf_combined:true,expand_extuni:false,foatp:e,atp_timeout:25,atp_calls_frequency:10,ordering:none,proof_output:2,protocol_output:false,clause_count:370,loop_count:0,foatp_calls:2,translation:fof_full)
