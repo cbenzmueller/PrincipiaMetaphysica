@@ -22,6 +22,9 @@ begin
  abbreviation valid :: "\<sigma> \<Rightarrow> bool" ("\<lfloor>_\<rfloor>" [7] 8)         where "\<lfloor>p\<rfloor> \<equiv> \<forall>w. p w"
 
 
+ axiomatization where refl_r:  "\<forall>s. s r s"
+ axiomatization where trans_r: "\<forall>s t u. (s r t \<and> t r u \<longrightarrow> s r u)"
+
 (*
  lemma M  : "\<lfloor>\<^bold>\<forall>p. \<^bold>\<box>p \<^bold>\<rightarrow> p\<rfloor>"        using refl_r by blast
  lemma IV : "\<lfloor>\<^bold>\<forall>p. \<^bold>\<box>p \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<box>p)\<rfloor>"   using trans_r by blast
@@ -30,7 +33,7 @@ begin
  abbreviation  mbbox :: "\<sigma>\<Rightarrow>\<sigma>" ("\<^bold>\<box>\<^sup>b")                   where "\<^bold>\<box>\<^sup>b \<phi> \<equiv> \<^bold>\<exists>p. (p \<^bold>\<and> \<^bold>\<box>(\<^bold>\<diamond> p \<^bold>\<rightarrow> \<phi>))"
  abbreviation  mbdia :: "\<sigma>\<Rightarrow>\<sigma>" ("\<^bold>\<diamond>\<^sup>b")                   where "\<^bold>\<diamond>\<^sup>b \<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sup>b(\<^bold>\<not>\<phi>)"
 
- theorem FriedmanQuestion: "\<lfloor>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^sup>b(\<^bold>\<diamond>\<^sup>b \<phi>)\<rfloor>"  
- sledgehammer [remote_leo2 remote_satallax,verbose,overlord]()
+ theorem FriedmanQuestionAboutB: "\<lfloor>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^sup>b(\<^bold>\<diamond>\<^sup>b \<phi>)\<rfloor>"  
+ sledgehammer [remote_leo2 remote_satallax,verbose] () oops
 
 end
