@@ -31,6 +31,6 @@ begin
  abbreviation  mbdia :: "\<sigma>\<Rightarrow>\<sigma>" ("\<^bold>\<diamond>\<^sup>b")                   where "\<^bold>\<diamond>\<^sup>b \<phi> \<equiv> \<^bold>\<not>\<^bold>\<box>\<^sup>b(\<^bold>\<not>\<phi>)"
 
  theorem FriedmanQuestion: "\<lfloor>\<phi> \<^bold>\<rightarrow> \<^bold>\<box>\<^sup>b(\<^bold>\<diamond>\<^sup>b \<phi>)\<rfloor>"  
- sledgehammer [remote_leo2 remote_satallax,verbose]()
+ sledgehammer [remote_leo2 remote_satallax,verbose,overlord]()
 
 end
