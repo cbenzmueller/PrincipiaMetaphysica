@@ -52,7 +52,7 @@ section {* Introduction *}
   previous work \cite{J23,C40} is simple: modal logic formulas are identified with certain functional 
   type theory formulas of predicate type @{text "i\<Rightarrow>bool"} (abbreviated as @{text "io"} below). 
   Possible worlds are explicitly represented by 
-  terms of type  @{text "i"}. A modal logic @{text "\<phi>"} formula holds for a world @{text "w"} if and 
+  terms of type  @{text "i"}. A modal logic formula @{text "\<phi>"} holds for a world @{text "w"} if and 
   only if the application @{text "\<phi> w"} evaluates to true. The definition of the propositional modal logic 
   connectives is then straightforward and it simply realizes the standard translation as a set of equations 
   in functional type theory. The approach has been successfully extended for quantifiers. A crucial 
@@ -101,7 +101,7 @@ section {* Preliminaries *}
   text {*
   To explicitly model the syntactical restrictions of modal relational type theory we introduce a 
   (polymorphic) datatype @{text "'a opt"} (where @{text "'a"} is a polymorphic variable in Isabelle) 
-  based on four constructors: @{text "ERR 'a"} (identifies erroneous term constructions), @{text "P 'a"} 
+  based on four constructors: @{text "ERR 'a"} (identifies ineligible/erroneous term constructions), @{text "P 'a"} 
   (identifies propositional formulas), @{text "F 'a"} (identifies  formulas), and @{text "T 'a"} (identifies 
   terms, such as lambda abstractions). The embeddings approach will be suitably adapted below so that 
   for each language expression (in the embedded modal relational type theory) the respective datatype 
@@ -122,14 +122,14 @@ section {* Preliminaries *}
  abbreviation mkE::"'a\<Rightarrow>'a opt" ("_\<^sup>E" [109] 110)  where "\<phi>\<^sup>E \<equiv> ERR \<phi>" 
 
   text {* Some language constructs in the Principia Metaphysica, e.g. the actuality operator  
-  @{text "\<^bold>\<A>"} ("it is actually the case that"), refer to a (fixed) given world. To model such a 
-  global world reference we introduce a
-  constant symbol (name) @{text "cw"} of world type @{text "i"}. Moreover, for technical reasons, 
+  @{text "\<^bold>\<A>"} ("it is actually the case that"), refer to a (fixed) designated world. To model such a 
+  rigid dependence we introduce a constant symbol (name) @{text "dw"} of world type @{text "i"}. 
+  Moreover, for technical reasons, 
   which will be clarified below, we introduce further (dummy) constant symbols for various domains. Since
   we assume that all domains are non-empty, introducing these constant symbols is obviously not harmful. 
   *}
 
- consts cw :: i 
+ consts dw :: i 
  consts de::"e" dio::"io" deio::"e\<Rightarrow>io" da::'a
 
 section {* Embedding of Modal Relational Type Theory *}
@@ -149,7 +149,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  abbreviation Actual::"io opt \<Rightarrow> io opt" ("\<^bold>\<A> _" [64] 65) where "\<^bold>\<A>\<phi> \<equiv> case \<phi> of 
-    F(\<psi>) \<Rightarrow> F(\<lambda>w. \<psi> cw) | P(\<psi>) \<Rightarrow> P(\<lambda>w. \<psi> cw) | _ \<Rightarrow> ERR(dio)"
+    F(\<psi>) \<Rightarrow> F(\<lambda>w. \<psi> dw) | P(\<psi>) \<Rightarrow> P(\<lambda>w. \<psi> dw) | _ \<Rightarrow> ERR(dio)"
 
 
   text {* 
@@ -195,7 +195,7 @@ section {* Embedding of Modal Relational Type Theory *}
   Formations with negation and implication are supported for both, formulas and propositional
   formulas, and their embeddings are straightforward. In the case of implication the compound formula
   is a propositional formula only of both subformulas are propositional formulas. If at one is a formula
-  and the other one a (propositional) formula, then the compound formula is a formula. In all other
+  and the other one eligible, then the compound formula is a formula. In all other
   cases an ERR-Formula is returned. 
   *}  
 
@@ -262,13 +262,11 @@ section {* Embedding of Modal Relational Type Theory *}
   The Principia Metaphysica supports rigid definite descriptions. Our definition maps
   @{text "\<^bold>\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> cw)"}, that is Isabelle's inbuilt definite description operator THE 
   is utilized and evaluation is rigidly carried out with respect to the current world @{text "cw"}.
-  Moreover, application of @{text "\<^bold>\<iota>"} to @{text "\<^bold>\<Phi>"} is allowed only if the body of @{text "\<Phi>"}, 
-  computed by clause @{text "(\<Phi> de)"}, is a propositional formula. In this case a term is returned 
-  and otherwise an ERR-term is returned. We again introduce binder notation for @{text "\<^bold>\<iota>"}.
+  We again introduce binder notation for @{text "\<^bold>\<iota>"}.
   *}
  
  abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" ("\<^bold>\<iota>")  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> de) of
-    F(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> cw) | P(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> cw) | _ \<Rightarrow> ERR(de)"
+    F(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> dw) | P(\<phi>) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> dw) | _ \<Rightarrow> ERR(de)"
  abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
 
  lemma   "\<lparr>F1\<^sup>T,(\<^bold>\<iota>x. \<lbrace>x\<^sup>T,Q1\<^sup>T\<rbrace>)\<rparr> = X" apply simp oops  -- {* X is a propositional formula as intended *}
@@ -391,9 +389,7 @@ section {* Some Basic Tests *}
 
   text {* 
   The modelfinder Nitpick constructs a finite countermodel to the assertion
-  that modal collaps is valid. Nitpicks countermodel consists of four worlds i1, i2, i3 and i4.
-  Moreover, it defines  @{text "\<phi>"} to hold only in world i3 and it suggests i3 as the actual 
-  world in which to evaluate the conjecture formula. This countermodel is not minimal.
+  that modal collaps holds. 
   *}
 
  lemma modalCollapseF: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>\<phi>\<^sup>F] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
@@ -466,8 +462,8 @@ section {* Some Basic Tests *}
  lemma "\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>F \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>P) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>E)" apply simp done
 
   text {* 
-  Most importantly, we have that the following language constructing is evaluated as erroneous at validity
-  level. 
+  Most importantly, we have that the following language construct is evaluated as ineligible at validity
+  level; @{text "error (*)"} is returned. 
   *}
 
  lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr>] = *" apply simp done
