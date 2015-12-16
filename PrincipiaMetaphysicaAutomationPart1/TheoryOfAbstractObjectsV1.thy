@@ -25,7 +25,7 @@ section {* Introduction *}
   that Church's type theory can be elegantly utilized as a meta-logic to encode and 
   automate various quantified non-classical logics, including modal functional type 
   theory \cite{J23,C40}. This work has subsequently been employed in a case study in
-  computational metaphysics, in which different variants of Kurt Gödel's ontological 
+  computational metaphysics, in which different variants of Kurt G\"odel's ontological 
   argument \cite{ECAI} were verified (respectively, falsified). 
  
 
@@ -578,7 +578,7 @@ section {* E!, O!, A! and =E *}
  abbreviation K where "K \<equiv> \<^bold>\<lambda>x.\<^bold>\<exists>F.(\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>F\<^sup>T,x\<^sup>T\<rparr>)"
  
  lemma "[(\<^bold>\<exists>x. \<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> F\<^sup>T \<^bold>=\<^sup>1 K)))] = *" apply simp done
- lemma "(\<^bold>\<exists>x. \<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> F\<^sup>T \<^bold>=\<^sup>1 K))) = X" apply simp -- {*  X is @{text "(dio)\<^sup>E"} *}
+ lemma "(\<^bold>\<exists>x. \<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> F\<^sup>T \<^bold>=\<^sup>1 K))) = X" apply simp oops -- {*  X is @{text "(dio)\<^sup>E"} *}
  
 
  text {* 
@@ -714,6 +714,10 @@ section {* Various Further Test Examples *}
  lemma "(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
 
  lemma "[(\<^bold>\<exists>x y. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>y\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
+
+ lemma "([(\<lbrace>a\<^sup>T,PP\<^sup>T\<rbrace> \<^bold>\<and> \<lparr>PP\<^sup>T,a\<^sup>T\<rparr>) \<^bold>\<rightarrow> (\<^bold>\<exists>F. \<lbrace>a\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and>  \<lparr>F\<^sup>T,a\<^sup>T\<rparr>)] = \<top>)" apply simp 
+ by auto
+ 
 
  lemma "(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
  lemma "(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>) = X" apply simp oops
