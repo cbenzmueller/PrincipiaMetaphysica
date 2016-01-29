@@ -9,12 +9,11 @@ consts f_r  :: "\<iota>\<Rightarrow>\<iota>\<Rightarrow>\<sigma>" (infixr "\<^bo
 consts f_A :: "\<iota>\<Rightarrow>\<sigma>" ("\<A>")   
 consts f_star :: "\<iota>" ("\<^bold>\<star>")
 
-axiomatization where f_star_axiom: "\<not> \<A> \<^bold>\<star>"
-
+axiomatization where f_star_axiom: "\<not>\<A>(\<^bold>\<star>)"
 
 abbreviation f_not :: "\<sigma>\<Rightarrow>\<sigma>" ("\<^bold>\<not>_" [58] 59)            where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
 abbreviation f_implies :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infixr "\<^bold>\<rightarrow>" 49)   where "\<phi>\<^bold>\<rightarrow>\<psi> \<equiv> \<phi>\<longrightarrow>\<psi>" 
-abbreviation f_all :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold>\<forall>")                 where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. \<A>(x) \<longrightarrow>  \<Phi>(x)"   
+abbreviation f_all :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold>\<forall>")                 where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. \<A>(x)\<longrightarrow>\<Phi>(x)"   
 abbreviation f_all_bind :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" (binder "\<^bold>\<forall>"[8]9) where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall>\<phi>"
  
 abbreviation f_or :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infixr "\<^bold>\<or>" 51)         where "\<phi>\<^bold>\<or>\<psi> \<equiv> (\<^bold>\<not>\<phi>)\<^bold>\<rightarrow>\<psi>" 
@@ -22,17 +21,17 @@ abbreviation f_and :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infi
 abbreviation f_equiv :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infixr "\<^bold>\<leftrightarrow>" 50)     where "\<phi>\<^bold>\<leftrightarrow>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"  
 abbreviation f_equals :: "\<iota>\<Rightarrow>\<iota>\<Rightarrow>\<sigma>" (infixr "\<^bold>="56)       where "x\<^bold>=y \<equiv> x=y"
 
-abbreviation f_exi :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold>\<exists>")                 where "\<^bold>\<exists>\<Phi> \<equiv> \<^bold>\<not>\<^bold>\<forall>(\<lambda>y. \<not> (\<Phi> y))"
-abbreviation f_exi_b :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>"  (binder "\<^bold>\<exists>" [8]9)  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists> \<phi>"
+abbreviation f_exi :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold>\<exists>")                 where "\<^bold>\<exists>\<Phi> \<equiv> \<^bold>\<not>\<^bold>\<forall>(\<lambda>y.\<^bold>\<not>(\<Phi> y))"
+abbreviation f_exi_b :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>"  (binder "\<^bold>\<exists>" [8]9)  where "\<^bold>\<exists>x. \<phi>(x) \<equiv> \<^bold>\<exists>\<phi>"
 abbreviation f_that :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<iota>" ("\<^bold>I") 
-  where "\<^bold>I \<Phi> \<equiv> if \<exists>x. \<A>(x) \<and> (\<Phi> x) \<and> (\<forall>y. (\<A>(y) \<and> (\<Phi> y)) \<longrightarrow> (y = x)) 
-                then THE x. \<A>(x) \<and> (\<Phi> x) 
+  where "\<^bold>I \<Phi> \<equiv> if \<exists>x. \<A>(x) \<and> (\<Phi> x) \<and> (\<forall>y. (\<A>(y) \<and> \<Phi>(y)) \<longrightarrow> (y = x)) 
+                then THE x. \<A>(x) \<and> \<Phi>(x) 
                 else \<^bold>\<star>"
-abbreviation f_that_b :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<iota>"  (binder "\<^bold>I" [8]9) where "\<^bold>I x. \<phi> x \<equiv> \<^bold>I \<phi>"
+abbreviation f_that_b :: "(\<iota>\<Rightarrow>\<sigma>)\<Rightarrow>\<iota>"  (binder "\<^bold>I" [8]9) where "\<^bold>Ix. \<phi>(x) \<equiv> \<^bold>I(\<phi>)"
 
 section {* Some Introductory Tests *} 
 
--- "See Scott 1967, pages 183-184"
+-- "See Scott, Existence and Description in Formal Logic, 1967, pages 183-184"
 lemma "x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x" by simp        
 -- "... valid in all domains including the empty one"
 lemma "\<^bold>\<exists>y. y \<^bold>r y \<^bold>\<rightarrow> y \<^bold>r y" nitpick oops    
@@ -54,7 +53,7 @@ lemma UI_test : "(\<^bold>\<forall>x. \<Phi>(x)) \<^bold>\<rightarrow> \<Phi>(\<
 lemma UI_cor1 : "\<^bold>\<forall>y.((\<^bold>\<forall>x. \<Phi>(x)) \<^bold>\<rightarrow> \<Phi>(y))" by auto
 lemma UI_cor2 : "\<^bold>\<forall>y.((\<^bold>\<forall>x. \<^bold>\<not>(x \<^bold>= y)) \<^bold>\<rightarrow> \<^bold>\<not>(y \<^bold>= y))" by auto
 lemma UI_cor3 : "\<^bold>\<forall>y.((y \<^bold>= y) \<^bold>\<rightarrow> (\<^bold>\<exists>x. x = y))" by auto
-lemma UI_cor4 : "(\<^bold>\<forall>y. y \<^bold>= y) \<^bold>\<rightarrow> (\<^bold>\<forall>y.(\<^bold>\<exists>x. x = y))" by simp
+lemma UI_cor4 : "(\<^bold>\<forall>y. y \<^bold>= y) \<^bold>\<rightarrow> (\<^bold>\<forall>y.\<^bold>\<exists>x. x = y)" by simp
 
 lemma "(\<^bold>\<exists>x. x = \<alpha>) \<longrightarrow> \<A>(\<alpha>)" by simp
 -- "... to say that (\<^bold>\<exists>x. x = \<alpha>) is true means that the value of \<alpha> exists (properly" 
@@ -101,4 +100,4 @@ lemma test2: "\<Otimes> \<^bold>= (\<^bold>I (\<lambda>x. x  \<^bold>= a \<^bold
 
 
 
-
+end
