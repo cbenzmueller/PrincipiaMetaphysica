@@ -1,4 +1,6 @@
-theory Categories3 imports FreeHOL 
+theory Categories3 
+imports FreeHOL 
+
 begin
 
 abbreviation f_E :: "'a\<Rightarrow>\<sigma>" ("\<E>")  where  "\<E> \<equiv> \<A>" (* \<E>,\<A> stand for Existence synonomously *)
@@ -17,25 +19,30 @@ abbreviation f_eq :: "'a\<Rightarrow>'a\<Rightarrow>bool" (infixr "\<^bold>\<equ
 
 
 axiomatization where
- A1: "dom(<A,F,B>) = (\<lambda>x.x)"
-  
+ dom: "dom(<A,F,B>) = <A,(\<lambda>x. x),A>" and
+ cod: "cod(<A,F,B>) = <B,(\<lambda>x. x),B>" and
+ comp: "<B,G,C> \<^bold>\<circ> <A,F,B> = <A,(\<lambda>x. G(F(x))),C>" 
+
+lemma A7: "dom(<A,F,B>) \<^bold>\<equiv> cod(dom(<A,F,B>))"
+ by (metis dom cod)
+
+lemma A8: "cod(<A,F,B>) \<^bold>\<equiv> dom(cod(<A,F,B>))" 
+ by (metis dom cod)
+
+lemma  A4: "x\<^bold>\<circ>(y\<^bold>\<circ>z) \<^bold>\<equiv> (x\<^bold>\<circ>y)\<^bold>\<circ>z" nitpick sledgehammer
+
+
 axiomatization where
- A1: "\<E>(x) \<^bold>\<leftrightarrow> \<E>(dom(x))" and
- A2: "\<E>(x) \<^bold>\<leftrightarrow> \<E>(cod(x))" and
- A3: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> dom(x) \<^bold>= cod(y)" and
+ A1: "\<E>(<A,F,B>) \<^bold>\<leftrightarrow> \<E>(dom(<A,F,B>))" and
+ A2: "\<E>(<A,F,B>) \<^bold>\<leftrightarrow> \<E>(cod(<A,F,B>))" and
+ A3: "\<E>(<A2,F2,B2>\<^bold>\<circ><A1,F1,B1>) \<^bold>\<leftrightarrow> dom(<A2,F2,B2>) \<^bold>= cod(<A1,F1,B1>)" and
  A4: "x\<^bold>\<circ>(y\<^bold>\<circ>z) \<^bold>\<equiv> (x\<^bold>\<circ>y)\<^bold>\<circ>z" and
  A5: "x\<^bold>\<circ>dom(x) \<^bold>\<equiv> x" and
  A6: "cod(x)\<^bold>\<circ>x \<^bold>\<equiv> x" 
 
-lemma A7: "dom(x) \<^bold>\<equiv> cod(dom(x))" 
- sledgehammer
- by (metis A1 A2 A3 A5)
 
-lemma A8: "cod(x) \<^bold>\<equiv> dom(cod(x))" 
- sledgehammer
- by (metis A2 A3 A5 A6 A7)
 
-lemma A9: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> dom(x\<^bold>\<circ>y) \<^bold>= dom(y)" oops
+lemma A9: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> dom(x\<^bold>\<circ>y) \<^bold>= dom(y)" nitpick
 
 lemma A10: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> cod(x\<^bold>\<circ>y) \<^bold>= cod(y)" oops
 

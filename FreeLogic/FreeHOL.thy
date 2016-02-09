@@ -105,8 +105,8 @@ lemma "(\<^bold>\<exists>x. x \<^bold>= a) \<^bold>\<rightarrow>  \<A>(a)" by si
 
 
   (* Some further test *)
-consts a::'a b::'a 
-axiomatization where ax1: "\<A>(a) \<^bold>\<and> \<A>(b) \<^bold>\<and> \<^bold>\<not> (a \<^bold>= b) \<^bold>\<and> \<^bold>\<not> (a \<^bold>= \<Otimes>) \<^bold>\<and> \<^bold>\<not> (b \<^bold>= \<Otimes>)"
-lemma test2: "\<Otimes> \<^bold>= (\<^bold>I (\<lambda>x. x  \<^bold>= a \<^bold>\<or> x \<^bold>= b))" by (metis ax1)
+consts ca::'a cb::'a 
+axiomatization where ax1: "\<A>(ca) \<^bold>\<and> \<A>(cb) \<^bold>\<and> \<^bold>\<not> (ca \<^bold>= cb) \<^bold>\<and> \<^bold>\<not> (ca \<^bold>= \<Otimes>) \<^bold>\<and> \<^bold>\<not> (cb \<^bold>= \<Otimes>)"
+lemma test2: "\<Otimes> \<^bold>= (\<^bold>I (\<lambda>x. x  \<^bold>= ca \<^bold>\<or> x \<^bold>= cb))" by (metis ax1)
 
 end
