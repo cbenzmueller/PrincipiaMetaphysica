@@ -1,7 +1,7 @@
-session "PrincipiaMetaphysicaAutomationPart1" = "HOL" +
+session "AbstractObjects" = "HOL" +
   options [document = pdf, document_output = doc] 
   theories
-	TheoryOfAbstractObjectsV1
+	AbstractObjects
   document_files
     "eptcs.cls"
     "eptcs.bst"

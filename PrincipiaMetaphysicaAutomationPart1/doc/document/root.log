@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  15 DEC 2015 13:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  17 FEB 2016 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -347,7 +347,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 55.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (./session.tex
-(./TheoryOfAbstractObjectsV1.tex
+(./AbstractObjects.tex
 
 LaTeX Warning: Citation `zalta83:_abstr_objec' on page 1 undefined on input lin
 e 27.
@@ -405,109 +405,109 @@ Missing character: There is no ™ in font cmr10!
  [8] [9]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 1938.
+(hyperref)                removing `\<def>-command' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\isamath' on input line 1938.
+(hyperref)                removing `\isamath' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 1938.
+(hyperref)                removing `\<def>-command' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\isatext' on input line 1938.
+(hyperref)                removing `\isatext' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1938.
+(hyperref)                removing `math shift' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 1938.
+(hyperref)                removing `subscript' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1938.
+(hyperref)                removing `math shift' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\sfcode' on input line 1938.
+(hyperref)                removing `\sfcode' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 1938.
+(hyperref)                removing `\<def>-command' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\isamath' on input line 1938.
+(hyperref)                removing `\isamath' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\<def>-command' on input line 1938.
+(hyperref)                removing `\<def>-command' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\isatext' on input line 1938.
+(hyperref)                removing `\isatext' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1938.
+(hyperref)                removing `math shift' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `subscript' on input line 1938.
+(hyperref)                removing `subscript' on input line 2060.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1938.
+(hyperref)                removing `math shift' on input line 2060.
 
-[10])) (./root.bbl [11]
+[10] [11])) (./root.bbl
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
@@ -528,12 +528,12 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 77.
  ) 
 Here is how much of TeX's memory you used:
  7126 strings out of 493117
- 100092 string characters out of 6135433
- 202066 words of memory out of 5000000
+ 100062 string characters out of 6135433
+ 201066 words of memory out of 5000000
  10430 multiletter control sequences out of 15000+600000
  20554 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,7n,35p,1176b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,7n,35p,1166b,494s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
 b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
@@ -552,10 +552,10 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/
 14/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
 4/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2014
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on root.pdf (12 pages, 326180 bytes).
+Output written on root.pdf (12 pages, 327768 bytes).
 PDF statistics:
- 268 PDF objects out of 1000 (max. 8388607)
- 229 compressed objects within 3 object streams
+ 269 PDF objects out of 1000 (max. 8388607)
+ 230 compressed objects within 3 object streams
  47 named destinations out of 1000 (max. 500000)
  211 words of extra memory for PDF output out of 10000 (max. 10000000)
 
