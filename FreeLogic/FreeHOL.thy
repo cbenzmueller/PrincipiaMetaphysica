@@ -4,7 +4,6 @@ imports Main
 begin
 type_synonym \<sigma> = "bool"   -- "the type for Booleans"   
 
-
 consts f_A :: "'a\<Rightarrow>\<sigma>" ("\<A>")   (* Existence *)
 consts f_star :: "'a" ("\<^bold>\<star>")   (* Undefinedness *)
 
@@ -18,7 +17,6 @@ abbreviation f_all :: "('a\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. \<A>(x)\<longrightarrow>\<Phi>(x)"   
 abbreviation f_all_bind :: "('a\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" (binder "\<^bold>\<forall>" [8] 9) 
  where "\<^bold>\<forall>x. \<phi>(x) \<equiv> \<^bold>\<forall>\<phi>"
- 
 abbreviation f_or :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infixr "\<^bold>\<or>" 51)         
  where "\<phi>\<^bold>\<or>\<psi> \<equiv> (\<^bold>\<not>\<phi>)\<^bold>\<rightarrow>\<psi>" 
 abbreviation f_and :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (infixr "\<^bold>\<and>" 52)        
@@ -27,7 +25,6 @@ abbreviation f_equiv :: "\<sigma>\<Rightarrow>\<sigma>\<Rightarrow>\<sigma>" (in
  where "\<phi>\<^bold>\<leftrightarrow>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"  
 abbreviation f_equals :: "'a\<Rightarrow>'a\<Rightarrow>\<sigma>" (infixr "\<^bold>="56)       
  where "x\<^bold>=y \<equiv> x=y"
-
 abbreviation f_exi :: "('a\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>" ("\<^bold>\<exists>")                 
  where "\<^bold>\<exists>\<Phi> \<equiv> \<^bold>\<not>\<^bold>\<forall>(\<lambda>y.\<^bold>\<not>(\<Phi> y))"
 abbreviation f_exi_b :: "('a\<Rightarrow>\<sigma>)\<Rightarrow>\<sigma>"  (binder "\<^bold>\<exists>" [8]9)  
