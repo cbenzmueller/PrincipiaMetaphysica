@@ -722,6 +722,8 @@ section {* Various Further Test Examples *}
 
 
 section {* Leibniz Theory of Concepts *}
+  text {* Below we don't get that far yet, a systematic bottom up development seems to be required 
+  first *}
 
  abbreviation LeibnizianConcept::"(e\<Rightarrow>io) opt" ("C!") 
   where "C! \<equiv> \<^bold>\<lambda>x. \<lparr>A!,x\<^sup>T\<rparr>"
@@ -729,9 +731,12 @@ section {* Leibniz Theory of Concepts *}
   where "x \<Oplus> y \<equiv> \<^bold>\<iota>z. (\<lparr>C!,x\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>z\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<or> \<lbrace>y,F\<^sup>T\<rbrace>)))"
  abbreviation ConceptInclusion (infix "\<preceq>" 100) 
   where "x \<preceq> y \<equiv> \<^bold>\<forall>F. (\<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>y,F\<^sup>T\<rbrace>)"
+ 
+lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (\<^bold>\<exists>z. ((x\<^sup>T \<Oplus> z\<^sup>T) \<^bold>= y\<^sup>T))] = \<top>" apply simp sledgehammer [verbose]() oops
+lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (x\<^sup>T \<Oplus> y\<^sup>T \<^bold>= y\<^sup>T)] = \<top>" apply simp sledgehammer [verbose]() oops
 
-lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (\<^bold>\<exists>z. ((x\<^sup>T \<Oplus> z\<^sup>T) \<^bold>= y\<^sup>T))] = \<top>" apply simp sledgehammer [verbose] nitpick
-lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (x\<^sup>T \<Oplus> y\<^sup>T \<^bold>= y\<^sup>T)] = \<top>" apply simp sledgehammer [verbose]() nitpick [verbose, user_axioms]
+
+
 
 (*<*)
 end
