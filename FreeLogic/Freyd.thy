@@ -33,30 +33,29 @@ axiomatization Category where
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 
 
-lemma A2a:  "(\<box>x)\<box> \<approx> \<box>x"   sledgehammer       
-
-lemma L1: "(\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"  using A5 by metis
-lemma L2: "(\<box>\<box>x)\<cdot>x \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"         using L1 A3a by metis
-lemma L3: "(\<box>\<box>x)\<cdot>x \<approx> (\<box>x)\<cdot>x"                 using L2 A3a by metis
-lemma L4: "(\<box>\<box>x)\<cdot>x \<approx> x"                     using L3 A3a by metis
-lemma L5: "(\<box>\<box>(x\<box>)) \<approx> \<box>(\<box>\<box>(x\<box>))\<cdot>(x\<box>)"     using A3a A4a by metis
-lemma L6: "(\<box>\<box>(x\<box>)) \<approx> \<box>(x\<box>)"              using L4 L5 by metis
-lemma L7: "(\<box>\<box>(x\<box>)) \<approx> \<box>x"                 using A2b L6 by metis
-lemma L8: "\<box>\<box>\<box>(x\<box>) \<approx> \<box>\<box>(x\<box>)"             using L6 by auto
-lemma L9: "\<box>\<box>\<box>(x\<box>) \<approx> \<box>x"                 using L7 L8 by metis
-lemma L10: "\<box>\<box>(\<box>x)\<box> \<approx> \<box>\<box>(x\<box>)"             using L8 L9 by metis
-lemma L11: "\<box>\<box>(\<box>x)\<box> \<approx> \<box>x"                  using L10 L7 by metis
-lemma L12: "(\<box>x)\<box> \<approx> (\<box>x)\<cdot>((\<box>x)\<box>)"           using L11 L4 by metis
-lemma A2a:  "(\<box>x)\<box> \<approx> \<box>x"                    using A3b L12 by metis
-
-
+lemma L1:  "(\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"  using A5 by metis
+lemma L2:  "(\<box>\<box>x)\<cdot>x \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"         using L1 A3a by metis
+lemma L3:  "(\<box>\<box>x)\<cdot>x \<approx> (\<box>x)\<cdot>x"                 using L2 A3a by metis
+lemma L4:  "(\<box>\<box>x)\<cdot>x \<approx> x"                      using L3 A3a by metis
+lemma L5:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>((\<box>\<box>x)\<cdot>(\<box>x))"      using A4a by auto
+lemma L6:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>\<box>x"                using L5 A3a by metis
+lemma L7:  "\<box>\<box>(x\<box>) \<approx> \<box>(\<box>\<box>(x\<box>))\<cdot>(x\<box>)"        using L6 by auto
+lemma L8: "\<box>\<box>(x\<box>) \<approx> \<box>(x\<box>)"                   using L4 L7 by metis
+lemma L9: "\<box>\<box>(x\<box>) \<approx> \<box>x"                      using A2b L8 by metis
+lemma L10: "\<box>\<box>x \<approx> \<box>x"                         using A2b L9 by metis
+lemma L11: "\<box>\<box>((\<box>x)\<box>) \<approx> \<box>\<box>(x\<box>)"             using A2b L10 by metis
+lemma L12: "\<box>\<box>((\<box>x)\<box>) \<approx> \<box>x"                  using L11 L9 by metis
+lemma L13: "(\<box>\<box>((\<box>x)\<box>))\<cdot>((\<box>x)\<box>) \<approx> ((\<box>x)\<box>)"  using L4 by auto   
+lemma L14: "(\<box>x)\<cdot>((\<box>x)\<box>) \<approx> (\<box>x)\<box>"            using L12 L13 by metis
+lemma LM10: "(\<box>x)\<box> \<approx> (\<box>x)\<cdot>((\<box>x)\<box>)"           using L14 by auto
+lemma A2a: "(\<box>x)\<box> \<approx> \<box>x"                       using A3b LM10 by metis
 
 
 abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) where "x \<greaterapprox> y \<equiv> ((D x) \<^bold>\<rightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
 lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> \<box>x)" 
 sledgehammer
-by (metis A1 A2b A3a A3b A4a)
+by (metis A1 A2a A3a)
 
 
 lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" 
@@ -70,8 +69,6 @@ lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<c
 lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)"
  by (metis A1 A2b A3a A3b)
 
-lemma A2a: "((\<box>x)\<box>) \<approx> (\<box>x)" 
- by (metis A2b A3a A3b A4a A5)
 
 abbreviation IdentityMorphism :: "e\<Rightarrow>bool" ("IdM_" [8]60) where "IdM x \<equiv> x \<approx> (\<box>x)"
 
@@ -100,8 +97,8 @@ abbreviation monoid where "monoid One Comp \<equiv>
 
 
 consts One::e L::"e\<Rightarrow>e" R::"e\<Rightarrow>e" Comp::"e\<Rightarrow>e\<Rightarrow>e" 
-lemma "((monoid One Comp) \<^bold>\<and> (L x \<approx> One) \<^bold>\<and> (R x \<approx> One)) \<^bold>\<rightarrow> (category L R Comp)" 
-sledgehammer[verbose] nitpick
+lemma "((monoid One Comp) \<^bold>\<and> (\<^bold>\<forall>x. (L x \<approx> One)) \<^bold>\<and> (\<^bold>\<forall>x. (R x \<approx> One))) \<^bold>\<rightarrow> (category L R Comp)" 
+sledgehammer[verbose, timeout = 600] nitpick
 
 
 lemma "category source target composition" by (meson A1 A2b A3a A3b A4a A4b A5)
