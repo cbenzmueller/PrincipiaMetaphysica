@@ -5,6 +5,7 @@ begin
 
 typedecl e  (* raw type of morphisms *)
 
+
 abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) 
  where "D x \<equiv> \<A> x" 
 abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<approx>" 60) 
@@ -12,8 +13,8 @@ abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<ap
 
 (* Axioms *)
 
-consts source :: "e\<Rightarrow>e" ("\<box>_" [9]10) 
-consts target :: "e\<Rightarrow>e" ("_\<box>" [9]10) 
+consts source :: "e\<Rightarrow>e" ("\<box>_" [108]109) 
+consts target :: "e\<Rightarrow>e" ("_\<box>" [110]111) 
 consts composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
 
 (*
@@ -22,19 +23,41 @@ axiomatization where
 *)
 
 axiomatization Category where
- A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box> y))" and
- A2b: "(\<box>(x\<box>)) \<approx> (\<box>x)" and
+ A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box>y))" and
+(* A2a: "((\<box>x)\<box>) \<approx> \<box>x" \<and>*)
+ A2b: "\<box>(x\<box>) \<approx> \<box>x" and
  A3a: "(\<box>x)\<cdot>x \<approx> x" and
  A3b: "x\<cdot>(x\<box>) \<approx> x" and
- A4a: "(\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))" and
- A4b: "((x\<cdot>y)\<box>) \<approx> (((x\<box>)\<cdot>y)\<box>)" and
+ A4a: "\<box>(x\<cdot>y) \<approx> \<box>(x\<cdot>(\<box>y))" and
+ A4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
+
+
+lemma A2a:  "(\<box>x)\<box> \<approx> \<box>x"   sledgehammer       
+
+lemma L1: "(\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"  using A5 by metis
+lemma L2: "(\<box>\<box>x)\<cdot>x \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"         using L1 A3a by metis
+lemma L3: "(\<box>\<box>x)\<cdot>x \<approx> (\<box>x)\<cdot>x"                 using L2 A3a by metis
+lemma L4: "(\<box>\<box>x)\<cdot>x \<approx> x"                     using L3 A3a by metis
+lemma L5: "(\<box>\<box>(x\<box>)) \<approx> \<box>(\<box>\<box>(x\<box>))\<cdot>(x\<box>)"     using A3a A4a by metis
+lemma L6: "(\<box>\<box>(x\<box>)) \<approx> \<box>(x\<box>)"              using L4 L5 by metis
+lemma L7: "(\<box>\<box>(x\<box>)) \<approx> \<box>x"                 using A2b L6 by metis
+lemma L8: "\<box>\<box>\<box>(x\<box>) \<approx> \<box>\<box>(x\<box>)"             using L6 by auto
+lemma L9: "\<box>\<box>\<box>(x\<box>) \<approx> \<box>x"                 using L7 L8 by metis
+lemma L10: "\<box>\<box>(\<box>x)\<box> \<approx> \<box>\<box>(x\<box>)"             using L8 L9 by metis
+lemma L11: "\<box>\<box>(\<box>x)\<box> \<approx> \<box>x"                  using L10 L7 by metis
+lemma L12: "(\<box>x)\<box> \<approx> (\<box>x)\<cdot>((\<box>x)\<box>)"           using L11 L4 by metis
+lemma A2a:  "(\<box>x)\<box> \<approx> \<box>x"                    using A3b L12 by metis
+
+
 
 
 abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) where "x \<greaterapprox> y \<equiv> ((D x) \<^bold>\<rightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
-lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> (\<box>x))" 
- by (metis A1 A2b A3a A3b A4a)
+lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> \<box>x)" 
+sledgehammer
+by (metis A1 A2b A3a A3b A4a)
+
 
 lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" 
  by (metis A1 A2b A3b)
@@ -95,6 +118,7 @@ axiomatization Monoid where
 
 
 
+
 abbreviation defined :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x"  
 
 abbreviation f_E :: "'a\<Rightarrow>\<sigma>" ("\<E>")  where  "\<E> \<equiv> \<A>" (* \<E>,\<A> stand for Existence synonomously *)
@@ -145,4 +169,19 @@ lemma A9: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> dom(x\<^bold>\<circ
 lemma A10: "\<E>(x\<^bold>\<circ>y) \<^bold>\<leftrightarrow> cod(x\<^bold>\<circ>y) \<^bold>= cod(y)" oops
 
 lemma A11: "(\<E>(x\<^bold>\<circ>y) \<^bold>\<and> \<E>(y\<^bold>\<circ>x)) \<^bold>\<rightarrow> \<E>(x\<^bold>\<circ>(y\<^bold>\<circ>z))" nitpick
+
+
+=======
+
+consts source :: "e\<Rightarrow>e" ("\<box>_" [9]101) 
+consts target :: "e\<Rightarrow>e" ("_\<box>" [10]102) 
+consts composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
+
+
+abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x" 
+abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<approx>" 60) where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
+
+(* Axioms *)
+
+
 end
