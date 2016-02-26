@@ -5,24 +5,28 @@ begin
 
 typedecl e  (* raw type of morphisms *)
 
+
 consts source :: "e\<Rightarrow>e" ("\<box>_" [9]101) 
 consts target :: "e\<Rightarrow>e" ("_\<box>" [10]102) 
 consts composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
+
 
 abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x" 
 abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<approx>" 60) where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
 (* Axioms *)
 
-axiomatization where
+
+axiomatization Category where
  A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box> y))" and
 (* A2a: "((\<box>x)\<box>) \<approx> \<box>x" \<and>*)
  A2b: "(\<box>(x\<box>)) \<approx> \<box>x" and
  A3a: "(\<box>x)\<cdot>x \<approx> x" and
  A3b: "x\<cdot>(x\<box>) \<approx> x" and
- A4a: "(\<box>(x\<cdot>y)) \<approx> \<box>(x\<cdot>(\<box>y))" and
- A4b: "(x\<cdot>y)\<box> \<approx> (((x\<box>)\<cdot>y)\<box>)" and
+ A4a: "(\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))" and
+ A4b: "((x\<cdot>y)\<box>) \<approx> (((x\<box>)\<cdot>y)\<box>)" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
+
 
 
 lemma "\<box>(x\<box>) \<approx> (\<box>x) \<cdot> (\<box>(x\<box>))" sledgehammer oops
@@ -57,6 +61,62 @@ by (metis A1 A2b A3a A3b A4a)
 
 lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" by (metis A1 A2b A3b)
 lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> (e \<approx> \<box>e)" by (metis A1 A2b A3a A3b)
+=======
+abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) where "x \<greaterapprox> y \<equiv> ((D x) \<^bold>\<rightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
+
+lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> (\<box>x))" by (metis A1 A2a A3a)
+
+lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" by (metis A1 A2b A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> e \<approx> (\<box>e)" by (metis A1 A2a A3b)
+lemma "e \<approx> (\<box>e) \<^bold>\<leftrightarrow> e \<approx> (e\<box>)" by (metis A1 A2a A3a A3b)
+lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)" by (metis A1 A2a A3a A3b) 
+lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)" by (metis A1 A2b A3a A3b)
+
+abbreviation IdentityMorphism :: "e\<Rightarrow>bool" ("IdM_" [8]60) where "IdM x \<equiv> x \<approx> (\<box>x)"
+
+lemma "(IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (\<box>x))) \<^bold>\<and>
+       (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))) \<^bold>\<and> 
+       (IdM e \<^bold>\<leftrightarrow> e \<approx> (\<box>e)) \<^bold>\<and>
+       (IdM e \<^bold>\<leftrightarrow> e \<approx> (e\<box>)) \<^bold>\<and>
+       (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)) \<^bold>\<and>
+       (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x))"
+by (smt A1 A2a A3a A3b)
+
+
+abbreviation category where "category S T C \<equiv>
+ (\<^bold>\<forall>x y. (D (C x y)) \<^bold>\<leftrightarrow> ((T x) \<approx> (S y))) \<^bold>\<and>
+ (\<^bold>\<forall>x. (T (S x)) \<approx> (S x)) \<^bold>\<and>
+ (\<^bold>\<forall>x. (S (T x)) \<approx> (S x)) \<^bold>\<and>
+ (\<^bold>\<forall>x. (C (S x) x) \<approx> x) \<^bold>\<and>
+ (\<^bold>\<forall>x. (C x (T x)) \<approx> x) \<^bold>\<and>
+ (\<^bold>\<forall>x y. (S (C x y)) \<approx> (S (C x (S y)))) \<^bold>\<and>
+ (\<^bold>\<forall>x y. (T (C x y)) \<approx> (T (C (T x) y))) \<^bold>\<and>
+ (\<^bold>\<forall>x y z. (C x (C y z)) \<approx> (C (C x y) z))"
+
+abbreviation monoid where "monoid One Comp \<equiv>
+ (\<^bold>\<forall>x. (Comp One x) \<approx> x) \<^bold>\<and>
+ (\<^bold>\<forall>x. (Comp x One) \<approx> x) \<^bold>\<and>
+ (\<^bold>\<forall>x y z. (Comp x (Comp y z)) \<approx> (Comp (Comp x y) z))"
+
+
+consts One::e L::"e\<Rightarrow>e" R::"e\<Rightarrow>e" Comp::"e\<Rightarrow>e\<Rightarrow>e" 
+lemma "((monoid One Comp) \<^bold>\<and> (L x \<approx> One) \<^bold>\<and> (R x \<approx> One)) \<^bold>\<rightarrow> (category L R Comp)" 
+sledgehammer[verbose] nitpick
+
+
+lemma "category source target composition" by (meson A1 A2b A3a A3b A4a A4b A5)
+
+consts One :: "e" ("\<one>")
+
+axiomatization Monoid where 
+ M1: "\<one>\<cdot>x \<approx> x" and
+ M2: "x\<cdot>\<one> \<approx> x" and
+ M3: "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
+
+
+ M1: "(\<box>x) \<approx> \<one> \<^bold>\<and> (x\<box>) \<approx> \<one>"
+
+
 
 
 abbreviation defined :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x"  
