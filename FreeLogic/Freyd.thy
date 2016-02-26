@@ -5,22 +5,24 @@ begin
 
 typedecl e  (* raw type of morphisms *)
 
-abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x" 
-abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<approx>" 60) where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
+abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) 
+ where "D x \<equiv> \<A> x" 
+abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<approx>" 60) 
+ where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
 (* Axioms *)
-
 
 consts source :: "e\<Rightarrow>e" ("\<box>_" [9]10) 
 consts target :: "e\<Rightarrow>e" ("_\<box>" [9]10) 
 consts composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
 
+(*
 axiomatization where
  Cat: "category source target composition"
+*)
 
 axiomatization Category where
  A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box> y))" and
- A2a: "((\<box>x)\<box>) \<approx> (\<box>x)" and
  A2b: "(\<box>(x\<box>)) \<approx> (\<box>x)" and
  A3a: "(\<box>x)\<cdot>x \<approx> x" and
  A3b: "x\<cdot>(x\<box>) \<approx> x" and
@@ -31,13 +33,22 @@ axiomatization Category where
 
 abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) where "x \<greaterapprox> y \<equiv> ((D x) \<^bold>\<rightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
-lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> (\<box>x))" by (metis A1 A2a A3a)
+lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> (\<box>x))" 
+ by (metis A1 A2b A3a A3b A4a)
 
-lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" by (metis A1 A2b A3b)
-lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> e \<approx> (\<box>e)" by (metis A1 A2a A3b)
-lemma "e \<approx> (\<box>e) \<^bold>\<leftrightarrow> e \<approx> (e\<box>)" by (metis A1 A2a A3a A3b)
-lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)" by (metis A1 A2a A3a A3b) 
-lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)" by (metis A1 A2b A3a A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" 
+ by (metis A1 A2b A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> e \<approx> (\<box>e)"
+ by (metis A1 A2b A3a A3b)
+lemma "e \<approx> (\<box>e) \<^bold>\<leftrightarrow> e \<approx> (e\<box>)"
+ by (metis A1 A2b A3a A3b A4a)
+lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)"
+ by (metis A1 A2b A3a A3b A4a) 
+lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)"
+ by (metis A1 A2b A3a A3b)
+
+lemma A2a: "((\<box>x)\<box>) \<approx> (\<box>x)" 
+ by (metis A2b A3a A3b A4a A5)
 
 abbreviation IdentityMorphism :: "e\<Rightarrow>bool" ("IdM_" [8]60) where "IdM x \<equiv> x \<approx> (\<box>x)"
 
@@ -47,8 +58,7 @@ lemma "(IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (\<box>
        (IdM e \<^bold>\<leftrightarrow> e \<approx> (e\<box>)) \<^bold>\<and>
        (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)) \<^bold>\<and>
        (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x))"
-by (smt A1 A2a A3a A3b)
-
+ by (smt A1 A2a A3a A3b)
 
 abbreviation category where "category S T C \<equiv>
  (\<^bold>\<forall>x y. (D (C x y)) \<^bold>\<leftrightarrow> ((T x) \<approx> (S y))) \<^bold>\<and>
