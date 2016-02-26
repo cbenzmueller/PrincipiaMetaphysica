@@ -6,7 +6,7 @@ begin
 typedecl e  (* raw type of morphisms *)
 
 consts source :: "e\<Rightarrow>e" ("\<box>_" [9]101) 
-consts target :: "e\<Rightarrow>e" ("_\<box>" [9]101) 
+consts target :: "e\<Rightarrow>e" ("_\<box>" [10]102) 
 consts composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
 
 abbreviation Definedness :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x" 
@@ -16,7 +16,7 @@ abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<ap
 
 axiomatization where
  A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box> y))" and
- A2a: "((\<box>x)\<box>) \<approx> \<box>x" and
+(* A2a: "((\<box>x)\<box>) \<approx> \<box>x" \<and>*)
  A2b: "(\<box>(x\<box>)) \<approx> \<box>x" and
  A3a: "(\<box>x)\<cdot>x \<approx> x" and
  A3b: "x\<cdot>(x\<box>) \<approx> x" and
@@ -24,12 +24,39 @@ axiomatization where
  A4b: "(x\<cdot>y)\<box> \<approx> (((x\<box>)\<cdot>y)\<box>)" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 
+
+lemma "\<box>(x\<box>) \<approx> (\<box>x) \<cdot> (\<box>(x\<box>))" sledgehammer oops
+
+lemma "((\<box>x)\<box>) \<approx> \<box>x" sledgehammer
+proof -
+  have f1: "\<forall>e. (\<^bold>\<not>D(\<box>e) \<cdot> e \<or> D e) \<and> (\<^bold>\<not>D e \<or> D(\<box>e) \<cdot> e) \<and> (\<box>e) \<cdot> e \<^bold>= e"
+    using A3a by blast
+  have f2: "\<forall>e. (\<^bold>\<not>D e \<cdot> (e\<box>) \<or> D e) \<and> (\<^bold>\<not>D e \<or> D e \<cdot> (e\<box>)) \<and> e \<cdot> (e\<box>) \<^bold>= e"
+    using A3b by blast
+  have "(\<box>\<box>x) \<cdot> x \<^bold>= x"
+    using f1 sledgehammer
+  hence "\<box>\<box>x\<box> \<^bold>= \<box>x"
+    using f1 by (metis A2b A4a)
+  hence "\<box>x\<box> \<^bold>= (\<box>x) \<cdot> (\<box>x\<box>)"
+    using f1 by metis
+  hence "\<box>x\<box> \<^bold>= \<box>x"
+    using f2 by auto
+  thus ?thesis
+    by auto
+qed
+
+(* by (metis A2b A3a A3b A4a) *)
+
 abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) where "x \<greaterapprox> y \<equiv> ((D x) \<^bold>\<rightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
 
-lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> \<box>x)" by (metis A1 A2a A3a)
+lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> \<box>x)" 
+sledgehammer
+by (metis A1 A2b A3a A3b A4a)
+
+
 
 lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" by (metis A1 A2b A3b)
-lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> (e \<approx> \<box>e)" by (metis A1 A2a A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> (e \<approx> \<box>e)" by (metis A1 A2b A3a A3b)
 
 
 abbreviation defined :: "e\<Rightarrow>bool" ("D_" [8]60) where "D x \<equiv> \<A> x"  
