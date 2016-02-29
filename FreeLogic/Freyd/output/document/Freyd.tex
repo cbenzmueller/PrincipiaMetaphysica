@@ -1,0 +1,477 @@
+%
+\begin{isabellebody}%
+\setisabellecontext{Freyd}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+\isacommand{theory}\isamarkupfalse%
+\ Freyd\ \isakeyword{imports}\ FreeHOL\ \isanewline
+\isakeyword{begin}%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+\isanewline
+%
+\endisadelimtheory
+\isanewline
+\isacommand{typedecl}\isamarkupfalse%
+\ e\ \ %
+\isamarkupcmt{raw type of morphisms%
+}
+\isanewline
+\isacommand{abbreviation}\isamarkupfalse%
+\ Definedness\ {\isacharcolon}{\isacharcolon}\ \ {\isachardoublequoteopen}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}D{\isacharunderscore}{\isachardoublequoteclose}{\isacharbrackleft}{\isadigit{8}}{\isacharbrackright}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \ \ \ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}D\ x\ {\isasymequiv}\ {\isasymA}\ x{\isachardoublequoteclose}\ \ \ \isanewline
+\isacommand{abbreviation}\isamarkupfalse%
+\ OrdinaryEquality\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}{\isachardoublequoteopen}{\isasymapprox}{\isachardoublequoteclose}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}D\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
+\isanewline
+\isacommand{consts}\isamarkupfalse%
+\ source\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}{\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \isanewline
+\ \ \ \ \ \ \ target\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isacharunderscore}{\isasymbox}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}{\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \isanewline
+\ \ \ \ \ \ \ composition\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}\isanewline
+\isanewline
+\isacommand{axiomatization}\isamarkupfalse%
+\ FreydsAxioms\ \isakeyword{where}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\ A{\isadigit{1}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}D\ x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\isanewline
+\ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isasymbox}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{5}}{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\isanewline
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}x{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}{\isasymcdot}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{2}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}{\isasymcdot}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{1}}\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{3}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{2}}\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{4}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{3}}\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{5}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}x{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{4}}a\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{6}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isasymbox}x{\isacharparenright}{\isasymcdot}x{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{5}}\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{7}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}{\isasymbox}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isacharparenright}{\isasymcdot}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{8}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{4}}\ L{\isadigit{7}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{9}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}b\ L{\isadigit{8}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{0}}{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}x\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}b\ L{\isadigit{9}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}b\ L{\isadigit{1}}{\isadigit{0}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{1}}\ L{\isadigit{9}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}{\isasymbox}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{2}}\ L{\isadigit{1}}{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ LM{\isadigit{1}}{\isadigit{0}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ L{\isadigit{1}}{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{3}}b\ LM{\isadigit{1}}{\isadigit{0}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isanewline
+\isacommand{abbreviation}\isamarkupfalse%
+\ DirectedEquality\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymgreaterapprox}{\isachardoublequoteclose}\ {\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymgreaterapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}D\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ L{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isacharparenright}\ {\isasymgreaterapprox}\ {\isasymbox}x{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}e{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}e{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ e\ {\isasymapprox}\ {\isacharparenleft}e{\isasymbox}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}e\ {\isasymapprox}\ {\isacharparenleft}e{\isasymbox}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ e{\isasymcdot}x\ {\isasymgreaterapprox}\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\ \isanewline
+%
+\endisadelimproof
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ e{\isasymcdot}x\ {\isasymgreaterapprox}\ x{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}e\ {\isasymgreaterapprox}\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{abbreviation}\isamarkupfalse%
+\ IdentityMorphism\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}IdM{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{8}}{\isacharbrackright}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}IdM\ x\ {\isasymequiv}\ x\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\isanewline
+\ \ \ \ \ \ \ {\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ \isanewline
+\ \ \ \ \ \ \ {\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}e{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\isanewline
+\ \ \ \ \ \ \ {\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ e\ {\isasymapprox}\ {\isacharparenleft}e{\isasymbox}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\isanewline
+\ \ \ \ \ \ \ {\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ e{\isasymcdot}x\ {\isasymgreaterapprox}\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\isanewline
+\ \ \ \ \ \ \ {\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}e\ {\isasymgreaterapprox}\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}smt\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a\ A{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+\isacommand{end}\isamarkupfalse%
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+\end{isabellebody}%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "root"
+%%% End:

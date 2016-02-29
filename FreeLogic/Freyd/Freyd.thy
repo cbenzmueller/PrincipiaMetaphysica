@@ -1,8 +1,8 @@
 theory Freyd imports FreeHOL 
 begin
 
-typedecl e  -- {* raw type of morphisms *}
-abbreviation Definedness :: "e\<Rightarrow>bool" ("D_"[8]60)    (* we map it to definedness in Free Logic *)
+typedecl e  -- \<open>raw type of morphisms\<close>
+abbreviation Definedness ::  "e\<Rightarrow>bool" ("D_"[8]60)    (* we map it to definedness in Free Logic *)
  where "D x \<equiv> \<A> x"   
 abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<approx>"60) 
  where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
