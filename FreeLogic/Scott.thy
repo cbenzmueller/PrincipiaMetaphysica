@@ -1,15 +1,74 @@
-theory Freyd imports FreeHOL 
+theory Scott imports FreeFOL 
 begin
 
-typedecl e  -- {* raw type of morphisms *}
-abbreviation Definedness :: "e\<Rightarrow>bool" ("D_"[8]60)    (* we map it to definedness in Free Logic *)
- where "D x \<equiv> \<A> x"   
+typedecl e  -- \<open>raw type of morphisms\<close>
+abbreviation Definedness ::  "e\<Rightarrow>bool" ("E_"[8]60)    (* we map it to definedness in Free Logic *)
+ where "E x \<equiv> \<A> x"   
 abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<approx>"60) 
- where "x \<approx> y \<equiv> ((D x) \<^bold>\<leftrightarrow> (D y)) \<^bold>\<and> x \<^bold>= y"  
+ where "x \<approx> y \<equiv> ((E x) \<^bold>\<and> (E y)) \<^bold>\<and> x \<^bold>= y"  
+abbreviation Equivalence :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<^bold>\<equiv>"60) 
+ where "x \<^bold>\<equiv> y \<equiv> ((E x) \<^bold>\<leftrightarrow> (E y)) \<^bold>\<and> x \<^bold>= y"  
+
+
+text {* Ordinary equality is not reflexive in general. *}
+lemma "x \<approx> x" nitpick [mono]
+text {* However, we still have: *}
+lemma "\<^bold>\<forall>x. x \<approx> x" by simp 
+
+axiomatization where
+ refl: "x \<approx> x \<^bold>\<leftrightarrow> E x" 
+
+lemma sym: "x \<approx> y \<^bold>\<leftrightarrow> y \<approx> x" by simp
+
+
+lemma Metatheorem: "x \<^bold>\<equiv> y \<^bold>\<leftrightarrow> (((E x) \<^bold>\<or> (E y)) \<^bold>\<rightarrow> x \<approx> y)" sledgehammer nitpick
+
 
 consts source :: "e\<Rightarrow>e" ("\<box>_" [108]109) 
        target :: "e\<Rightarrow>e" ("_\<box>" [110]111) 
        composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
+
+
+
+
+(* 
+---Dana: 20 Dec 2015
+The problem I stated about category-theory axioms was wrong. Here is a correct statement.
+dom(x)=i <==> xoi=x & (all y) [xoyoy=x==>ioy=yoi=y]
+BUT IF THIS IS USED AS THE DEFINITION, THEN IT IS NOT
+SO CLEAR WHAT THE MOST BEAUTIFUL AXIOMS SHOULD BE.
+Maybe a Diplomarbeit problem?
+
+---Dana: 28 Dec 2015
+We can characterize identity maps in a category by this property:
+Id(i) <==> ioi=i & (allx,y,z)[xoioy=z ==>xoi=x & ioy=y]
+
+In other words, this is about identity maps in themselves not tied to any specific other maps. 
+But I claim: dom(x)=i <==>Id(i) & xoi=x
+Because suppose both i and j have that property on the right above. 
+Then xoioj=x, and  so ioj=j. Then xojoi=x, and so joi=i. But then joioj=j, and sojoi=j. 
+Therefore,i=j. QED.
+
+Well, one needs a lemma showing Id(dom(x)) from my axioms to see that the brief proof I 
+gave tells us all we need to know.
+
+---
+
+ *)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 axiomatization FreydsAxioms where               (* Freyd's axioms, where A2a seems redundant *)
  A1:  "(D x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box>y))" and
@@ -20,8 +79,6 @@ axiomatization FreydsAxioms where               (* Freyd's axioms, where A2a see
  A4a: "\<box>(x\<cdot>y) \<approx> \<box>(x\<cdot>(\<box>y))" and
  A4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
-
-lemma L6:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>\<box>x" sledgehammer [isar_proofs, dont_compress]
 
 (* Detailed derivation of A2a from the other axioms *)
 lemma L1:  "(\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"  using A5 by metis

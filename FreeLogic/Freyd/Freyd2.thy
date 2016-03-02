@@ -20,7 +20,7 @@ abbreviation monoid where "monoid One Comp \<equiv>
 
 consts One::e L::"e\<Rightarrow>e" R::"e\<Rightarrow>e" Comp::"e\<Rightarrow>e\<Rightarrow>e" 
 lemma "((monoid One Comp) \<^bold>\<and> (\<^bold>\<forall>x. (L x \<approx> One)) \<^bold>\<and> (\<^bold>\<forall>x. (R x \<approx> One))) \<^bold>\<rightarrow> (category L R Comp)" 
-sledgehammer[verbose, timeout = 600]()
+sledgehammer[verbose, timeout = 600,overlord, remote_leo2, remote_satallax]
 
 
 lemma "category source target composition" by (meson A1 A2b A3a A3b A4a A4b A5)
