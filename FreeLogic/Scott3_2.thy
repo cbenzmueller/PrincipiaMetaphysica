@@ -64,7 +64,7 @@ lemma F3a_1: "x\<cdot>dom(x) \<approx>F x" using a5 by blast (* proof *)
 lemma F3a_2: "x\<cdot>dom(x) \<approx> x"  nitpick [user_axioms] oops (* countermodel *)
 lemma F3a_3: "x\<cdot>dom(x) \<^bold>\<equiv>  x" using a5 by blast (* proof *)
  
-lemma F3b_1: "cod(x)\<cdot>x \<approx>F x" using a6 by blast (* no countermodel, no proof *) 
+lemma F3b_1: "cod(x)\<cdot>x \<approx>F x" using a6 by blast (* proof *) 
 lemma F3b_2: "cod(x)\<cdot>x \<approx> x"  nitpick [user_axioms] oops (* countermodel *)
 lemma F3b_3: "cod(x)\<cdot>x \<^bold>\<equiv> x"  using a6 by blast (* proof *)
 
@@ -80,7 +80,7 @@ lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  sledgehammer
 
 lemma FA5_1: "x\<cdot>(y\<cdot>z) \<approx>F (x\<cdot>y)\<cdot>z" using a4 by blast (* proof *)
 lemma FA5_2: "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  nitpick [user_axioms] oops (* countermodel *)
-lemma FA5_3: "x\<cdot>(y\<cdot>z) \<^bold>\<equiv> (x\<cdot>y)\<cdot>z"  using a4 by blast (* no proof *)
+lemma FA5_3: "x\<cdot>(y\<cdot>z) \<^bold>\<equiv> (x\<cdot>y)\<cdot>z"  using a4 by blast (* proof *)
 
 end 
 
