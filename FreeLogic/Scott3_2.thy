@@ -70,13 +70,13 @@ lemma F3b_3: "cod(x)\<cdot>x \<^bold>\<equiv> x"  using a6 by blast (* proof *)
 
 lemma F4a_1: "dom(y\<cdot>x) \<approx>F dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)  
 lemma F4a_2: "dom(y\<cdot>x) \<approx> dom(dom(y)\<cdot>x)"  nitpick [user_axioms] oops (* countermodel *) 
-lemma F4a_3: "dom(y\<cdot>x) \<^bold>\<equiv> dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] 
-by (metis F3a_3 a3 a7 a9) (* no countermodel, no proof *) 
+lemma F4a_3: "dom(y\<cdot>x) \<^bold>\<equiv> dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *) 
+(* by (metis F3a_3 a3 a7 a9) *) 
 
 lemma F4b_1: "cod(y\<cdot>x) \<approx>F cod(y\<cdot>cod(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
 lemma F4b_2: "cod(y\<cdot>x) \<approx> cod(y\<cdot>cod(x))"  nitpick [user_axioms] oops (* countermodel *)
-lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  sledgehammer nitpick [user_axioms] 
-by (metis F3b_3 a10 a2 a3) (* no countermodel, no proof *)
+lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
+(* by (metis F3b_3 a10 a2 a3) *) 
 
 lemma FA5_1: "x\<cdot>(y\<cdot>z) \<approx>F (x\<cdot>y)\<cdot>z" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
 lemma FA5_2: "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  nitpick [user_axioms] oops (* countermodel *)
