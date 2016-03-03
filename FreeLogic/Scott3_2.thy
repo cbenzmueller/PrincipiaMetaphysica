@@ -78,7 +78,7 @@ lemma F4b_2: "cod(y\<cdot>x) \<approx> cod(y\<cdot>cod(x))"  nitpick [user_axiom
 lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
 (* by (metis F3b_3 a10 a2 a3) *) 
 
-lemma FA5_1: "x\<cdot>(y\<cdot>z) \<approx>F (x\<cdot>y)\<cdot>z" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
+lemma FA5_1: "x\<cdot>(y\<cdot>z) \<approx>F (x\<cdot>y)\<cdot>z" using a4 by blast (* proof *)
 lemma FA5_2: "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  nitpick [user_axioms] oops (* countermodel *)
 lemma FA5_3: "x\<cdot>(y\<cdot>z) \<^bold>\<equiv> (x\<cdot>y)\<cdot>z"  using a4 by blast (* no proof *)
 
