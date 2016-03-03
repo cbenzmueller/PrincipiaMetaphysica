@@ -1,11 +1,12 @@
-theory Scott2b imports Scott2
+theory Scott1b imports Scott1
 begin
  
-text {* Section 3 of Id&Ex: Relations and Functions; here with Scott2 as import *}
+text {* Section 3 of Id&Ex: Relations and Functions; here with Scott1 as import *}
 
 text {* The following are consequences of eq_ *}
-lemma test1: "(x \<^bold>\<equiv> x' \<^bold>\<and> y \<^bold>\<equiv> y' \<^bold>\<and> R x y) \<^bold>\<rightarrow> R x' y'" by blast
-lemma test2: "x \<^bold>\<equiv> x'\<^bold>\<rightarrow> f(x) \<^bold>\<equiv> f(x')" by blast 
+(* provers still fail, but nitpick doesn't find a counterexample *)
+lemma test1: "(x \<^bold>\<equiv> x' \<^bold>\<and> y \<^bold>\<equiv> y' \<^bold>\<and> R x y) \<^bold>\<rightarrow> R x' y'" sorry  
+lemma test2: "x \<^bold>\<equiv> x'\<^bold>\<rightarrow> f(x) \<^bold>\<equiv> f(x')" sorry
 
 text {* The first statement still holds if we replace equivalence by equality *}
 lemma test1_1: "(x \<approx> x' \<^bold>\<and> y \<approx> y' \<^bold>\<and> R x y) \<^bold>\<rightarrow> R x' y'" by blast
@@ -33,5 +34,6 @@ lemma "P x y \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  nitpick [user_axio
 text {* NOTE: should this be provable without any assumptions on strictness? 
  I guess not? We need to discuss ... *}
 lemma "(((x \<approx> y) \<^bold>\<and> \<Phi>(x)) \<^bold>\<rightarrow> \<Phi>(y))" by blast
+
 end 
 

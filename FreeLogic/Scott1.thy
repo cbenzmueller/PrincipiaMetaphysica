@@ -1,7 +1,7 @@
-theory Scott1 imports FreeHOL 
+theory Scott1 imports FreeFOL 
 begin
 
-typedecl e  -- \<open>raw type of morphisms\<close>
+type_synonym e = i   -- \<open>raw type of morphisms\<close> 
 
 abbreviation Definedness ::  "e\<Rightarrow>bool" ("E_"[100]60)    (* we map it to definedness in Free Logic *)
  where "E x \<equiv> \<A> x"   
@@ -28,7 +28,7 @@ lemma "(\<^bold>\<forall>z. (x \<approx> z \<^bold>\<leftrightarrow> y \<approx>
 
 text {* The axiom of equivalence *}
 text {* ... is not implied by the above theory; Nitpick finds a countermodel *}
-lemma  "((E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x \<approx> y) \<^bold>\<and> \<Phi>(x) \<^bold>\<rightarrow> \<Phi>(y)" nitpick [user_axioms,mono] oops
+lemma  "((E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x \<approx> y) \<^bold>\<and> \<Phi>(x) \<^bold>\<rightarrow> \<Phi>(y)" nitpick [user_axioms] oops
 
 text {* ... so we state as an axiom *}
 axiomatization where 
@@ -36,14 +36,19 @@ axiomatization where
 
 
 text {* Metatheorem *}
+
+text {* First we define equivalence based on equality *}
 abbreviation Equivalence :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<^bold>\<equiv>"60) 
  where "x \<^bold>\<equiv> y \<equiv> (E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x \<approx> y"  
 
+text {* Now we can prove in_, eq_, equals_ and E. *}
 lemma in_: "(\<^bold>\<forall>z . (x \<^bold>\<equiv> z \<^bold>\<leftrightarrow> y \<^bold>\<equiv> z)) \<^bold>\<rightarrow> x \<^bold>\<equiv> y" by blast
-lemma eq_: "((x \<^bold>\<equiv> y) \<^bold>\<and> \<Phi>(x)) \<^bold>\<rightarrow> \<Phi>(y)" using eq by metis
+lemma eq_: "(x \<^bold>\<equiv> y \<^bold>\<and> \<Phi>(x)) \<^bold>\<rightarrow> \<Phi>(y)" using eq by metis
 lemma equals_: "x \<approx> y \<^bold>\<leftrightarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (x \<^bold>\<equiv> y))" by blast 
 
-text {* Hence we have shown that (in_), (eq_) and (equals_) are provable 
+lemma E: "E x \<^bold>\<leftrightarrow> (\<^bold>\<exists> y. x \<^bold>\<equiv> y)" by blast  
+
+text {* Hence we have shown that (in_), (eq_), (equals_) and (E) are provable 
 in the theory of equality *}
 
 end 

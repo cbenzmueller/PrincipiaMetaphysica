@@ -21,25 +21,27 @@ axiomatization FreydsAxioms where               (* Freyd's axioms, where A2a see
  A4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 
-lemma L6:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>\<box>x" sledgehammer [isar_proofs, dont_compress]
 
 (* Detailed derivation of A2a from the other axioms *)
-lemma L1:  "(\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"  using A5 by metis
-lemma L2:  "(\<box>\<box>x)\<cdot>x \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"         using L1 A3a by metis
-lemma L3:  "(\<box>\<box>x)\<cdot>x \<approx> (\<box>x)\<cdot>x"                 using L2 A3a by metis
-lemma L4:  "(\<box>\<box>x)\<cdot>x \<approx> x"                      using L3 A3a by metis
-lemma L5:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>((\<box>\<box>x)\<cdot>(\<box>x))"      using A4a by auto
-lemma L6:  "\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>\<box>x"                using L5 A3a by metis
-lemma L7:  "\<box>\<box>(x\<box>) \<approx> \<box>(\<box>\<box>(x\<box>))\<cdot>(x\<box>)"        using L6 by auto
-lemma L8:  "\<box>\<box>(x\<box>) \<approx> \<box>(x\<box>)"                 using L4 L7 by metis
-lemma L9:  "\<box>\<box>(x\<box>) \<approx> \<box>x"                     using A2b L8 by metis
-lemma L10: "\<box>\<box>x \<approx> \<box>x"                        using A2b L9 by metis
-lemma L11: "\<box>\<box>((\<box>x)\<box>) \<approx> \<box>\<box>(x\<box>)"             using A2b L10 by metis
-lemma L12: "\<box>\<box>((\<box>x)\<box>) \<approx> \<box>x"                  using L11 L9 by metis
-lemma L13: "(\<box>\<box>((\<box>x)\<box>))\<cdot>((\<box>x)\<box>) \<approx> ((\<box>x)\<box>)"  using L4 by auto   
-lemma L14: "(\<box>x)\<cdot>((\<box>x)\<box>) \<approx> (\<box>x)\<box>"            using L12 L13 by metis
-lemma LM10: "(\<box>x)\<box> \<approx> (\<box>x)\<cdot>((\<box>x)\<box>)"           using L14 by auto
-lemma A2a: "(\<box>x)\<box> \<approx> \<box>x"                      using A3b LM10 by metis
+lemma A2a: "(\<box>x)\<box> \<approx> \<box>x" 
+ proof -                    
+ have  L1:  "\<forall>x. (\<box>\<box>x)\<cdot>((\<box>x)\<cdot>x) \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x" using A5 by metis
+ hence L2:  "\<forall>x. (\<box>\<box>x)\<cdot>x \<approx> ((\<box>\<box>x)\<cdot>(\<box>x))\<cdot>x"        using A3a by metis
+ hence L3:  "\<forall>x. (\<box>\<box>x)\<cdot>x \<approx> (\<box>x)\<cdot>x"                using A3a by metis
+ hence L4:  "\<forall>x. (\<box>\<box>x)\<cdot>x \<approx> x"                     using A3a by metis
+ have  L5:  "\<forall>x. \<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>((\<box>\<box>x)\<cdot>(\<box>x))"     using A4a by auto
+ hence L6:  "\<forall>x .\<box>((\<box>\<box>x)\<cdot>x) \<approx> \<box>\<box>x"               using A3a by metis
+ hence L7:  "\<forall>x. \<box>\<box>(x\<box>) \<approx> \<box>(\<box>\<box>(x\<box>))\<cdot>(x\<box>)"       by auto
+ hence L8:  "\<forall>x. \<box>\<box>(x\<box>) \<approx> \<box>(x\<box>)"                 using L4 by metis
+ hence L9:  "\<forall>x. \<box>\<box>(x\<box>) \<approx> \<box>x"                     using A2b by metis
+ hence L10: "\<forall>x. \<box>\<box>x \<approx> \<box>x"                        using A2b by metis
+ hence L11: "\<forall>x. \<box>\<box>((\<box>x)\<box>) \<approx> \<box>\<box>(x\<box>)"             using A2b by metis
+ hence L12: "\<forall>x. \<box>\<box>((\<box>x)\<box>) \<approx> \<box>x"                  using L9 by metis
+ have  L13: "\<forall>x. (\<box>\<box>((\<box>x)\<box>))\<cdot>((\<box>x)\<box>) \<approx> ((\<box>x)\<box>)"  using L4 by auto   
+ hence L14: "\<forall>x. (\<box>x)\<cdot>((\<box>x)\<box>) \<approx> (\<box>x)\<box>"            using L12 by metis
+ hence L15: "\<forall>x. (\<box>x)\<box> \<approx> (\<box>x)\<cdot>((\<box>x)\<box>)"            using L14 by auto
+ then show ?thesis using A3b by metis
+qed                     
 
 
 abbreviation DirectedEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix "\<greaterapprox>" 60) 
@@ -49,19 +51,14 @@ lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bol
 by (metis A1 A2a A3a)
 
 
-lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" 
- by (metis A1 A2b A3b)
-lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> e \<approx> (\<box>e)"
- by (metis A1 A2b A3a A3b)
-lemma "e \<approx> (\<box>e) \<^bold>\<leftrightarrow> e \<approx> (e\<box>)"
- by (metis A1 A2b A3a A3b A4a)
-lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)"
- by (metis A1 A2b A3a A3b A4a) 
-lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)"
- by (metis A1 A2b A3a A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (\<box>x)) \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))" by (metis A1 A2b A3b)
+lemma "(\<^bold>\<exists>x. e \<approx> (x\<box>)) \<^bold>\<leftrightarrow> e \<approx> (\<box>e)"       by (metis A1 A2b A3a A3b)
+lemma "e \<approx> (\<box>e) \<^bold>\<leftrightarrow> e \<approx> (e\<box>)"             by (metis A1 A2b A3a A3b A4a)
+lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x)"         by (metis A1 A2b A3a A3b A4a) 
+lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)"     by (metis A1 A2b A3a A3b)
 
 
-abbreviation IdentityMorphism :: "e\<Rightarrow>bool" ("IdM_" [8]60) where "IdM x \<equiv> x \<approx> (\<box>x)"
+abbreviation IdentityMorphism :: "e\<Rightarrow>bool" ("IdM_" [100]60) where "IdM x \<equiv> x \<approx> (\<box>x)"
 
 lemma "(IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (\<box>x))) \<^bold>\<and>
        (IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (x\<box>))) \<^bold>\<and> 
