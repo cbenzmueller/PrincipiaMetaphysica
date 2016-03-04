@@ -4,7 +4,7 @@ begin
 text {* We have dom, cod, and comp (\<cdot>) *}
 consts dom::"e\<Rightarrow>e" cod::"e\<Rightarrow>e" comp::"e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
 
-text {* Scott"s axioms *}
+text {* Scott's axioms *}
 axiomatization where
  a1: "E x \<^bold>\<leftrightarrow> E dom(x)" and 
  a2: "E x \<^bold>\<leftrightarrow> E cod(x)" and 
@@ -35,24 +35,34 @@ text {* Important remark: The proofs seem much harder if we use Scott2.thy inste
 
 text {* We check the derivability of Freyd's axioms. We have to be careful in the case
 of composition since Freyd's version is defined in reversed order to Scott's. This explains the 
-reversed order of composition used below \<in>some case when compared to the presentation 
-in Freyd's book.  *}
+reversed order of composition used below in some case when compared to the presentation 
+in Freyd's book. We will check the axioms for different notions of equality/equivalence. *}
 
 abbreviation OrdinaryEqualityFreyd :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<approx>F"60) 
  where "x \<approx>F y \<equiv> ((E x) \<^bold>\<leftrightarrow> (E y)) \<^bold>\<and> x \<^bold>= y"  
 
+text {* NOTE: Why do we get a countermodel for  F1_1? IS this ok? *}
 lemma F1_1: "E(y\<cdot>x) \<^bold>\<leftrightarrow> cod(x) \<approx>F dom(y)" nitpick [user_axioms] oops (* countermodel *)
 lemma F1_2: "E(y\<cdot>x) \<^bold>\<leftrightarrow> cod(x) \<approx> dom(y)"  by (metis a3) (* proof *)
 lemma F1_3: "E(y\<cdot>x) \<^bold>\<leftrightarrow> cod(x) \<^bold>\<equiv> dom(y)"  nitpick [user_axioms] oops (* countermodel *)
 
-lemma F2a_1: "cod(dom(x)) \<approx>F dom(x)" sledgehammer [remote_vampire] oops (* proof, reconstruction fails *)  
+lemma F2a_1: "cod(dom(x)) \<approx>F dom(x)" (* proof *)  
+ proof -
+  have   "E cod(dom(x)) \<^bold>\<leftrightarrow> E dom(x)" using a7 by blast
+  hence  "cod(dom(x)) \<^bold>= dom(x)" by (metis (full_types) a1 a7 eq_ the_eq_trivial) 
+  then show ?thesis by simp
+  qed
 lemma F2a_2: "cod(dom(x)) \<approx> dom(x)"  nitpick [user_axioms] oops (* countermodel *) 
 lemma F2a_3: "cod(dom(x)) \<^bold>\<equiv> dom(x)"  using a7 by force (* proof *) 
 
-lemma F2b_1: "dom(cod(x)) \<approx>F cod(x)" sledgehammer [remote_vampire] oops (* proof, reconstruction fails *)
- (* by (metis F2a_3 a1 a2 a8 eq_ f_star_axiom str_dom tot_dom) *)
+lemma F2b_1: "dom(cod(x)) \<approx>F cod(x)"  (* proof *) 
+ proof -
+  have   "E dom(cod(x)) \<^bold>\<leftrightarrow> E cod(x)" using a8 by blast
+  hence  "dom(cod(x)) \<^bold>= cod(x)" by (metis (full_types) a1 a8 eq_ the_eq_trivial) 
+  then show ?thesis by simp
+  qed
 lemma F2b_2: "dom(cod(x)) \<approx> cod(x)"  nitpick [user_axioms] oops (* countermodel *) 
-lemma F2b_1: "dom(cod(x)) \<^bold>\<equiv> cod(x)"  using a8 by fastforce (* proof *) 
+lemma F2b_3: "dom(cod(x)) \<^bold>\<equiv> cod(x)"  using a8 by fastforce (* proof *) 
 
 lemma F3a_1: "x\<cdot>dom(x) \<approx>F x" using a5 eq_ by blast (* proof *)
 lemma F3a_2: "x\<cdot>dom(x) \<approx> x"  nitpick [user_axioms] oops (* countermodel *)
@@ -62,11 +72,21 @@ lemma F3b_1: "cod(x)\<cdot>x \<approx>F x" using a6 eq_ by blast (* proof *)
 lemma F3b_2: "cod(x)\<cdot>x \<approx> x"  nitpick [user_axioms] oops (* countermodel *)
 lemma F3b_3: "cod(x)\<cdot>x \<^bold>\<equiv> x"  using a6 by blast (* proof *)
 
-lemma F4a_1: "dom(y\<cdot>x) \<approx>F dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)  
+lemma F4a_1: "dom(y\<cdot>x) \<approx>F dom(dom(y)\<cdot>x)" (* proof *)
+proof -
+  have   "E dom(y\<cdot>x) \<^bold>\<leftrightarrow> E dom(dom(y)\<cdot>x)" by (metis F3a_1 a1 a3 a9)
+  hence  "dom(y\<cdot>x) \<^bold>= dom(dom(y)\<cdot>x)" by (metis (full_types) a1 a9 eq_ f_star_axiom str_dom the_eq_trivial)
+  then show ?thesis by simp
+  qed
 lemma F4a_2: "dom(y\<cdot>x) \<approx> dom(dom(y)\<cdot>x)"  nitpick [user_axioms] oops (* countermodel *) 
 lemma F4a_3: "dom(y\<cdot>x) \<^bold>\<equiv> dom(dom(y)\<cdot>x)"  by (metis F3a_3 a3 a7 a9) (* proof *)
 
-lemma F4b_1: "cod(y\<cdot>x) \<approx>F cod(y\<cdot>cod(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
+lemma F4b_1: "cod(y\<cdot>x) \<approx>F cod(y\<cdot>cod(x))" (* proof *)
+ proof -
+  have   "E cod(y\<cdot>x) \<^bold>\<leftrightarrow> E cod(y\<cdot>cod(x))" by (metis F3b_1 a2 a3 a10)
+  hence  "cod(y\<cdot>x) \<^bold>= cod(y\<cdot>cod(x))" by (metis (full_types) a2 a10 eq_ str_cod f_star_axiom the_eq_trivial)
+  then show ?thesis by simp
+  qed
 lemma F4b_2: "cod(y\<cdot>x) \<approx> cod(y\<cdot>cod(x))"  nitpick [user_axioms] oops (* countermodel *)
 lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  by (metis F3b_3 a10 a2 a3) (* proof *) 
 

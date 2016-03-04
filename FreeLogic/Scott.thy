@@ -29,9 +29,7 @@ consts source :: "e\<Rightarrow>e" ("\<box>_" [108]109)
        composition :: "e\<Rightarrow>e\<Rightarrow>e" (infix "\<cdot>" 110)
 
 
-
-
-(* 
+(* To do:
 ---Dana: 20 Dec 2015
 The problem I stated about category-theory axioms was wrong. Here is a correct statement.
 dom(x)=i <==> xoi=x & (all y) [xoyoy=x==>ioy=yoi=y]

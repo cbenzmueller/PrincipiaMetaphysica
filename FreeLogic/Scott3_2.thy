@@ -21,10 +21,15 @@ lemma tot_dom: "\<^bold>\<forall>x.\<^bold>\<exists>y. y \<approx> dom(x)" using
 lemma tot_cod: "\<^bold>\<forall>x.\<^bold>\<exists>y. y \<approx> cod(x)" using a2 by blast
 
 
-text {* Now we can prove the following automatically *}
+text {* Now we can prove the following automatically ... ? *}
+
+text {* NOTE: here the provers still fail to get a proof, but nitpick tells us that there is 
+ no countermodel *}
 lemma  a7: "dom(x) \<^bold>\<equiv> cod(dom(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *) 
 axiomatization where a7: "dom(x) \<^bold>\<equiv> cod(dom(x))"
 
+text {* NOTE: here the provers still fail to get a proof, but nitpick tells us that there is 
+ no countermodel *}
 lemma  a8: "cod(x) \<^bold>\<equiv> dom(cod(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *) 
 axiomatization where a8: "cod(x) \<^bold>\<equiv> dom(cod(x))" 
 
@@ -33,11 +38,11 @@ lemma a10: "E (x\<cdot>y) \<^bold>\<rightarrow> cod(x\<cdot>y) \<approx> cod(x)"
 lemma a11: "(E(x\<cdot>y) \<^bold>\<and> E(y\<cdot>z)) \<^bold>\<rightarrow> E(x\<cdot>(y\<cdot>z))" by (metis a10 a3)
 
 
-text {* Important remark: The proofs seem much harder if we use Scott2.thy instead of Scott1.thy in 
+text {* NOTE: The proofs of a7 and a8 seem harder if we use Scott2.thy instead of Scott1.thy in 
  the import; that is, if we use the alternative theory of equality. In fact the provers, including 
- sledgehammer, fail to deliver proofs in this case!?! Thus the theory of equality in Scott1 seems 
- better suited for automation. However, we should stil check again whether we missed something 
- in Scott2. *}
+ sledgehammer, fail to deliver proofs in some cases!?! Thus the theory of equality in Scott1 seems 
+ better suited for automation. However, we should still check again whether we missed something 
+ in Scott2. In order to proceed analogous to Scott3_1 I added a7 and a8 as axioms. *}
 
 text {* We check the derivability of Freyd's axioms. We have to be careful in the case
 of composition since Freyd's version is defined in reversed order to Scott's. This explains the 
@@ -68,15 +73,14 @@ lemma F3b_1: "cod(x)\<cdot>x \<approx>F x" using a6 by blast (* proof *)
 lemma F3b_2: "cod(x)\<cdot>x \<approx> x"  nitpick [user_axioms] oops (* countermodel *)
 lemma F3b_3: "cod(x)\<cdot>x \<^bold>\<equiv> x"  using a6 by blast (* proof *)
 
-lemma F4a_1: "dom(y\<cdot>x) \<approx>F dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)  
+lemma F4a_1: "dom(y\<cdot>x) \<approx>F dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
 lemma F4a_2: "dom(y\<cdot>x) \<approx> dom(dom(y)\<cdot>x)"  nitpick [user_axioms] oops (* countermodel *) 
 lemma F4a_3: "dom(y\<cdot>x) \<^bold>\<equiv> dom(dom(y)\<cdot>x)" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *) 
-(* by (metis F3a_3 a3 a7 a9) *) 
 
 lemma F4b_1: "cod(y\<cdot>x) \<approx>F cod(y\<cdot>cod(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
-lemma F4b_2: "cod(y\<cdot>x) \<approx> cod(y\<cdot>cod(x))"  nitpick [user_axioms] oops (* countermodel *)
-lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))"  sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
-(* by (metis F3b_3 a10 a2 a3) *) 
+lemma F4b_2: "cod(y\<cdot>x) \<approx> cod(y\<cdot>cod(x))" nitpick [user_axioms] oops (* countermodel *)
+lemma F4b_3: "cod(y\<cdot>x) \<^bold>\<equiv> cod(y\<cdot>cod(x))" sledgehammer nitpick [user_axioms] oops (* no countermodel, no proof *)
+
 
 lemma FA5_1: "x\<cdot>(y\<cdot>z) \<approx>F (x\<cdot>y)\<cdot>z" using a4 by blast (* proof *)
 lemma FA5_2: "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  nitpick [user_axioms] oops (* countermodel *)

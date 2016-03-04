@@ -26,10 +26,10 @@ lemma "(\<forall>x . E x \<^bold>\<rightarrow> E f(x)) \<^bold>\<leftrightarrow>
 
 text {* The converse to the above statement of totality is this here; again it is 
  not implied *}
-lemma "E f(x) \<^bold>\<rightarrow> E x" nitpick [user_axioms,mono] oops
+lemma "E f(x) \<^bold>\<rightarrow> E x" nitpick [user_axioms] oops
 
 text {* Strictness of predicates doesn't hold either *}
-lemma "P x y \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  nitpick [user_axioms,mono] oops
+lemma "P x y \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  nitpick [user_axioms] oops
 
 text {* NOTE: should this be provable without any assumptions on strictness? 
  I guess not? We need to discuss ... *}

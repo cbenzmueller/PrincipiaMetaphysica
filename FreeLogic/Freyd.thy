@@ -1,7 +1,8 @@
-theory Freyd imports FreeHOL 
+theory Freyd imports FreeFOL 
 begin
 
-typedecl e  -- {* raw type of morphisms *}
+type_synonym e = i   -- \<open>raw type of morphisms\<close> 
+
 abbreviation Definedness :: "e\<Rightarrow>bool" ("D_"[8]60)    (* we map it to definedness in Free Logic *)
  where "D x \<equiv> \<A> x"   
 abbreviation OrdinaryEquality :: "e\<Rightarrow>e\<Rightarrow>bool" (infix"\<approx>"60) 
