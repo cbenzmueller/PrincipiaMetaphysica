@@ -57,6 +57,8 @@ consts f_star :: "'a" ("\<^bold>\<star>")   (* Undefinedness *)
 
 axiomatization where f_star_axiom: "\<not>\<A>(\<^bold>\<star>)"
 
+axiomatization where non_empty: "\<exists>x. \<A>(x) "
+
 text \<open>Negation and implication in free logic are mapped to negation in HOl.\<close>
 abbreviation f_not :: "\<sigma>\<Rightarrow>\<sigma>" ("\<^bold>\<not>_" [58] 59)          
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
