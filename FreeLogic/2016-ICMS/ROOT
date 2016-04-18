@@ -5,6 +5,6 @@ session "FreeLogicAndFreyd" = "HOL" +
     (* Bar *)
   theories
     FreeFOL
-    Freyd
+    FreydScedrov
   document_files
     "root.tex"

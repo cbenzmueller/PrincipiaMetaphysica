@@ -1,47 +1,136 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage{latexsym,amsmath,amssymb}
+
+%==================================================
+% ICMS LaTeX Template
+%==================================================
+
+%===== DO NOT MODIFY ==============================
+\documentclass[runningheads,a4paper]{llncs}
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+%\usepackage{graphicx}
+\usepackage{url}
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+
+\usepackage{latexsym,amsmath}
 \usepackage{tikz}
 \usepackage{isabelle,isabellesym}
 
-% further packages required for unusual symbols (see also
-% isabellesym.sty), use only when needed
-
-%\usepackage{amssymb}
-  %for \<leadsto>, \<box>, \<diamond>, \<sqsupset>, \<mho>, \<Join>,
-  %\<lhd>, \<lesssim>, \<greatersim>, \<lessapprox>, \<greaterapprox>,
-  %\<triangleq>, \<yen>, \<lozenge>
-
-%\usepackage{eurosym}
-  %for \<euro>
-
-%\usepackage[only,bigsqcap]{stmaryrd}
-  %for \<Sqinter>
-
-%\usepackage{eufrak}
-  %for \<AA> ... \<ZZ>, \<aa> ... \<zz> (also included in amssymb)
-
-%\usepackage{textcomp}
-  %for \<onequarter>, \<onehalf>, \<threequarters>, \<degree>, \<cent>,
-  %\<currency>
-
-% this should be the last package used
 \usepackage{pdfsetup}
 
 % urls in roman style, theory text in math-similar italics
 \urlstyle{rm}
 \isabellestyle{it}
 
-% for uniform font size
-%\renewcommand{\isastyle}{\isastyleminor}
 
 
 \begin{document}
 
-\title{Free Logic and Category Theory in Isabelle/HOL: Experiments}
-\author{Christoph Benzm\"uller and Dana Scott}
+\mainmatter
+%================================================
 
 
+%==== FILL IN ====================================
+\title{Automating Free Logic in Isabelle/HOL}  % Full title
+\titlerunning{Short title} % Shor ttitle
+\author{Christoph Benzm\"uller\inst{1} \and  Dana Scott\inst{2}}
+\authorrunning{Benzm\"uller-Scott}
+\institute{
+Freie Universit\"at Berlin, Germany \& Visiting Scholar at Stanford University, USA\\
+\email{c.benzmueller@fu-berlin.de},\\ 
+\texttt{http://www.christoph-benzmueller.de}
+\and
+Visiting Scholar at University of Califormia, Berkeley,  USA\\
+\email{dana.scott@cs.cmu.edu },\\ 
+\texttt{http://www.cs.cmu.edu/~scott/}
+}
 \maketitle
+
+\begin{abstract}
+We present an interactive and automated theorem prover for free higher-order
+logic. Our implementation on top of the Isabelle/HOL framework utilizes a semantic embedding of 
+free logic in classical higher-order logic.
+The capabilities of our tool are demonstrated with first experiments
+in category theory.
+\keywords{Free logic, interactive and automated theorem proving, model
+  finding, application to category theory}
+\end{abstract}
+
+
+% %--- Remove this after reading it.
+% \framebox{
+% \begin{minipage}{5in}
+% The main body should describe challenge, achievements and progress in
+% mathematical software research, addressing issues such as
+% functionality, underlying theories, design, development and applications. 
+% \begin{itemize}
+%  \item The whole paper (including the title page and the references) must be
+%        \begin{itemize}
+%        \item[] {\bf at least 4 pages} 
+%        \item[] {\bf at most 8 pages}.
+%        \end{itemize}
+%  \item For a new software, some comparison with  existing software (if exists) will be appropriate. 
+%  \item Carefully divide the main body into several meaningful sections. \\
+%        For example, you could have sections such as the following. \\
+%        They are {\bf \em not} required.  These are only given as an illustration.
+% \end{itemize}
+% \end{minipage}
+% }
+
+% %------------------------------------------------------------
+% \section{Introduction}
+
+% %------------------------------------------------------------
+% \section{Functionality??}
+% \begin{itemize}
+% \item Describe the functionality of the software.
+% \item Address  wide audience (not just experts on the particular area).
+% \item Use carefully chosen  simple(toy) examples, screen shots, etc.
+% \end{itemize}
+  
+% %------------------------------------------------------------
+% \section{Application??}
+% \begin{itemize}
+% \item Show important/non-trivial applications of the software.
+% \item Address wide audience (not just experts on the particular area).
+% \item Use carefully chosen  non-trivial  examples, screen shots, etc.
+% \end{itemize}
+
+% %------------------------------------------------------------
+% \section{Underlying theory??}
+% \begin{itemize}
+% \item Explain briefly/informally the main theories/algorithms underlying the software.
+% \item Address wide audience (not just experts on the particular area).
+% \item If helps, use carefully chosen  simple  examples, diagrams, etc.
+% \end{itemize}
+
+% %------------------------------------------------------------
+% \section{Technical contribution??}
+% \begin{itemize}
+% \item Discuss main technical challenges that had to be overcome, 
+%       while developing the software.
+% \item Address experts on the particular area.
+% \item If helps, use carefully chosen  simple  examples, diagrams, etc.
+% \end{itemize}
+
+% %------------------------------------------------------------
+% \begin{thebibliography}{4}
+% \bibitem{...} .... 
+% \end{thebibliography}
+% \end{document}
+
+
+
+
+% for uniform font size
+%\renewcommand{\isastyle}{\isastyleminor}
+
+
+
+
+
+%\maketitle
 
 %\tableofcontents
 

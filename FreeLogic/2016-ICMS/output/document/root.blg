@@ -3,46 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: root.aux
 The style file: abbrv.bst
 Database file #1: root.bib
-Warning--I didn't find a database entry for "FreeSEP"
-You've used 5 entries,
+Warning--empty publisher in sep-logic-free
+You've used 8 entries,
             2118 wiz_defined-function locations,
-            553 strings with 4965 characters,
-and the built_in function-call counts, 1732 in all, are:
-= -- 164
-> -- 84
+            571 strings with 5351 characters,
+and the built_in function-call counts, 2515 in all, are:
+= -- 237
+> -- 115
 < -- 2
-+ -- 31
-- -- 26
-* -- 111
-:= -- 297
-add.period$ -- 20
-call.type$ -- 5
-change.case$ -- 24
++ -- 44
+- -- 35
+* -- 158
+:= -- 431
+add.period$ -- 29
+call.type$ -- 8
+change.case$ -- 38
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 74
-empty$ -- 143
-format.name$ -- 26
-if$ -- 375
+cite$ -- 9
+duplicate$ -- 107
+empty$ -- 218
+format.name$ -- 35
+if$ -- 542
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 7
-newline$ -- 30
-num.names$ -- 14
-pop$ -- 35
+int.to.str$ -- 8
+missing$ -- 9
+newline$ -- 44
+num.names$ -- 22
+pop$ -- 55
 preamble$ -- 1
-purify$ -- 21
+purify$ -- 31
 quote$ -- 0
-skip$ -- 43
+skip$ -- 63
 stack$ -- 0
-substring$ -- 74
-swap$ -- 15
+substring$ -- 102
+swap$ -- 18
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
-warning$ -- 0
-while$ -- 15
-width$ -- 6
-write$ -- 61
+type$ -- 28
+warning$ -- 1
+while$ -- 23
+width$ -- 9
+write$ -- 91
 (There was 1 warning)

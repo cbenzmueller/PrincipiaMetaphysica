@@ -5,8 +5,6 @@ C.~Benzm{\"u}ller and D.~Miller.
 \newblock Automation of higher-order logic.
 \newblock In J.~Siekmann, D.~Gabbay, and J.~Woods, editors, {\em Handbook of
   the History of Logic, Volume 9 --- Logic and Computation}. Elsevier, 2014.
-\newblock Forthcoming; preliminary version available at
-  {http://christoph-benzmueller.de/papers/B5.pdf}.
 
 \bibitem{Sledgehammer}
 J.~Blanchette, S.~B\"ohme, and L.~Paulson.
@@ -23,6 +21,12 @@ T.~Nipkow, L.~Paulson, and M.~Wenzel.
 \newblock {\em {Isabelle/HOL: A Proof Assistant for Higher-Order Logic}}.
 \newblock Number 2283 in LNCS. Springer, 2002.
 
+\bibitem{sep-logic-free}
+J.~Nolt.
+\newblock Free logic.
+\newblock In E.~N. Zalta, editor, {\em The Stanford Encyclopedia of
+  Philosophy}. Winter 2014 edition, 2014.
+
 \bibitem{scott67:_exist}
 D.~Scott.
 \newblock Existence and description in formal logic.
@@ -30,5 +34,18 @@ D.~Scott.
   Century}, pages 181--200. George Allen \& Unwin, London, 1967.
 \newblock (Reprinted with additions in: Philosophical Application of Free
   Logic, edited by K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48).
+
+\bibitem{J22}
+G.~Sutcliffe and C.~Benzm{\"u}ller.
+\newblock Automated reasoning in higher-order logic using the {TPTP THF}
+  infrastructure.
+\newblock {\em J. of Formalized Reasoning}, 3(1):1--27, 2010.
+
+\bibitem{IsabelleManual2016}
+M.~Wenzel.
+\newblock The isabelle system manual.
+\newblock
+  \url{https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2016/doc/system.pdf},
+  February 2016.
 
 \end{thebibliography}
