@@ -7,46 +7,95 @@
 \endisadelimtheory
 %
 \isatagtheory
-\isacommand{theory}\isamarkupfalse%
-\ Freyd\ \isakeyword{imports}\ FreeFOL\ \isanewline
-\isakeyword{begin}%
+%
 \endisatagtheory
 {\isafoldtheory}%
 %
 \isadelimtheory
-\isanewline
 %
 \endisadelimtheory
-\isacommand{type{\isacharunderscore}synonym}\isamarkupfalse%
-\ e\ {\isacharequal}\ i\ \ \ %
-\isamarkupcmt{raw type of morphisms%
+%
+\isamarkupsection{Application in Category Theory%
 }
-\ \isanewline
-\isanewline
-\isacommand{abbreviation}\isamarkupfalse%
-\ OrdinaryEquality\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}{\isachardoublequoteopen}{\isasymapprox}{\isachardoublequoteclose}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
-\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}E\ x{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
-\isanewline
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+We exemplarily employ our above implementation of free logic for an application in
+category theory. More, precisely we analyse the foundational axiom system 
+for catgeory theory as proposed in the very beginning of textbook by Freyd and 
+Scedrov \cite{FreydScedrov90}. Our exploration shows that this axiom system is redundant.
+
+Free logic, as opposed to classical logic, is required as a base logic in this context, since the 
+composition of two morphisms could be undefined. In the textbook by Freyd and 
+Scedrov the properties of free logic are left implicit in the beginning; they only become 
+apparent in appendix ???.  
+
+In the remainder we identify the base type \isa{i} of free logic with the raw type of 
+morphisms. Moreover, we introduce constant symbols for the following operations: 
+source of a morphism \isa{x}, target of a morphism \isa{x} and composition of morphisms
+\isa{x} and \isa{y}. These operations are denoted by Freyd and Scedrov as 
+\isa{{\isasymbox}x}, \isa{x{\isasymbox}} and \isa{x{\isasymcdot}y}. While we do not particularly support the use 
+\isa{{\isasymbox}} in this context, we nevertheless adopt their notation here.%
+\end{isamarkuptext}%
+\isamarkuptrue%
 \isacommand{consts}\isamarkupfalse%
-\ source\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}{\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \isanewline
-\ \ \ \ \ \ \ target\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isacharunderscore}{\isasymbox}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}{\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \isanewline
-\ \ \ \ \ \ \ composition\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}e{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}\isanewline
-\isanewline
+\ source{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \isanewline
+\ \ \ \ \ \ \ target{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isacharunderscore}{\isasymbox}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \isanewline
+\ \ \ \ \ \ \ composition{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}%
+\begin{isamarkuptext}%
+Ordinary equality on morphisms is defined as follows:%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\isacommand{abbreviation}\isamarkupfalse%
+\ OrdinaryEquality{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymapprox}{\isachardoublequoteclose}\ {\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}\isactrlbold E\ x{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}%
+\begin{isamarkuptext}%
+We are now in the position to state the axiom system of Freyd and Scedrov, 
+cf. \cite{FreydScedrov90}, p. ???%
+\end{isamarkuptext}%
+\isamarkuptrue%
 \isacommand{axiomatization}\isamarkupfalse%
-\ FreydsAxioms\ \isakeyword{where}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
-\ A{\isadigit{1}}{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}E\ x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
-\isanewline
+\ FreydsAxioms\ \isakeyword{where}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\ A{\isadigit{1}}{\isacharcolon}\ \ {\isachardoublequoteopen}\isactrlbold E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isasymbox}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
-\ A{\isadigit{5}}{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\isanewline
-\isanewline
-\isanewline
-\isanewline
+\ A{\isadigit{5}}{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\begin{isamarkuptext}%
+In our subsequent experiments, the new free logic theorem prover(s) in Isabelle quickly found out 
+that Axiom \isa{A{\isadigit{2}}a} is redundant. For example, the prover Isabelle's internal prover metis 
+confirms that \isa{A{\isadigit{2}}a} is already implied by \isa{A{\isadigit{2}}b}, \isa{A{\isadigit{3}}a}, \isa{A{\isadigit{3}}b} 
+and \isa{A{\isadigit{4}}a}.%
+\end{isamarkuptext}%
+\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
-\ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isanewline
+\ A{\isadigit{2}}aIsRedundant{\isacharunderscore}{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+A human readable and easily comprehensible, detailed reconstruction of the redundancy is 
+presented next. This proof employs axioms \isa{A{\isadigit{2}}b}, \isa{A{\isadigit{3}}a}, \isa{A{\isadigit{3}}b}, 
+\isa{A{\isadigit{4}}a} and \isa{A{\isadigit{5}}}, that is, this proof could be further optimized.%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}aIsRedundant{\isacharunderscore}{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ %
@@ -125,14 +174,100 @@
 {\isafoldproof}%
 %
 \isadelimproof
-\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Thus, axiom \isa{A{\isadigit{2}}a} can be removed from the theory. Alternatively, 
+we could reduce \isa{A{\isadigit{2}}b} which is implied by \isa{A{\isadigit{1}}}, 
+\isa{A{\isadigit{2}}a} and \isa{A{\isadigit{3}}a} as metis proves.%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}bIsRedundant{\isacharunderscore}{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+In fact, by straightforward experimentation on can show that Freyd's and Scedroc's theory can be 
+reduced as follows, that is, three axioms can be dropped:%
+\end{isamarkuptext}%
+\isamarkuptrue%
+\isacommand{axiomatization}\isamarkupfalse%
+\ FreydsAxiomsReduced\ \isakeyword{where}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
+\ B{\isadigit{1}}{\isacharcolon}\ \ {\isachardoublequoteopen}\isactrlbold E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymcdot}x\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{5}}{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{1}}\ B{\isadigit{2}}a\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
 %
 \endisadelimproof
 \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymapprox}\ {\isasymbox}{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{1}}\ B{\isadigit{2}}a\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
 \isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymbox}\ {\isasymapprox}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isasymbox}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{1}}\ B{\isadigit{2}}a\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Below we present some further tests wrt Freyd's and Scedrov's textbook. In fact, we believe
+that some substantial parts of the textbook can eventually be formalised.%
+\end{isamarkuptext}%
+\isamarkuptrue%
 \isacommand{abbreviation}\isamarkupfalse%
-\ DirectedEquality\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymgreaterapprox}{\isachardoublequoteclose}\ {\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
-\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymgreaterapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}E\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
+\ DirectedEquality\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymgreaterapprox}{\isachardoublequoteclose}\ {\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymgreaterapprox}\ y\ {\isasymequiv}\ {\isacharparenleft}{\isacharparenleft}\isactrlbold E\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}\isactrlbold E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
 \ L{\isadigit{1}}{\isacharunderscore}{\isadigit{1}}{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isacharparenright}\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isacharparenleft}{\isasymbox}{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isacharparenright}\ {\isasymgreaterapprox}\ {\isasymbox}x{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
@@ -151,7 +286,6 @@
 \isanewline
 %
 \endisadelimproof
-\isanewline
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}x{\isasymbox}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
@@ -236,7 +370,7 @@
 \isanewline
 \isanewline
 \isacommand{abbreviation}\isamarkupfalse%
-\ IdentityMorphism\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}e{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}IdM{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{0}}{\isacharbrackright}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}IdM\ x\ {\isasymequiv}\ x\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ IdentityMorphism\ {\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}IdM{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{0}}{\isacharbrackright}{\isadigit{6}}{\isadigit{0}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}IdM\ x\ {\isasymequiv}\ x\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isachardoublequoteclose}\isanewline
 \isanewline
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}IdM\ e\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}\isactrlbold {\isasymexists}x{\isachardot}\ e\ {\isasymapprox}\ {\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\isanewline
