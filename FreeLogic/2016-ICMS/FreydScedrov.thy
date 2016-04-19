@@ -8,22 +8,22 @@ We exemplary employ our free logic reasoning framework from above for an applica
 category theory. More precisely, we study some
 properties of axiom system of Freyd and 
 Scedrov; see their textbook ``Categories, Allegories'' @{cite "FreydScedrov90"}, p.~3. 
-As expected, the composition @{text "x\<cdot>y"}, for morphisms @{text "x"} and 
-@{text "y"},  is introduced by Freyd and Scedrov as a partial operation, cf. axiom @{text "A1"} 
-below: the composition @{text "x\<cdot>y"} exists if and only if the target of @{text "x"} coincides 
-with the source  of @{text "y"}. This is why free logic, as opposed to e.g. classical logic, is 
+As expected, the composition \<open>x\<cdot>y\<close>, for morphisms \<open>x\<close> and 
+\<open>y\<close>,  is introduced by Freyd and Scedrov as a partial operation, cf. axiom \<open>A1\<close> 
+below: the composition \<open>x\<cdot>y\<close> exists if and only if the target of \<open>x\<close> coincides 
+with the source  of \<open>y\<close>. This is why free logic, as opposed to e.g. classical logic, is 
 better suited as a starting point in this mathematical application area.\footnote{The precise logic 
 setting is unfortunately not discussed in the beginning of Freyd's and Scedrov's textbook. 
 Appendix B, however, contains a concise formal definition of the assumed logic setting.}
 
-In the remainder we identify the base type @{text "i"} of free logic with the raw type of 
+In the remainder we identify the base type \<open>i\<close> of free logic with the raw type of 
 morphisms. Moreover, we introduce constant symbols for the following operations: 
-@{text "source"} of a morphism @{text "x"}, @{text "target"} of a morphism @{text "x"} and 
-@{text "composition"} of morphisms
-@{text "x"} and @{text "y"}. These operations are denoted by Freyd and Scedrov as 
-@{text "\<box>x"}, @{text "x\<box>"} and @{text "x\<cdot>y"}, respectively.
+\<open>source\<close> of a morphism \<open>x\<close>, \<open>target\<close> of a morphism \<open>x\<close> and 
+\<open>composition\<close> of morphisms
+\<open>x\<close> and \<open>y\<close>. These operations are denoted by Freyd and Scedrov as 
+\<open>\<box>x\<close>, \<open>x\<box>\<close> and \<open>x\<cdot>y\<close>, respectively.
 We adopt their notation as syntactic sugar below, even though  we are not particularly fond of 
-the use of @{text "\<box>"} in this context.
+the use of \<open>\<box>\<close> in this context.
 \<close>
 consts source::"i\<Rightarrow>i" ("\<box>_" [108] 109) 
         target::"i\<Rightarrow>i" ("_\<box>" [110] 111) 
@@ -47,22 +47,22 @@ axiomatization FreydsAxiomSystem where
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 text \<open>
 Experiments with our new reasoning framework for free logic quickly showed
-that axiom @{text "A2a"} is redundant. For example, as Isabelle's internal prover 
+that axiom \<open>A2a\<close> is redundant. For example, as Isabelle's internal prover 
 metis\footnote{Metis is a trusted prover of Isabelle, since it returns proofs in Isabelle's 
 trusted proof kernel. Initially, however, we have worked with Isabelle's Sledgehammer tool in our 
 experiments, which in turn
 performs calls to several integrated first-order theorem provers. These calls 
 then return valuable information on the particular proof dependencies, which in turn suggest the 
 successful calls with metis as presented here.}
-confirms, @{text "A2a"} is implied by @{text "A2b"}, @{text "A3a"}, @{text "A3b"} 
-and @{text "A4a"}.
+confirms, \<open>A2a\<close> is implied by \<open>A2b\<close>, \<open>A3a\<close>, \<open>A3b\<close> 
+and \<open>A4a\<close>.
 \<close>
 lemma A2aIsRedundant_1: "(\<box>x)\<box> \<approx> \<box>x" by (metis A2b A3a A3b A4a)
 text \<open>
 A human readable and comprehensible reconstruction of this redundancy is 
-presented below. This proof employs axioms @{text "A2b"}, @{text "A3a"}, @{text "A3b"}, 
-@{text "A4a"} and @{text "A5"}, that is, this proof could be further optimized by eleminating 
-the dependency on @{text "A5"}.
+presented below. This proof employs axioms \<open>A2b\<close>, \<open>A3a\<close>, \<open>A3b\<close>, 
+\<open>A4a\<close> and \<open>A5\<close>, that is, this proof could be further optimized by eleminating 
+the dependency on \<open>A5\<close>.
 \<close>
 lemma A2aIsRedundant_2: "(\<box>x)\<box> \<approx> \<box>x" 
  proof -                    
@@ -84,9 +84,9 @@ lemma A2aIsRedundant_2: "(\<box>x)\<box> \<approx> \<box>x"
  then show ?thesis using A3b by metis
 qed                     
 text \<open>
-Thus, axiom @{text "A2a"} can be removed from the theory. Alternatively, 
-we could also eliminate @{text "A2b"} which is implied by @{text "A1"}, 
-@{text "A2a"} and @{text "A3a"}: 
+Thus, axiom \<open>A2a\<close> can be removed from the theory. Alternatively, 
+we could also eliminate \<open>A2b\<close> which is implied by \<open>A1\<close>, 
+\<open>A2a\<close> and \<open>A3a\<close>: 
 \<close>
 lemma A2bIsRedundant: "\<box>(x\<box>) \<approx> \<box>x" by (metis A1 A2a A3a)
 (* lemma A3aIsRedundant_2: "(\<box>x)\<cdot>x \<approx> x" sledgehammer (A1 A2a A2b A3b A4a A4b A5) *)

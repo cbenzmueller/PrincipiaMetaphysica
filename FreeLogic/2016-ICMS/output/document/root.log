@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  19 APR 2016 13:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  19 APR 2016 13:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -746,14 +746,14 @@ ted the-o-rem prov-ing, model
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 108.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 105.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 108.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 105.
  [2]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 122.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 118.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 122.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 118.
  [3] [4]) (./FreydScedrov.tex [5] [6] [7]))
 (./root.bbl) [8]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
@@ -766,10 +766,10 @@ Package rerunfilecheck Info: File `root.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 147.
  ) 
 Here is how much of TeX's memory you used:
- 16793 strings out of 493117
- 308038 string characters out of 6135433
- 377570 words of memory out of 5000000
- 19898 multiletter control sequences out of 15000+600000
+ 16803 strings out of 493117
+ 308243 string characters out of 6135433
+ 378689 words of memory out of 5000000
+ 19908 multiletter control sequences out of 15000+600000
  16935 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,10n,54p,773b,926s stack positions out of 5000i,500n,10000p,200000b,80000s
