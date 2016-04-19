@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  18 APR 2016 19:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  19 APR 2016 13:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -746,14 +746,14 @@ ted the-o-rem prov-ing, model
 
 {/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 107.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 108.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 107.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 108.
  [2]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 121.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 122.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 121.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 122.
  [3] [4]) (./FreydScedrov.tex [5] [6] [7]))
 (./root.bbl) [8]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 147.
@@ -766,9 +766,9 @@ Package rerunfilecheck Info: File `root.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 147.
  ) 
 Here is how much of TeX's memory you used:
- 16792 strings out of 493117
- 308027 string characters out of 6135433
- 378570 words of memory out of 5000000
+ 16793 strings out of 493117
+ 308038 string characters out of 6135433
+ 377570 words of memory out of 5000000
  19898 multiletter control sequences out of 15000+600000
  16935 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -796,10 +796,10 @@ al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local
 texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/loc
 al/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
-Output written on root.pdf (8 pages, 271521 bytes).
+Output written on root.pdf (8 pages, 273720 bytes).
 PDF statistics:
- 221 PDF objects out of 1000 (max. 8388607)
- 174 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
+ 224 PDF objects out of 1000 (max. 8388607)
+ 177 compressed objects within 2 object streams
+ 31 named destinations out of 1000 (max. 500000)
  69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

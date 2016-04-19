@@ -18,22 +18,23 @@ Appendix B, however, contains a concise formal definition of the assumed logic s
 
 In the remainder we identify the base type @{text "i"} of free logic with the raw type of 
 morphisms. Moreover, we introduce constant symbols for the following operations: 
-source of a morphism @{text "x"}, target of a morphism @{text "x"} and composition of morphisms
+@{text "source"} of a morphism @{text "x"}, @{text "target"} of a morphism @{text "x"} and 
+@{text "composition"} of morphisms
 @{text "x"} and @{text "y"}. These operations are denoted by Freyd and Scedrov as 
 @{text "\<box>x"}, @{text "x\<box>"} and @{text "x\<cdot>y"}, respectively.
-We adopt their notation below, even though  we are not particularly fond of 
+We adopt their notation as syntactic sugar below, even though  we are not particularly fond of 
 the use of @{text "\<box>"} in this context.
 \<close>
 consts source::"i\<Rightarrow>i" ("\<box>_" [108] 109) 
         target::"i\<Rightarrow>i" ("_\<box>" [110] 111) 
         composition::"i\<Rightarrow>i\<Rightarrow>i" (infix "\<cdot>" 110)
 text \<open>
-Ordinary equality on morphisms is then defined as follows:
+Ordinary equality on morphisms is defined as follows:
 \<close>
 abbreviation OrdinaryEquality::"i\<Rightarrow>i\<Rightarrow>bool" (infix "\<approx>" 60) 
  where "x \<approx> y \<equiv> ((\<^bold>E x) \<^bold>\<leftrightarrow> (\<^bold>E y)) \<^bold>\<and> x \<^bold>= y"  
 text \<open>
-We are now in the position to model the axiom system of Freyd and Scedrov.
+We are now in the position to model the category theory axiom system of Freyd and Scedrov.
 \<close>
 axiomatization FreydsAxiomSystem where              
  A1:  "\<^bold>E(x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box>y))" and
@@ -45,12 +46,13 @@ axiomatization FreydsAxiomSystem where
  A4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" and
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 text \<open>
-Experiments with our new reasoning framework for free logic quickly confirm 
+Experiments with our new reasoning framework for free logic quickly showed
 that axiom @{text "A2a"} is redundant. For example, as Isabelle's internal prover 
-metis\footnote{Metis is trusted prover of Isabelle, since it returns proofs in Isabelle's 
-trusted kernel. Initially, we have worked with Isabelle's Sledgehammer tool, which in turn
-performs calls several first-order theorem provers integrated with Isabelle. These calls then 
-return valuable information on the particular proof dependencies, which in turn suggest the 
+metis\footnote{Metis is a trusted prover of Isabelle, since it returns proofs in Isabelle's 
+trusted proof kernel. Initially, however, we have worked with Isabelle's Sledgehammer tool in our 
+experiments, which in turn
+performs calls to several integrated first-order theorem provers. These calls 
+then return valuable information on the particular proof dependencies, which in turn suggest the 
 successful calls with metis as presented here.}
 confirms, @{text "A2a"} is implied by @{text "A2b"}, @{text "A3a"}, @{text "A3b"} 
 and @{text "A4a"}.
@@ -86,7 +88,7 @@ Thus, axiom @{text "A2a"} can be removed from the theory. Alternatively,
 we could also eliminate @{text "A2b"} which is implied by @{text "A1"}, 
 @{text "A2a"} and @{text "A3a"}: 
 \<close>
-lemma A2bIsRedundant_2: "\<box>(x\<box>) \<approx> \<box>x" by (metis A1 A2a A3a)
+lemma A2bIsRedundant: "\<box>(x\<box>) \<approx> \<box>x" by (metis A1 A2a A3a)
 (* lemma A3aIsRedundant_2: "(\<box>x)\<cdot>x \<approx> x" sledgehammer (A1 A2a A2b A3b A4a A4b A5) *)
 (* lemma A3bIsRedundant_2: "x\<cdot>(x\<box>) \<approx> x" sledgehammer (A1 A2a A2b A3a A4a A4b A5) *)
 text \<open>
@@ -147,8 +149,8 @@ Isabelle from \url{https://isabelle.in.tum.de} and initialize it (respectively i
 \texttt{FreeFOL.thy} from our sources available at 
 \url{www.christoph-benzmueller.de/papers/2016-ICMS.zip}.
 Our category theory experiments are contained in the file \texttt{FreydScedrov.thy}.
-Comparisons with other theorem provers for free logic were not possible, since we are not aware of 
-any other existing systems.
+Comparisons with other theorem provers for free logic are not possible at this stage, 
+since we are not aware of  any other existing systems.
 
 We also want to emphasize that this paper has been written entirely within the Isabelle 
 framework by utilizing the Isabelle build tool; cf. @{cite "IsabelleManual2016"}, section~2. 
@@ -163,7 +165,7 @@ can now be formalised in our framework. An interesting question clearly is how f
 scales and whether some further (previously unknown) insights can eventually be 
 contributed by the theorem provers.
 Moreover, we plan to extend our studies to projective geometry, which is
-another area where free logic may serve as a suited starting point for formalisation. 
+another area where free logic may serve as a suitable starting point for formalisation. 
 
 In addition to our implementation of free logic as a theory in Isabelle/HOL, we plan to 
 support an analogous logic embedding in the new \textsc{Leo-III} theorem prover. 
