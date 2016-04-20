@@ -3,10 +3,11 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: root.aux
 The style file: abbrv.bst
 Database file #1: root.bib
+Warning--I didn't find a database entry for "C45"
 Warning--empty publisher in sep-logic-free
 You've used 8 entries,
             2118 wiz_defined-function locations,
-            571 strings with 5351 characters,
+            573 strings with 5357 characters,
 and the built_in function-call counts, 2515 in all, are:
 = -- 237
 > -- 115
@@ -45,4 +46,4 @@ warning$ -- 1
 while$ -- 23
 width$ -- 9
 write$ -- 91
-(There was 1 warning)
+(There were 2 warnings)

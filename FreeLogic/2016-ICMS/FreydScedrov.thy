@@ -4,17 +4,17 @@ begin
 (*>*)
 section \<open>Application in Category Theory\<close>
 text \<open>
-We exemplary employ our free logic reasoning framework from above for an application in
+We exemplarily employ our free logic reasoning framework from above for an application in
 category theory. More precisely, we study some
-properties of axiom system of Freyd and 
+properties of the foundational axiom system of Freyd and 
 Scedrov; see their textbook ``Categories, Allegories'' @{cite "FreydScedrov90"}, p.~3. 
 As expected, the composition \<open>x\<cdot>y\<close>, for morphisms \<open>x\<close> and 
 \<open>y\<close>,  is introduced by Freyd and Scedrov as a partial operation, cf. axiom \<open>A1\<close> 
 below: the composition \<open>x\<cdot>y\<close> exists if and only if the target of \<open>x\<close> coincides 
 with the source  of \<open>y\<close>. This is why free logic, as opposed to e.g. classical logic, is 
 better suited as a starting point in this mathematical application area.\footnote{The precise logic 
-setting is unfortunately not discussed in the beginning of Freyd's and Scedrov's textbook. 
-Appendix B, however, contains a concise formal definition of the assumed logic setting.}
+setting is unfortunately not discussed in the very beginning of Freyd's and Scedrov's textbook. 
+Appendix B, however, contains a concise formal definition of the assumed logic.}
 
 In the remainder we identify the base type \<open>i\<close> of free logic with the raw type of 
 morphisms. Moreover, we introduce constant symbols for the following operations: 
@@ -25,13 +25,13 @@ morphisms. Moreover, we introduce constant symbols for the following operations:
 We adopt their notation as syntactic sugar below, even though  we are not particularly fond of 
 the use of \<open>\<box>\<close> in this context.
 \<close>
-consts source::"i\<Rightarrow>i" ("\<box>_" [108] 109) 
-        target::"i\<Rightarrow>i" ("_\<box>" [110] 111) 
-        composition::"i\<Rightarrow>i\<Rightarrow>i" (infix "\<cdot>" 110)
+consts source:: "i\<Rightarrow>i" ("\<box>_" [108] 109) 
+        target:: "i\<Rightarrow>i" ("_\<box>" [110] 111) 
+        composition:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<cdot>" 110)
 text \<open>
 Ordinary equality on morphisms is defined as follows:
 \<close>
-abbreviation OrdinaryEquality::"i\<Rightarrow>i\<Rightarrow>bool" (infix "\<approx>" 60) 
+abbreviation OrdinaryEquality:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<approx>" 60) 
  where "x \<approx> y \<equiv> ((\<^bold>E x) \<^bold>\<leftrightarrow> (\<^bold>E y)) \<^bold>\<and> x \<^bold>= y"  
 text \<open>
 We are now in the position to model the category theory axiom system of Freyd and Scedrov.
@@ -60,7 +60,7 @@ and \<open>A4a\<close>.
 lemma A2aIsRedundant_1: "(\<box>x)\<box> \<approx> \<box>x" by (metis A2b A3a A3b A4a)
 text \<open>
 A human readable and comprehensible reconstruction of this redundancy is 
-presented below. This proof employs axioms \<open>A2b\<close>, \<open>A3a\<close>, \<open>A3b\<close>, 
+presented below. Our handmade proof employs axioms \<open>A2b\<close>, \<open>A3a\<close>, \<open>A3b\<close>, 
 \<open>A4a\<close> and \<open>A5\<close>, that is, this proof could be further optimized by eleminating 
 the dependency on \<open>A5\<close>.
 \<close>
@@ -114,7 +114,7 @@ text \<open>
 In the remainder of this section we present some further tests wrt Freyd's and Scedrov's theory. 
 We leave these tests uncommented.
 \<close>
-abbreviation DirectedEquality :: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<greaterapprox>" 60) 
+abbreviation DirectedEquality:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<greaterapprox>" 60) 
  where "x \<greaterapprox> y \<equiv> ((\<^bold>E x) \<^bold>\<rightarrow> (\<^bold>E y)) \<^bold>\<and> x \<^bold>= y"  
 
 lemma L1_13: "((\<box>(x\<cdot>y)) \<approx> (\<box>(x\<cdot>(\<box>y)))) \<^bold>\<leftrightarrow> ((\<box>(x\<cdot>y)) \<greaterapprox> \<box>x)" by (metis A1 A2a A3a)
@@ -126,7 +126,7 @@ lemma "e \<approx> (e\<box>) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. e\<c
 lemma "(\<^bold>\<forall>x. e\<cdot>x \<greaterapprox> x) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. x\<cdot>e \<greaterapprox> x)"     by (metis A1 A2b A3a A3b)
 
 
-abbreviation IdentityMorphism :: "i\<Rightarrow>bool" ("IdM_" [100]60) 
+abbreviation IdentityMorphism:: "i\<Rightarrow>bool" ("IdM_" [100]60) 
  where "IdM x \<equiv> x \<approx> (\<box>x)"
 
 lemma "(IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (\<box>x))) \<^bold>\<and>
@@ -144,18 +144,19 @@ We have presented a new reasoning framework for free logic, and we have exemplar
 some first experiments in category theory. We have shown that, in our free logic setting, the 
 category theory axiom system of Freyd and Scedrov is redundant and that three axioms can be dropped.
 
-Our free logic reasoning framework is freely available for reuse: Simply download 
+Our free logic reasoning framework is publicly available for reuse: Simply download 
 Isabelle from \url{https://isabelle.in.tum.de} and initialize it (respectively import) the file
 \texttt{FreeFOL.thy} from our sources available at 
 \url{www.christoph-benzmueller.de/papers/2016-ICMS.zip}.
 Our category theory experiments are contained in the file \texttt{FreydScedrov.thy}.
+
 Comparisons with other theorem provers for free logic are not possible at this stage, 
 since we are not aware of  any other existing systems.
 
 We also want to emphasize that this paper has been written entirely within the Isabelle 
-framework by utilizing the Isabelle build tool; cf. @{cite "IsabelleManual2016"}, section~2. 
+framework by utilizing the Isabelle ``build'' tool; cf. @{cite "IsabelleManual2016"}, section~2. 
 It is thus an example of a formally verified mathematical document, where the pdf document as 
-presented here has been generated directly from the verified source files.\footnote{By suitably 
+presented here has been generated directly from the verified source files mentioned above.\footnote{By suitably 
 adapting the Isabelle call as contained in file \texttt{runIsabelle.sh} in our zip-package,
 the verification and generation process can be easily reproduced by the reader.}
 
@@ -164,12 +165,14 @@ It seems plausible that substantial parts of the textbook of Freyd and Scedrov
 can now be formalised in our framework. An interesting question clearly is how far automation 
 scales and whether some further (previously unknown) insights can eventually be 
 contributed by the theorem provers.
-Moreover, we plan to extend our studies to projective geometry, which is
+Moreover, we have already started to compare the axiom system by Freyd and Scedrov with a more elegant
+set of self-dual axioms developed by Scott. 
+Furthermore, we plan to extend our studies to projective geometry, which is
 another area where free logic may serve as a suitable starting point for formalisation. 
 
 In addition to our implementation of free logic as a theory in Isabelle/HOL, we plan to 
-support an analogous logic embedding in the new \textsc{Leo-III} theorem prover. 
-The idea is that  \textsc{Leo-III} can then be envoked with a specific flag telling it to automaticall 
+support an analogous logic embedding in the new \textsc{Leo-III} theorem prover @{cite "C45"}. 
+The idea is that  \textsc{Leo-III} can then be envoked with a specific flag telling it to automatically 
 switch its underlying logic setting from higher-order classical logic to first-order and higher-order free logic,
 while retaining TPTP TH0 @{cite "J22"} as the common input syntax.  
 \<close>
