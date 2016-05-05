@@ -1,5 +1,5 @@
 (*<*) 
-theory AbstractObjects
+theory AbstractObjectsV2
 imports Main
 
 begin
@@ -161,7 +161,8 @@ section {* Embedding of Modal Relational Type Theory *}
   below in the definition of the encoding operation @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}. 
   *}
   
- consts enc::"e\<Rightarrow>(e\<Rightarrow>io)\<Rightarrow>io"
+ consts enc::"io\<Rightarrow>io"
+ consts exe::"io\<Rightarrow>io"
 
   text {* 
   Encoding @{text "\<kappa>\<^sub>1\<Pi>\<^sup>1"} is noted below as @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}.
@@ -169,7 +170,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
-    (T(y),T(Q)) \<Rightarrow> F(enc y Q) | _ \<Rightarrow> ERR(dio)"
+    (T(y),T(Q)) \<Rightarrow> F(enc (Q y)) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Exemplifying formulas @{text "\<Pi>\<^sup>1\<kappa>\<^sub>1"} are noted here as @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}.  
@@ -177,7 +178,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
-    (T(Q),T(y)) \<Rightarrow> P(Q y) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y)) \<Rightarrow> P(exe (Q y)) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   The Principia Metaphysica supports @{text "n"}-ary exemplification constructions. 
@@ -186,10 +187,10 @@ section {* Embedding of Modal Relational Type Theory *}
 
  abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
   where "\<lparr>\<Phi>,x1,x2\<rparr> \<equiv> case (\<Phi>,x1,x2) of 
-    (T(Q),T(y1),T(y2)) \<Rightarrow> P(Q y1 y2) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2)) \<Rightarrow> P(exe (Q y1 y2)) | _ \<Rightarrow> ERR(dio)"
  abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
   where "\<lparr>\<Phi>,x1,x2,x3\<rparr> \<equiv> case (\<Phi>,x1,x2,x3) of 
-    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(Q y1 y2 y3) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(exe (Q y1 y2 y3)) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Formations with negation and implication are supported for both, formulas and propositional
@@ -203,7 +204,7 @@ section {* Embedding of Modal Relational Type Theory *}
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<not>(\<psi> w)) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<not>(\<psi> w)) | _ \<Rightarrow> ERR(dio)"  
  abbreviation implies::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>\<rightarrow>" 51) where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> case (\<phi>,\<psi>) of 
     (P(\<alpha>),P(\<beta>)) \<Rightarrow> P(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (F(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | 
-    (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | 
+ (*   (P(\<alpha>),F(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | (F(\<alpha>),P(\<beta>)) \<Rightarrow> F(\<lambda>w. \<alpha> w \<longrightarrow> \<beta> w) | *)
     _ \<Rightarrow> ERR(dio)"  
 
   text {*
@@ -362,13 +363,13 @@ section {* Meta-Logic*}
 section {* Some Basic Tests *}
 
   text {* 
-  The next two statements are not theorems; Nitpick reports countermodels
+  The next two statements are false
   *}
 
  lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
  lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
 
- lemma "[(\<^bold>\<forall>y. \<lparr>R\<^sup>T,y\<^sup>T\<rparr>)] = \<top>" apply simp nitpick oops
+ lemma "[(\<^bold>\<forall>y. \<lparr>R\<^sup>T,y\<^sup>T\<rparr>)] = \<top>" apply simp nitpick oops 
 
   text {* 
   However, the next two statements are of course valid.
@@ -500,7 +501,7 @@ section {* E!, O!, A! and =E *}
 
  abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
 
- lemma "O! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. Ex (exe1 E x))\<^sup>T"} *}
+ lemma "O! = X" apply simp oops       
 
   text {* 
   Being abstract is is defined as not possibly being concrete. 
@@ -508,7 +509,7 @@ section {* E!, O!, A! and =E *}
 
  abbreviation abstractObject::"(e\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
 
- lemma "A! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. \<forall>xa. \<not> exe1 E x xa)\<^sup>T"} *}
+ lemma "A! = X" apply simp oops       
 
 
   text {* 
@@ -687,7 +688,7 @@ section {* Axioms *}
   descriptions is still not well enough developed in ATPs. 
   *}
  
-  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp oops
+  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp sorry
 
 
 (*<*)

@@ -3,47 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: root.aux
 The style file: abbrv.bst
 Database file #1: root.bib
-Warning--I didn't find a database entry for "C45"
 Warning--empty publisher in sep-logic-free
-You've used 8 entries,
+You've used 9 entries,
             2118 wiz_defined-function locations,
-            573 strings with 5357 characters,
-and the built_in function-call counts, 2515 in all, are:
-= -- 237
-> -- 115
-< -- 2
-+ -- 44
-- -- 35
-* -- 158
-:= -- 431
-add.period$ -- 29
-call.type$ -- 8
-change.case$ -- 38
+            580 strings with 5729 characters,
+and the built_in function-call counts, 3110 in all, are:
+= -- 293
+> -- 150
+< -- 4
++ -- 56
+- -- 46
+* -- 207
+:= -- 521
+add.period$ -- 33
+call.type$ -- 9
+change.case$ -- 44
 chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 107
-empty$ -- 218
-format.name$ -- 35
-if$ -- 542
+cite$ -- 10
+duplicate$ -- 131
+empty$ -- 261
+format.name$ -- 46
+if$ -- 674
 int.to.chr$ -- 0
-int.to.str$ -- 8
-missing$ -- 9
-newline$ -- 44
-num.names$ -- 22
-pop$ -- 55
+int.to.str$ -- 9
+missing$ -- 10
+newline$ -- 49
+num.names$ -- 26
+pop$ -- 62
 preamble$ -- 1
-purify$ -- 31
+purify$ -- 36
 quote$ -- 0
-skip$ -- 63
+skip$ -- 82
 stack$ -- 0
-substring$ -- 102
-swap$ -- 18
-text.length$ -- 2
+substring$ -- 139
+swap$ -- 31
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 28
+type$ -- 32
 warning$ -- 1
-while$ -- 23
-width$ -- 9
-write$ -- 91
-(There were 2 warnings)
+while$ -- 29
+width$ -- 10
+write$ -- 104
+(There was 1 warning)

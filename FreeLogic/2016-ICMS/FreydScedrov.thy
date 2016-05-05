@@ -139,7 +139,7 @@ lemma "(IdM e \<^bold>\<leftrightarrow> (\<^bold>\<exists>x. e \<approx> (\<box>
 (*>*)
 
 section \<open> Summary of Technical Contribution and Further Work \<close>
-text \<open> 
+text \<open> \sloppy
 We have presented a new reasoning framework for free logic, and we have exemplary applied it for 
 some first experiments in category theory. We have shown that, in our free logic setting, the 
 category theory axiom system of Freyd and Scedrov is redundant and that three axioms can be dropped.
@@ -173,8 +173,8 @@ another area where free logic may serve as a suitable starting point for formali
 In addition to our implementation of free logic as a theory in Isabelle/HOL, we plan to 
 support an analogous logic embedding in the new \textsc{Leo-III} theorem prover @{cite "C45"}. 
 The idea is that  \textsc{Leo-III} can then be envoked with a specific flag telling it to automatically 
-switch its underlying logic setting from higher-order classical logic to first-order and higher-order free logic,
-while retaining TPTP TH0 @{cite "J22"} as the common input syntax.  
+switch its underlying logic setting from higher-order classical logic to first-order and 
+higher-order free logic, while retaining TPTP TH0 @{cite "J22"} as the common input syntax.  
 \<close>
 (*<*)
 end
