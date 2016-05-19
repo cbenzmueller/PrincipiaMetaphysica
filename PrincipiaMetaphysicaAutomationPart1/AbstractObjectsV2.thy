@@ -1,5 +1,6 @@
 (*<*) 
-theory AbstractObjectsV2
+theory AbstractObjectsV2  
+(* this version uses enc & exe as constants but does normalize in both cases *) 
 imports Main
 
 begin
@@ -178,7 +179,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
-    (T(Q),T(y)) \<Rightarrow> P(exe (Q y)) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y)) \<Rightarrow> P(Q y) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   The Principia Metaphysica supports @{text "n"}-ary exemplification constructions. 
@@ -187,10 +188,10 @@ section {* Embedding of Modal Relational Type Theory *}
 
  abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
   where "\<lparr>\<Phi>,x1,x2\<rparr> \<equiv> case (\<Phi>,x1,x2) of 
-    (T(Q),T(y1),T(y2)) \<Rightarrow> P(exe (Q y1 y2)) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2)) \<Rightarrow> P(Q y1 y2) | _ \<Rightarrow> ERR(dio)"
  abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
   where "\<lparr>\<Phi>,x1,x2,x3\<rparr> \<equiv> case (\<Phi>,x1,x2,x3) of 
-    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(exe (Q y1 y2 y3)) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P(Q y1 y2 y3) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Formations with negation and implication are supported for both, formulas and propositional
@@ -738,6 +739,9 @@ lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (x\<^sup>T \<Oplus> y\<^s
 
 
 
+lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,y\<^sup>T\<rparr>] = X" apply simp sorry
+lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>\<rbrace>] = X" apply simp sorry
+lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>\<rbrace>] = \<top>" apply simp nitpick
 
 (*<*)
 end
