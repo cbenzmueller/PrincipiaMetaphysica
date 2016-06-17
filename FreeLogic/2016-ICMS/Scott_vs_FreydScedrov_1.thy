@@ -1,4 +1,4 @@
-theory Scott_vs_FreydScedrov imports FreeFOL 
+theory Scott_vs_FreydScedrov_1 imports FreeFOL 
 begin 
 
 (*
@@ -38,23 +38,26 @@ consts source:: "i\<Rightarrow>i" ("\<box>_" [108] 109)
        composition:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<cdot>" 110)
 
 abbreviation FreydEquality:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<approx>" 60) 
- where "x \<approx> y  \<equiv>  (((\<^bold>E x) \<^bold>\<or> (\<^bold>E y)) \<^bold>\<rightarrow> ((\<^bold>E x) \<^bold>\<and> (\<^bold>E y) \<^bold>\<and> (x \<^bold>= y)))"
+ where "x \<approx> y  \<equiv>  ((\<^bold>E(x) \<^bold>\<or> \<^bold>E(y)) \<^bold>\<rightarrow> (\<^bold>E(x) \<^bold>\<and> \<^bold>E(y) \<^bold>\<and> (x \<^bold>= y)))"
 abbreviation ScottEquality1:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<^bold>=\<^bold>=" 60) 
- where "x \<^bold>=\<^bold>= y  \<equiv>  (((\<^bold>E x) \<^bold>\<or> (\<^bold>E y)) \<^bold>\<rightarrow> (x \<^bold>= y))"
+ where "x \<^bold>=\<^bold>= y  \<equiv>  ((\<^bold>E(x) \<^bold>\<or> \<^bold>E(y)) \<^bold>\<rightarrow> (x \<^bold>= y))"
 abbreviation ScottEquality2:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<^bold>=\<^bold>=\<^bold>=" 60) 
- where "x \<^bold>=\<^bold>=\<^bold>= y  \<equiv>  (((\<^bold>E x) \<^bold>\<and> (\<^bold>E y)) \<^bold>\<rightarrow> (x \<^bold>=\<^bold>= y))"
+ where "x \<^bold>=\<^bold>=\<^bold>= y  \<equiv>  ((\<^bold>E(x) \<^bold>\<and> \<^bold>E(y)) \<^bold>\<rightarrow> (x \<^bold>=\<^bold>= y))"
+
 
 context
  assumes 
   A1: "\<^bold>Ex \<^bold>\<leftrightarrow> \<^bold>E(\<box>x)" and
-  (* A2: "\<^bold>Ex \<^bold>\<leftrightarrow> \<^bold>E(x\<box>)" and *)
-  A3: "E(y\<cdot>x) \<^bold>\<leftrightarrow> (\<box>x \<^bold>=\<^bold>=\<^bold>= y\<box>)" (* and *)
-  (* A4: "(x\<cdot>y)\<cdot>z =1= x\<cdot>(y\<cdot>z) " and *)
-  (* A5: "(\<box>x)\<cdot>x =1= x" and *)
-  (* A6: "x\<cdot>(x\<box>) =1= x" *) 
+  A2: "\<^bold>Ex \<^bold>\<leftrightarrow> \<^bold>E(x\<box>)" and
+  A3: "\<^bold>E(y\<cdot>x) \<^bold>\<leftrightarrow> (\<box>x \<^bold>=\<^bold>=\<^bold>= y\<box>)" and 
+  A4: "(x\<cdot>y)\<cdot>z \<^bold>=\<^bold>= x\<cdot>(y\<cdot>z)" and  
+  A5: "(\<box>x)\<cdot>x \<^bold>=\<^bold>= x" (* and *)
+  (* A6: "x\<cdot>(x\<box>) \<^bold>=\<^bold>= x" *)
  begin 
+  (* Inconsistency *)
+  lemma True nitpick [satisfy, user_axioms, expect = genuine] oops
+  lemma False by (metis A1 A3 A5 fStarAxiom)
   (* Proving redundant axioms *)
-  lemma (*A2*) "\<^bold>Ex \<^bold>\<leftrightarrow> \<^bold>E(x\<box>)" using A1 A3 by blast
   lemma (*A4*) "(x\<cdot>y)\<cdot>z \<^bold>=\<^bold>= x\<cdot>(y\<cdot>z)" by (meson A3)
   lemma (*A5*) "(\<box>x)\<cdot>x \<^bold>=\<^bold>= x" by (meson A3)
   lemma (*A6*) "x\<cdot>(x\<box>) \<^bold>=\<^bold>= x" by (meson A3)
