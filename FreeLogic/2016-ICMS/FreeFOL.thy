@@ -139,6 +139,8 @@ text \<open>
 We postulate that \<open>\<^bold>\<star>\<close> is a ``non-existing'' object in \<open>D\<close>. 
 \<close>
 
+(* axiomatization where nonEmpty: "\<exists>x. \<^bold>E(x)" *)
+
 axiomatization where fStarAxiom: "\<not>\<^bold>E(\<^bold>\<star>)"
 
 text \<open>The two primitive logical connective we introduce for free logic are negation (\<open>\<^bold>\<not>\<close>) 
