@@ -96,9 +96,7 @@ context
    A4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" and
    A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
   begin
-   lemma A2a: "((\<box>x)\<box>) \<approx> \<box>x" nitpick sledgehammer
-by (smt A1 A2b A3a A3b A4a A4b)  
-by (metis A1 A2b A3a A3b A4a)
+   lemma A2a: "((\<box>x)\<box>) \<approx> \<box>x" by (smt A1 A2b A3a A3b A4a A5)
   end
 
 
@@ -152,7 +150,7 @@ context
    lemma "\<^bold>E(x) \<^bold>\<rightarrow> ((\<box>x)\<box>) \<approx> \<box>x" using A1 A3a by blast 
    lemma "\<^bold>E((\<box>x)\<cdot>x)" nitpick [user_axioms, show_all, format = 2] oops
    lemma "\<^bold>E(x) \<^bold>\<rightarrow> \<^bold>E((\<box>x)\<cdot>x)" using A3a by blast
-   lemma "(\<box>x)\<cdot>x \<approx> x \<^bold>\<rightarrow> \<^bold>E(x)" sledgehammer nitpick [user_axioms, show_all, format = 2] oops
+   lemma "(\<box>x)\<cdot>x \<approx> x \<^bold>\<rightarrow> \<^bold>E(x)" nitpick [user_axioms, show_all, format = 2] oops
    lemma "(\<^bold>E(x) \<^bold>\<and> ((\<box>x)\<cdot>x \<approx> x)) \<^bold>\<rightarrow> \<box>(x\<box>) \<approx> \<box>x" nitpick [user_axioms, show_all, format = 2] oops
    lemma (*A2b*) "\<box>(x\<box>) \<approx> \<box>x" nitpick [user_axioms, show_all, format = 2] oops
    lemma (*A4a*) "\<box>(x\<cdot>y) \<approx> \<box>(x\<cdot>(\<box>y))" nitpick [user_axioms, show_all, format = 2] oops
