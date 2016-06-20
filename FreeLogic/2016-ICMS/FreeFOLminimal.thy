@@ -5,9 +5,11 @@ begin
 
 typedecl i   \<comment> "the type for indiviuals" 
 consts fExistence:: "i\<Rightarrow>bool" ("\<^bold>E")    \<comment> "Existence predicate"
-consts fStar:: "i" ("\<^bold>\<star>")   \<comment> "Distinguished symbol for undefinedness"
 
+(*
+consts fStar:: "i" ("\<^bold>\<star>")   \<comment> "Distinguished symbol for undefinedness"
 axiomatization where fStarAxiom: "\<not>\<^bold>E(\<^bold>\<star>)"
+*)
 
 abbreviation fNot:: "bool\<Rightarrow>bool" ("\<^bold>\<not>")          
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
@@ -17,12 +19,17 @@ abbreviation fForall:: "(i\<Rightarrow>bool)\<Rightarrow>bool" ("\<^bold>\<foral
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. \<^bold>E(x)\<longrightarrow>\<Phi>(x)"   
 abbreviation fForallBinder:: "(i\<Rightarrow>bool)\<Rightarrow>bool" (binder "\<^bold>\<forall>" [8] 9) 
  where "\<^bold>\<forall>x. \<phi>(x) \<equiv> \<^bold>\<forall>\<phi>"
+
+
 abbreviation fThat:: "(i\<Rightarrow>bool)\<Rightarrow>i" ("\<^bold>I") 
  where "\<^bold>I\<Phi> \<equiv> if \<exists>x. \<^bold>E(x) \<and> \<Phi>(x) \<and> (\<forall>y. (\<^bold>E(y) \<and> \<Phi>(y)) \<longrightarrow> (y = x)) 
               then THE x. \<^bold>E(x) \<and> \<Phi>(x) 
-              else \<^bold>\<star>"
+              else SOME x. \<not>(\<^bold>E(x))"
 abbreviation fThatBinder:: "(i\<Rightarrow>bool)\<Rightarrow>i"  (binder "\<^bold>I" [8] 9) 
  where "\<^bold>Ix. \<phi>(x) \<equiv> \<^bold>I(\<phi>)"
+
+lemma "\<exists>x. \<^bold>\<not> (\<^bold>E(x))"  nitpick [user_axioms, show_all] oops
+
 abbreviation fOr (infixr "\<^bold>\<or>" 51) where "\<phi>\<^bold>\<or>\<psi> \<equiv> (\<^bold>\<not>\<phi>)\<^bold>\<rightarrow>\<psi>" 
 abbreviation fAnd (infixr "\<^bold>\<and>" 52) where "\<phi>\<^bold>\<and>\<psi> \<equiv> \<^bold>\<not>(\<^bold>\<not>\<phi>\<^bold>\<or>\<^bold>\<not>\<psi>)"    
 abbreviation fEquiv (infixr "\<^bold>\<leftrightarrow>" 50) where "\<phi>\<^bold>\<leftrightarrow>\<psi> \<equiv> (\<phi>\<^bold>\<rightarrow>\<psi>)\<^bold>\<and>(\<psi>\<^bold>\<rightarrow>\<phi>)"  
@@ -53,8 +60,8 @@ objects \<open>\<^bold>E\<close> could be empty.  Nitpick quickly presents a res
 \<close>
 lemma "\<^bold>\<exists>y. y \<^bold>r y \<^bold>\<rightarrow> y \<^bold>r y" nitpick [user_axioms] oops
 text \<open>
-Consequently, also the implication \<open>(x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x) \<^bold>\<rightarrow> (\<^bold>\<exists>y. y \<^bold>r y \<^bold>\<rightarrow> y \<^bold>r y)\<close> has a countermodel,
-where \<open>\<^bold>E\<close> is empty. 
+Consequently, also the implication \<open>(x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x) \<^bold>\<rightarrow> (\<^bold>\<exists>y. y \<^bold>r y \<^bold>\<rightarrow> y \<^bold>r y)\<close> 
+has a countermodel, where \<open>\<^bold>E\<close> is empty. 
 \<close>
 lemma "(x \<^bold>r x \<^bold>\<rightarrow> x \<^bold>r x) \<^bold>\<rightarrow> (\<^bold>\<exists>y. y \<^bold>r y \<^bold>\<rightarrow> y \<^bold>r y)" nitpick [user_axioms]  oops
 text \<open>
@@ -80,9 +87,9 @@ lemma UI_cor2: "\<^bold>\<forall>y.((\<^bold>\<forall>x. \<^bold>\<not>(x \<^bol
 lemma UI_cor3: "\<^bold>\<forall>y.((y \<^bold>= y) \<^bold>\<rightarrow> (\<^bold>\<exists>x. x \<^bold>= y))" by auto
 lemma UI_cor4: "(\<^bold>\<forall>y. y \<^bold>= y) \<^bold>\<rightarrow> (\<^bold>\<forall>y.\<^bold>\<exists>x. x \<^bold>= y)" by simp
 lemma Existence: "(\<^bold>\<exists>x. x \<^bold>= \<alpha>) \<longrightarrow> \<^bold>E(\<alpha>)" by simp (* ... to say that (\<^bold>\<exists>x. x = \<alpha>) is true means that the value of \<alpha> exists (properly) *)
-lemma I1: "\<^bold>\<forall>y. ((y \<^bold>= (\<^bold>Ix. \<Phi>(x))) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. ((x \<^bold>= y) \<^bold>\<leftrightarrow> \<Phi>(x))))" by (smt fStarAxiom the_equality)
+lemma I1: "\<^bold>\<forall>y. ((y \<^bold>= (\<^bold>Ix. \<Phi>(x))) \<^bold>\<leftrightarrow> (\<^bold>\<forall>x. ((x \<^bold>= y) \<^bold>\<leftrightarrow> \<Phi>(x))))" nitpick oops
 abbreviation Star ("\<Otimes>") where "\<Otimes> \<equiv> \<^bold>Iy. \<^bold>\<not> (y \<^bold>= y)"
-lemma StarTest: "\<Otimes> = \<^bold>\<star>" by simp
+(* lemma StarTest: "\<Otimes> = \<^bold>\<star>" by simp *)
 lemma I2: "\<^bold>\<not>(\<^bold>\<exists>y. y \<^bold>= (\<^bold>Ix. \<Phi>(x))) \<^bold>\<rightarrow>  (\<Otimes> \<^bold>= (\<^bold>Ix. \<Phi>(x)))" by (metis (no_types, lifting) the_equality)
 lemma ExtI: "(\<^bold>\<forall>x. \<Phi>(x) \<^bold>\<leftrightarrow> \<Psi>(x)) \<^bold>\<rightarrow> ((\<^bold>Ix. \<Phi>(x)) \<^bold>= (\<^bold>Ix. \<Psi>(x)))" by (smt the1_equality)
 lemma I3: "(\<Otimes> \<^bold>= \<alpha> \<^bold>\<or> \<Otimes> \<^bold>= \<beta>) \<^bold>\<rightarrow> \<^bold>\<not>(\<alpha> \<^bold>r \<beta>)" nitpick [user_axioms] oops \<comment> "Countermodel by Nitpick"
@@ -92,7 +99,8 @@ lemma Russel:
   \<^bold>\<rightarrow> 
   ((\<alpha> \<^bold>r (\<^bold>Ix. \<Phi>(x))) \<^bold>\<leftrightarrow> (\<^bold>\<exists>y.((\<^bold>\<forall>x. ((x \<^bold>= y) \<^bold>\<leftrightarrow> \<Phi>(x))) \<^bold>\<and> (\<alpha> \<^bold>r y))))"
  nitpick [user_axioms] oops
-lemma "\<^bold>\<not>(\<^bold>\<exists>x. (x \<^bold>= (\<^bold>Iy. \<^bold>\<not> (y \<^bold>= y))))" using fStarAxiom by auto
+lemma "\<^bold>\<not>(\<^bold>\<exists>x. (x \<^bold>= (\<^bold>Iy. \<^bold>\<not> (y \<^bold>= y))))" nitpick [user_axioms, show_all] oops
+lemma "(\<^bold>\<exists>x. (x \<^bold>= (\<^bold>Iy. \<^bold>\<not> (y \<^bold>= y))))" nitpick [user_axioms, show_all] oops
 lemma "(\<^bold>\<exists>x. x \<^bold>= a) \<^bold>\<rightarrow>  \<^bold>E(a)" by simp
 consts ca::i cb::i 
 axiomatization where ax1: "\<^bold>E(ca) \<^bold>\<and> \<^bold>E(cb) \<^bold>\<and> \<^bold>\<not> (ca \<^bold>= cb) \<^bold>\<and> \<^bold>\<not> (ca \<^bold>= \<Otimes>) \<^bold>\<and> \<^bold>\<not> (cb \<^bold>= \<Otimes>)"

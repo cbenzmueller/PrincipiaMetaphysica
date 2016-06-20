@@ -1,4 +1,4 @@
-theory Scott_vs_FreydScedrov_1 imports FreeFOL 
+theory Scott_vs_FreydScedrov_1_Mimimal imports FreeFOLMinimal
 begin 
 
 (*
