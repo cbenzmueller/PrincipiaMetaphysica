@@ -96,19 +96,12 @@ In fact, by a systematic experimentation within our free logic theorem proving f
 we can show that Freyd's and Scedroc's axiomatic theory can be reduced to just the following 
 five axioms:
 \<close>
-
-
-
-
-
-
 axiomatization FreydsAxiomSystemReduced where              
  B1:  "\<^bold>E(x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box>y))" and
  B2a: "((\<box>x)\<box>) \<approx> \<box>x" and
  B3a: "(\<box>x)\<cdot>x \<approx> x" and
  B3b: "x\<cdot>(x\<box>) \<approx> x" and
  B5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
-
 
 text \<open>
 The dropped axioms can then be introduced as lemmas.
@@ -117,19 +110,12 @@ lemma B2b: "\<box>(x\<box>) \<approx> \<box>x" by (metis B1 B2a B3a)
 lemma B4a: "\<box>(x\<cdot>y) \<approx> \<box>(x\<cdot>(\<box>y))" by (metis B1 B2a B3a)
 lemma B4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" sledgehammer (B1 B2a B3a B3b B5)
 
-
-
-
-
-
-
-
-
 (*<*)
 text \<open>
 In the remainder of this section we present some further tests wrt Freyd's and Scedrov's theory. 
 We leave these tests uncommented.
 \<close>
+
 abbreviation DirectedEquality:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<greaterapprox>" 60) 
  where "x \<greaterapprox> y \<equiv> ((\<^bold>E x) \<^bold>\<rightarrow> (\<^bold>E y)) \<^bold>\<and> x \<^bold>= y"  
 

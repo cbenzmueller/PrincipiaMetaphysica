@@ -35,26 +35,4 @@ D.~Scott.
 \newblock (Reprinted with additions in: Philosophical Application of Free
   Logic, edited by K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48).
 
-\bibitem{J22}
-G.~Sutcliffe and C.~Benzm{\"u}ller.
-\newblock Automated reasoning in higher-order logic using the {TPTP THF}
-  infrastructure.
-\newblock {\em J. of Formalized Reasoning}, 3(1):1--27, 2010.
-
-\bibitem{IsabelleManual2016}
-M.~Wenzel.
-\newblock The isabelle system manual.
-\newblock
-  \url{https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2016/doc/system.pdf},
-  February 2016.
-
-\bibitem{C45}
-M.~Wisniewski, A.~Steen, and C.~Benzm{\"{u}}ller.
-\newblock Leopard - {A} generic platform for the implementation of higher-order
-  reasoners.
-\newblock In M.~Kerber, J.~Carette, C.~Kaliszyk, F.~Rabe, and V.~Sorge,
-  editors, {\em Intelligent Computer Mathematics - International Conference,
-  {CICM} 2015, Washington, DC, USA, July 13-17, 2015, Proceedings}, volume 9150
-  of {\em LNCS}, pages 325--330. Springer, 2015.
-
 \end{thebibliography}
