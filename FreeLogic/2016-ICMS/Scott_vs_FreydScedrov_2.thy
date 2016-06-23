@@ -31,7 +31,17 @@ context
   6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
  begin 
   (* nitpick cannot find a model *)
-  lemma True nitpick [satisfy, user_axioms, expect = genuine] oops     
+  (* lemma True nitpick [satisfy, user_axioms, expect = genuine] oops *)
+  lemma False
+   proof -  
+   have B1: "\<^bold>\<not>(\<^bold>E(\<^bold>\<star>))" using fStarAxiom by blast
+   have B2: "\<^bold>\<not>(\<^bold>E(dom \<^bold>\<star>))" using 1 B1 by blast
+   have B3: "\<^bold>E(\<^bold>\<star>\<cdot>(dom \<^bold>\<star>))" using 3 B2 by blast
+   have B4: "((\<^bold>\<star>\<cdot>(dom \<^bold>\<star>)) \<^bold>= \<^bold>\<star>)" using B3 5 by blast
+   have B5: "\<^bold>E(\<^bold>\<star>)" using B3 B4 by auto
+   have False using B5 B1 by auto
+   then show ?thesis .
+  qed       
  end
 
 context

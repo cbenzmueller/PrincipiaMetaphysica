@@ -20,49 +20,57 @@
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-The Isabelle/HOL formalisation presented in this article is related to the ongoing 
-  Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University.
-  This project, which exploits and extends Zalta's  Theory of Abstract 
-  Objects \cite{zalta83:_abstr_objec}, 
-  employs a modal relational type theory (MRTT) as logical foundation. Arguments
+The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University aims
+  at providing an encompassing axiomatic foundation for metaphysics, mathematics and the sciences. 
+  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}, which \ldots.
+ 
+  The theory of abstract objects utilizes a modal relational type theory (MRTT) as 
+  logical foundation.  Arguments
   defending this choice against a modal functional type theory (MFTT)
   have been presented before \cite{zalta11:_relat_versus_funct_found_logic}.
   In a nutshell, the situation is this: functional type theory comes with strong 
-  comprehension principles, which, in the context of the Theory of Abstract Objects, 
+  comprehension principles, which, in the context of the theory of abstract objects, 
   have paradoxical implications. When starting off with a relational foundation, however, 
   weaker comprehension principles are provided, and these obstacles can be avoided.
 
   Isabelle/HOL is a proof assistant based on a functional type theory extending
   Church's theory of types \cite{Church40}, and recently it has been shown 
-  that Church's type theory can be elegantly utilized as a meta-logic to encode and 
+  that Church's type theory can be elegantly utilized as a meta-logic to semantically embed and 
   automate various quantified non-classical logics, including MFTT \cite{J23,C40}. 
-  This work has subsequently been employed in a case study in
+  This embedding of MFTT has subsequently been employed in a case study in
   computational metaphysics, in which different variants of Kurt Gödel's ontological 
   argument were verified resp. falsified \cite{C40,C55}. 
  
-
   The motivating research questions for the formalisation presented below include:
   \begin{itemize} 
-  \item Can functional type theory, despite the problems pointed at by Zalta and Oppenheimer, 
-   also be utilized to encode MRTT and subsequently the Theory of Abstract Objects when 
-   following the embeddings approach?
-  \item How elegant and user-friendly is the resulting formalization? 
+  \item Can functional type theory, despite the problems as pointed 
+   out by Zalta and
+   Oppenheimer \cite{zalta11:_relat_versus_funct_found_logic}, 
+   nevertheless be fruitfully utilized to encode MRTT and subsequently the theory of abstract 
+   objects when adapting and utilizing the embeddings approach? As it turns, we will 
+   need a significant, technically involved extension of the embeddings approach.
+  \item From another viewpoint the issue is to investigate possibilities to handle restricted 
+   forms of comprehension in a functional type theory context within the embedding approach.
+  \item From a pragmatic point of view, we want to assess the elegance and user-friendliness of 
+   the proposed formalization? 
    To what extend can Isabelle's  user interface be facilitated to hide 
-   unpleasant technicalities of the (extended) embedding from the user?
-  \item How far can automation be pushed in the approach to minimise user interaction  in the 
-    formalization of the Theory of Abstract objects? 
+   unpleasant technicalities of the extended embedding from the user?
+  \item Moreover, how far can automation be pushed in the approach to minimise user interaction  
+    in the formalization of the theory of abstract objects? For this note the proof automation has
+    worked very well for the simpler embeddings of as used in related work \cite{C40,C55}. 
   \item Can the consistency of the theory eventually be validated with the available automated 
    reasoning tools?
   \item Can the reasoners eventually even contribute some new knowledge? 
-  \item Are any suggestions for improvements in Isabelle arising? 
+  \item Are any suggestions  arising for possible improvements in Isabelle/HOL.
    What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this contribution to the Archive of Formal Proofs we focus on the encoding 
-  of MRTT in functional type theory. The idea is to reuse and adapt the fundamental ideas underlying
-  the previous encoding of MFTT in functional type theory \cite{J23,C40}, which has been realised 
-  inter alia in Isabelle/HOL \cite{J28}. In subsequent work we will then reuse and extend the 
-  foundations provided in this article.
+  In this contribution to the Archive of Formal Proofs, however, we primarily focus on presenting 
+  the encoding 
+  of MRTT in functional type theory. The idea is to extend the fundamental ideas underlying
+  the previous encoding of MFTT in functional type theory. 
+  In subsequent papers we will then reuse and extend the 
+  foundations provided in this article and further address the above questions.q
  
   The encoding of modal functional type theory in functional type theory as explored in 
   previous work  is simple: modal logic formulas are identified with certain functional 
@@ -80,9 +88,9 @@ The Isabelle/HOL formalisation presented in this article is related to the ongoi
   The grammar of modal relational type theory is presented in Figure~\ref{mmrt}.
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
-  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details in MRTT. \label{mmrt}
-  Two kinds of (complex) formulas are introduced: ones that may have encoding subformulas and 
-  ones that do not. The latter are designated as propositional formulas, the former ones simply as formulas.}
+  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
+  Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
+  $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
   Note that this grammar excludes terms such as $\lambda x. Rx \rightarrow xR$, where $Rx$ represents the 
   exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. The reason is 
@@ -91,27 +99,29 @@ The Isabelle/HOL formalisation presented in this article is related to the ongoi
   objects \cite{zalta11:_relat_versus_funct_found_logic}.
   
 
-  To achieve our goal we provide means to explicitly represents and propagate information  on the 
+  To achieve our goal we provide means to explicitly represent, maintain and propagate information  on the 
   syntactical structure of MRTT in functional type theory. In particular, we provide means in form of annotations 
   to explicitly distinguish 
   between propositional formulas, formulas, terms and erroneous (ineligible/excluded) formations. 
   Respective annotation information is propagated from the innermost constituents to the top level constructions.
-  This clearly creates some significant technical overhead. However, we fruitfully exploit facilities in Isabelle/HOL's user 
-  interface, and other means, to hide most of these technicalities from the user in applications.
+  This creates some non-trivial technical overhead. However, Isabelle/HOL's user 
+  interface provide facilities to widely hide these technicalities from the user in applications.
 
   A note on using abbreviations versus definitions in our approach:  We are aware that abbreviations should
-  be used sparsingly in Isabelle/HOL, since they are automatically expanded and thus lead to a discrepancy 
-  between the internal and the external view of a term. However, here we deliberately deviate from this
+  be used sparsingly in Isabelle/HOL; they are automatically expanded and thus lead to a discrepancy 
+  between the internal and the external view of a term. However, we here deliberately deviate from this
   rule, since one aspect of the paper is to exactly illustrate this discrepancy and to emphasize the complexity
   of the embedding MRTT in functional type theory. In fact, this complexity makes pen and paper 
-  work with the proposed embedding pragmatically infeasible, as we believe, while in a proof assistant like 
-   Isabelle/HOL
-  in can, at least to some degree, still be handled by an interactive user. Moreover, as we will also
+  work with the proposed embedding pragmatically infeasible. In this sense, we agree with earlier findings
+   \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we demonstrate the general feasibility here, and we
+  show, that within a modern interactive proof assistant like Isabelle/HOL the approach can eventually be handled to 
+  some modest degree. In fact, as we will also
   illustrate, the simplifier \isa{simp} of Isabelle/HOL is well capable of effectively reducing
-  this complexity again. In other words, the simplifier effectievely analyses and and rewrites the 
-  deeply annotated terms and propagates the annotation information to the top-level only as intended.
+  the technically inflated terms we obtain from the extended embedding again to their logical core content. 
+  In other words, the simplifier effectievely analyses and and rewrites the 
+  deeply annotated terms and propagates the annotation information as intended to top-level.
   It is exactly this effect which we want to illustrate and exploit here.\footnote{We have also 
-  experimented with the alternative use of definitions; the respective 
+  experimented with using definitions instead of abbreviations; the respective 
   encodings can be requested from the authors.}%
 \end{isamarkuptext}%
 \isamarkuptrue%
@@ -122,7 +132,7 @@ The Isabelle/HOL formalisation presented in this article is related to the ongoi
 %
 \begin{isamarkuptext}%
 We start out with some type declarations and type abbreviations. 
-  Our formalism explicitly encodes possible world semantics. Hence, we introduce a 
+  Note that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
   distinguished type \isa{i} to represent the set of possible worlds. 
   Consequently, terms of this type denote possible worlds. 
   Moreover, modal logic formulas are associated in our approach with
@@ -148,11 +158,11 @@ To explicitly model the syntactical restrictions of MRTT we introduce a
   (polymorphic) datatype \isa{{\isacharprime}a\ opt} (\isa{{\isacharprime}a} is a type variable) 
   based on four constructors: \isa{ERR\ {\isacharprime}a} (identifies ineligible/excluded constructions), \isa{P\ {\isacharprime}a} 
   (identifies propositional formulas), \isa{F\ {\isacharprime}a} (identifies  formulas), and \isa{T\ {\isacharprime}a} (identifies 
-  eligible terms, such as lambda abstractions). The embeddings approach (of MFTT in functional type theory)
+  eligible terms, such as lambda abstractions). The embedding approach (of MFTT in functional type theory)
   will be suitably adapted below so that 
   for each language expression (in the embedded MRTT) the respective datatype 
   is identified and appropriately propagated. The encapsulated expressions  
-  then correspond to the previous embedding of MRTT in  functional type theory.%
+  correspond to the previous embedding of MRTT in functional type theory  \cite{J23,C40}.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{datatype}\isamarkupfalse%
@@ -175,18 +185,18 @@ Certain language constructs in the Theory of Abstract objects, such as the actua
   \isa{\isactrlbold {\isasymA}} ("it is actually the case that"), refer to a (fixed) designated world. To model such a 
   rigid dependence we introduce a constant symbol (name) \isa{dw} of world type \isa{i}. 
   Moreover, for technical reasons, 
-  which will be clarified below, we introduce further (dummy) constant symbols for the various other domains. Since
-  we anyway assume that all domains are non-empty, introducing these constant symbols is obviously not harmful. 
+  which will be clarified below, we introduce further (dummy) constant symbols for the various other domains. 
+  We anyway assume that all domains are non-empty. Hence, introducing these constant symbols is obviously not harmful. 
   \footnote{The single polymorphic dummy \isa{\isactrlbold da{\isacharcolon}{\isacharcolon}{\isacharprime}a}, utilized e.g. in the definition of the universal 
-  quantifier of MRTT below, would actually cover all cases. However, to avoid type inference we
+  quantifier of MRTT below, actually covers already all cases. However, to avoid unnecessary type inferences we
   actually prefer non-polymorphic dummy elements in all those cases where we can statically 
-  predetermine the required type.}%
+  determine the required type.}%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{consts}\isamarkupfalse%
-\ dw\ {\isacharcolon}{\isacharcolon}\ i\ \isanewline
+\ dw{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}i{\isachardoublequoteclose}\ \isanewline
 \ \isacommand{consts}\isamarkupfalse%
-\ de{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isachardoublequoteclose}\ dio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io{\isachardoublequoteclose}\ deio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isasymRightarrow}io{\isachardoublequoteclose}\ da{\isacharcolon}{\isacharcolon}{\isacharprime}a%
+\ de{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isachardoublequoteclose}\ dio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io{\isachardoublequoteclose}\ deio{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e{\isasymRightarrow}io{\isachardoublequoteclose}\ da{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharprime}a{\isachardoublequoteclose}%
 \isamarkupsection{Embedding of Modal Relational Type Theory%
 }
 \isamarkuptrue%
@@ -200,7 +210,7 @@ The various language constructs of MRTT (see Figure \ref{mmrt}) are now introduc
 The actuality operator \isa{\isactrlbold {\isasymA}}, when being applied to a formula or propositional formula 
   \isa{{\isasymphi}}, evaluates \isa{{\isasymphi}} wrt the fixed given world \isa{dw}. 
   The compound expression \isa{\isactrlbold {\isasymA}{\isasymphi}} inherits its syntactical category  \isa{F} (formula) or
-  \isa{P} (propositional formula from \isa{{\isasymphi}}. If the syntactical catagory of  \isa{{\isasymphi}} is 
+  \isa{P} (propositional formula) from \isa{{\isasymphi}}. If the syntactical catagory of  \isa{{\isasymphi}} is 
   \isa{ERR} (error) or \isa{T} (term), then the syntactical catagory of \isa{\isactrlbold {\isasymA}{\isasymphi}} 
   is \isa{ERR} and a dummy entity of appropriate type is returned. This illustrates the core 
   ideas of our explicit modeling of MRTT grammatical structure in functional type theory. 
@@ -215,12 +225,19 @@ The Theory of Abstract Objects distinguishes between encoding properties \isa{{\
   exemplifying properties \isa{{\isasymPi}\isactrlsup n{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isachardot}{\isachardot}{\isacharcomma}{\isasymkappa}\isactrlsub n} (for $n\geq 1$). 
 
   Encoding \isa{{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymPi}\isactrlsup {\isadigit{1}}} is noted below as \isa{{\isasymlbrace}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymrbrace}}.
-  Encoding yields formulas and never propositional formulas. It is mapped to predicate application.%
+  Encoding yields formulas and never propositional formulas. It is mapped to expressions of 
+  form \isa{{\isacharparenleft}enc\ Q\ y{\isacharparenright}}, where \isa{enc} is uninterpreted constant symbol of appropriate 
+  type. Exemplification will instead be mapped to predicate application. Unfortunately, we cannot map both, 
+  exemplification and encoding, to predicate application, since this would have undesirable effects.
+  For example, we could then prove that \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymequiv}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}} is true, which we definitely
+  want to avoid. See also the basic tests in Subsection \ref{basic-tests-1}.%
 \end{isamarkuptext}%
 \isamarkuptrue%
+\ \isacommand{consts}\isamarkupfalse%
+\ enc{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}{\isasymRightarrow}e{\isasymRightarrow}io{\isachardoublequoteclose}\isanewline
 \ \isacommand{abbreviation}\isamarkupfalse%
 \ Enc{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}e\ opt{\isasymRightarrow}{\isacharparenleft}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymlbrace}{\isacharunderscore}{\isacharcomma}{\isacharunderscore}{\isasymrbrace}{\isachardoublequoteclose}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymlbrace}x{\isacharcomma}{\isasymPhi}{\isasymrbrace}\ {\isasymequiv}\ case\ {\isacharparenleft}x{\isacharcomma}{\isasymPhi}{\isacharparenright}\ of\ \isanewline
-\ \ \ \ {\isacharparenleft}T{\isacharparenleft}y{\isacharparenright}{\isacharcomma}T{\isacharparenleft}Q{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}Q\ y{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
+\ \ \ \ {\isacharparenleft}T{\isacharparenleft}y{\isacharparenright}{\isacharcomma}T{\isacharparenleft}Q{\isacharparenright}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}enc\ Q\ y{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Unary exemplifying formulas \isa{{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymkappa}\isactrlsub {\isadigit{1}}} are noted below as \isa{{\isasymlparr}{\isasymPi}\isactrlsup {\isadigit{1}}{\isacharcomma}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymrparr}}.  
   Exemplification yields propositional formulas. Like encoding, it is then mapped to predicate application.%
@@ -288,8 +305,8 @@ The modal \isa{\isactrlbold {\isasymbox}}-operator is introduced here for logic 
 \ box{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}io\ opt{\isasymRightarrow}io\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{6}}{\isadigit{2}}{\isacharbrackright}\ {\isadigit{6}}{\isadigit{3}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymbox}{\isasymphi}\ {\isasymequiv}\ case\ {\isasymphi}\ of\ \isanewline
 \ \ \ \ F{\isacharparenleft}{\isasympsi}{\isacharparenright}\ {\isasymRightarrow}\ F{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isasymforall}v{\isachardot}\ {\isasympsi}\ v{\isacharparenright}\ {\isacharbar}\ P{\isacharparenleft}{\isasympsi}{\isacharparenright}\ {\isasymRightarrow}\ P{\isacharparenleft}{\isasymlambda}w{\isachardot}{\isasymforall}v{\isachardot}\ {\isasympsi}\ v{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-n-ary lambda abstraction \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{0}}{\isacharcomma}\isactrlbold {\isasymlambda}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}\isactrlsup {\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isacharcomma}{\isachardot}{\isachardot}{\isachardot}}, for $n\geq 0$, is supported in the Theory of Abstract 
-  Objects only for propositional formulas. This way constructs such as 
+n-ary lambda abstraction \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{0}}{\isacharcomma}\isactrlbold {\isasymlambda}{\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}\isactrlsup {\isacharcomma}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isacharcomma}{\isachardot}{\isachardot}{\isachardot}}, for $n\geq 0$, is supported in the theory of abstract 
+  objects only for propositional formulas. This way constructs such as 
   beforehand mentioned $(\lambda x. Rx \rightarrow xR)$  (noted here as \isa{{\isacharparenleft}\isactrlbold {\isasymlambda}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymrightarrow}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}} 
   are excluded, respectively identified as \isa{ERR}-annotated 
   terms in our framework.
@@ -298,7 +315,7 @@ n-ary lambda abstraction \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit
   lambda abstractions, that is, \isa{\isactrlbold {\isasymlambda}{\isacharparenleft}{\isasymlambda}x{\isachardot}{\isasymphi}{\isacharparenright}} is mapped to \isa{{\isacharparenleft}{\isasymlambda}x{\isachardot}{\isasymphi}{\isacharparenright}} and \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}{\isacharparenleft}{\isasymlambda}xy{\isachardot}{\isasymphi}{\isacharparenright}} 
   to \isa{{\isacharparenleft}{\isasymlambda}xy{\isachardot}{\isasymphi}{\isacharparenright}}, etc.
   Similar to before, we support only the cases for $n\leq 3$. Binder notation is
-  introduced for \isa{\isactrlbold {\isasymlambda}}.\footnote{Unfortunately, we could not find out how binder notation
+  introduced for \isa{\isactrlbold {\isasymlambda}}.\footnote{Unfortunately, we could not find out how suitable binder notation
   could be analogously provided for \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{2}}} and \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}}}.%
 \end{isamarkuptext}%
 \isamarkuptrue%
@@ -317,7 +334,7 @@ n-ary lambda abstraction \isa{\isactrlbold {\isasymlambda}\isactrlsup {\isadigit
 \ lam{\isadigit{3}}{\isacharcolon}{\isacharcolon}{\isachardoublequoteopen}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io\ opt{\isacharparenright}{\isasymRightarrow}{\isacharparenleft}e{\isasymRightarrow}e{\isasymRightarrow}e{\isasymRightarrow}io{\isacharparenright}\ opt{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isachardoublequoteclose}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymlambda}\isactrlsup {\isadigit{3}}{\isasymPhi}\ {\isasymequiv}\ case\ {\isacharparenleft}{\isasymPhi}\ de\ de\ de{\isacharparenright}\ of\isanewline
 \ \ \ \ P{\isacharparenleft}{\isacharunderscore}{\isacharparenright}\ {\isasymRightarrow}\ T{\isacharparenleft}{\isasymlambda}x\ y\ z{\isachardot}\ case\ {\isacharparenleft}{\isasymPhi}\ x\ y\ z{\isacharparenright}\ of\ P{\isacharparenleft}{\isasymphi}{\isacharparenright}\ {\isasymRightarrow}\ {\isasymphi}{\isacharparenright}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ ERR{\isacharparenleft}{\isasymlambda}x\ y\ z{\isachardot}\ dio{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
-The Theory of Abstract Objects supports rigid definite descriptions. Our definition maps
+The theory of abstract objects supports rigid definite descriptions. Our definition maps
   \isa{\isactrlbold {\isasymiota}{\isacharparenleft}{\isasymlambda}x{\isachardot}{\isasymphi}{\isacharparenright}} to \isa{{\isacharparenleft}THE\ x{\isachardot}\ {\isasymphi}\ dw{\isacharparenright}}, that is, Isabelle's inbuilt definite description operator 
   \isa{THE} 
   is utilized and evaluation is rigidly carried out with respect to the current world denoted by \isa{dw}.
@@ -374,7 +391,7 @@ Further logical connectives can be defined as usual. For pragmatic reasons (to a
 Our approach to rigorously distinguish between proper and improper language constructions 
   and to explicitly maintain respective information is continued also at meta-level. For this 
   we introduce three truth values \isa{tt},
-  \isa{ff} and \isa{err}, representing truth, falsity and error. These values aro also 
+  \isa{ff} and \isa{err}, representing truth, falsity and error. These values are also 
   noted as \isa{{\isasymtop}}, \isa{{\isasymbottom}} and \isa{{\isacharasterisk}}. We could, of course, also introduce  
   respective logical connectives for the meta-level, but in our applications (see below)
   this was not yet relevant.%
@@ -411,8 +428,12 @@ Next we define the meta-logical notions of validity, satisfiability,
 }
 \isamarkuptrue%
 %
+\isamarkupsubsection{Exemplification and Encoding \label{basic-tests-1}%
+}
+\isamarkuptrue%
+%
 \begin{isamarkuptext}%
-The next two statements are not theorems; Nitpick reports countermodels%
+For the following non-theorems we indeed get countermodels by nitpick.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
@@ -431,9 +452,9 @@ The next two statements are not theorems; Nitpick reports countermodels%
 %
 \endisadelimproof
 \ \isacommand{nitpick}\isamarkupfalse%
-%
+\ {\isacharbrackleft}expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
-\ %
+\ \ %
 \endisadelimproof
 %
 \isatagproof
@@ -465,7 +486,7 @@ The next two statements are not theorems; Nitpick reports countermodels%
 %
 \endisadelimproof
 \ \isacommand{nitpick}\isamarkupfalse%
-%
+\ \ {\isacharbrackleft}expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -482,41 +503,23 @@ The next two statements are not theorems; Nitpick reports countermodels%
 \isadelimproof
 %
 \endisadelimproof
-\isanewline
-\isanewline
-\ \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}y\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ simp%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
-\ \isacommand{nitpick}\isamarkupfalse%
-%
-\isadelimproof
-\ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{oops}\isamarkupfalse%
-%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-%
-\endisadelimproof
 %
 \begin{isamarkuptext}%
-However, the next two statements are of course valid.%
+With this example we also want to illustrate the inflation of representations as caused by the
+     embedding. For this note, that the formula \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymrightarrow}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}} abbreviates the
+    actual term  
+   \isa{{\isacharparenleft}case\ case\ {\isasymlbrace}da\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}da\isactrlsup T{\isasymrparr}\ of\ P\ x\ {\isasymRightarrow}\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}x{\isachardot}\ case\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ of\ P\ {\isasympsi}\ {\isasymRightarrow}\ {\isasympsi}\ w{\isacharparenright}\isactrlsup P\ {\isacharbar}\ F\ x\ {\isasymRightarrow}\ {\isacharparenleft}{\isasymlambda}w{\isachardot}\ {\isasymforall}x{\isachardot}\ case\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ of\ F\ {\isasympsi}\ {\isasymRightarrow}\ {\isasympsi}\ w{\isacharparenright}\isactrlsup F\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ dio\isactrlsup E\ of\ P\ {\isasympsi}\ {\isasymRightarrow}\ if\ {\isasymforall}w{\isachardot}\ {\isasympsi}\ w\ {\isacharequal}\ True\ then\ {\isasymtop}\ else\ {\isasymbottom}\ {\isacharbar}\ F\ {\isasympsi}\ {\isasymRightarrow}\ if\ {\isasymforall}w{\isachardot}\ {\isasympsi}\ w\ {\isacharequal}\ True\ then\ {\isasymtop}\ else\ {\isasymbottom}\ {\isacharbar}\ {\isacharunderscore}\ {\isasymRightarrow}\ {\isacharasterisk}{\isacharparenright}\ {\isacharequal}\ {\isasymtop}}.
+  In Isabelle the inflated term is displayed in the output window when placing the mouse on the abbreviated representation.
+  However, the simplifier is capable of evaluating the annotations and thereby reducing this inflated term again 
+  to \isa{{\isasymforall}w\ x{\isachardot}\ R\ x\ w\ {\isasymlongrightarrow}\ enc\ R\ x\ w} as intended; one can easily see this when placing the mouse on "simp". 
+  Below we will see that the inflated representations can 
+  easily fill several pages for abbreviated formulas which are only slightly longer than what we have here. 
+  This provides evidence for the pragmatic infeasibility of the approach when using pen and paper only.%
+\end{isamarkuptext}%
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The next two statements are valid and the simplifier quickly proves this.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
@@ -526,16 +529,15 @@ However, the next two statements are of course valid.%
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
-%
+\isacommand{by}\isamarkupfalse%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
 \isadelimproof
 %
 \endisadelimproof
-\isanewline
+\ \isanewline
 \ \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}\ \isactrlbold {\isasymrightarrow}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}{\isachardoublequoteclose}%
 \isadelimproof
@@ -543,9 +545,8 @@ However, the next two statements are of course valid.%
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
-%
+\isacommand{by}\isamarkupfalse%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -559,7 +560,7 @@ However, the next two statements are of course valid.%
 %
 \begin{isamarkuptext}%
 The next two lemmata show that neccessitation holds for arbitrary formulas 
-  and arbitrary propositional formulas. We present the lemma in both variants.%
+  and arbitrary propositional formulas. We present the lemmata in both variants.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
@@ -569,9 +570,8 @@ The next two lemmata show that neccessitation holds for arbitrary formulas
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
-%
+\isacommand{by}\isamarkupfalse%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -586,9 +586,8 @@ The next two lemmata show that neccessitation holds for arbitrary formulas
 \endisadelimproof
 %
 \isatagproof
-\isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
-%
+\isacommand{by}\isamarkupfalse%
+\ simp%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -621,7 +620,7 @@ The modelfinder Nitpick constructs a finite countermodel to the assertion
 %
 \endisadelimproof
 \ \isacommand{nitpick}\isamarkupfalse%
-%
+\ {\isacharbrackleft}expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -655,7 +654,7 @@ The modelfinder Nitpick constructs a finite countermodel to the assertion
 %
 \endisadelimproof
 \ \isacommand{nitpick}\isamarkupfalse%
-%
+\ {\isacharbrackleft}expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
 \ %
 \endisadelimproof
@@ -2193,7 +2192,24 @@ Tests on identity:%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{done}\isamarkupfalse%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Countermodel by nitpick, because of "enc"%
+}
 %
 \endisatagproof
 {\isafoldproof}%
@@ -2211,8 +2227,25 @@ Tests on identity:%
 %
 \isatagproof
 \isacommand{apply}\isamarkupfalse%
-\ simp\ \isacommand{by}\isamarkupfalse%
-\ auto%
+\ simp%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Countermodel by Nitpick%
+}
+%
 \endisatagproof
 {\isafoldproof}%
 %

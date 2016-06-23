@@ -14,11 +14,12 @@ abbreviation fEquiv (infixr "\<^bold>\<leftrightarrow>" 50)                     
 abbreviation fExists ("\<^bold>\<exists>")                                       where "\<^bold>\<exists>\<Phi> \<equiv> \<^bold>\<not>(\<^bold>\<forall>(\<lambda>y.\<^bold>\<not>(\<Phi> y)))"
 abbreviation fExistsBinder (binder "\<^bold>\<exists>" [8]9)                     where "\<^bold>\<exists>x. \<phi>(x) \<equiv> \<^bold>\<exists>\<phi>"
 
-(* Non-bold "=" is identity on the raw domain V, bold-face "\<^bold>=" is idenity on E *) 
+(* Non-bold "=" is identity on the raw domain V. Bold-face "\<^bold>=" is identity on E. Bold-face
+   "\<^bold>=\<^bold>=" is Kleene equality. *) 
 abbreviation fEquals1 (infixr "\<^bold>=" 56)  where "x \<^bold>= y \<equiv> ((x = y) \<^bold>\<and> E(x) \<^bold>\<and> E(y))"
 abbreviation fEquals2 (infixr "\<^bold>=\<^bold>=" 56) where "x \<^bold>=\<^bold>= y \<equiv> ((E(x) \<^bold>\<or> E(y)) \<^bold>\<rightarrow> (x\<^bold>=y))"
  
-(* We prove some properties of "=" and "\<^bold>=" *)
+(* We prove some properties of "=", "\<^bold>=" and "\<^bold>=\<^bold>="  *)
 lemma "x \<^bold>= y \<^bold>\<leftrightarrow> ((x = y) \<^bold>\<and> E(x))" by simp 
 lemma "x \<^bold>= y \<^bold>\<leftrightarrow> ((x = y) \<^bold>\<and> E(y))" by simp 
 lemma "x \<^bold>=\<^bold>= y \<^bold>\<leftrightarrow> ((x \<^bold>= y) \<^bold>\<or> (\<^bold>\<not>(E(x)) \<^bold>\<and> \<^bold>\<not>(E(y))))" by auto
@@ -69,7 +70,7 @@ context (* C1: We get consistency for Scott's axioms for "\<^bold>=" in S3. *)
   S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
  begin 
   (* Nitpick does find a model *)
-  lemma True nitpick [satisfy, user_axioms] oops 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
  end
 
 
@@ -85,7 +86,7 @@ context (* C2: We additionally assume that V-E is nonempty (i.e. "\<exists>x. \<
   ex: "\<exists>x. \<^bold>\<not>(E(x))" 
  begin 
   (* Nitpick does find a model *)
-  lemma True nitpick [satisfy, user_axioms] oops 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
  end
 
 
@@ -104,7 +105,7 @@ Freyd's axioms for category theory
  A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
 
 We translate them here step-by-step into Scott's notation. The first thing is to reverse 
-all x\<cdot>y by y\<cdot>x, to appropriately map their different order wrt. composition
+all x\<cdot>y by y\<cdot>x, to appropriately map their different order wrt. composition:
  A1:  "\<^bold>E(y\<cdot>x) \<^bold>\<leftrightarrow> ((x\<box>) \<approx> (\<box>y))" 
  A2a: "(\<box>x)\<box> \<approx> \<box>x" 
  A2b: "\<box>(x\<box>) \<approx> x\<box>" 
@@ -114,7 +115,7 @@ all x\<cdot>y by y\<cdot>x, to appropriately map their different order wrt. comp
  A4b: "(y\<cdot>x)\<box> \<approx> (y\<cdot>(x\<box>))\<box>" 
  A5:  "(z\<cdot>y)\<cdot>x \<approx> z\<cdot>(y\<cdot>x)"
 
-We rename the variables again to get them in usual order: 
+We rename the variables to get them in usual order: 
  A1:  "\<^bold>E(x\<cdot>y) \<^bold>\<leftrightarrow> ((y\<box>) \<approx> (\<box>x))" 
  A2a: "(\<box>x)\<box> \<approx> \<box>x" 
  A2b: "\<box>(x\<box>) \<approx> x\<box>" 
@@ -124,7 +125,7 @@ We rename the variables again to get them in usual order:
  A4b: "(x\<cdot>y)\<box> \<approx> (x\<cdot>(y\<box>))\<box>" 
  A5:  "(x\<cdot>y)\<cdot>z \<approx> x\<cdot>(y\<cdot>z)"
 
-We replace _\<box> by cod_ and \<box>_ by dom_
+We replace _\<box> by cod_ and \<box>_ by dom_:
  A1:  "\<^bold>E(x\<cdot>y) \<^bold>\<leftrightarrow> ((cod y) \<approx> (dom x))" 
  A2a: "cod (dom x) \<approx> dom x" 
  A2b: "dom (cod x) \<approx> cod x" 
@@ -136,7 +137,7 @@ We replace _\<box> by cod_ and \<box>_ by dom_
 
 Freyd's \<approx> is symmetric, hence we get:
 
-We replace _\<box> by cod_ and \<box>_ by dom_
+We replace _\<box> by cod_ and \<box>_ by dom_:
  A1:  "\<^bold>E(x\<cdot>y) \<^bold>\<leftrightarrow> ( (dom x) \<approx> (cod y))" 
  A2a: "cod (dom x) \<approx> dom x" 
  A2b: "dom (cod x) \<approx> cod x" 
@@ -146,7 +147,7 @@ We replace _\<box> by cod_ and \<box>_ by dom_
  A4b: "cod (x\<cdot>y) \<approx> cod (x\<cdot>(cod y))" 
  A5:  "(x\<cdot>y)\<cdot>z \<approx> x\<cdot>(y\<cdot>z)"
 
-From Dana's email (so Dana was right):
+From Dana's email (hence, Dana was right with his transformation):
 
 FREYD'S AXIOMS FOR A CATEGORY IN FREE LOGIC (Sott's notation)
  (A1) E(x o y) <==> dom(x) \<approx> cod(y)
@@ -159,13 +160,13 @@ FREYD'S AXIOMS FOR A CATEGORY IN FREE LOGIC (Sott's notation)
  (A5) x o (y o z) \<approx> (x o y) o z
 *)
 
-(* My first interpretation of Freyd's equality (given informal in his text) was this here. 
-   We denote this version of equality with non-bold "\<approx>". Freyd later told me via email 
+(* My first interpretation of Freyd's equality (which is given informal in his text) was this 
+   here. We denote this version of equality with "\<approx>". Freyd later told me via email 
    that he intended Kleene equality instead, but see the experiments below! *)
 abbreviation FreydEquality1:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<approx>" 60) 
  where "x \<approx> y \<equiv> ((E x) \<^bold>\<leftrightarrow> (E y)) \<^bold>\<and> x \<^bold>= y"  
 
-context (* C3: Freyd's axioms are consistent with "\<approx>" as equality (and when V-E may be empty). *)
+context (* C3: Freyd's axioms are consistent with "\<approx>" as equality and when V-E may be empty. *)
  assumes 
   A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<approx> (cod y))" and
   A2a:  "(cod (dom x)) \<approx> dom x" and 
@@ -177,10 +178,10 @@ context (* C3: Freyd's axioms are consistent with "\<approx>" as equality (and w
   A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z" 
  begin 
   (* Nitpick does find a model. *)
-  lemma True nitpick [satisfy, user_axioms] oops 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
  end
 
-context (* C4: Freyd's axioms are redundant for "\<approx>" and non-empty V-E, 
+context (* C4: Freyd's axioms are redundant for "\<approx>" and non-empty V-E; 
   this coincides with ICMS paper results. *)
  assumes 
   A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<approx> (cod y))" and
@@ -193,10 +194,10 @@ context (* C4: Freyd's axioms are redundant for "\<approx>" and non-empty V-E,
   A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  and
   NE: "\<exists>x. \<^bold>\<not>(E(x))" 
  begin 
-  lemma (*A2a*) "(cod (dom x)) \<approx> dom x" using A3a NE by blast
+  lemma A2a: "(cod (dom x)) \<approx> dom x" using A3a NE by blast
  end
 
-context (* C5: Freyd's axioms are even more redundant for "\<approx>" and non-empty V-E,  
+context (* C5: Freyd's axioms are even more redundant for "\<approx>" and non-empty V-E;
   this coincides with ICMS paper results. *)
  assumes 
   A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<approx> (cod y))" and
@@ -209,12 +210,12 @@ context (* C5: Freyd's axioms are even more redundant for "\<approx>" and non-em
   A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"  and
   NE: "\<exists>x. \<^bold>\<not>(E(x))" 
  begin 
-  lemma (*A2b*) "(dom (cod x)) \<approx> cod x" using A3a NE by blast
-  lemma (*A4a*) "dom(x\<cdot>y) \<approx> dom(dom(x)\<cdot>y)" using A3a NE by blast
-  lemma (*A4b*) "cod(x\<cdot>y) \<approx> cod(x\<cdot>cod(y))" using A3a NE by blast
+  lemma A2b: "(dom (cod x)) \<approx> cod x" using A3a NE by blast
+  lemma A4a: "dom(x\<cdot>y) \<approx> dom(dom(x)\<cdot>y)" using A3a NE by blast
+  lemma A4b: "cod(x\<cdot>y) \<approx> cod(x\<cdot>cod(y))" using A3a NE by blast
  end
 
-context (* C6: Freyd's axioms are inconsistent for "\<approx>" and non-empty V-E, 
+context (* C6: Freyd's axioms are inconsistent for "\<approx>" and non-empty V-E;
   this extends the ICMS paper results. *)
  assumes 
   A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<approx> (cod y))" and
@@ -228,48 +229,48 @@ context (* C6: Freyd's axioms are inconsistent for "\<approx>" and non-empty V-E
   NE: "\<exists>x. \<^bold>\<not>(E(x))" 
  begin 
   (* Nitpick does *not* find a model. *)
-  lemma True nitpick [satisfy, user_axioms] oops 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
   (* We can prove falsity. *)
   lemma False using A3a NE by blast
  end
 
 
-(* Freyd told me, that he wants Kleene equality. We use bold-face "\<^bold>\<approx>" below and repeat 
-   the experiments. *)
-abbreviation FreydEquality2:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<^bold>\<approx>" 60) 
- where "x \<^bold>\<approx> y  \<equiv>  ((E(x) \<^bold>\<or> E(y)) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y) \<^bold>\<and> (x = y)))" 
+(* Freyd told me in an email, that he wants Kleene equality, which we denote as "\<simeq>" below. 
+   We use "\<simeq>" below to repeat the experiments. *)
+abbreviation FreydEquality2:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<simeq>" 60) 
+ where "x \<simeq> y  \<equiv>  ((E(x) \<^bold>\<or> E(y)) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y) \<^bold>\<and> (x = y)))" 
 
-(* Trivially, "\<^bold>\<approx>" is the same as Scott's "\<^bold>=\<^bold>=" from above. *)
-lemma "x \<^bold>=\<^bold>= y \<^bold>\<leftrightarrow> x \<^bold>\<approx> y" by auto 
+(* Trivially, "\<simeq>" is the same as Scott's "\<^bold>=\<^bold>=" from above. *)
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<leftrightarrow> x \<simeq> y" by auto 
 
-context (* C7: Freyd's axioms are consistent for "\<^bold>\<approx>" (when V-E may be empty). ") *)
+context (* C7: Freyd's axioms are consistent for "\<simeq>" (when V-E may be empty). ") *)
  assumes 
-  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<^bold>\<approx> (cod y))" and
-  A2a:  "(cod (dom x)) \<^bold>\<approx> dom x" and
-  A3a: "x\<cdot>(dom x) \<^bold>\<approx> x" and
-  A3b: "(cod x)\<cdot>x \<^bold>\<approx> x" and
-  A4a: "dom(x\<cdot>y) \<^bold>\<approx> dom(dom(x)\<cdot>y)" and 
-  A5b: "cod(x\<cdot>y) \<^bold>\<approx> cod(x\<cdot>cod(y))" and
-  A5:  "x\<cdot>(y\<cdot>z) \<^bold>\<approx> (x\<cdot>y)\<cdot>z"
+  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<simeq> (cod y))" and
+  A2a:  "(cod (dom x)) \<simeq> dom x" and
+  A3a: "x\<cdot>(dom x) \<simeq> x" and
+  A3b: "(cod x)\<cdot>x \<simeq> x" and
+  A4a: "dom(x\<cdot>y) \<simeq> dom(dom(x)\<cdot>y)" and 
+  A5b: "cod(x\<cdot>y) \<simeq> cod(x\<cdot>cod(y))" and
+  A5:  "x\<cdot>(y\<cdot>z) \<simeq> (x\<cdot>y)\<cdot>z"
  begin 
   (* nitpick does find a model *)
-  lemma True nitpick [satisfy, user_axioms] oops 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
  end
 
-context (* C6: Freyd's axioms are inconsistent for "\<^bold>\<approx>" and non-empty V-E. This seems very 
+context (* C6: Freyd's axioms are inconsistent for "\<simeq>" and non-empty V-E. This seems very 
            problematic for Freyd, doesn't it? *)
  assumes 
-  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<^bold>\<approx> (cod y))" and
-  A2a:  "(cod (dom x)) \<^bold>\<approx> dom x" and
-  A3a: "x\<cdot>(dom x) \<^bold>\<approx> x" and
-  A3b: "(cod x)\<cdot>x \<^bold>\<approx> x" and
-  A4a: "dom(x\<cdot>y) \<^bold>\<approx> dom(dom(x)\<cdot>y)" and 
-  A5b: "cod(x\<cdot>y) \<^bold>\<approx> cod(x\<cdot>cod(y))" and
-  A5:  "x\<cdot>(y\<cdot>z) \<^bold>\<approx> (x\<cdot>y)\<cdot>z" and
+  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((dom x) \<simeq> (cod y))" and
+  A2a:  "(cod (dom x)) \<simeq> dom x" and
+  A3a: "x\<cdot>(dom x) \<simeq> x" and
+  A3b: "(cod x)\<cdot>x \<simeq> x" and
+  A4a: "dom(x\<cdot>y) \<simeq> dom(dom(x)\<cdot>y)" and 
+  A5b: "cod(x\<cdot>y) \<simeq> cod(x\<cdot>cod(y))" and
+  A5:  "x\<cdot>(y\<cdot>z) \<simeq> (x\<cdot>y)\<cdot>z" and
   NE: "\<exists>x. \<^bold>\<not>(E(x))" 
  begin 
   (* Nitpick does *not* find a model. *)
-  lemma True nitpick [satisfy, user_axioms] oops (* Nitpick finds no model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops (* no model *)
   (* We can prove falsity. *)
   lemma False by (metis A1 A3a A2a NE)
  end

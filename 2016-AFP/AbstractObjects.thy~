@@ -7,48 +7,56 @@ begin
 
 section {* Introduction *}
   text {* 
-  The Isabelle/HOL formalisation presented in this article is related to the ongoing 
-  Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University.
-  This project, which exploits and extends Zalta's  Theory of Abstract 
-  Objects \cite{zalta83:_abstr_objec}, 
-  employs a modal relational type theory (MRTT) as logical foundation. Arguments
+  The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University aims
+  at providing an encompassing axiomatic foundation for metaphysics, mathematics and the sciences. 
+  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}, which \ldots.
+ 
+  The theory of abstract objects utilizes a modal relational type theory (MRTT) as 
+  logical foundation.  Arguments
   defending this choice against a modal functional type theory (MFTT)
   have been presented before \cite{zalta11:_relat_versus_funct_found_logic}.
   In a nutshell, the situation is this: functional type theory comes with strong 
-  comprehension principles, which, in the context of the Theory of Abstract Objects, 
+  comprehension principles, which, in the context of the theory of abstract objects, 
   have paradoxical implications. When starting off with a relational foundation, however, 
   weaker comprehension principles are provided, and these obstacles can be avoided.
 
   Isabelle/HOL is a proof assistant based on a functional type theory extending
   Church's theory of types \cite{Church40}, and recently it has been shown 
-  that Church's type theory can be elegantly utilized as a meta-logic to encode and 
+  that Church's type theory can be elegantly utilized as a meta-logic to semantically embed and 
   automate various quantified non-classical logics, including MFTT \cite{J23,C40}. 
-  This work has subsequently been employed in a case study in
+  This embedding of MFTT has subsequently been employed in a case study in
   computational metaphysics, in which different variants of Kurt Gödel's ontological 
   argument were verified resp. falsified \cite{C40,C55}. 
  
-
   The motivating research questions for the formalisation presented below include:
   \begin{itemize} 
-  \item Can functional type theory, despite the problems pointed at by Zalta and Oppenheimer, 
-   also be utilized to encode MRTT and subsequently the Theory of Abstract Objects when 
-   following the embeddings approach?
-  \item How elegant and user-friendly is the resulting formalization? 
+  \item Can functional type theory, despite the problems as pointed 
+   out by Zalta and
+   Oppenheimer \cite{zalta11:_relat_versus_funct_found_logic}, 
+   nevertheless be fruitfully utilized to encode MRTT and subsequently the theory of abstract 
+   objects when adapting and utilizing the embeddings approach? As it turns, we will 
+   need a significant, technically involved extension of the embeddings approach.
+  \item From another viewpoint the issue is to investigate possibilities to handle restricted 
+   forms of comprehension in a functional type theory context within the embedding approach.
+  \item From a pragmatic point of view, we want to assess the elegance and user-friendliness of 
+   the proposed formalization? 
    To what extend can Isabelle's  user interface be facilitated to hide 
-   unpleasant technicalities of the (extended) embedding from the user?
-  \item How far can automation be pushed in the approach to minimise user interaction  in the 
-    formalization of the Theory of Abstract objects? 
+   unpleasant technicalities of the extended embedding from the user?
+  \item Moreover, how far can automation be pushed in the approach to minimise user interaction  
+    in the formalization of the theory of abstract objects? For this note the proof automation has
+    worked very well for the simpler embeddings of as used in related work \cite{C40,C55}. 
   \item Can the consistency of the theory eventually be validated with the available automated 
    reasoning tools?
   \item Can the reasoners eventually even contribute some new knowledge? 
-  \item Are any suggestions for improvements in Isabelle arising? 
+  \item Are any suggestions  arising for possible improvements in Isabelle/HOL.
    What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this contribution to the Archive of Formal Proofs we focus on the encoding 
-  of MRTT in functional type theory. The idea is to reuse and adapt the fundamental ideas underlying
-  the previous encoding of MFTT in functional type theory \cite{J23,C40}, which has been realised 
-  inter alia in Isabelle/HOL \cite{J28}. In subsequent work we will then reuse and extend the 
+  In this contribution to the Archive of Formal Proofs however we primarily focus on presenting 
+  the encoding 
+  of MRTT in functional type theory. The idea is to extend the fundamental ideas underlying
+  the previous encoding of MFTT in functional type theory. 
+  In subsequent papers we then want to reuse and extend the 
   foundations provided in this article.
  
   The encoding of modal functional type theory in functional type theory as explored in 
@@ -67,7 +75,7 @@ section {* Introduction *}
   The grammar of modal relational type theory is presented in Figure~\ref{mmrt}.
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
-  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details in MRTT. \label{mmrt}
+  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
   Two kinds of (complex) formulas are introduced: ones that may have encoding subformulas and 
   ones that do not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
@@ -84,7 +92,22 @@ section {* Introduction *}
   between propositional formulas, formulas, terms and erroneous (ineligible/excluded) formations. 
   Respective annotation information is propagated from the innermost constituents to the top level constructions.
   This clearly creates some significant technical overhead. However, we fruitfully exploit facilities in Isabelle/HOL's user 
-  interface, and other means, to hide most of these technicalities from the user in applications.   
+  interface, and other means, to hide most of these technicalities from the user in applications.
+
+  A note on using abbreviations versus definitions in our approach:  We are aware that abbreviations should
+  be used sparsingly in Isabelle/HOL, since they are automatically expanded and thus lead to a discrepancy 
+  between the internal and the external view of a term. However, here we deliberately deviate from this
+  rule, since one aspect of the paper is to exactly illustrate this discrepancy and to emphasize the complexity
+  of the embedding MRTT in functional type theory. In fact, this complexity makes pen and paper 
+  work with the proposed embedding pragmatically infeasible, as we believe, while in a proof assistant like 
+   Isabelle/HOL
+  in can, at least to some degree, still be handled by an interactive user. Moreover, as we will also
+  illustrate, the simplifier @{text "simp"} of Isabelle/HOL is well capable of effectively reducing
+  this complexity again. In other words, the simplifier effectievely analyses and and rewrites the 
+  deeply annotated terms and propagates the annotation information to the top-level only as intended.
+  It is exactly this effect which we want to illustrate and exploit here.\footnote{We have also 
+  experimented with the alternative use of definitions; the respective 
+  encodings can be requested from the authors.}
   *}
 
 section {* Preliminaries *}
@@ -236,7 +259,7 @@ section {* Embedding of Modal Relational Type Theory *}
   in the usual definition of the @{text "\<^bold>\<box>"}-operator can be omitted. This is convenient and also
   improves the efficience of theorem provers, cf. \cite{C55}.  
   In Section \ref{sec:S5} we will actually demonstrate that the expected S5 properties
-  are validated by our modeling of @{text "\<^bold>\<box>"}.  The @{text "\<^bold>\<box>\<phi>"}-operator can be applied to 
+  are validated by our modeling of @{text "\<^bold>\<box>"}.  The @{text "\<^bold>\<box>"}-operator can be applied to 
   formulas  and propositional formulas.
   *}
 
@@ -260,19 +283,16 @@ section {* Embedding of Modal Relational Type Theory *}
 
  abbreviation lam0::"io opt\<Rightarrow>io opt" ("\<^bold>\<lambda>\<^sup>0") where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> P(\<psi>) | _ \<Rightarrow> ERR dio"  
-
  abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" ("\<^bold>\<lambda>") where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
     P(_) \<Rightarrow> T(\<lambda>x. case (\<Phi> x) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x. dio)"
  abbreviation lamBinder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda>x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
-
  abbreviation lam2::"(e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>2") where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> de de) of
     P(_) \<Rightarrow> T(\<lambda>x y. case (\<Phi> x y) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y. dio)"
-
  abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>3") where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> de de de) of
     P(_) \<Rightarrow> T(\<lambda>x y z. case (\<Phi> x y z) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y z. dio)"
 
   text {* 
-  The Principia Metaphysica supports rigid definite descriptions. Our definition maps
+  The Theory of Abstract Objects supports rigid definite descriptions. Our definition maps
   @{text "\<^bold>\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> dw)"}, that is, Isabelle's inbuilt definite description operator 
   @{text "THE"} 
   is utilized and evaluation is rigidly carried out with respect to the current world denoted by @{text "dw"}.
@@ -312,10 +332,6 @@ section {* Further Logical Connectives *}
   | F(_) \<Rightarrow> F(\<lambda>w. \<exists>x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR dio" 
  abbreviation existsBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<exists>" [8] 9)  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists>\<phi>"
 
- (* abbreviation true::"io opt" ("\<top>\<^sup>z") where "\<top>\<^sup>z \<equiv> todo; not entirely clear yet " *)
- (* abbreviation alse::"io opt" ("\<bottom>\<^sup>z") where "\<bottom>\<^sup>z \<equiv> todo; not entirely clear yet " *)
-
-
 section {* Meta-Logic*}
 
   text {* 
@@ -329,19 +345,6 @@ section {* Meta-Logic*}
   *}
 
  datatype mf = tt ("\<top>") | ff ("\<bottom>") | err ("*")
-
- (*
- abbreviation meta_not::"mf \<Rightarrow> mf" ("\<not>\<^sup>m") where "\<not>\<^sup>m \<phi>  \<equiv> case \<phi> of 
-    error \<Rightarrow> error | tt \<Rightarrow> ff | ff \<Rightarrow> tt"  
- abbreviation meta_implies::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixr "\<longrightarrow>\<^sup>m" 51) where "\<phi> \<longrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
-    (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,ff) \<Rightarrow> ff | _ \<Rightarrow> tt"  
- abbreviation meta_or::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<or>\<^sup>m" 51) where "\<phi> \<or>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
-    (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (ff,ff) \<Rightarrow> ff | _ \<Rightarrow> tt"  
- abbreviation meta_and::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<and>\<^sup>m" 51) where "\<phi> \<and>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
-    (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,tt) \<Rightarrow> tt | _ \<Rightarrow> ff"  
- abbreviation meta_equiv::"mf \<Rightarrow> mf \<Rightarrow>mf" (infixl "\<longleftrightarrow>\<^sup>m" 51) where "\<phi> \<longleftrightarrow>\<^sup>m \<psi> \<equiv> case (\<phi>,\<psi>) of 
-    (error,_) \<Rightarrow> error | (_,error) \<Rightarrow> error | (tt,tt) \<Rightarrow> tt | (ff,ff) \<Rightarrow> tt | _ \<Rightarrow> ff"  
- *)
 
   text {* 
   Next we define the meta-logical notions of validity, satisfiability, 

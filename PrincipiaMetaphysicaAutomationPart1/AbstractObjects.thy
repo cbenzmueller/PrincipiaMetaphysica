@@ -5,6 +5,7 @@ imports Main
 begin
 (*>*)
 
+
 section {* Introduction *}
   text {* 
   We present a formalisation and partial automation of an initial part of the (third authors)
