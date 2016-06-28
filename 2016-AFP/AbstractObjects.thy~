@@ -52,12 +52,12 @@ section {* Introduction *}
    What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this contribution to the Archive of Formal Proofs however we primarily focus on presenting 
+  In this contribution to the Archive of Formal Proofs, however, we primarily focus on presenting 
   the encoding 
   of MRTT in functional type theory. The idea is to extend the fundamental ideas underlying
   the previous encoding of MFTT in functional type theory. 
-  In subsequent papers we then want to reuse and extend the 
-  foundations provided in this article.
+  In subsequent papers we will then reuse and extend the 
+  foundations provided in this article and further address the above questions.q
  
   The encoding of modal functional type theory in functional type theory as explored in 
   previous work  is simple: modal logic formulas are identified with certain functional 
@@ -76,8 +76,8 @@ section {* Introduction *}
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
   \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
-  Two kinds of (complex) formulas are introduced: ones that may have encoding subformulas and 
-  ones that do not. The latter are designated as propositional formulas, the former ones simply as formulas.}
+  Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
+  $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
   Note that this grammar excludes terms such as $\lambda x. Rx \rightarrow xR$, where $Rx$ represents the 
   exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. The reason is 
@@ -86,34 +86,36 @@ section {* Introduction *}
   objects \cite{zalta11:_relat_versus_funct_found_logic}.
   
 
-  To achieve our goal we provide means to explicitly represents and propagate information  on the 
+  To achieve our goal we provide means to explicitly represent, maintain and propagate information  on the 
   syntactical structure of MRTT in functional type theory. In particular, we provide means in form of annotations 
   to explicitly distinguish 
   between propositional formulas, formulas, terms and erroneous (ineligible/excluded) formations. 
   Respective annotation information is propagated from the innermost constituents to the top level constructions.
-  This clearly creates some significant technical overhead. However, we fruitfully exploit facilities in Isabelle/HOL's user 
-  interface, and other means, to hide most of these technicalities from the user in applications.
+  This creates some non-trivial technical overhead. However, Isabelle/HOL's user 
+  interface provide facilities to widely hide these technicalities from the user in applications.
 
   A note on using abbreviations versus definitions in our approach:  We are aware that abbreviations should
-  be used sparsingly in Isabelle/HOL, since they are automatically expanded and thus lead to a discrepancy 
-  between the internal and the external view of a term. However, here we deliberately deviate from this
+  be used sparsingly in Isabelle/HOL; they are automatically expanded and thus lead to a discrepancy 
+  between the internal and the external view of a term. However, we here deliberately deviate from this
   rule, since one aspect of the paper is to exactly illustrate this discrepancy and to emphasize the complexity
   of the embedding MRTT in functional type theory. In fact, this complexity makes pen and paper 
-  work with the proposed embedding pragmatically infeasible, as we believe, while in a proof assistant like 
-   Isabelle/HOL
-  in can, at least to some degree, still be handled by an interactive user. Moreover, as we will also
+  work with the proposed embedding pragmatically infeasible. In this sense, we agree with earlier findings
+   \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we demonstrate the general feasibility here, and we
+  show, that within a modern interactive proof assistant like Isabelle/HOL the approach can eventually be handled to 
+  some modest degree. In fact, as we will also
   illustrate, the simplifier @{text "simp"} of Isabelle/HOL is well capable of effectively reducing
-  this complexity again. In other words, the simplifier effectievely analyses and and rewrites the 
-  deeply annotated terms and propagates the annotation information to the top-level only as intended.
+  the technically inflated terms we obtain from the extended embedding again to their logical core content. 
+  In other words, the simplifier effectievely analyses and and rewrites the 
+  deeply annotated terms and propagates the annotation information as intended to top-level.
   It is exactly this effect which we want to illustrate and exploit here.\footnote{We have also 
-  experimented with the alternative use of definitions; the respective 
+  experimented with using definitions instead of abbreviations; the respective 
   encodings can be requested from the authors.}
   *}
 
 section {* Preliminaries *}
   text {* 
   We start out with some type declarations and type abbreviations. 
-  Our formalism explicitly encodes possible world semantics. Hence, we introduce a 
+  Note that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
   distinguished type @{text "i"} to represent the set of possible worlds. 
   Consequently, terms of this type denote possible worlds. 
   Moreover, modal logic formulas are associated in our approach with
@@ -138,11 +140,11 @@ section {* Preliminaries *}
   (polymorphic) datatype @{text "'a opt"} (@{text "'a"} is a type variable) 
   based on four constructors: @{text "ERR 'a"} (identifies ineligible/excluded constructions), @{text "P 'a"} 
   (identifies propositional formulas), @{text "F 'a"} (identifies  formulas), and @{text "T 'a"} (identifies 
-  eligible terms, such as lambda abstractions). The embeddings approach (of MFTT in functional type theory)
+  eligible terms, such as lambda abstractions). The embedding approach (of MFTT in functional type theory)
   will be suitably adapted below so that 
   for each language expression (in the embedded MRTT) the respective datatype 
   is identified and appropriately propagated. The encapsulated expressions  
-  then correspond to the previous embedding of MRTT in  functional type theory.  
+  correspond to the previous embedding of MRTT in functional type theory  \cite{J23,C40}.  
   *}
 
  datatype 'a opt = ERR 'a | P 'a | F 'a | T 'a 
@@ -160,16 +162,16 @@ section {* Preliminaries *}
   @{text "\<^bold>\<A>"} ("it is actually the case that"), refer to a (fixed) designated world. To model such a 
   rigid dependence we introduce a constant symbol (name) @{text "dw"} of world type @{text "i"}. 
   Moreover, for technical reasons, 
-  which will be clarified below, we introduce further (dummy) constant symbols for the various other domains. Since
-  we anyway assume that all domains are non-empty, introducing these constant symbols is obviously not harmful. 
+  which will be clarified below, we introduce further (dummy) constant symbols for the various other domains. 
+  We anyway assume that all domains are non-empty. Hence, introducing these constant symbols is obviously not harmful. 
   \footnote{The single polymorphic dummy @{text "\<^bold>da::'a"}, utilized e.g. in the definition of the universal 
-  quantifier of MRTT below, would actually cover all cases. However, to avoid type inference we
+  quantifier of MRTT below, actually covers already all cases. However, to avoid unnecessary type inferences we
   actually prefer non-polymorphic dummy elements in all those cases where we can statically 
-  predetermine the required type.}
+  determine the required type.}
   *}
 
- consts dw :: i 
- consts de::"e" dio::"io" deio::"e\<Rightarrow>io" da::'a
+ consts dw::"i" 
+ consts de::"e" dio::"io" deio::"e\<Rightarrow>io" da::"'a"
 
 section {* Embedding of Modal Relational Type Theory *}
 
@@ -180,7 +182,7 @@ section {* Embedding of Modal Relational Type Theory *}
   text {* The actuality operator @{text "\<^bold>\<A>"}, when being applied to a formula or propositional formula 
   @{text "\<phi>"}, evaluates @{text "\<phi>"} wrt the fixed given world @{text "dw"}. 
   The compound expression @{text "\<^bold>\<A>\<phi>"} inherits its syntactical category  @{text "F"} (formula) or
-  @{text "P"} (propositional formula from @{text "\<phi>"}. If the syntactical catagory of  @{text "\<phi>"} is 
+  @{text "P"} (propositional formula) from @{text "\<phi>"}. If the syntactical catagory of  @{text "\<phi>"} is 
   @{text "ERR"} (error) or @{text "T"} (term), then the syntactical catagory of @{text "\<^bold>\<A>\<phi>"} 
   is @{text "ERR"} and a dummy entity of appropriate type is returned. This illustrates the core 
   ideas of our explicit modeling of MRTT grammatical structure in functional type theory. 
@@ -195,11 +197,17 @@ section {* Embedding of Modal Relational Type Theory *}
   exemplifying properties @{text "\<Pi>\<^sup>n,\<kappa>\<^sub>1,..,\<kappa>\<^sub>n"} (for $n\geq 1$). 
 
   Encoding @{text "\<kappa>\<^sub>1\<Pi>\<^sup>1"} is noted below as @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}.
-  Encoding yields formulas and never propositional formulas. It is mapped to predicate application.
+  Encoding yields formulas and never propositional formulas. It is mapped to expressions of 
+  form @{text "(enc Q y)"}, where @{text "enc"} is uninterpreted constant symbol of appropriate 
+  type. Exemplification will instead be mapped to predicate application. Unfortunately, we cannot map both, 
+  exemplification and encoding, to predicate application, since this would have undesirable effects.
+  For example, we could then prove that @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)]"} is true, which we definitely
+  want to avoid. See also the basic tests in Subsection \ref{basic-tests-1}.
   *}
 
+ consts enc::"(e\<Rightarrow>io)\<Rightarrow>e\<Rightarrow>io"
  abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
-    (T(y),T(Q)) \<Rightarrow> F(Q y) | _ \<Rightarrow> ERR(dio)"
+    (T(y),T(Q)) \<Rightarrow> F(enc Q y) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Unary exemplifying formulas @{text "\<Pi>\<^sup>1\<kappa>\<^sub>1"} are noted below as @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}.  
@@ -267,8 +275,8 @@ section {* Embedding of Modal Relational Type Theory *}
     F(\<psi>) \<Rightarrow> F(\<lambda>w.\<forall>v. \<psi> v) | P(\<psi>) \<Rightarrow> P(\<lambda>w.\<forall>v. \<psi> v) | _ \<Rightarrow> ERR(dio)"  
 
   text {* 
-  n-ary lambda abstraction @{text "\<^bold>\<lambda>\<^sup>0,\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2\<^sup>,\<^bold>\<lambda>\<^sup>3,..."}, for $n\geq 0$, is supported in the Theory of Abstract 
-  Objects only for propositional formulas. This way constructs such as 
+  n-ary lambda abstraction @{text "\<^bold>\<lambda>\<^sup>0,\<^bold>\<lambda>,\<^bold>\<lambda>\<^sup>2\<^sup>,\<^bold>\<lambda>\<^sup>3,..."}, for $n\geq 0$, is supported in the theory of abstract 
+  objects only for propositional formulas. This way constructs such as 
   beforehand mentioned $(\lambda x. Rx \rightarrow xR)$  (noted here as @{text "(\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)"} 
   are excluded, respectively identified as @{text "ERR"}-annotated 
   terms in our framework.
@@ -277,7 +285,7 @@ section {* Embedding of Modal Relational Type Theory *}
   lambda abstractions, that is, @{text "\<^bold>\<lambda>(\<lambda>x.\<phi>)"} is mapped to @{text "(\<lambda>x.\<phi>)"} and @{text "\<^bold>\<lambda>\<^sup>2(\<lambda>xy.\<phi>)"} 
   to @{text "(\<lambda>xy.\<phi>)"}, etc.
   Similar to before, we support only the cases for $n\leq 3$. Binder notation is
-  introduced for @{text "\<^bold>\<lambda>"}.\footnote{Unfortunately, we could not find out how binder notation
+  introduced for @{text "\<^bold>\<lambda>"}.\footnote{Unfortunately, we could not find out how suitable binder notation
   could be analogously provided for @{text "\<^bold>\<lambda>\<^sup>2"} and @{text "\<^bold>\<lambda>\<^sup>3"}}. 
   *}
 
@@ -292,7 +300,7 @@ section {* Embedding of Modal Relational Type Theory *}
     P(_) \<Rightarrow> T(\<lambda>x y z. case (\<Phi> x y z) of P(\<phi>) \<Rightarrow> \<phi>) | _ \<Rightarrow> ERR(\<lambda>x y z. dio)"
 
   text {* 
-  The Theory of Abstract Objects supports rigid definite descriptions. Our definition maps
+  The theory of abstract objects supports rigid definite descriptions. Our definition maps
   @{text "\<^bold>\<iota>(\<lambda>x.\<phi>)"} to @{text "(THE x. \<phi> dw)"}, that is, Isabelle's inbuilt definite description operator 
   @{text "THE"} 
   is utilized and evaluation is rigidly carried out with respect to the current world denoted by @{text "dw"}.
@@ -338,7 +346,7 @@ section {* Meta-Logic*}
   Our approach to rigorously distinguish between proper and improper language constructions 
   and to explicitly maintain respective information is continued also at meta-level. For this 
   we introduce three truth values @{text "tt"},
-  @{text "ff"} and @{text "err"}, representing truth, falsity and error. These values aro also 
+  @{text "ff"} and @{text "err"}, representing truth, falsity and error. These values are also 
   noted as @{text "\<top>"}, @{text "\<bottom>"} and @{text "*"}. We could, of course, also introduce  
   respective logical connectives for the meta-level, but in our applications (see below)
   this was not yet relevant.
@@ -374,30 +382,43 @@ section {* Meta-Logic*}
 
 section {* Some Basic Tests *}
 
-  text {* 
-  The next two statements are not theorems; Nitpick reports countermodels
+ subsection {* Exemplification and Encoding \label{basic-tests-1} *} 
+
+ text {* 
+  For the following non-theorems we indeed get countermodels by nitpick.
   *}
 
- lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
- lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
+ lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick [expect = genuine]  oops -- {* Countermodel by Nitpick *}
+ lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick  [expect = genuine] oops -- {* Countermodel by Nitpick *}
 
- lemma "[(\<^bold>\<forall>y. \<lparr>R\<^sup>T,y\<^sup>T\<rparr>)] = \<top>" apply simp nitpick oops
+  text {* With this example we also want to illustrate the inflation of representations as caused by the
+     embedding. For this note, that the formula @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>"} abbreviates the
+    actual term  
+   @{text "(case case \<lbrace>da\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,da\<^sup>T\<rparr> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+     P \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | F \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | _ \<Rightarrow> *) = \<top>"}.
+  In Isabelle the inflated term is displayed in the output window when placing the mouse on the abbreviated representation.
+  However, the simplifier is capable of evaluating the annotations and thereby reducing this inflated term again 
+  to @{text "\<forall>w x. R x w \<longrightarrow> enc R x w"} as intended; one can easily see this when placing the mouse on "simp". 
+  Below we will see that the inflated representations can 
+  easily fill several pages for abbreviated formulas which are only slightly longer than what we have here. 
+  This provides evidence for the pragmatic infeasibility of the approach when using pen and paper only. *}
 
   text {* 
-  However, the next two statements are of course valid.
+  The next two statements are valid and the simplifier quickly proves this.
   *}
 
- lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp done
- lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp done
+ lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" by simp 
+ lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" by simp
 
  subsection {* Verifying Necessitation *}
 
   text {* The next two lemmata show that neccessitation holds for arbitrary formulas 
-  and arbitrary propositional formulas. We present the lemma in both variants. 
+  and arbitrary propositional formulas. We present the lemmata in both variants. 
   *}
  
- lemma necessitationF: "[\<phi>\<^sup>F] = \<top> \<longrightarrow> [\<^bold>\<box>\<phi>\<^sup>F] = \<top>" apply simp done
- lemma necessitationP: "[\<phi>\<^sup>P] = \<top> \<longrightarrow> [\<^bold>\<box>\<phi>\<^sup>P] = \<top>" apply simp done
+ lemma necessitationF: "[\<phi>\<^sup>F] = \<top> \<longrightarrow> [\<^bold>\<box>\<phi>\<^sup>F] = \<top>" by simp
+ lemma necessitationP: "[\<phi>\<^sup>P] = \<top> \<longrightarrow> [\<^bold>\<box>\<phi>\<^sup>P] = \<top>" by simp
 
  subsection {* Modal Collapse is Countersatisfiable *}
 
@@ -406,8 +427,8 @@ section {* Some Basic Tests *}
   that modal collaps holds. 
   *}
 
- lemma modalCollapseF: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>\<phi>\<^sup>F] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
- lemma modalCollapseP: "[\<phi>\<^sup>P \<^bold>\<rightarrow> \<^bold>\<box>\<phi>\<^sup>P] = \<top>" apply simp nitpick oops -- {* Countermodel by Nitpick *}
+ lemma modalCollapseF: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>\<phi>\<^sup>F] = \<top>" apply simp nitpick [expect = genuine] oops -- {* Countermodel by Nitpick *}
+ lemma modalCollapseP: "[\<phi>\<^sup>P \<^bold>\<rightarrow> \<^bold>\<box>\<phi>\<^sup>P] = \<top>" apply simp nitpick [expect = genuine] oops -- {* Countermodel by Nitpick *}
 
  (*
  lemma modalCollapseFcsa: "[\<phi>\<^sup>F \<^bold>\<rightarrow> \<phi>\<^sup>F] = \<top>" sledgehammer [remote_leo2 remote_satallax]
@@ -628,9 +649,9 @@ section {* E!, O!, A! and =E *}
  lemma "[\<lparr>O!,a\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>\<^bold>\<lambda>x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T,a\<^sup>T\<rparr>] = \<top>" apply simp done
 
  lemma "[(a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) \<^bold>\<equiv>  \<lparr>\<^bold>\<lambda>x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T,a\<^sup>T\<rparr>] = \<top>" apply simp done
- lemma "[(a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) \<^bold>\<equiv> \<lbrace>a\<^sup>T,\<^bold>\<lambda>x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T\<rbrace>] = \<top>" apply simp done
+ lemma "[(a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) \<^bold>\<equiv> \<lbrace>a\<^sup>T,\<^bold>\<lambda>x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T\<rbrace>] = \<top>" apply simp nitpick oops -- {* Countermodel by nitpick, because of "enc" *}
 
- lemma "[(\<^bold>\<exists>F. \<lbrace>a\<^sup>T,F\<^sup>T\<rbrace>)] = \<top>" apply simp by auto
+ lemma "[(\<^bold>\<exists>F. \<lbrace>a\<^sup>T,F\<^sup>T\<rbrace>)] = \<top>" apply simp  nitpick oops -- {* Countermodel by Nitpick *}
 
  lemma "[(\<^bold>\<exists>\<phi>. \<phi>\<^sup>P)] = \<top>" apply simp by auto
  lemma "[(\<^bold>\<exists>\<phi>. \<phi>\<^sup>F)] = \<top>" apply simp by auto

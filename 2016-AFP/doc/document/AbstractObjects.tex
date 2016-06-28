@@ -22,15 +22,19 @@
 \begin{isamarkuptext}%
 The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University aims
   at providing an encompassing axiomatic foundation for metaphysics, mathematics and the sciences. 
-  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}, which \ldots.
- 
+  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}  --- a metaphysical 
+  theory providing a systematic description of fundamental and complex abstract objects. This 
+  theory provides the starting point for Zalta's ongoing 'principia metaphysica' 
+  project\footnote{Cf.~\url{https://mally.stanford.edu/principia/principia.html}}.
+  
   The theory of abstract objects utilizes a modal relational type theory (MRTT) as 
   logical foundation.  Arguments
   defending this choice against a modal functional type theory (MFTT)
   have been presented before \cite{zalta11:_relat_versus_funct_found_logic}.
   In a nutshell, the situation is this: functional type theory comes with strong 
   comprehension principles, which, in the context of the theory of abstract objects, 
-  have paradoxical implications. When starting off with a relational foundation, however, 
+  have paradoxical implications \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. 
+  When starting off with a relational foundation, however, 
   weaker comprehension principles are provided, and these obstacles can be avoided.
 
   Isabelle/HOL is a proof assistant based on a functional type theory extending
@@ -38,7 +42,7 @@ The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanfor
   that Church's type theory can be elegantly utilized as a meta-logic to semantically embed and 
   automate various quantified non-classical logics, including MFTT \cite{J23,C40}. 
   This embedding of MFTT has subsequently been employed in a case study in
-  computational metaphysics, in which different variants of Kurt Gödel's ontological 
+  computational metaphysics, in which different variants of Kurt G{\"o}del's ontological 
   argument were verified resp. falsified \cite{C40,C55}. 
  
   The motivating research questions for the formalisation presented below include:
@@ -46,57 +50,54 @@ The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanfor
   \item Can functional type theory, despite the problems as pointed 
    out by Zalta and
    Oppenheimer \cite{zalta11:_relat_versus_funct_found_logic}, 
-   nevertheless be fruitfully utilized to encode MRTT and subsequently the theory of abstract 
-   objects when adapting and utilizing the embeddings approach? As it turns, we will 
-   need a significant, technically involved extension of the embeddings approach.
-  \item From another viewpoint the issue is to investigate possibilities to handle restricted 
-   forms of comprehension in a functional type theory context within the embedding approach.
-  \item From a pragmatic point of view, we want to assess the elegance and user-friendliness of 
-   the proposed formalization? 
-   To what extend can Isabelle's  user interface be facilitated to hide 
+   nevertheless be utilized to encode MRTT and subsequently the theory of abstract 
+   objects when adapting and utilizing the embeddings approach? 
+   % As it turns, we will 
+   % need a significant, technically involved extension of the embeddings approach.
+  \item From another perspective we are interested in studying options to restrict comprehension in 
+   functional type theory when utilizing the embedding approach.
+  \item From a pragmatic point of view, we want to assess the user-friendliness of 
+   the proposed solution? 
+   To what extend can Isabelle's  user interface hide 
    unpleasant technicalities of the extended embedding from the user?
-  \item Moreover, how far can automation be pushed in the approach to minimise user interaction  
-    in the formalization of the theory of abstract objects? For this note the proof automation has
-    worked very well for the simpler embeddings of as used in related work \cite{C40,C55}. 
-  \item Can the consistency of the theory eventually be validated with the available automated 
-   reasoning tools?
-  \item Can the reasoners eventually even contribute some new knowledge? 
-  \item Are any suggestions  arising for possible improvements in Isabelle/HOL.
-   What are the particular problems detected in the course of the study?
+  \item How far can automation be pushed in the approach? For this note that proof automation 
+    worked  well for the simpler embeddings as utilized in previous work \cite{C40,C55}. 
+  %\item Can the consistency of the theory eventually be validated with the available automated 
+  % reasoning tools?
+  %\item Can the reasoners eventually even contribute some new knowledge? 
+  %\item Are any suggestions  arising for possible improvements in Isabelle/HOL.
+  % What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this contribution to the Archive of Formal Proofs, however, we primarily focus on presenting 
-  the encoding 
-  of MRTT in functional type theory. The idea is to extend the fundamental ideas underlying
-  the previous encoding of MFTT in functional type theory. 
-  In subsequent papers we will then reuse and extend the 
-  foundations provided in this article and further address the above questions.q
- 
-  The encoding of modal functional type theory in functional type theory as explored in 
-  previous work  is simple: modal logic formulas are identified with certain functional 
+  In this contribution to the Archive of Formal Proofs we focus solely on the basic 
+  encoding of MRTT in functional type theory. The work presented here serves as the starting point for
+  the formalization of further chapters of the theory of abstract objects and the principia 
+  metaphysica. We also leave the proper exploration and discussion of the above questions 
+  mainly to further work. 
+
+  The idea we explore is to suitably extend and adapt the previous encoding of MFTT in functional type theory. 
+  The basic idea of this encoding is simple: modal logic formulas are identified with certain functional 
   type theory formulas of predicate type \isa{i{\isasymRightarrow}bool} (abbreviated as \isa{io} below). 
-  Possible worlds are explicitly represented by 
+  Possible worlds are explicitly represented as
   terms of type  \isa{i}. A modal logic formula \isa{{\isasymphi}} holds for a world \isa{w} if and 
-  only if the application \isa{{\isasymphi}\ w} evaluates to true. The definition of the propositional modal logic 
-  connectives is then straightforward and it simply realizes the standard translation as a set of equations 
-  in functional type theory. The approach has been successfully extended for quantifiers. A crucial 
-  aspect thereby is that in simple type theory quantifiers can be treated
-  as ordinary logical connectives. No extra binding mechanism is needed since the already existing 
-  lambda binding mechanism can be elegantly utilized. 
+  only if the application \isa{{\isacharparenleft}{\isasymphi}\ w{\isacharparenright}} evaluates to true. The definitions of the propositional modal logic 
+  connectives are straightforward. These definitions realize the well known standard translation as a set of equations 
+  in functional type theory and they successfully extend the standard translation also for quantifiers. An important
+  aspect thereby is that quantifiers can be handled just as ordinary logical connectives. No binding mechanisms are needed,
+  since the binding mechanism for lambda-abstractions can be fruitfully utilised.
   
-  The challenge for this work has been to suitably appropriately 'restrict' this embedding for modal relational type theory.
-  The grammar of modal relational type theory is presented in Figure~\ref{mmrt}.
+  The challenge for the work presented here has been to suitably 'restrict' this embedding for MRTT (instead of MFTT).
+  The grammar of MRTT is presented in Figure~\ref{mmrt}.
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
   \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
   Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
   $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
-  Note that this grammar excludes terms such as $\lambda x. Rx \rightarrow xR$, where $Rx$ represents the 
-  exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. The reason is 
-  that such kind of  
-  lambda-abstractions may lead to paradoxes in the theory of abstract 
-  objects \cite{zalta11:_relat_versus_funct_found_logic}.
+  Note that this grammar successfully excludes terms such as $(\lambda x. Rx \rightarrow xR)$, where $Rx$ represents 
+  exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. It are such kind of  
+  lambda-abstractions which lead to paradoxical situations in the theory of abstract 
+  objects \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}.
   
 
   To achieve our goal we provide means to explicitly represent, maintain and propagate information  on the 
@@ -104,23 +105,23 @@ The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanfor
   to explicitly distinguish 
   between propositional formulas, formulas, terms and erroneous (ineligible/excluded) formations. 
   Respective annotation information is propagated from the innermost constituents to the top level constructions.
-  This creates some non-trivial technical overhead. However, Isabelle/HOL's user 
-  interface provide facilities to widely hide these technicalities from the user in applications.
+  This creates some non-trivial technical overhead. However, due to Isabelle/HOL's user 
+  interface these technicalities can be hidden from the user (to some extend).
 
   A note on using abbreviations versus definitions in our approach:  We are aware that abbreviations should
   be used sparsingly in Isabelle/HOL; they are automatically expanded and thus lead to a discrepancy 
   between the internal and the external view of a term. However, we here deliberately deviate from this
-  rule, since one aspect of the paper is to exactly illustrate this discrepancy and to emphasize the complexity
-  of the embedding MRTT in functional type theory. In fact, this complexity makes pen and paper 
-  work with the proposed embedding pragmatically infeasible. In this sense, we agree with earlier findings
-   \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we demonstrate the general feasibility here, and we
+  rule, since one aspect of the paper is to particularly illustrate exactly this discrepancy and to emphasize the complexity
+  of the embedding MRTT in functional type theory. In fact, as we believe, this complexity makes pen and paper 
+  work with the proposed embedding pragmatically infeasible. In this sense, we agree with previous 
+  findings \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we illustrate the general feasibility, and we
   show, that within a modern interactive proof assistant like Isabelle/HOL the approach can eventually be handled to 
   some modest degree. In fact, as we will also
   illustrate, the simplifier \isa{simp} of Isabelle/HOL is well capable of effectively reducing
-  the technically inflated terms we obtain from the extended embedding again to their logical core content. 
+  the technically inflated terms we obtain from the extended embedding to their logical core content. 
   In other words, the simplifier effectievely analyses and and rewrites the 
   deeply annotated terms and propagates the annotation information as intended to top-level.
-  It is exactly this effect which we want to illustrate and exploit here.\footnote{We have also 
+  It is exactly this effect which we want to emphasise and exploit here.\footnote{We have also 
   experimented with using definitions instead of abbreviations; the respective 
   encodings can be requested from the authors.}%
 \end{isamarkuptext}%
@@ -132,19 +133,19 @@ The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanfor
 %
 \begin{isamarkuptext}%
 We start out with some type declarations and type abbreviations. 
-  Note that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
+  Remember that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
   distinguished type \isa{i} to represent the set of possible worlds. 
   Consequently, terms of this type denote possible worlds. 
   Moreover, modal logic formulas are associated in our approach with
-  predicates (resp. sets) on possible worlds. Hence, modal logic formulas have
+  predicates on (resp. sets of) on possible worlds. Hence, modal logic formulas have
   type \isa{{\isacharparenleft}i\ {\isasymRightarrow}\ bool{\isacharparenright}}. To make our representation  more concise in the remainder
   we abbreviate this type as \isa{io}.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{typedecl}\isamarkupfalse%
-\ i\isanewline
+\ i\ \isanewline
 \ \isacommand{type{\isacharunderscore}synonym}\isamarkupfalse%
-\ io\ {\isacharequal}\ {\isachardoublequoteopen}{\isacharparenleft}i\ {\isasymRightarrow}\ bool{\isacharparenright}{\isachardoublequoteclose}%
+\ io\ {\isacharequal}\ {\isachardoublequoteopen}{\isacharparenleft}i{\isasymRightarrow}bool{\isacharparenright}{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Entities in the abstract theory of types are represented in our formalism by the
   type \isa{e}. We call this the raw type of entities resp. objects. The Theory of Abstract Objects 
@@ -159,7 +160,7 @@ To explicitly model the syntactical restrictions of MRTT we introduce a
   based on four constructors: \isa{ERR\ {\isacharprime}a} (identifies ineligible/excluded constructions), \isa{P\ {\isacharprime}a} 
   (identifies propositional formulas), \isa{F\ {\isacharprime}a} (identifies  formulas), and \isa{T\ {\isacharprime}a} (identifies 
   eligible terms, such as lambda abstractions). The embedding approach (of MFTT in functional type theory)
-  will be suitably adapted below so that 
+  is suitably adapted below so that 
   for each language expression (in the embedded MRTT) the respective datatype 
   is identified and appropriately propagated. The encapsulated expressions  
   correspond to the previous embedding of MRTT in functional type theory  \cite{J23,C40}.%
@@ -210,8 +211,8 @@ The various language constructs of MRTT (see Figure \ref{mmrt}) are now introduc
 The actuality operator \isa{\isactrlbold {\isasymA}}, when being applied to a formula or propositional formula 
   \isa{{\isasymphi}}, evaluates \isa{{\isasymphi}} wrt the fixed given world \isa{dw}. 
   The compound expression \isa{\isactrlbold {\isasymA}{\isasymphi}} inherits its syntactical category  \isa{F} (formula) or
-  \isa{P} (propositional formula) from \isa{{\isasymphi}}. If the syntactical catagory of  \isa{{\isasymphi}} is 
-  \isa{ERR} (error) or \isa{T} (term), then the syntactical catagory of \isa{\isactrlbold {\isasymA}{\isasymphi}} 
+  \isa{P} (propositional formula) from \isa{{\isasymphi}}. If the syntactical category of  \isa{{\isasymphi}} is 
+  \isa{ERR} (error) or \isa{T} (term), then the syntactical category of \isa{\isactrlbold {\isasymA}{\isasymphi}} 
   is \isa{ERR} and a dummy entity of appropriate type is returned. This illustrates the core 
   ideas of our explicit modeling of MRTT grammatical structure in functional type theory. 
   This scheme will repeated below for all the other language constructs of MRTT.%
@@ -226,11 +227,16 @@ The Theory of Abstract Objects distinguishes between encoding properties \isa{{\
 
   Encoding \isa{{\isasymkappa}\isactrlsub {\isadigit{1}}{\isasymPi}\isactrlsup {\isadigit{1}}} is noted below as \isa{{\isasymlbrace}{\isasymkappa}\isactrlsub {\isadigit{1}}{\isacharcomma}{\isasymPi}\isactrlsup {\isadigit{1}}{\isasymrbrace}}.
   Encoding yields formulas and never propositional formulas. It is mapped to expressions of 
-  form \isa{{\isacharparenleft}enc\ Q\ y{\isacharparenright}}, where \isa{enc} is uninterpreted constant symbol of appropriate 
-  type. Exemplification will instead be mapped to predicate application. Unfortunately, we cannot map both, 
-  exemplification and encoding, to predicate application, since this would have undesirable effects.
-  For example, we could then prove that \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymequiv}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}{\isacharparenright}{\isacharbrackright}} is true, which we definitely
-  want to avoid. See also the basic tests in Subsection \ref{basic-tests-1}.%
+  form \isa{{\isacharparenleft}enc\ {\isacharparenleft}Q\ y{\isacharparenright}{\isacharparenright}}, where \isa{enc} is uninterpreted constant symbol of appropriate 
+  type. Exemplification, noted below as \isa{{\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isacharcomma}{\isachardot}{\isachardot}{\isachardot}{\isasymrparr}}, it will mapped to \isa{{\isacharparenleft}exe\ {\isacharparenleft}Q\ y{\isacharparenright}{\isacharparenright}}
+  for an analogous uninterpreted constant symbol \isa{enc}. 
+  % Unfortunately, we cannot map both, 
+  % exemplification and encoding, to predicate application, since this would have undesirable consequences and completely 
+  % identify both concepts after expansion of the abbreviations.
+  % For example, we could then prove that \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymlparr}R\isactrlsup T{\isacharcomma}x\isactrlsup T{\isasymrparr}\ \isactrlbold {\isasymequiv}\ {\isasymlbrace}x\isactrlsup T{\isacharcomma}R\isactrlsup T{\isasymrbrace}{\isacharparenright}{\isacharbrackright}} is true, which we definitely
+  % want to avoid. However, this also means that lambda-conversion principles are immediately  available for 
+  % exemplification but not for encoding.\footnote{Respective principles will have to be axiomatized in subsequent 
+  % chapters)%
 \end{isamarkuptext}%
 \isamarkuptrue%
 \ \isacommand{consts}\isamarkupfalse%

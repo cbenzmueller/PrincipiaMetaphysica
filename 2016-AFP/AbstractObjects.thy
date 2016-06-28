@@ -9,15 +9,19 @@ section {* Introduction *}
   text {* 
   The ambitious Principia Metaphysica \cite{zalta:_princ_metap} project at Stanford University aims
   at providing an encompassing axiomatic foundation for metaphysics, mathematics and the sciences. 
-  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}, which \ldots.
- 
+  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}  --- a metaphysical 
+  theory providing a systematic description of fundamental and complex abstract objects. This 
+  theory provides the starting point for Zalta's ongoing 'principia metaphysica' 
+  project\footnote{Cf.~\url{https://mally.stanford.edu/principia/principia.html}}.
+  
   The theory of abstract objects utilizes a modal relational type theory (MRTT) as 
   logical foundation.  Arguments
   defending this choice against a modal functional type theory (MFTT)
   have been presented before \cite{zalta11:_relat_versus_funct_found_logic}.
   In a nutshell, the situation is this: functional type theory comes with strong 
   comprehension principles, which, in the context of the theory of abstract objects, 
-  have paradoxical implications. When starting off with a relational foundation, however, 
+  have paradoxical implications \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. 
+  When starting off with a relational foundation, however, 
   weaker comprehension principles are provided, and these obstacles can be avoided.
 
   Isabelle/HOL is a proof assistant based on a functional type theory extending
@@ -25,7 +29,7 @@ section {* Introduction *}
   that Church's type theory can be elegantly utilized as a meta-logic to semantically embed and 
   automate various quantified non-classical logics, including MFTT \cite{J23,C40}. 
   This embedding of MFTT has subsequently been employed in a case study in
-  computational metaphysics, in which different variants of Kurt Gödel's ontological 
+  computational metaphysics, in which different variants of Kurt G{\"o}del's ontological 
   argument were verified resp. falsified \cite{C40,C55}. 
  
   The motivating research questions for the formalisation presented below include:
@@ -33,57 +37,54 @@ section {* Introduction *}
   \item Can functional type theory, despite the problems as pointed 
    out by Zalta and
    Oppenheimer \cite{zalta11:_relat_versus_funct_found_logic}, 
-   nevertheless be fruitfully utilized to encode MRTT and subsequently the theory of abstract 
-   objects when adapting and utilizing the embeddings approach? As it turns, we will 
-   need a significant, technically involved extension of the embeddings approach.
-  \item From another viewpoint the issue is to investigate possibilities to handle restricted 
-   forms of comprehension in a functional type theory context within the embedding approach.
-  \item From a pragmatic point of view, we want to assess the elegance and user-friendliness of 
-   the proposed formalization? 
-   To what extend can Isabelle's  user interface be facilitated to hide 
+   nevertheless be utilized to encode MRTT and subsequently the theory of abstract 
+   objects when adapting and utilizing the embeddings approach? 
+   % As it turns, we will 
+   % need a significant, technically involved extension of the embeddings approach.
+  \item From another perspective we are interested in studying options to restrict comprehension in 
+   functional type theory when utilizing the embedding approach.
+  \item From a pragmatic point of view, we want to assess the user-friendliness of 
+   the proposed solution? 
+   To what extend can Isabelle's  user interface hide 
    unpleasant technicalities of the extended embedding from the user?
-  \item Moreover, how far can automation be pushed in the approach to minimise user interaction  
-    in the formalization of the theory of abstract objects? For this note the proof automation has
-    worked very well for the simpler embeddings of as used in related work \cite{C40,C55}. 
-  \item Can the consistency of the theory eventually be validated with the available automated 
-   reasoning tools?
-  \item Can the reasoners eventually even contribute some new knowledge? 
-  \item Are any suggestions  arising for possible improvements in Isabelle/HOL.
-   What are the particular problems detected in the course of the study?
+  \item How far can automation be pushed in the approach? For this note that proof automation 
+    worked  well for the simpler embeddings as utilized in previous work \cite{C40,C55}. 
+  %\item Can the consistency of the theory eventually be validated with the available automated 
+  % reasoning tools?
+  %\item Can the reasoners eventually even contribute some new knowledge? 
+  %\item Are any suggestions  arising for possible improvements in Isabelle/HOL.
+  % What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this contribution to the Archive of Formal Proofs, however, we primarily focus on presenting 
-  the encoding 
-  of MRTT in functional type theory. The idea is to extend the fundamental ideas underlying
-  the previous encoding of MFTT in functional type theory. 
-  In subsequent papers we will then reuse and extend the 
-  foundations provided in this article and further address the above questions.q
- 
-  The encoding of modal functional type theory in functional type theory as explored in 
-  previous work  is simple: modal logic formulas are identified with certain functional 
+  In this contribution to the Archive of Formal Proofs we focus solely on the basic 
+  encoding of MRTT in functional type theory. The work presented here serves as the starting point for
+  the formalization of further chapters of the theory of abstract objects and the principia 
+  metaphysica. We also leave the proper exploration and discussion of the above questions 
+  mainly to further work. 
+
+  The idea we explore is to suitably extend and adapt the previous encoding of MFTT in functional type theory. 
+  The basic idea of this encoding is simple: modal logic formulas are identified with certain functional 
   type theory formulas of predicate type @{text "i\<Rightarrow>bool"} (abbreviated as @{text "io"} below). 
-  Possible worlds are explicitly represented by 
+  Possible worlds are explicitly represented as
   terms of type  @{text "i"}. A modal logic formula @{text "\<phi>"} holds for a world @{text "w"} if and 
-  only if the application @{text "\<phi> w"} evaluates to true. The definition of the propositional modal logic 
-  connectives is then straightforward and it simply realizes the standard translation as a set of equations 
-  in functional type theory. The approach has been successfully extended for quantifiers. A crucial 
-  aspect thereby is that in simple type theory quantifiers can be treated
-  as ordinary logical connectives. No extra binding mechanism is needed since the already existing 
-  lambda binding mechanism can be elegantly utilized. 
+  only if the application @{text "(\<phi> w)"} evaluates to true. The definitions of the propositional modal logic 
+  connectives are straightforward. These definitions realize the well known standard translation as a set of equations 
+  in functional type theory and they successfully extend the standard translation also for quantifiers. An important
+  aspect thereby is that quantifiers can be handled just as ordinary logical connectives. No binding mechanisms are needed,
+  since the binding mechanism for lambda-abstractions can be fruitfully utilised.
   
-  The challenge for this work has been to suitably appropriately 'restrict' this embedding for modal relational type theory.
-  The grammar of modal relational type theory is presented in Figure~\ref{mmrt}.
+  The challenge for the work presented here has been to suitably 'restrict' this embedding for MRTT (instead of MFTT).
+  The grammar of MRTT is presented in Figure~\ref{mmrt}.
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
   \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
   Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
   $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
-  Note that this grammar excludes terms such as $\lambda x. Rx \rightarrow xR$, where $Rx$ represents the 
-  exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. The reason is 
-  that such kind of  
-  lambda-abstractions may lead to paradoxes in the theory of abstract 
-  objects \cite{zalta11:_relat_versus_funct_found_logic}.
+  Note that this grammar successfully excludes terms such as $(\lambda x. Rx \rightarrow xR)$, where $Rx$ represents 
+  exemplification of property $R$ by $x$ and $xR$ stands for the encoding of property $R$ by $x$. It are such kind of  
+  lambda-abstractions which lead to paradoxical situations in the theory of abstract 
+  objects \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}.
   
 
   To achieve our goal we provide means to explicitly represent, maintain and propagate information  on the 
@@ -91,23 +92,23 @@ section {* Introduction *}
   to explicitly distinguish 
   between propositional formulas, formulas, terms and erroneous (ineligible/excluded) formations. 
   Respective annotation information is propagated from the innermost constituents to the top level constructions.
-  This creates some non-trivial technical overhead. However, Isabelle/HOL's user 
-  interface provide facilities to widely hide these technicalities from the user in applications.
+  This creates some non-trivial technical overhead. However, due to Isabelle/HOL's user 
+  interface these technicalities can be hidden from the user (to some extend).
 
   A note on using abbreviations versus definitions in our approach:  We are aware that abbreviations should
   be used sparsingly in Isabelle/HOL; they are automatically expanded and thus lead to a discrepancy 
   between the internal and the external view of a term. However, we here deliberately deviate from this
-  rule, since one aspect of the paper is to exactly illustrate this discrepancy and to emphasize the complexity
-  of the embedding MRTT in functional type theory. In fact, this complexity makes pen and paper 
-  work with the proposed embedding pragmatically infeasible. In this sense, we agree with earlier findings
-   \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we demonstrate the general feasibility here, and we
+  rule, since one aspect of the paper is to particularly illustrate exactly this discrepancy and to emphasize the complexity
+  of the embedding MRTT in functional type theory. In fact, as we believe, this complexity makes pen and paper 
+  work with the proposed embedding pragmatically infeasible. In this sense, we agree with previous 
+  findings \cite{zalta11:_relat_versus_funct_found_logic}. On the other hand, we illustrate the general feasibility, and we
   show, that within a modern interactive proof assistant like Isabelle/HOL the approach can eventually be handled to 
   some modest degree. In fact, as we will also
   illustrate, the simplifier @{text "simp"} of Isabelle/HOL is well capable of effectively reducing
-  the technically inflated terms we obtain from the extended embedding again to their logical core content. 
+  the technically inflated terms we obtain from the extended embedding to their logical core content. 
   In other words, the simplifier effectievely analyses and and rewrites the 
   deeply annotated terms and propagates the annotation information as intended to top-level.
-  It is exactly this effect which we want to illustrate and exploit here.\footnote{We have also 
+  It is exactly this effect which we want to emphasise and exploit here.\footnote{We have also 
   experimented with using definitions instead of abbreviations; the respective 
   encodings can be requested from the authors.}
   *}
@@ -115,17 +116,17 @@ section {* Introduction *}
 section {* Preliminaries *}
   text {* 
   We start out with some type declarations and type abbreviations. 
-  Note that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
+  Remember that our formalism explicitly encodes possible world semantics. Hence, we introduce a 
   distinguished type @{text "i"} to represent the set of possible worlds. 
   Consequently, terms of this type denote possible worlds. 
   Moreover, modal logic formulas are associated in our approach with
-  predicates (resp. sets) on possible worlds. Hence, modal logic formulas have
+  predicates on (resp. sets of) on possible worlds. Hence, modal logic formulas have
   type @{text "(i \<Rightarrow> bool)"}. To make our representation  more concise in the remainder
   we abbreviate this type as @{text "io"}.
   *}
 
- typedecl i
- type_synonym io = "(i \<Rightarrow> bool)" 
+ typedecl i 
+ type_synonym io = "(i\<Rightarrow>bool)" 
 
   text {*
   Entities in the abstract theory of types are represented in our formalism by the
@@ -141,7 +142,7 @@ section {* Preliminaries *}
   based on four constructors: @{text "ERR 'a"} (identifies ineligible/excluded constructions), @{text "P 'a"} 
   (identifies propositional formulas), @{text "F 'a"} (identifies  formulas), and @{text "T 'a"} (identifies 
   eligible terms, such as lambda abstractions). The embedding approach (of MFTT in functional type theory)
-  will be suitably adapted below so that 
+  is suitably adapted below so that 
   for each language expression (in the embedded MRTT) the respective datatype 
   is identified and appropriately propagated. The encapsulated expressions  
   correspond to the previous embedding of MRTT in functional type theory  \cite{J23,C40}.  
@@ -182,8 +183,8 @@ section {* Embedding of Modal Relational Type Theory *}
   text {* The actuality operator @{text "\<^bold>\<A>"}, when being applied to a formula or propositional formula 
   @{text "\<phi>"}, evaluates @{text "\<phi>"} wrt the fixed given world @{text "dw"}. 
   The compound expression @{text "\<^bold>\<A>\<phi>"} inherits its syntactical category  @{text "F"} (formula) or
-  @{text "P"} (propositional formula) from @{text "\<phi>"}. If the syntactical catagory of  @{text "\<phi>"} is 
-  @{text "ERR"} (error) or @{text "T"} (term), then the syntactical catagory of @{text "\<^bold>\<A>\<phi>"} 
+  @{text "P"} (propositional formula) from @{text "\<phi>"}. If the syntactical category of  @{text "\<phi>"} is 
+  @{text "ERR"} (error) or @{text "T"} (term), then the syntactical category of @{text "\<^bold>\<A>\<phi>"} 
   is @{text "ERR"} and a dummy entity of appropriate type is returned. This illustrates the core 
   ideas of our explicit modeling of MRTT grammatical structure in functional type theory. 
   This scheme will repeated below for all the other language constructs of MRTT. 
@@ -198,24 +199,30 @@ section {* Embedding of Modal Relational Type Theory *}
 
   Encoding @{text "\<kappa>\<^sub>1\<Pi>\<^sup>1"} is noted below as @{text "\<lbrace>\<kappa>\<^sub>1,\<Pi>\<^sup>1\<rbrace>"}.
   Encoding yields formulas and never propositional formulas. It is mapped to expressions of 
-  form @{text "(enc Q y)"}, where @{text "enc"} is uninterpreted constant symbol of appropriate 
-  type. Exemplification will instead be mapped to predicate application. Unfortunately, we cannot map both, 
-  exemplification and encoding, to predicate application, since this would have undesirable effects.
-  For example, we could then prove that @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)]"} is true, which we definitely
-  want to avoid. See also the basic tests in Subsection \ref{basic-tests-1}.
+  form @{text "(enc (Q y))"}, where @{text "enc"} is uninterpreted constant symbol of appropriate 
+  type. Exemplification, noted below as @{text "\<lparr>R\<^sup>T,x\<^sup>T,...\<rparr>"}, it will mapped to @{text "(exe (Q y))"}
+  for an analogous uninterpreted constant symbol @{text "enc"}. 
+  % Unfortunately, we cannot map both, 
+  % exemplification and encoding, to predicate application, since this would have undesirable consequences and completely 
+  % identify both concepts after expansion of the abbreviations.
+  % For example, we could then prove that @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)]"} is true, which we definitely
+  % want to avoid. However, this also means that lambda-conversion principles are immediately  available for 
+  % exemplification but not for encoding.\footnote{Respective principles will have to be axiomatized in subsequent 
+  % chapters)
   *}
 
- consts enc::"(e\<Rightarrow>io)\<Rightarrow>e\<Rightarrow>io"
+ consts enc::"io\<Rightarrow>io"
  abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
-    (T(y),T(Q)) \<Rightarrow> F(enc Q y) | _ \<Rightarrow> ERR(dio)"
+    (T(y),T(Q)) \<Rightarrow> F(enc (Q y)) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
   Unary exemplifying formulas @{text "\<Pi>\<^sup>1\<kappa>\<^sub>1"} are noted below as @{text "\<lparr>\<Pi>\<^sup>1,\<kappa>\<^sub>1\<rparr>"}.  
   Exemplification yields propositional formulas. Like encoding, it is then mapped to predicate application.
   *}
 
+ consts exe::"io\<Rightarrow>io"
  abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
-    (T(Q),T(y)) \<Rightarrow> P(Q y) | _ \<Rightarrow> ERR(dio)"
+    (T(Q),T(y)) \<Rightarrow> P(exe (Q y)) | _ \<Rightarrow> ERR(dio)"
 
   text {* 
  For pragmatical reasons we support exemplification formulas @{text "\<Pi>\<^sup>n,\<kappa>\<^sub>1,..,\<kappa>\<^sub>n"} here only for @{text "1\<le>n\<le>3"}.
@@ -286,7 +293,7 @@ section {* Embedding of Modal Relational Type Theory *}
   to @{text "(\<lambda>xy.\<phi>)"}, etc.
   Similar to before, we support only the cases for $n\leq 3$. Binder notation is
   introduced for @{text "\<^bold>\<lambda>"}.\footnote{Unfortunately, we could not find out how suitable binder notation
-  could be analogously provided for @{text "\<^bold>\<lambda>\<^sup>2"} and @{text "\<^bold>\<lambda>\<^sup>3"}}. 
+  could be analogously provided for @{text "\<^bold>\<lambda>\<^sup>2"} and @{text "\<^bold>\<lambda>\<^sup>3"}.}. 
   *}
 
  abbreviation lam0::"io opt\<Rightarrow>io opt" ("\<^bold>\<lambda>\<^sup>0") where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
@@ -311,9 +318,10 @@ section {* Embedding of Modal Relational Type Theory *}
     F(_) \<Rightarrow> T(THE x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> dw) | P(_) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> dw) | _ \<Rightarrow> ERR(de)"
  abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
 
+
 section {* Further Logical Connectives *}
   text {* 
-  Further logical connectives can be defined as usual. For pragmatic reasons (to avoid the blow-up of
+  Further logical connectives can be defined as usual. For pragmatic reasons (e.g. to avoid further blow-up of
   abbreviation expansions) we prefer direct definitions in all cases.
   *}
 
@@ -340,7 +348,57 @@ section {* Further Logical Connectives *}
   | F(_) \<Rightarrow> F(\<lambda>w. \<exists>x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> w) | _ \<Rightarrow> ERR dio" 
  abbreviation existsBinder::"('a\<Rightarrow>io opt)\<Rightarrow>io opt" (binder "\<^bold>\<exists>" [8] 9)  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists>\<phi>"
 
-section {* Meta-Logic*}
+section {* E!, O!, A! and =E *}
+
+  text {* 
+  We introduce some important further notions of the theory of abstract objects. We 
+  start out with the distinguished 1-place relation constant E (read ‘being concrete’ or ‘concreteness’). 
+  *}
+
+ consts E::"(e\<Rightarrow>io)"
+ 
+  text {* 
+  Next, being ordinary is defined as being possibly concrete. 
+  *}
+
+ abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
+
+  text {* 
+  Being abstract is then defined as not possibly being concrete. 
+  *}
+
+ abbreviation abstractObject::"(e\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
+
+  text {* 
+  Finally, we introduce the identity relations @{text "\<^bold>=\<^sub>E"} and @{text "\<^bold>="} on individuals. 
+  *}
+
+ abbreviation identityE::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sub>E" 63) where "x \<^bold>=\<^sub>E y \<equiv> 
+    \<lparr>O!,x\<rparr> \<^bold>\<and> \<lparr>O!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,y\<rparr>)"
+
+ abbreviation identityI::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=" 63) where "x \<^bold>= y \<equiv> 
+    x \<^bold>=\<^sub>E y \<^bold>\<or> (\<lparr>A!,x\<rparr> \<^bold>\<and> \<lparr>A!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lbrace>y,F\<^sup>T\<rbrace>))"
+
+
+ subsection {* Identitiy on Relations *}
+
+ abbreviation identityRel1::" ((e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>1" 63) 
+   where "F1 \<^bold>=\<^sup>1 G1 \<equiv> \<^bold>\<box>(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,F1\<rbrace> \<^bold>\<equiv> \<lbrace>x\<^sup>T,G1\<rbrace>)"
+
+ abbreviation identityRel2::" ((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>2" 63) 
+   where "F2 \<^bold>=\<^sup>2 G2 \<equiv> \<^bold>\<forall>x1.(  (\<^bold>\<lambda>y.\<lparr>F2,y\<^sup>T,x1\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,y\<^sup>T,x1\<^sup>T\<rparr>)
+                          \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F2,x1\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,x1\<^sup>T,y\<^sup>T\<rparr>))"
+
+ abbreviation identityRel3::" ((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>3" 63) 
+   where "F3 \<^bold>=\<^sup>3 G3 \<equiv> \<^bold>\<forall>x1 x2.(  (\<^bold>\<lambda>y.\<lparr>F3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>)
+                             \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>)
+                             \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>))"
+
+ abbreviation equalityRel0::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>0" 63) 
+   where "F0 \<^bold>=\<^sup>0 G0 \<equiv> (\<^bold>\<lambda>y . F0) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. G0)"
+
+
+section {* Three-Valued Meta-Logic*}
 
   text {* 
   Our approach to rigorously distinguish between proper and improper language constructions 
@@ -356,8 +414,8 @@ section {* Meta-Logic*}
 
   text {* 
   Next we define the meta-logical notions of validity, satisfiability, 
-  countersatisfiability and invalidity for our embedded modal relational type theory. To support
-  concise formula representations in the remainder we introduce the following notations: @{text "[\<phi>]"} 
+  countersatisfiability and invalidity for our embedded modal relational type theory. Moreover, 
+  we introduce the following notations: @{text "[\<phi>]"} 
   (for @{text "\<phi>"} is valid), @{text "[\<phi>]\<^sup>s\<^sup>a\<^sup>t "} (@{text "\<phi>"} is satisfiability), @{text "[\<phi>]\<^sup>c\<^sup>s\<^sup>a\<^sup>t"} 
   (@{text "\<phi>"} is countersatisfiability) and @{text "[\<phi>]\<^sup>i\<^sup>n\<^sup>v"} (@{text "\<phi>"} is invalid). Actually, so far 
   we only use validity.
@@ -388,28 +446,36 @@ section {* Some Basic Tests *}
   For the following non-theorems we indeed get countermodels by nitpick.
   *}
 
- lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick [expect = genuine]  oops -- {* Countermodel by Nitpick *}
- lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick  [expect = genuine] oops -- {* Countermodel by Nitpick *}
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick [expect = genuine]  oops -- {* Countermodel by Nitpick *}
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick  [expect = genuine] oops -- {* Countermodel by Nitpick *}
 
-  text {* With this example we also want to illustrate the inflation of representations as caused by the
+  text {* With the first example we also want to illustrate the inflation of representations as caused by our
      embedding. For this note, that the formula @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>"} abbreviates the
     actual term  
-   @{text "(case case \<lbrace>da\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,da\<^sup>T\<rparr> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
-     P \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | F \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | _ \<Rightarrow> *) = \<top>"}.
+   @{text "(case case case \<lparr>da\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,da\<^sup>T\<rbrace> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lparr>da\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+               | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lparr>da\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+          P x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lparr>x\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                               | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+                          P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lparr>x\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                                 | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+                            F \<psi> \<Rightarrow> \<psi> w)\<^sup>F
+          | _ \<Rightarrow> dio\<^sup>E of
+     P \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | F \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | _ \<Rightarrow> *) =
+    \<top>"}.
   In Isabelle the inflated term is displayed in the output window when placing the mouse on the abbreviated representation.
   However, the simplifier is capable of evaluating the annotations and thereby reducing this inflated term again 
-  to @{text "\<forall>w x. R x w \<longrightarrow> enc R x w"} as intended; one can easily see this when placing the mouse on "simp". 
+  to @{text "\<forall>w x xa. exe (x xa) w \<longrightarrow> enc (x xa) w"} as intended; one can easily see this when placing the mouse on "simp". 
   Below we will see that the inflated representations can 
-  easily fill several pages for abbreviated formulas which are only slightly longer than what we have here. 
+  easily fill several pages for abbreviated formulas which are only slightly longer than our exemple formula here. 
   This provides evidence for the pragmatic infeasibility of the approach when using pen and paper only. *}
 
   text {* 
   The next two statements are valid and the simplifier quickly proves this.
   *}
 
- lemma "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" by simp 
- lemma "[(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" by simp
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" by simp 
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" by simp
 
  subsection {* Verifying Necessitation *}
 
@@ -439,7 +505,7 @@ section {* Some Basic Tests *}
  subsection {* Verifying S5 Principles \label{sec:S5} *} 
 
   text {* 
-  @{text "\<box>"} could have been modeled by employing an equivalence relation @{text "r"} in a 
+  The @{text "\<box>"}-operator could have alternatively been modeled by employing an equivalence relation @{text "r"} in a 
   guarding clause. This has been done in previous work. Our alternative, simpler definition of 
   @{text "\<box>"} above omits
   this clause (since all worlds are reachable from any world in an equivalence relation). The 
@@ -476,6 +542,7 @@ section {* Some Basic Tests *}
 
 
  subsection {* Relations between  Meta-Logical Notions *}
+ text {* We check some well know relations between meta-logical notions. *}
 
  lemma  "[\<phi>\<^sup>P] = \<top> \<longleftrightarrow> [\<phi>\<^sup>P]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = \<bottom>" apply simp done
  lemma  "[\<phi>\<^sup>P]\<^sup>s\<^sup>a\<^sup>t = \<top> \<longleftrightarrow> [\<phi>\<^sup>P]\<^sup>i\<^sup>n\<^sup>v = \<bottom>" apply simp done
@@ -491,27 +558,34 @@ section {* Some Basic Tests *}
  lemma  "[\<phi>\<^sup>T]\<^sup>c\<^sup>s\<^sup>a\<^sup>t = *" apply simp done
  lemma  "[\<phi>\<^sup>T]\<^sup>i\<^sup>n\<^sup>v = *" apply simp done
 
- subsection {* Testing the Propagation of Syntactical Category Information *}
+ subsection {* Propagation of Grammatical Information *}
 
- lemma "\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>P \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>F) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lparr>R\<^sup>T,a\<^sup>T\<rparr> = X\<^sup>E)" apply simp done
- lemma "\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>F \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>P) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>T) \<and> \<not>(\<exists>X. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> = X\<^sup>E)" apply simp done
+  text {*   
+ The expression @{text "(\<^bold>\<lambda>x. \<^bold>\<exists>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>F\<^sup>T,x\<^sup>T\<rparr>)"} is an ineligible 
+ construct, cf.~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. 
+ When placing the
+ mouse on 'simp' we see that this is evaluated to @{text "(\<lambda>x. dio)\<^sup>E"} as intended, i.e. an ERR-term
+ is returned.  
+ *}
 
-  text {* 
-  Most importantly, we have that the following language construct is evaluated as ineligible at validity
-  level; @{text "error (*)"} is returned. 
-  *}
- 
- lemma "(\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>) = X" apply simp oops
+ lemma "(\<^bold>\<lambda>x. \<^bold>\<exists>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>F\<^sup>T,x\<^sup>T\<rparr>) = X" apply simp oops  -- {* X is @{text "(\<lambda>x. dio)\<^sup>E"} *}
 
- lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr>] = *" apply simp done
+ text {*   
+  Similarly, the following comprehension principle for abstract objects is an ineligible formula,  
+  cf.~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. The simplifier quickly proves that this
+  formula @{text "(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> (F\<^sup>T \<^bold>=\<^sup>1 K)))))"} is equal to @{text "*"}. That is, 
+  the evaluation of this formula returns the @{text "err"} truth value for error.
+ *}
 
-  text {* 
-  This is also confirmed as follows in Isabelle: Isabelle simplifies the following expression
-  to @{text "dio\<^sup>E = X"} (simply move the curse on @{text "simp"} to see this). 
-  *}
+abbreviation K where "K \<equiv> (\<^bold>\<lambda>x. \<^bold>\<exists>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>F\<^sup>T,x\<^sup>T\<rparr>)"
 
- lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops     -- {* X is @{text "dio\<^sup>E"} *}
- lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<and> \<^bold>\<not>\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops     -- {* X is @{text "dio\<^sup>E"} *}
+lemma "[(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> (F\<^sup>T \<^bold>=\<^sup>1 K)))))] = *" apply simp done
+
+
+
+
+
+
 
  subsection {* Are Priorities Defined Correctly? *}
 
@@ -522,39 +596,6 @@ section {* Some Basic Tests *}
  lemma "(\<phi>\<^sup>P \<^bold>\<and> \<psi>\<^sup>P \<^bold>\<equiv> \<phi>\<^sup>P \<^bold>\<and> \<psi>\<^sup>P) \<equiv> (\<phi>\<^sup>P \<^bold>\<and> (\<psi>\<^sup>P \<^bold>\<equiv> \<phi>\<^sup>P) \<^bold>\<and> \<psi>\<^sup>P)" apply simp nitpick oops -- {* Countermodel by Nitpick *}
 
 
-section {* E!, O!, A! and =E *}
-
-  text {* 
-  We introduce the distinguished 1-place relation constant: E (read: ‘being concrete’ or ‘concreteness’) 
-  *}
-
- consts E::"(e\<Rightarrow>io)"
- 
-  text {* 
-  Being ordinary is defined as being possibly concrete. 
-  *}
-
- abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>"
-
- lemma "O! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. Ex (exe E x))\<^sup>T"} *}
-
-  text {* 
-  Being abstract is is defined as not possibly being concrete. 
-  *}
-
- abbreviation abstractObject::"(e\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E\<^sup>T,x\<^sup>T\<rparr>)"
-
- lemma "A! = X" apply simp oops       -- {* X is @{text "(\<lambda>x w. \<forall>xa. \<not> exe (E x) xa)\<^sup>T"} *}
-
-
-  text {* 
-  Identity relations @{text "\<^bold>=\<^sub>E"} and @{text "\<^bold>="} are introduced. 
-  *}
-
- abbreviation identityE::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sub>E" 63) where "x \<^bold>=\<^sub>E y \<equiv> 
-    \<lparr>O!,x\<rparr> \<^bold>\<and> \<lparr>O!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,y\<rparr>)"
-
- lemma "a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T = X" apply simp oops      -- {* X is "@{text "(...)\<^sup>P"} *}
 
  subsubsection {* Remark: Nested lambda-expressions *}
  
@@ -562,10 +603,6 @@ section {* E!, O!, A! and =E *}
  lemma "(\<^bold>\<lambda> x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) = (\<^bold>\<lambda> x. a\<^sup>T \<^bold>=\<^sub>E x\<^sup>T)" apply simp by metis
 
 
- subsection {* Identity on Individuals *}
-
- abbreviation identityI::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=" 63) where "x \<^bold>= y \<equiv> 
-    x \<^bold>=\<^sub>E y \<^bold>\<or> (\<lparr>A!,x\<rparr> \<^bold>\<and> \<lparr>A!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lbrace>y,F\<^sup>T\<rbrace>))"
 
  subsubsection {* Remark: Tracing the propagation of annotations *}
  lemma "a\<^sup>T \<^bold>= a\<^sup>T = X" apply simp oops                                        -- {* X is @{text "(...)\<^sup>F"} *}
@@ -581,19 +618,11 @@ section {* E!, O!, A! and =E *}
  lemma "\<^bold>\<lambda>\<^sup>2(\<lambda>x y. x\<^sup>T \<^bold>= y\<^sup>T) = X" apply simp oops   -- {* X is @{text "(\<lambda>x y. dio)\<^sup>E"} *}
  lemma "(\<^bold>\<lambda>x. x\<^sup>T \<^bold>= y\<^sup>T) = X" apply simp oops   -- {* X is @{text "(\<lambda>x. dio)\<^sup>E"} *}
 
- subsection {* Identitiy on Relations *}
 
- abbreviation identityRel1::" ((e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>1" 63) 
-   where "F1 \<^bold>=\<^sup>1 G1 \<equiv> \<^bold>\<box>(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,F1\<rbrace> \<^bold>\<equiv> \<lbrace>x\<^sup>T,G1\<rbrace>)"
+  text {* 
+  Some tests: reflexity, symmetry, transitivity
+  *}
 
- abbreviation identityRel2::" ((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>2" 63) 
-   where "F2 \<^bold>=\<^sup>2 G2 \<equiv> \<^bold>\<forall>x1.(  (\<^bold>\<lambda>y.\<lparr>F2,y\<^sup>T,x1\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,y\<^sup>T,x1\<^sup>T\<rparr>)
-                          \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F2,x1\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,x1\<^sup>T,y\<^sup>T\<rparr>))"
-
- abbreviation identityRel3::" ((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>3" 63) 
-   where "F3 \<^bold>=\<^sup>3 G3 \<equiv> \<^bold>\<forall>x1 x2.(  (\<^bold>\<lambda>y.\<lparr>F3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>)
-                             \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>)
-                             \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>))"
 
  lemma "F1\<^sup>T \<^bold>=\<^sup>1 G1\<^sup>T = X" apply simp oops -- {* X is @{text "(...)\<^sup>F"} *}
  lemma "F2\<^sup>T \<^bold>=\<^sup>2 G2\<^sup>T = X" apply simp oops -- {* X is @{text "(...)\<^sup>F"} *} 
@@ -602,12 +631,7 @@ section {* E!, O!, A! and =E *}
  lemma "\<lparr>F1\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>G1\<^sup>T,x\<^sup>T\<rparr> = X" apply simp oops -- {* X is @{text "(...)\<^sup>P"} *}   
  lemma "(\<^bold>\<lambda>y.\<lparr>F2\<^sup>T,y\<^sup>T,x1\<^sup>T\<rparr>)= X" apply simp oops -- {* X is @{text "(...)\<^sup>T"} *}  
 
- abbreviation equalityRel0::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>0" 63) 
-   where "F0 \<^bold>=\<^sup>0 G0 \<equiv> (\<^bold>\<lambda>y . F0) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. G0)"
 
-  text {* 
-  Some tests: reflexity, symmetry, transitivity
-  *}
 
  lemma "F1\<^sup>T \<^bold>=\<^sup>1 F1\<^sup>T = X" apply simp oops -- {* X is @{text "(...)\<^sup>F"} *}
  lemma "[F1\<^sup>T \<^bold>=\<^sup>1 F1\<^sup>T] = \<top>" apply simp done 
