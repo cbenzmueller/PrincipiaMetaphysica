@@ -452,15 +452,17 @@ section {* Some Basic Tests *}
  lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick  [expect = genuine] oops -- {* Countermodel by Nitpick *}
 
   text {* With the first example we also want to illustrate the inflation of representations as caused by our
-     embedding. For this note, that the formula @{text "[(\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>"} abbreviates the
-    actual term  
-   @{text "(case case case \<lparr>da\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,da\<^sup>T\<rbrace> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lparr>da\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-               | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lparr>da\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
-          P x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lparr>x\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-                               | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+     embedding. For this note, that the statement @{text "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>"} abbreviates the
+    actual internal term  
+   @{text "(case case case \<lbrace>da\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,da\<^sup>T\<rparr> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,x\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+               | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,x\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+          P x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of
+                               P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                               | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
                           P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lparr>x\<^sup>T,da\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-                                 | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of
+                                 P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                                 | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
                             F \<psi> \<Rightarrow> \<psi> w)\<^sup>F
           | _ \<Rightarrow> dio\<^sup>E of
      P \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | F \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | _ \<Rightarrow> *) =
@@ -478,6 +480,13 @@ section {* Some Basic Tests *}
 
  lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" by simp 
  lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" by simp
+
+  text {* 
+  Of course, the following statements should be countersatisfiable. Nitpick confirms this
+  *}
+
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick [expect = genuine] oops
+ lemma "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>" apply simp nitpick [expect = genuine] oops
 
  subsection {* Verifying K Principle and Necessitation *}
 
@@ -590,19 +599,20 @@ abbreviation K where "K \<equiv> (\<^bold>\<lambda>x. \<^bold>\<exists>F. \<lbra
 
 text {*
  We also use the latter formula to further illustrate the technical overhead of our embedding. 
- For this see Figure~\ref{large}, which displays approx. 5 percent of the unfolded representation of our 
+ For this see Figure~\ref{large}, which displays approx. 5\% of the unfolded representation of our 
  formula. It should thus be obvious that pen and paper work with the embedding as proposed here 
  is completely infeasible. 
-   \begin{figure}[tp]
-  \includegraphics[width=\textwidth]{LargeTerm.png}\includegraphics[height=4.5cm]{LargeTerm}
-  \caption{Display (5 percent) of the unfolded expression @{text "[(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> (F\<^sup>T \<^bold>=\<^sup>1 K)))))] = *"} 
+   \begin{figure}[t] \centering
+  \includegraphics[width=.9\textwidth]{LargeTerm.png}
+  \caption{Display (of about 5\%) of the unfolded expression @{text "[(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> (F\<^sup>T \<^bold>=\<^sup>1 K)))))] = *"} 
  in Isabelle/HOL. \label{large}} 
   \end{figure}
 *}
 
 section {* Some Further Tests *}
 
-text {* In this section we present some unstructured further test examples of our encoding. *}
+text {* In this section we present some further test examples of our encoding. Many of these tests are taken
+ from papers (e.g. cf.~\cite{zalta11:_relat_versus_funct_found_logic} or presentation slides of Zalta. *}
 
 text {* We show that the derivation from @{text "(\<lbrace>a\<^sup>T,PP\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>PP\<^sup>T,a\<^sup>T\<rparr>)"} 
 to @{text "(\<^bold>\<exists>F.\<lbrace>a\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>F\<^sup>T,a\<^sup>T\<rparr>)"} can in fact be 
@@ -612,7 +622,8 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<lbrace>a\<^sup>T,PP\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>PP\<^sup>T,a\<^sup>T\<rparr>)] = \<top> \<longrightarrow> [(\<^bold>\<exists>F.\<lbrace>a\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<and> \<^bold>\<not>\<lparr>F\<^sup>T,a\<^sup>T\<rparr>)] = \<top>" apply simp by auto
 
 
-text {* Properties of Equality *}
+ subsection {* Properties of Equality *}
+
 
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>= x\<^sup>T)] = \<top>" apply simp by auto
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>= y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>= x\<^sup>T)] = \<top>" apply simp by meson
@@ -647,15 +658,78 @@ text {* Properties of Equality *}
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>" apply simp done
-   (* can be proved, but not be displayed: 
-     exception Size raised (line 182 of "./basis/LibrarySupport.sml") *)
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T))] = \<top>" apply simp done 
-   (* can be proved, but not be displayed: 
-     exception Size raised (line 182 of "./basis/LibrarySupport.sml") *)
+
+  text {* The latter to formulas can be verified, but not be displayed anymore in Isabelle/HOL on
+  standard Macbook. Isabelle reports the following: 
+     ``exception Size raised (line 182 of "./basis/LibrarySupport.sml")'' *}
+
+ subsection{* Axioms and Tests for Actuality *}
+
+ text {* One issue that we did not address yet is how one can possibly encode 
+ axiom schemata like @{text "\<^bold>\<A>\<phi> \<^bold>\<rightarrow> \<^bold>\<phi>"} where @{text "\<^bold>\<phi>"} ranges only 
+ over @{text "\<^bold>\<box>"}-free closures. Eventually the grammar should be further refined so that we get a 
+ category of @{text "\<^bold>\<box>"}-free formulas? *}
+
+ lemma "[\<^bold>\<A>\<phi>\<^sup>P \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<A>\<phi>\<^sup>P)] = \<top>" apply simp done
+ lemma "[\<^bold>\<A>\<phi>\<^sup>F \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<A>\<phi>\<^sup>F)] = \<top>" apply simp done
+
+ subsection{* Axioms and Theory of Encoding *}
+
+ text {* We study  Axioms and Theory of Encoding. *}
+ 
+ axiomatization where
+  RigityOfEncoding:  "[\<lbrace>x\<^sup>T,FF\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<^bold>\<box>\<lbrace>x\<^sup>T,FF\<^sup>T\<rbrace>] = \<top>" and
+  OrdinaryObjectsDoNotEncode: "[\<lparr>O!,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<not>(\<^bold>\<exists>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace>))] = \<top>" and
+  ObjectComprehension: "[(\<^bold>\<exists>x. \<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<phi>))] = \<top>"
+
+ abbreviation Situation::"e opt\<Rightarrow>io opt"  where 
+   "Situation x \<equiv> (\<lparr>A!,x\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<rightarrow> (\<^bold>\<exists>p. F\<^sup>T \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. p\<^sup>P)))))"
+ abbreviation PIsTrueInX::"e opt \<Rightarrow> (i \<Rightarrow> bool) opt \<Rightarrow> (i \<Rightarrow> bool) opt" (infixl "\<Turnstile>" 63) where 
+   "x \<Turnstile> p \<equiv> \<lbrace>x,(\<^bold>\<lambda>y. p)\<rbrace>"  
+ abbreviation PossibleWorld::"e opt\<Rightarrow>io opt" where 
+   "PossibleWorld x \<equiv> Situation(x) \<^bold>\<and> \<^bold>\<diamond>(\<^bold>\<forall>p. (x \<Turnstile> p\<^sup>P) \<^bold>\<equiv> p\<^sup>P)" 
+ abbreviation Maximal::"e opt\<Rightarrow>io opt" where 
+   "Maximal s \<equiv> (\<^bold>\<forall>p. (s \<Turnstile> p\<^sup>P) \<^bold>\<or> (s \<Turnstile> (\<^bold>\<not> p\<^sup>P)))" 
+
+ text {* We are now in the position to formalize a fundamental theorem of 
+ encoding theory. *}
+
+ lemma "[(\<^bold>\<forall>x. PossibleWorld(x\<^sup>T) \<^bold>\<rightarrow> Maximal(x\<^sup>T))] = \<top>" apply simp nitpick sledgehammer oops
+
+ text {* Unfortunately, we are not in a position to prove this theorem. At the same we also fail
+ to refute it. Eventually, this has to do with missing comprehension properties for encoding 
+  (remember that encoding was not mapped to predication in the meta-logic; this is different 
+  for exemplifications). Alternatively, required schemata instances could be postulated
+  on the fly as needed, but this is actually what we ideally wanted to avoid within our embedding approach.
+ *}
 
 
+section {* Summary  *}
+text {*
+  We have illustrated an idea to embed MRTT in MFTT and we have pushed the technical 
+  exhipition of that idea to some interesting intermediate state.
+  The hope has been that theorem provers for MFTT can be succesfully reused for reasoning within
+  MRTT and subsequently for reasoning in the theory of abstract objects. Within this paper we have 
+  illustrated that idea is not feasible with pen and paper and methods and even within the developed
+  system infrastructure of Isabelle/HOL we reach some technological limits (e.g. the internal formula
+  representing the transitivity of equality between ternary relations cannot be displayed anymore 
+ because of its size). There are further issues to be investigated, for example, whether the presented
+ fundamental theorem of encoding theory can still be automatically proved and whether 
+ there is hope that eventually also further fundamental theorems of the theory of abstract objects
+ can be handled in the approach. 
 
+ Independent of the outcome of this further research it should anyhow become clear from the presented 
+ work that building a system similar to Isabelle/HOL but with MRTT instead of MFTT would surely provide
+ a more appropriate base environment for the formalization and automation of the theory of abstract objects
+ and the principia metaphysica.
+*}
 
+(*<*)
+end 
+(*>*)
+
+(*
  section{* Some Tests with Comprehension *}
 
  lemma "[(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lparr>F\<^sup>T,x\<^sup>T\<rparr>))))] = \<top>" apply simp oops
@@ -665,12 +739,8 @@ text {* Properties of Equality *}
 
 
  lemma "[(\<^bold>\<forall>x.\<lbrace>x\<^sup>T,PP\<^sup>T\<rbrace>)] = \<top> \<longrightarrow> [(\<lbrace>a\<^sup>T,PP\<^sup>T\<rbrace>)] = \<top>" apply simp  done
+*)
 
-
-
-(*<*)
-end 
-(*>*)
 
 
  

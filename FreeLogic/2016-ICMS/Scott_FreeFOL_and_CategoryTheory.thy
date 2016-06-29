@@ -236,7 +236,11 @@ context (* C6: Freyd's axioms are inconsistent for "\<approx>" and non-empty V-E
 
 
 (* Freyd told me in an email, that he wants Kleene equality, which we denote as "\<simeq>" below. 
-   We use "\<simeq>" below to repeat the experiments. *)
+   We use "\<simeq>" below to repeat the experiments.
+   Peter Freyd, email on June 15, 2016: 
+                "... To borrow your notation I would want:
+                 x \<approx> y  \<equiv>  ((E x) v (E y)) => ((E x) \<and> (E y) \<and> (x = y))" *)
+
 abbreviation FreydEquality2:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<simeq>" 60) 
  where "x \<simeq> y  \<equiv>  ((E(x) \<^bold>\<or> E(y)) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y) \<^bold>\<and> (x = y)))" 
 
