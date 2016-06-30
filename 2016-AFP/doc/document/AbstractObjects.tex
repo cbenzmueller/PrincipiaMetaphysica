@@ -115,7 +115,7 @@ The principia metaphysica project\footnote{Cf.~\url{https://mally.stanford.edu/p
  
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
-  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
+  \caption{Grammar of the second-order fragment of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
   Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
   $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}
@@ -1755,14 +1755,14 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic}%
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-While the latter formulas can still be verified by simp, 
-  their unfolded internal representations cannot be displayed anymore in Isabelle/HOL's jedit based
+While \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x\ y\ z{\isachardot}\ {\isacharparenleft}x\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ y\isactrlsup T\ \isactrlbold {\isasymand}\ y\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ z\isactrlsup T{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ x\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ z\isactrlsup T{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}} can still be verified by simp, 
+  its unfolded internal representation cannot be displayed anymore in Isabelle/HOL's jedit based
   user interface on a
   standard Macbook. Isabelle in fact reports the following: 
      ``No subgoals! exception Size raised (line 182 of "./basis/LibrarySupport.sml")''
-  Displaying the internal unfolded representation still worked 
-  for \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x\ y{\isachardot}\ x\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ y\isactrlsup T\ \isactrlbold {\isasymrightarrow}\ y\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ x\isactrlsup T{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}} though. This term is presented in the appendix 
-  of this paper (on about 240 pages in scriptsize).%
+   Displaying the internal unfolded representation still worked 
+  for \isa{{\isacharbrackleft}{\isacharparenleft}\isactrlbold {\isasymforall}x\ y{\isachardot}\ x\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ y\isactrlsup T\ \isactrlbold {\isasymrightarrow}\ y\isactrlsup T\ \isactrlbold {\isacharequal}\isactrlsup {\isadigit{3}}\ x\isactrlsup T{\isacharparenright}{\isacharbrackright}\ {\isacharequal}\ {\isasymtop}} though. The resulting term is presented in the appendix 
+  of this paper (on about 240 pages in scriptsize font).%
 \end{isamarkuptext}%
 \isamarkuptrue%
 %
@@ -1941,13 +1941,15 @@ We have experimented with an new idea towards a shallow embedding of MRTT in
  because of its size and consistency can neither be proved nor disproved anymore, etc.).
  On the other hand, we were still able automatically confirm the 
  fundamental theorem of possible worlds, and in this respect the degree of automation provided in our
- experiments exceeds that of related previous work \cite{ZaltaCade}.
+ experiments is reaching an interesting level; cf. the experiments in related work where 
+ a significant amount of handselected instantiations of schemata was needed (e.g. for comprehension and lambda
+ conversion) \cite{FitelsonZ07,Zalta15}.
 
  Independent of the outcome of the further research based upon the presented embedding it should 
  become clear that building a system similar to Isabelle but with taking MRTT as its foundational 
  core logic (instead of functional type theory) would surely provide
- a technologically more appropriate base environment for the formalization and automation of the theory of abstract objects
- and the principia metaphysica.%
+ a technologically more appropriate base environment for the formalization and automation of the 
+ theory of abstract objects and the principia metaphysica.%
 \end{isamarkuptext}%
 \isamarkuptrue%
 %

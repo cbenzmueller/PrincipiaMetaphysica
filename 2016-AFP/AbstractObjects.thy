@@ -713,14 +713,14 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
 
   subsection {* Technological problem/Pushing Isabelle to its Limits *} 
 
-  text {* While the latter formulas can still be verified by simp, 
-  their unfolded internal representations cannot be displayed anymore in Isabelle/HOL's jedit based
+  text {* While @{text "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>"} can still be verified by simp, 
+  its unfolded internal representation cannot be displayed anymore in Isabelle/HOL's jedit based
   user interface on a
   standard Macbook. Isabelle in fact reports the following: 
      ``No subgoals! exception Size raised (line 182 of "./basis/LibrarySupport.sml")''
-  Displaying the internal unfolded representation still worked 
-  for @{text "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>"} though. This term is presented in the appendix 
-  of this paper (on about 240 pages in scriptsize).
+   Displaying the internal unfolded representation still worked 
+  for @{text "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>"} though. The resulting term is presented in the appendix 
+  of this paper (on about 240 pages in scriptsize font). 
   *}
 
 
@@ -787,14 +787,18 @@ text {*
  because of its size and consistency can neither be proved nor disproved anymore, etc.).
  On the other hand, we were still able automatically confirm the 
  fundamental theorem of possible worlds, and in this respect the degree of automation provided in our
- experiments exceeds that of related previous work \cite{ZaltaCade}.
+ experiments is reaching an interesting level; cf. the experiments in related work where 
+ a significant amount of handselected instantiations of schemata was needed (e.g. for comprehension and lambda
+ conversion) \cite{FitelsonZ07,Zalta15}.
 
  Independent of the outcome of the further research based upon the presented embedding it should 
  become clear that building a system similar to Isabelle but with taking MRTT as its foundational 
  core logic (instead of functional type theory) would surely provide
- a technologically more appropriate base environment for the formalization and automation of the theory of abstract objects
- and the principia metaphysica.
+ a technologically more appropriate base environment for the formalization and automation of the 
+ theory of abstract objects and the principia metaphysica.
 *}
+
+
 
 (*<*)
 end 

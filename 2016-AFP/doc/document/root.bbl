@@ -1,4 +1,12 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Zalta15}
+J.~Alama, P.~E. Oppenheimer, and E.~N. Zalta.
+\newblock Automating leibniz's theory of concepts.
+\newblock In A.~P. Felty and A.~Middeldorp, editors, {\em Automated Deduction -
+  {CADE-25} - 25th International Conference on Automated Deduction, Berlin,
+  Germany, August 1-7, 2015, Proceedings}, volume 9195 of {\em LNCS}, pages
+  73--97. Springer, 2015.
 
 \bibitem{J23}
 C.~Benzm{\"u}ller and L.~Paulson.
@@ -26,6 +34,11 @@ A.~Church.
 \newblock A formulation of the simple theory of types.
 \newblock {\em Journal of Symbolic Logic}, 5:56--68, 1940.
 
+\bibitem{FitelsonZ07}
+B.~Fitelson and E.~N. Zalta.
+\newblock Steps toward a computational metaphysics.
+\newblock {\em J. Philosophical Logic}, 36(2):227--247, 2007.
+
 \bibitem{zalta:_princ_metap}
 E.~N. Zalta.
 \newblock Principia metaphysica, a compilation of the theorems of the theory of
@@ -36,6 +49,11 @@ E.~N. Zalta.
 E.~N. Zalta.
 \newblock {\em Abstract Objects: An Introduction to Axiomatic Metaphysics}.
 \newblock Dordrecht: D. Reidel, 1983.
+
+\bibitem{Zalta88}
+E.~N. Zalta.
+\newblock {\em Intensional Logic and the Metaphysics of Intentionality}.
+\newblock Cambridge, MA: The MIT Press/Bradford Books, 1988.
 
 \bibitem{zalta11:_relat_versus_funct_found_logic}
 E.~N. Zalta and P.~E. Oppenheimer.
