@@ -101,7 +101,7 @@ section {* Introduction *}
  
    \begin{figure}[t]
   \includegraphics[height=5.5cm]{ModalRelationalTypeTheory.png}\includegraphics[height=4.5cm]{ModalRelationalTypeTheory2.png}
-  \caption{Grammar of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
+  \caption{Grammar of the second-order fragment of MRTT, cf. \cite{zalta:_princ_metap} for further details. \label{mmrt}
   Two kinds of (complex) formulas are introduced: the $\varphi$-formulas may have encoding subformulas, while the
   $\varphi^*$-formulas must not. The latter are designated as propositional formulas, the former ones simply as formulas.}
   \end{figure}

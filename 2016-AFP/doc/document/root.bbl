@@ -1,3 +1,46 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{J23}
+C.~Benzm{\"u}ller and L.~Paulson.
+\newblock Quantified multimodal logics in simple type theory.
+\newblock {\em Logica Universalis (Special Issue on Multimodal Logics)},
+  7(1):7--20, 2013.
+
+\bibitem{C40}
+C.~Benzm{\"u}ller and B.~Woltzenlogel~Paleo.
+\newblock Automating {G\"{o}del's} ontological proof of {God}'s existence with
+  higher-order automated theorem provers.
+\newblock In T.~Schaub, G.~Friedrich, and B.~O'Sullivan, editors, {\em ECAI
+  2014}, volume 263 of {\em Frontiers in Artificial Intelligence and
+  Applications}, pages 93 -- 98. IOS Press, 2014.
+
+\bibitem{C55}
+C.~Benzm{\"u}ller and B.~Woltzenlogel~Paleo.
+\newblock The inconsistency in {G{\"o}del’s} ontological argument: A success
+  story for {AI} in metaphysics.
+\newblock In {\em IJCAI 2016}, 2016.
+\newblock Accepted for publication; to appear in 2016.
+
+\bibitem{Church40}
+A.~Church.
+\newblock A formulation of the simple theory of types.
+\newblock {\em Journal of Symbolic Logic}, 5:56--68, 1940.
+
+\bibitem{zalta:_princ_metap}
+E.~N. Zalta.
+\newblock Principia metaphysica, a compilation of the theorems of the theory of
+  abstract objects.
+\newblock Available at \texttt{https://mally.stanford.edu/publications.html}.
+
+\bibitem{zalta83:_abstr_objec}
+E.~N. Zalta.
+\newblock {\em Abstract Objects: An Introduction to Axiomatic Metaphysics}.
+\newblock Dordrecht: D. Reidel, 1983.
+
+\bibitem{zalta11:_relat_versus_funct_found_logic}
+E.~N. Zalta and P.~E. Oppenheimer.
+\newblock Relations versus functions at the foundations of logic:
+  Type-theoretic considerations.
+\newblock {\em Journal of Logic and Computation}, (21):351–374, 2011.
 
 \end{thebibliography}
