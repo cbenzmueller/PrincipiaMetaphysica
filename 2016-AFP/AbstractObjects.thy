@@ -701,12 +701,12 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T))] = \<top>" apply simp done 
 
-(* I have commented this for the moment, since it takes very long to process.
+(* The following takes very long to process; it may may sense to comment it out. *)
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T))] = \<top>" apply simp done 
-*)
+
 
  subsection {* Technological Problem --- Pushing Isabelle to its Limits *} 
 
