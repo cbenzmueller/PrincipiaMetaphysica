@@ -237,9 +237,9 @@ section {* Embedding of Modal Relational Type Theory *}
   Encoding yields formulas and never propositional formulas. Below we
   map it to predicate application @{text "\<Pi>(\<kappa>)"} which we then guard by an uninterpreted 
   constant symbol @{text "enc"}, that is we map @{text "\<lbrace>\<kappa>,\<Pi>\<rbrace>"} to @{text "(enc \<Pi>(\<kappa>))"} (note that entire 
-  expression denotes a predicate on possible worlds). This way we some limited amount of 
-  lambda conversion principles for encoding from the underlying meta-logic. Additional axioms are required
-  to obtain further conversion principles.
+  expression denotes a predicate on possible worlds). This way we obtain only some limited amount of 
+  lambda conversion principles for encoding from the underlying meta-logic. Additional axioms maybe required
+  to obtain further required reasoning principles.
   Exemplification is be noted below as @{text "\<lparr>\<Pi>,x\<rparr>"} (respectively, @{text "\<lparr>\<Pi>,x,...\<rparr>"}).
   It is mapped to predicate application below, that is, to @{text "\<Pi>(\<kappa>)"}. 
   This way lambda conversion principles are inherited 
@@ -251,18 +251,20 @@ section {* Embedding of Modal Relational Type Theory *}
 
  consts enc::"io\<Rightarrow>io" 
 
- axiomatization where encAxiom1: "(enc x) \<equiv> enc (\<lambda>w. (enc x w))"
- axiomatization where encAxiom2: "(\<lambda>w. \<not>(enc x w)) \<equiv> enc (\<lambda>w. \<not>(x w))"
-
  abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
     (T(y),T(Q)) \<Rightarrow> F((enc (Q y))) | 
     _ \<Rightarrow> ERR(dio)"
 
+ text {* We add some exemplary axioms to support reasoning with encodings. Future work will
+ be to study and add further principles. *}
+
+ axiomatization where encAxiom1: "(enc x) \<equiv> enc (\<lambda>w. (enc x w))"
+ axiomatization where encAxiom2: "(\<lambda>w. \<not>(enc x w)) \<equiv> enc (\<lambda>w. \<not>(x w))"
+
   text {* 
   Unary exemplifying formulas @{text "\<Pi>\<kappa>"} are noted as @{text "\<lparr>\<Pi>,\<kappa>\<rparr>"}.  
   Exemplification yields propositional formulas. 
-  It is mapped to guarded predicate application; the guard is an uninterpreted predicate constant
-  @{text "exe"}.
+  It is mapped to unguarded predicate application.
   *}
 
  (* consts exe::"io\<Rightarrow>io" *)
