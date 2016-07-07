@@ -702,6 +702,7 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T))] = \<top>" apply simp done 
 
 
+
  subsection {* Technological Problem --- Pushing Isabelle to its Limits *} 
 
   text {* While @{text "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>"} can still be verified by simp, 
