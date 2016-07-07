@@ -251,7 +251,7 @@ section {* Embedding of Modal Relational Type Theory *}
 
  consts enc::"io\<Rightarrow>io" 
 
- abbreviation Enc::"e opt\<Rightarrow>(e\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
+ abbreviation Enc::"'a opt\<Rightarrow>('a\<Rightarrow>io) opt\<Rightarrow>io opt" ("\<lbrace>_,_\<rbrace>") where "\<lbrace>x,\<Phi>\<rbrace> \<equiv> case (x,\<Phi>) of 
     (T(y),T(Q)) \<Rightarrow> F((enc (Q y))) | 
     _ \<Rightarrow> ERR(dio)"
 
@@ -268,7 +268,7 @@ section {* Embedding of Modal Relational Type Theory *}
   *}
 
  (* consts exe::"io\<Rightarrow>io" *)
- abbreviation Exe1::"(e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
+ abbreviation Exe1::"('a\<Rightarrow>io) opt\<Rightarrow>'a opt\<Rightarrow>io opt" ("\<lparr>_,_\<rparr>") where "\<lparr>\<Phi>,x\<rparr> \<equiv> case (\<Phi>,x) of 
     (T(Q),T(y)) \<Rightarrow> P((Q y)) | 
     _ \<Rightarrow> ERR(dio)"
 
@@ -278,11 +278,11 @@ section {* Embedding of Modal Relational Type Theory *}
  In addition to the unary case above, we thus introduce two further cases.
   *}  
 
- abbreviation Exe2::"(e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
+ abbreviation Exe2::"('a\<Rightarrow>'a\<Rightarrow>io) opt\<Rightarrow>'a opt\<Rightarrow>'a opt\<Rightarrow>io opt" ("\<lparr>_,_,_\<rparr>")
   where "\<lparr>\<Phi>,x1,x2\<rparr> \<equiv> case (\<Phi>,x1,x2) of 
     (T(Q),T(y1),T(y2)) \<Rightarrow> P((Q y1 y2)) | 
     _ \<Rightarrow> ERR(dio)"
- abbreviation Exe3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>e opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
+ abbreviation Exe3::"('a\<Rightarrow>'a\<Rightarrow>'a\<Rightarrow>io) opt\<Rightarrow>'a opt\<Rightarrow>'a opt\<Rightarrow>'a opt\<Rightarrow>io opt" ("\<lparr>_,_,_,_\<rparr>") 
   where "\<lparr>\<Phi>,x1,x2,x3\<rparr> \<equiv> case (\<Phi>,x1,x2,x3) of 
     (T(Q),T(y1),T(y2),T(y3)) \<Rightarrow> P((Q y1 y2 y3)) | 
     _ \<Rightarrow> ERR(dio)"
@@ -357,14 +357,14 @@ section {* Embedding of Modal Relational Type Theory *}
  abbreviation lam0::"io opt\<Rightarrow>io opt" ("\<^bold>\<lambda>\<^sup>0") where "\<^bold>\<lambda>\<^sup>0\<phi> \<equiv> case \<phi> of 
     P(\<psi>) \<Rightarrow> P(\<psi>) | 
     _ \<Rightarrow> ERR dio"  
- abbreviation lam::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" ("\<^bold>\<lambda>") where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> de) of
+ abbreviation lam::"('a\<Rightarrow>io opt)\<Rightarrow>('a\<Rightarrow>io) opt" ("\<^bold>\<lambda>") where "\<^bold>\<lambda>\<Phi> \<equiv> case (\<Phi> da) of
     P(_) \<Rightarrow> T(\<lambda>x. case (\<Phi> x) of P(\<phi>) \<Rightarrow> \<phi>) | 
     _ \<Rightarrow> ERR(\<lambda>x. dio)"
- abbreviation lamBinder::"(e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda>x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
- abbreviation lam2::"(e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>2") where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> de de) of
+ abbreviation lamBinder::"('a\<Rightarrow>io opt)\<Rightarrow>('a\<Rightarrow>io) opt" (binder "\<^bold>\<lambda>" [8] 9)  where "\<^bold>\<lambda>x. \<phi> x \<equiv> \<^bold>\<lambda> \<phi>"
+ abbreviation lam2::"('a\<Rightarrow>'a\<Rightarrow>io opt)\<Rightarrow>('a\<Rightarrow>'a\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>2") where "\<^bold>\<lambda>\<^sup>2\<Phi> \<equiv> case (\<Phi> da da) of
     P(_) \<Rightarrow> T(\<lambda>x y. case (\<Phi> x y) of P(\<phi>) \<Rightarrow> \<phi>) | 
     _ \<Rightarrow> ERR(\<lambda>x y. dio)"
- abbreviation lam3::"(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io opt)\<Rightarrow>(e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>3") where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> de de de) of
+ abbreviation lam3::"('a\<Rightarrow>'a\<Rightarrow>'a\<Rightarrow>io opt)\<Rightarrow>('a\<Rightarrow>'a\<Rightarrow>'a\<Rightarrow>io) opt" ("\<^bold>\<lambda>\<^sup>3") where "\<^bold>\<lambda>\<^sup>3\<Phi> \<equiv> case (\<Phi> da da da) of
     P(_) \<Rightarrow> T(\<lambda>x y z. case (\<Phi> x y z) of P(\<phi>) \<Rightarrow> \<phi>) | 
     _ \<Rightarrow> ERR(\<lambda>x y z. dio)"
 
@@ -376,11 +376,11 @@ section {* Embedding of Modal Relational Type Theory *}
   We again introduce binder notation for @{text "\<^bold>\<iota>"}.
   *}
  
- abbreviation that::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" ("\<^bold>\<iota>")  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> de) of
+ abbreviation that::"('a\<Rightarrow>io opt)\<Rightarrow>'a opt" ("\<^bold>\<iota>")  where "\<^bold>\<iota>\<Phi> \<equiv> case (\<Phi> da) of
     F(_) \<Rightarrow> T(THE x. case (\<Phi> x) of F \<psi> \<Rightarrow> \<psi> dw) | 
     P(_) \<Rightarrow> T(THE x. case (\<Phi> x) of P \<psi> \<Rightarrow> \<psi> dw) | 
-    _ \<Rightarrow> ERR(de)"
- abbreviation thatBinder::"(e\<Rightarrow>io opt)\<Rightarrow>e opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
+    _ \<Rightarrow> ERR(da)"
+ abbreviation thatBinder::"('a\<Rightarrow>io opt)\<Rightarrow>'a opt" (binder "\<^bold>\<iota>" [8] 9)  where "\<^bold>\<iota>x. \<phi> x \<equiv> \<^bold>\<iota> \<phi>"
 
 
 section {* Further Logical Connectives *}
@@ -422,47 +422,47 @@ section {* E!, O!, A! and =E *}
   start out with the distinguished 1-place relation constant @{text "E!"} (read ‘being concrete’ or ‘concreteness’). 
   *}
 
- consts Exists::"(e\<Rightarrow>io)" ("E!")
+ consts Exists::"('a\<Rightarrow>io)" ("E!")
  
   text {* 
   Next, being ordinary is defined as being possibly concrete. 
   *}
 
- abbreviation ordinaryObject::"(e\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E!\<^sup>T,x\<^sup>T\<rparr>"
+ abbreviation ordinaryObject::"('a\<Rightarrow>io) opt" ("O!") where "O! \<equiv> \<^bold>\<lambda>x. \<^bold>\<diamond>\<lparr>E!\<^sup>T,x\<^sup>T\<rparr>"
 
   text {* 
   Being abstract is then defined as not possibly being concrete. 
   *}
 
- abbreviation abstractObject::"(e\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E!\<^sup>T,x\<^sup>T\<rparr>)"
+ abbreviation abstractObject::"('a\<Rightarrow>io) opt" ("A!") where "A! \<equiv> \<^bold>\<lambda>x. \<^bold>\<not>(\<^bold>\<diamond>\<lparr>E!\<^sup>T,x\<^sup>T\<rparr>)"
 
   text {* 
   Finally, we introduce the identity relations @{text "\<^bold>=\<^sub>E"} and @{text "\<^bold>="} on individuals. 
   *}
 
- abbreviation identityE::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sub>E" 63) where "x \<^bold>=\<^sub>E y \<equiv> 
+ abbreviation identityE::"'a opt\<Rightarrow>'a opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sub>E" 63) where "x \<^bold>=\<^sub>E y \<equiv> 
     \<lparr>O!,x\<rparr> \<^bold>\<and> \<lparr>O!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lparr>F\<^sup>T,x\<rparr> \<^bold>\<equiv> \<lparr>F\<^sup>T,y\<rparr>)"
 
- abbreviation identityI::"e opt\<Rightarrow>e opt\<Rightarrow>io opt" (infixl "\<^bold>=" 63) where "x \<^bold>= y \<equiv> 
+ abbreviation identityI::"'a opt\<Rightarrow>'a opt\<Rightarrow>io opt" (infixl "\<^bold>=" 63) where "x \<^bold>= y \<equiv> 
     x \<^bold>=\<^sub>E y \<^bold>\<or> (\<lparr>A!,x\<rparr> \<^bold>\<and> \<lparr>A!,y\<rparr> \<^bold>\<and> \<^bold>\<box>(\<^bold>\<forall>F. \<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lbrace>y,F\<^sup>T\<rbrace>))"
 
 
  text {* Moreover, we introduce the following identity relations on n-ary relations (for $n=0,1,2,3$). *}
 
- abbreviation identityRel1::" ((e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>1" 63) 
+ abbreviation identityRel1::" (('a\<Rightarrow>io) opt)\<Rightarrow>(('a\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>1" 63) 
    where "F1 \<^bold>=\<^sup>1 G1 \<equiv> \<^bold>\<box>(\<^bold>\<forall>x. \<lbrace>x\<^sup>T,F1\<rbrace> \<^bold>\<equiv> \<lbrace>x\<^sup>T,G1\<rbrace>)"
 
- abbreviation identityRel2::" ((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>2" 63) 
+ abbreviation identityRel2::" (('a\<Rightarrow>'a\<Rightarrow>io) opt)\<Rightarrow>(('a\<Rightarrow>'a\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>2" 63) 
    where "F2 \<^bold>=\<^sup>2 G2 \<equiv> \<^bold>\<forall>x1.(  (\<^bold>\<lambda>y.\<lparr>F2,y\<^sup>T,x1\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,y\<^sup>T,x1\<^sup>T\<rparr>)
                           \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F2,x1\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G2,x1\<^sup>T,y\<^sup>T\<rparr>))"
 
- abbreviation identityRel3::" ((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>((e\<Rightarrow>e\<Rightarrow>e\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>3" 63) 
+ abbreviation identityRel3::" (('a\<Rightarrow>'a\<Rightarrow>'a\<Rightarrow>io) opt)\<Rightarrow>(('a\<Rightarrow>'a\<Rightarrow>'a\<Rightarrow>io) opt)\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>3" 63) 
    where "F3 \<^bold>=\<^sup>3 G3 \<equiv> \<^bold>\<forall>x1 x2.(  (\<^bold>\<lambda>y.\<lparr>F3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,y\<^sup>T,x1\<^sup>T,x2\<^sup>T\<rparr>)
                              \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,y\<^sup>T,x2\<^sup>T\<rparr>)
                              \<^bold>\<and> (\<^bold>\<lambda>y.\<lparr>F3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y.\<lparr>G3,x1\<^sup>T,x2\<^sup>T,y\<^sup>T\<rparr>))"
 
  abbreviation equalityRel0::"io opt\<Rightarrow>io opt\<Rightarrow>io opt" (infixl "\<^bold>=\<^sup>0" 63) 
-   where "F0 \<^bold>=\<^sup>0 G0 \<equiv> (\<^bold>\<lambda>y . F0) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. G0)"
+   where "F0 \<^bold>=\<^sup>0 G0 \<equiv> (\<^bold>\<lambda>y::e . F0) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. G0)"
 
 
 section {* Three-Valued Meta-Logic*}
@@ -525,13 +525,18 @@ section {* Some Tests and First Applications*}
   text {* With the latter example we also want to illustrate the inflation of representations as caused by our
      embedding. For this note, that the statement @{text "[(\<^bold>\<forall>R.\<^bold>\<forall>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>R\<^sup>T,x\<^sup>T\<rparr>)] = \<top>"} abbreviates the
     actual internal term  
-   @{text "(case case case \<lbrace>da\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,da\<^sup>T\<rparr> of P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,x\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+   @{text "(case case case \<lbrace>da\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,da\<^sup>T\<rparr> of
+               P x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,x\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
                | F x \<Rightarrow> (\<lambda>w. \<forall>x. case \<lbrace>x\<^sup>T,da\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>da\<^sup>T,x\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
-          P x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-                               | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+          P x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of
+                               P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                               | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F
+                               | _ \<Rightarrow> dio\<^sup>E of
                           P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
-                                 | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F | _ \<Rightarrow> dio\<^sup>E of
+          | F x \<Rightarrow> (\<lambda>w. \<forall>x. case case \<lbrace>da\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,da\<^sup>T\<rparr> of
+                                 P xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of P \<psi> \<Rightarrow> \<psi> w)\<^sup>P
+                                 | F xa \<Rightarrow> (\<lambda>w. \<forall>xa. case \<lbrace>xa\<^sup>T,x\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lparr>x\<^sup>T,xa\<^sup>T\<rparr> of F \<psi> \<Rightarrow> \<psi> w)\<^sup>F
+                                 | _ \<Rightarrow> dio\<^sup>E of
                             F \<psi> \<Rightarrow> \<psi> w)\<^sup>F
           | _ \<Rightarrow> dio\<^sup>E of
      P \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | F \<psi> \<Rightarrow> if \<forall>w. \<psi> w = True then \<top> else \<bottom> | _ \<Rightarrow> *) =
@@ -691,12 +696,12 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>1 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>1 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T))] = \<top>" apply simp done 
 
-(*
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>=\<^sup>2 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>2 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T))] = \<top>" apply simp done 
 
+(* I have commented this for the moment, since it takes very long to process.
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>" apply simp done
@@ -761,13 +766,13 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
   OrdinaryObjectsDoNotEncode: "[\<lparr>O!,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<^bold>\<box>(\<^bold>\<not>(\<^bold>\<exists>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace>))] = \<top>" and
   ObjectComprehension: "[(\<^bold>\<exists>x. \<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. \<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<phi>))] = \<top>"
 
- abbreviation Situation::"e opt\<Rightarrow>io opt"  where 
+ abbreviation Situation::"'a opt\<Rightarrow>io opt"  where 
    "Situation x \<equiv> (\<lparr>A!,x\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x,F\<^sup>T\<rbrace> \<^bold>\<rightarrow> (\<^bold>\<exists>p. F\<^sup>T \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. p\<^sup>P)))))"
- abbreviation PIsTrueInX::"e opt \<Rightarrow> (i \<Rightarrow> bool) opt \<Rightarrow> (i \<Rightarrow> bool) opt" (infixl "\<Turnstile>" 63) where 
+ abbreviation PIsTrueInX::"'a opt \<Rightarrow> (i \<Rightarrow> bool) opt \<Rightarrow> (i \<Rightarrow> bool) opt" (infixl "\<Turnstile>" 63) where 
    "x \<Turnstile> p \<equiv> \<lbrace>x,(\<^bold>\<lambda>y. p)\<rbrace>"  
- abbreviation PossibleWorld::"e opt\<Rightarrow>io opt" where 
+ abbreviation PossibleWorld::"'a opt\<Rightarrow>io opt" where 
    "PossibleWorld x \<equiv> Situation(x) \<^bold>\<and> \<^bold>\<diamond>(\<^bold>\<forall>p. (x \<Turnstile> p\<^sup>P) \<^bold>\<equiv> p\<^sup>P)" 
- abbreviation Maximal::"e opt\<Rightarrow>io opt" where 
+ abbreviation Maximal::"'a opt\<Rightarrow>io opt" where 
    "Maximal s \<equiv> (\<^bold>\<forall>p. (s \<Turnstile> p\<^sup>P) \<^bold>\<or> (s \<Turnstile> (\<^bold>\<not> p\<^sup>P)))" 
 
  text {* We are now in the position to formalize and prove the fundamental theorem of possible worlds,
@@ -820,17 +825,7 @@ internal formula representing the transitivity of equality between ternary relat
 end 
 (*>*)
 
-(*
- section{* Some Tests with Comprehension *}
 
- lemma "[(\<^bold>\<exists>x.(\<lparr>A!,x\<^sup>T\<rparr> \<^bold>\<and> (\<^bold>\<forall>F. (\<lbrace>x\<^sup>T,F\<^sup>T\<rbrace> \<^bold>\<equiv> \<lparr>F\<^sup>T,x\<^sup>T\<rparr>))))] = \<top>" apply simp oops
-
-
- section{* Some Further Tests (Largely Uncommented) *}
-
-
- lemma "[(\<^bold>\<forall>x.\<lbrace>x\<^sup>T,PP\<^sup>T\<rbrace>)] = \<top> \<longrightarrow> [(\<lbrace>a\<^sup>T,PP\<^sup>T\<rbrace>)] = \<top>" apply simp  done
-*)
 
 
 
