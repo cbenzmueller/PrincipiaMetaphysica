@@ -691,6 +691,7 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>1 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>1 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>1 y\<^sup>T))] = \<top>" apply simp done 
 
+(*
  lemma "[(\<^bold>\<forall>x. x\<^sup>T \<^bold>=\<^sup>2 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>2 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>2 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>2 z\<^sup>T)] = \<top>" apply simp done
@@ -700,8 +701,7 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> y\<^sup>T \<^bold>=\<^sup>3 x\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y z. (x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<and> y\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T) \<^bold>\<rightarrow> x\<^sup>T \<^bold>=\<^sup>3 z\<^sup>T)] = \<top>" apply simp done
  lemma "[(\<^bold>\<forall>x y. x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T \<^bold>\<rightarrow> \<^bold>\<box>(x\<^sup>T \<^bold>=\<^sup>3 y\<^sup>T))] = \<top>" apply simp done 
-
-
+*)
 
  subsection {* Technological Problem --- Pushing Isabelle to its Limits *} 
 
@@ -748,7 +748,8 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  lemma "[(\<^bold>\<forall>z. \<lparr>(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (p\<^sup>P \<^bold>\<or> \<^bold>\<not>p\<^sup>P))),z\<^sup>T\<rparr> \<^bold>\<equiv> \<lparr>(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (q\<^sup>P \<^bold>\<or> \<^bold>\<not>q\<^sup>P))),z\<^sup>T\<rparr>)] = \<top>" apply simp done
  lemma "[(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (q\<^sup>P \<^bold>\<or> \<^bold>\<not>q\<^sup>P))) \<^bold>=\<^sup>1 (\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (p\<^sup>P \<^bold>\<or> \<^bold>\<not>p\<^sup>P)))] = \<top>" apply simp done
  lemma "[\<lbrace>x\<^sup>T,(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (q\<^sup>P \<^bold>\<or> \<^bold>\<not>q\<^sup>P)))\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (p\<^sup>P \<^bold>\<or> \<^bold>\<not>p\<^sup>P)))\<rbrace>] = \<top>" apply simp done
- 
+ lemma "[\<lbrace>x\<^sup>T,(\<^bold>\<lambda>y. (\<lparr>Q\<^sup>T,y\<^sup>T\<rparr> \<^bold>\<and> (q\<^sup>P \<^bold>\<or> \<^bold>\<not>q\<^sup>P)))\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,(\<^bold>\<lambda>z. (\<lparr>Q\<^sup>T,z\<^sup>T\<rparr> \<^bold>\<and> (p\<^sup>P \<^bold>\<or> \<^bold>\<not>p\<^sup>P)))\<rbrace>] = \<top>" apply simp done
+
  
  subsection{* Theory of Encoding *}
 
@@ -772,7 +773,7 @@ cf. ~\cite[chap.4]{zalta11:_relat_versus_funct_found_logic} *}
  text {* We are now in the position to formalize and prove the fundamental theorem of possible worlds,
   which states that possible worlds are maximal. *}
 
- lemma "[(\<^bold>\<forall>x. PossibleWorld(x\<^sup>T) \<^bold>\<rightarrow> Maximal(x\<^sup>T))] = \<top>" apply simp using encAxiom2 by auto 
+ lemma "[(\<^bold>\<forall>x. PossibleWorld(x\<^sup>T) \<^bold>\<rightarrow> Maximal(x\<^sup>T))] = \<top>" apply simp using encAxiom2 by metis
 
 
  subsection {* Consistency? *}
