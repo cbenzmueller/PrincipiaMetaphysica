@@ -14,7 +14,9 @@ below: the composition \<open>x\<cdot>y\<close> exists if and only if the target
 with the source  of \<open>y\<close>. This is why free logic, as opposed to e.g. classical logic, is 
 better suited as a starting point in this mathematical application area.\footnote{The precise logic 
 setting is unfortunately not discussed in the very beginning of Freyd's and Scedrov's textbook. 
-Appendix B, however, contains a concise formal definition of the assumed logic.}
+Appendix B, however, contains a concise formal definition of the assumed logic. 
+Note the special notion of equality used below (which is different from Kleene equality) and also 
+remember that we postulated a 'non-existing' entity.}
 
 In the remainder we identify the base type \<open>i\<close> of free logic with the raw type of 
 morphisms. Moreover, we introduce constant symbols for the following operations: 
@@ -102,20 +104,18 @@ axiomatization FreydsAxiomSystemReduced where
  B3a: "(\<box>x)\<cdot>x \<approx> x" and
  B3b: "x\<cdot>(x\<box>) \<approx> x" and
  B5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z"
-
 text \<open>
 The dropped axioms can then be introduced as lemmas.
 \<close>
 lemma B2b: "\<box>(x\<box>) \<approx> \<box>x" by (metis B1 B2a B3a)
 lemma B4a: "\<box>(x\<cdot>y) \<approx> \<box>(x\<cdot>(\<box>y))" by (metis B1 B2a B3a)
-lemma B4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" sledgehammer (B1 B2a B3a B3b B5)
+lemma B4b: "(x\<cdot>y)\<box> \<approx> ((x\<box>)\<cdot>y)\<box>" by (metis B1 B2a B3a)
 
 (*<*)
 text \<open>
 In the remainder of this section we present some further tests wrt Freyd's and Scedrov's theory. 
 We leave these tests uncommented.
 \<close>
-
 abbreviation DirectedEquality:: "i\<Rightarrow>i\<Rightarrow>bool" (infix "\<greaterapprox>" 60) 
  where "x \<greaterapprox> y \<equiv> ((\<^bold>E x) \<^bold>\<rightarrow> (\<^bold>E y)) \<^bold>\<and> x \<^bold>= y"  
 
