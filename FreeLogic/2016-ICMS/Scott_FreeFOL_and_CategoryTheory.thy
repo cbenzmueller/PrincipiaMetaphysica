@@ -112,7 +112,7 @@ context (* Freyd_1:
   A4b: "cod(x\<cdot>y) \<approx> cod(x\<cdot>cod(y))" and
   A5:  "x\<cdot>(y\<cdot>z) \<approx> (x\<cdot>y)\<cdot>z" 
  begin 
-  (* Nitpick does find a model. *)
+ (* Nitpick does find a model; in this model D-E is empty.  *)
   lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
  end
 
@@ -135,7 +135,7 @@ context (* Freyd_2:
   lemma (*A2a*) "cod (dom x) \<approx> dom x" by (metis A1 A2b A3b)
  end
 
-
+ 
 context (* Freyd_3:
    Freyd's axioms are even more redundant for "\<approx>" and non-empty D-E.
    This coincides with the results the results in our ICMS 2016 paper. *)
@@ -378,7 +378,7 @@ context (* Freyd_8:
    Freyd's axioms are inconsistent for "\<simeq>" and non-empty D-E. 
    We present a detailed, intuitive proof. *)   
  assumes           
-  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> ((x\<box>) \<simeq> (\<box>y))" and
+  A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> (x\<box> \<simeq> \<box>y)" and
   A2a: "((\<box>x)\<box>) \<simeq> \<box>x" and
   A2b: "\<box>(x\<box>) \<simeq> \<box>x" and
   A3a: "(\<box>x)\<cdot>x \<simeq> x" and
@@ -387,15 +387,42 @@ context (* Freyd_8:
   A4b: "(x\<cdot>y)\<box> \<simeq> ((x\<box>)\<cdot>y)\<box>" and
   A5:  "x\<cdot>(y\<cdot>z) \<simeq> (x\<cdot>y)\<cdot>z"
  begin
+  (* Nitpick does find a model; in this model D-E is empty.  *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops 
 
   lemma Nonexistence_implies_Falsity_2:
     assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty. *) 
-    shows False  (* We then prove falsity. *) 
+    shows False            (* We then prove falsity. *) 
   using A1 A2a A3a assms by blast
 
   lemma Nonexistence_implies_Falsity_3:
     assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
     shows False  (* We then prove falsity. *) 
+  proof -
+     (* Let a be an undefined object *)
+   obtain a where 1: "\<^bold>\<not>(E a)" using assms by auto
+     (* We instantiate axiom A3a with "a". *)
+   have 2: "(\<box>a)\<cdot>a \<simeq> a" using A3a by blast
+     (* By unfolding the definition of "\<simeq>" we get from 1 that "(\<box>a)\<cdot>a)" is not defined. This is 
+        easy to see, since if "(\<box>a)\<cdot>a)" were defined, we also had that "a" is defined, which is 
+        not the case by assumption. *)
+   have 3: "\<^bold>\<not>(E((\<box>a)\<cdot>a))" using 1 2 by blast
+     (* We instantiate axiom A1 with "(\<box>a)" and "a". *)
+   have 4: "E((\<box>a)\<cdot>a) \<^bold>\<leftrightarrow> (\<box>a)\<box> \<simeq> \<box>a" using A1 by blast
+     (* We instantiate axiom A2a with "a". *)
+   have 5: "(\<box>a)\<box> \<simeq> \<box>a" using A2a by blast 
+     (* We use 4 (and symmetry and transitivity of "\<simeq>") to rewrite the right-hand of the 
+        equivalence 3 into into "\<box>a \<simeq> \<box>a". *) 
+   have 6: "E((\<box>a)\<cdot>a)" using 4 5 by blast
+     (* We have "\<^bold>\<not>(E((\<box>a)\<cdot>a))" and "\<^bold>(E((\<box>a)\<cdot>a))", hence Falsity. *)
+   then show ?thesis using 6 3 by blast
+  qed
+
+  lemma "\<forall>x. E(x)" using Nonexistence_implies_Falsity_3 by auto
+
+  lemma Nonexistence_implies_Falsity_4:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False            (* We then prove falsity. *) 
   proof -
      (* Let a be an undefined object *)
    obtain a where 1: "\<^bold>\<not>(E a)" using assms by auto
@@ -419,31 +446,6 @@ context (* Freyd_8:
    then show ?thesis using 7 3 by blast
   qed
 
-  lemma "\<forall>x. E(x)" using Nonexistence_implies_Falsity_3 by auto
-
-
-  lemma Nonexistence_implies_Falsity_4:
-    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
-    shows False  (* We then prove falsity. *) 
-  proof -
-     (* Let a be an undefined object *)
-   obtain a where 1: "\<^bold>\<not>(E a)" using assms by auto
-     (* We instantiate axiom A3a with "a". *)
-   have 2: "(\<box>a)\<cdot>a \<simeq> a" using A3a by blast
-     (* By unfolding the definition of "\<simeq>" we get from 1 that "(\<box>a)\<cdot>a)" is not defined. This is 
-        easy to see, since if "(\<box>a)\<cdot>a)" were defined, we also had that "a" is defined, which is 
-        not the case by assumption. *)
-   have 3: "\<^bold>\<not>(E((\<box>a)\<cdot>a))" using 1 2 by blast
-     (* We instantiate axiom A1 with "(\<box>a)" and "a". *)
-   have 4: "E((\<box>a)\<cdot>a) \<^bold>\<leftrightarrow> (\<box>a)\<box> \<simeq> \<box>a" using A1 by blast
-     (* We instantiate axiom A2a with "a". *)
-   have 5: "(\<box>a)\<box> \<simeq> \<box>a" using A2a by blast 
-     (* We use 4 (and symmetry and transitivity of "\<simeq>") to rewrite the right-hand of the 
-        equivalence 3 into into "\<box>a \<simeq> \<box>a". *) 
-   have 6: "E((\<box>a)\<cdot>a)" using 4 5 by blast
-     (* We have "\<^bold>\<not>(E((\<box>a)\<cdot>a))" and "\<^bold>(E((\<box>a)\<cdot>a))", hence Falsity. *)
-   then show ?thesis using 6 3 by blast
-  qed
  end
 
 context (* Scott_in_Frey_Notation: 
@@ -461,6 +463,18 @@ context (* Scott_in_Frey_Notation:
 
   lemma Nonexistence_implies_Falsity_1:
     assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+
+  lemma Another_Test:
+    assumes "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<and> (\<exists>x. (E x))"   
+                 (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+
+  lemma And_Another_Test:
+    assumes "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<and> (\<exists>x. (E x)) \<^bold>\<and> (\<forall>x. E(\<box>x)) \<^bold>\<and> (\<forall>x. E(x\<box>))"   
+                 (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
     shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
  end
