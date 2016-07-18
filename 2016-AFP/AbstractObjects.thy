@@ -5,59 +5,77 @@ imports Main
 begin
 (*>*)
 
-text {*
-\begin{abstract}
-We present an attempt to formalize modal relational type theory in functional type theory. This
-formalization has been motivated to serve as a possible starting point for the subsequent modeling
-of Zalta's theory of abstract objects, which  provides an axiomatic foundation for metaphysics.
-\end{abstract}
-*}
+text {* \begin{abstract} Our goal in this paper is to represent the
+theory of abstract objects, which provides an axiomatic foundation for
+metaphysics, in Isabelle/HOL.  An important fragment of this theory
+can be formulated in a second-order, quantified modal language with
+complex terms, though the more general type-theoretic version is
+formulated in a modal relational type theory.  In this paper, we
+attempt to represent the second-order fragment using functional type
+theory, with an eye towards addressing the question of whether
+functional type theory provides an adequate framework for representing
+the theory of abstract objects -- a theory that has formulas that
+con't be converted to terms.  \end{abstract} *}
 
 section {* Introduction *}
   text {* 
-  The principia metaphysica project\footnote{Cf.~\url{https://mally.stanford.edu/principia/principia.html}} 
-  \cite{zalta:_princ_metap} at Stanford University aims
-  at providing an encompassing axiomatic foundation for metaphysics, mathematics and the sciences. 
-  The starting point is Zalta's theory of abstract objects \cite{zalta83:_abstr_objec}  --- a metaphysical 
-  theory providing a systematic description of fundamental and complex abstract objects. This 
-  theory provides is at heart of Zalta's ongoing 'principia metaphysica' 
-  project.
-  
-  The theory of abstract objects utilizes a modal relational type theory (MRTT) as 
-  logical foundation.  Arguments
+  Abstract objects such as mathematical objects, possible events, etc.,
+  are assumed in the sciences.
+  By systematizing the laws governing abstract objects generally,  
+  the theory of abstract objects \cite{zalta83:_abstr_objec} (henceforth,
+  `object theory')  aims
+  to provide axiomatic metaphysical foundations for science. 
+  A recent and precise formulation of the second-order fragment of
+  the theory, along with a significant body of results,  is 
+  now available \cite{zalta:_princ_metap}. Attempts to
+  implement this fragment using automated reasoning engines have 
+  been initiated by the
+  the Computational Metaphysics project at Stanford 
+   University.\footnote{Cf.~\url{http://mally.stanford.edu/cm/}} 
+
+  The most general version of object theory, however, is 
+  formulated using modal relational type theory (MRTT) as
+  a logical foundation.  Arguments
   defending this choice against a modal functional type theory (MFTT)
-  have been presented before \cite{zalta11:_relat_versus_funct_found_logic}.
-  In a nutshell, the situation is this: functional type theory comes with strong 
-  comprehension principles, which, in the context of the theory of abstract objects, 
-  have paradoxical implications \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. 
-  When starting off with a relational foundation, however, 
-  weaker comprehension principles are provided, and these obstacles can be avoided.
+  have been presented elsewhere \cite{zalta11:_relat_versus_funct_found_logic}.
+  In a nutshell, the situation is this: functional type theory assumes that 
+  every formula can be converted to a term, but  object theory makes no
+  such assumptions and includes formulas that can't be converted to terms,
+  on pain of paradox \cite[chap.4]{zalta11:_relat_versus_funct_found_logic}. 
+  When representing object theory in MRTT instead of MFTT,  however, 
+  its logic of object theory can be captured without the assumption 
+  that every formula is a term; MRTT doesn't assume
+  a term logic.   
 
   Isabelle/HOL is a proof assistant based on a functional type theory extending
   Church's theory of types \cite{Church40}, and recently it has been shown 
   that Church's type theory can be elegantly utilized as a meta-logic to semantically embed and 
   automate various quantified non-classical logics, including MFTT \cite{J23,C40}. 
   This embedding of MFTT has subsequently been employed in a case study in
-  computational metaphysics, in which different variants of Kurt G{\"o}del's ontological 
-  argument were verified resp. falsified \cite{C40,C55}. 
+  computational metaphysics, in which some variants of Kurt G{\"o}del's ontological 
+  argument were verified, while others were falsified \cite{C40,C55}. 
 
-  In this paper we explore an idea to encode, respectively embed, the second-order fragment of  MRTT in 
-  functional type theory.\footnote{In fact, by using polymorphic variants of the various abbreviations
-  we introduce it should be possible to extend the presented approach to full MRTT. However, we
-  have not fully explored this yet. Moreover, relevant problems, as addressed here, already arise in the context 
+  In this paper we try to find a way embed the second-order fragment of 
+  object theory in 
+  functional type theory.\footnote{If we use polymorphic variants of the various abbreviations
+  we introduce below, it should be possible to extend the current approach to
+  the type-theoretic version of object theory formulated in full
+  MRTT. However, we have not fully explored this yet. Moreover,
+relevant
+  problems, as addressed here, already arise in the context
   the second-order fragment of MRTT.}. 
-  Thereby, we want adapt and extend ideas from the previous, successful embedding of MFTT in functional 
-  type theory.
+  Thus we would like to extend Isabelle/HOL and MFTT with a 
+  new application. 
   Our contribution here shall serve as possible starting point for the subsequent
-  formalization of further chapters of the theory of abstract objects and the principia 
-  metaphysica -- as far as this is possible considering the technical challenges we report below. 
+  formalization of further chapters of object theory -- as far as this
+is possible considering the technical challenges we report below.
 
  
   The motivating research questions for the formalisation presented below include:
   \begin{itemize} 
   \item Can functional type theory, despite the problems as pointed 
-   out by Zalta and
-   Oppenheimer \cite{zalta11:_relat_versus_funct_found_logic}, 
+   out by Oppenheimer and
+   Zalta \cite{zalta11:_relat_versus_funct_found_logic}, 
    nevertheless be utilized to encode MRTT and subsequently the theory of abstract 
    objects when adapting and utilizing the embeddings approach? 
    % As it turns, we will 
@@ -77,11 +95,12 @@ section {* Introduction *}
   % What are the particular problems detected in the course of the study?
   \end{itemize}
 
-  In this paper we focus mainly on the presentation of the embedding of MRTT in functional type theory.
-  Some technical difficulties will be highlighted. However, a proper exploration and discussion of 
-  the above questions is left as further work.
+  As mentioned previously, we focus in this paper on an embedding of the
+  second-order fragment of object theory in MFTT.
+  Some technical difficulties will be highlighted. However, a proper
+  exploration and discussion of the above questions is left as further
+  work.
  
-
 
   The formalization idea we explore below is to adapt and extend the previous encoding of MFTT in 
   functional type theory. 

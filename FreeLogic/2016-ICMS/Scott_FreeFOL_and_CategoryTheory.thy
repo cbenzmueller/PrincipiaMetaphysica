@@ -1,4 +1,4 @@
-theory Scott_FreeFOL_and_CategoryTheory imports Main 
+theory Scott_FreeFOL_and_CategoryTheory imports HOL Nitpick
 begin 
 
 typedecl i                                       (* Type for indiviuals *)
@@ -215,8 +215,7 @@ context (* Freyd_5:
 
 
 context (* Freyd_6: 
-   Freyd's axioms are inconsistent for "\<simeq>" and non-empty D-E. 
-   This seems very problematic for Freyd, doesn't it? *)
+   Freyd's axioms are inconsistent for "\<simeq>" and non-empty D-E. *)
  assumes 
   A1:  "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<simeq> cod y)" and
   A2a:  "cod (dom x) \<simeq> dom x" and
@@ -351,7 +350,7 @@ context (* Scott_1:
 
 
 context (* Scott_2: 
-    We additionally assume that D-E is nonempty (i.e. "\<exists>x. \<^bold>\<not>(E(x))" holds, for "\<exists>" ranging over V); 
+    We additionally assume that D-E is nonempty (i.e. "\<exists>x. \<^bold>\<not>(E(x))" holds, for "\<exists>" ranging over D); 
     we still get consistency. That is what we want! *)
  assumes 
   S1: "E(dom x) \<^bold>\<rightarrow> E(x)" and
@@ -471,13 +470,6 @@ context (* Scott_in_Frey_Notation:
                  (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
     shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
-
-  lemma And_Another_Test:
-    assumes "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<and> (\<exists>x. (E x)) \<^bold>\<and> (\<forall>x. E(\<box>x)) \<^bold>\<and> (\<forall>x. E(x\<box>))"   
-                 (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
-    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
-  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
- end
 
 
 end
