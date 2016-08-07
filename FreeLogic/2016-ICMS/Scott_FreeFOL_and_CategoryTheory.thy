@@ -1,4 +1,4 @@
-theory Scott_FreeFOL_and_CategoryTheory imports HOL Nitpick
+theory Scott_FreeFOL_and_CategoryTheory imports Main
 begin 
 
 typedecl i                                       (* Type for indiviuals *)
@@ -473,8 +473,8 @@ context (* Scott_in_Frey_Notation:
  end
 
 
-
-abbreviation Id where "Id i \<equiv> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> (E(u\<cdot>v) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v))))"   
+abbreviation Id where "Id i \<equiv> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> (E(u\<cdot>v) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v))))"
+(* This seems a wrong definition of Id *)
 
 context (* Scott_3: 
    A new set of axioms from Dana Scott: Is this set derivable from the old one? *)
@@ -486,11 +486,12 @@ context (* Scott_3:
   S5: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" and 
   S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
  begin 
+  lemma (*test*)  "\<^bold>\<forall>x. Id(cod(x))" nitpick  [user_axioms, show_all, format = 2] oops (* Countermodel *)
 
   lemma (*D2:*) "\<^bold>\<forall>i. (dom x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (Id(i) \<^bold>\<and> i\<cdot>x \<^bold>=\<^bold>= x))" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
   lemma (*D3:*) "\<^bold>\<forall>i. (cod x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (Id(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x))" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
   lemma (*E1:*) "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))" using S1 S2 S3 by blast 
-  lemma (*E2:*) "(\<^bold>\<forall>x.\<^bold>\<exists>y. E(x\<cdot>y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<exists>x. E(x\<cdot>y))" by (meson S3 S5 S6) 
+  lemma (*E2:*) "(\<^bold>\<forall>x.\<^bold>\<exists>y. E(x\<cdot>y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<exists>x. E(x\<cdot>y))" by (meson S3 S5 S6)
   lemma (*E3:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (\<^bold>\<exists>i. (Id(i) \<^bold>\<and> x\<cdot>(i\<cdot>y) \<^bold>=\<^bold>= x\<cdot>y))" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
   lemma (*E4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
 
@@ -500,7 +501,6 @@ context (* Scott_3:
   lemma (*F4:*) "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))" by (metis S3 S5 S6) 
   lemma (*F5:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
  end
-
 
 
 context (* Scott_4: 
@@ -554,6 +554,12 @@ context (* Scott_5:
     shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
   
+  lemma (*T1*) "\<^bold>\<forall>x.\<^bold>\<exists>i.(Id(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>j.((Id(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))" 
+    nitpick  [user_axioms, show_all, format = 2] oops (* Countermodel *)
+
+  lemma (*T2*) "\<^bold>\<forall>y.\<^bold>\<exists>j.(Id(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>i.((Id(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))" 
+    nitpick  [user_axioms, show_all, format = 2] oops (* Countermodel *)
+
   (* We try to verify the previous axioms from Scott *)
   lemma (*S1:*) "E(dom x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
   lemma (*S2:*) "E(cod x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
@@ -563,6 +569,640 @@ context (* Scott_5:
   lemma (*S6:*) "(cod x)\<cdot>x \<^bold>=\<^bold>= x" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
  end
 
+
+context (* Scott_6: 
+   Another new set of axioms from Dana Scott. *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))"
+ and F2: "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)"
+ and F3: "\<^bold>\<forall>x. \<^bold>\<exists>i. (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))"
+ and F4: "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and Cod: "(E(cod(x)) \<^bold>\<leftrightarrow> E(x)) \<^bold>\<and> (\<^bold>\<forall>x.(Id(cod(x)) \<^bold>\<and> x\<cdot>cod(x) \<^bold>=\<^bold>= x)) \<^bold>\<and> (\<^bold>\<forall>x.\<^bold>\<forall>j.(Id(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x \<^bold>\<rightarrow> cod(x) \<^bold>=\<^bold>= j))"
+ and Dom: "(E(dom(y)) \<^bold>\<leftrightarrow> E(y)) \<^bold>\<and> (\<^bold>\<forall>y.(Id(dom(y)) \<^bold>\<and> dom(y)\<cdot>y \<^bold>=\<^bold>= y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<forall>i.(Id(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<rightarrow> dom(y) \<^bold>=\<^bold>= i))"
+
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+  
+ 
+  (* We try to verify the previous axioms from Scott *)
+  lemma (*S1:*) "E(dom x) \<^bold>\<rightarrow> E(x)" sledgehammer nitpick [user_axioms, show_all, format = 2] oops (* Timeout *)
+  lemma (*S2:*) "E(cod x) \<^bold>\<rightarrow> E(x)" oops (* Timeout *)
+  lemma (*S3:*) "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" nitpick [user_axioms, show_all, format = 2] oops (* Timeout *)
+  lemma (*S4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast 
+  lemma (*S5:*) "x\<cdot>(dom x) \<^bold>=\<^bold>= x" oops (* Timeout *)
+  lemma (*S6:*) "(cod x)\<cdot>x \<^bold>=\<^bold>= x" oops (* Timeout *)
+ end
+
+
+(* The following is the correct definition of identity morphism; 
+   we call it ID instead of Id above *)
+abbreviation ID where "ID i \<equiv> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> E(u\<cdot>v)) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v))" 
+
+context (* Scott_Benzmueller_1: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs  *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and Cod_a: "(E(cod(x)) \<^bold>\<rightarrow> E(x))"
+ and Cod_b: "(\<^bold>\<forall>x.(ID(cod(x)) \<^bold>\<and> x\<cdot>cod(x) \<^bold>=\<^bold>= x))" 
+ and Dom_a: "(E(dom(y)) \<^bold>\<rightarrow> E(y))"
+ and Dom_b: "(\<^bold>\<forall>y.(ID(dom(y)) \<^bold>\<and> dom(y)\<cdot>y \<^bold>=\<^bold>= y))"
+
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+  
+  (* We try to verify the previous axioms from Scott *)
+  lemma (*S1:*)  "E(dom x) \<^bold>\<rightarrow> E(x)" using Dom_a by blast
+  lemma (*S2:*)  "E(cod x) \<^bold>\<rightarrow> E(x)" using Cod_a by blast 
+  lemma (*S3:*)  "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" by (metis Cod_a Cod_b Dom_a Dom_b F1)
+  lemma (*S4:*)  "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast 
+  lemma (*S5:*)  "x\<cdot>(dom x) \<^bold>=\<^bold>= x"  by (metis Dom_a Dom_b F1)
+  lemma (*S6:*)  "(cod x)\<cdot>x \<^bold>=\<^bold>= x"  by (metis Cod_b Dom_a Dom_b F1)
+
+  lemma (*F2:*) "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)" by (metis  Dom_a Dom_b F1)
+  lemma (*F3*)  "\<^bold>\<forall>x. \<^bold>\<exists>i. (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))" by (metis Dom_a Dom_b) 
+  lemma (*F4:*) "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))" by (metis Dom_a Dom_b) 
+ end
+
+context (* Scott_Benzmueller_2: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs.
+   Our first attempt did not include axiom E; Nitpick constructed useful countermodels that
+   got us on the right track. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C': "\<^bold>\<forall>x. \<^bold>\<exists>i.  (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D': "\<^bold>\<forall>y. \<^bold>\<exists>j.  (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+
+
+  lemma (*UC*) "\<^bold>\<forall>x. \<^bold>\<exists>i.( (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<^bold>\<forall>j. ( (ID(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j )))" 
+    nitpick [user_axioms, show_all, format = 2]  oops
+  lemma (*UD*) "\<^bold>\<forall>y. \<^bold>\<exists>j.( (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<^bold>\<forall>i. ( (ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i )))" 
+    nitpick [user_axioms, show_all, format = 2] oops
+ end
+
+
+
+context (* Scott_Benzmueller_3: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs  *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x. \<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y. \<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+
+
+ begin 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops   (* Nitpick finds a model *)
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+
+  lemma (*UC_attempt_1:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.((ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<^bold>\<forall>j.((ID(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))" 
+    sledgehammer (C A) oops
+   (* Attempts to prove UC with sledgehammer directly from the axioms fail, the ATPs are to weak. 
+      Attempts to prove UC from C and A succeed, but run into proof reconstruction errors. *)
+  lemma UC_L1: "(E(x) \<^bold>\<and> E(i) \<^bold>\<and> E(j) \<^bold>\<and> ID(i) \<^bold>\<and> (x\<cdot>i = x) \<^bold>\<and> ID(j) \<^bold>\<and> (x\<cdot>j = x)) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j" by (smt A)
+  lemma (*UC:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.((ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<^bold>\<forall>j.((ID(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))" by (smt UC_L1 C)
+   (* Adding L1 helps, so that the smt command, entered by hand, finally succeeds in verifying UC. *)
+
+  lemma (*UD_attempt_1*) "\<^bold>\<forall>y. \<^bold>\<exists>j.((ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<^bold>\<forall>i.((ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))" 
+    sledgehammer (D) oops
+   (* Attempts to prove UC with sledgehammer directly from the axioms fail, the ATPs are to weak. 
+      Attempts to prove UC from D succeeds, but runs into proof reconstruction errors. *)
+  lemma UD_L1: "(E(x) \<^bold>\<and> E(i) \<^bold>\<and> E(j) \<^bold>\<and> ID(i) \<^bold>\<and> (i\<cdot>x = x) \<^bold>\<and> ID(j) \<^bold>\<and> (j\<cdot>x = x)) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i" by (smt A)
+  lemma (*UD:*) "\<^bold>\<forall>y. \<^bold>\<exists>j.((ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<^bold>\<forall>i.((ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))" by (smt UD_L1 D)
+   (* Adding L2 helps, so that the smt command, entered by hand, finally succeeds in verifying UD. *)
+
+  lemma (*F2:*) "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)" using E S by blast
+  lemma (*F3:*) "\<^bold>\<forall>x.\<^bold>\<exists>i.(i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))" by (metis (full_types) A C)
+  lemma (*F4:*) "\<^bold>\<forall>y.\<^bold>\<exists>j.(j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))" by (metis D)
+
+  lemma (*L3:*) "E(x\<cdot>y) \<^bold>\<leftrightarrow> (E(x) \<^bold>\<and> E(y) \<^bold>\<and> (\<^bold>\<exists>z. ( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y )))" by (metis E D S)
+
+  lemma (*F1:*)  "(E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y)))" using S by blast
+  lemma (*F5:*)  "(x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z)" using A by blast
+
+  lemma "(\<exists>Cod. ((E(Cod(x)) \<^bold>\<rightarrow> E(x))))" using S by blast 
+  lemma "(\<exists>Cod. (\<^bold>\<forall>x.(ID(Cod(x)))))" by (metis C)   (* only Leo2 helped to find this *)
+  lemma "(\<exists>Cod. (\<^bold>\<forall>x.(x\<cdot>Cod(x) \<^bold>=\<^bold>= x)))" by (metis C)    (* only Leo2 helped to find this*)
+  lemma "(\<exists>Cod. (\<^bold>\<forall>x.(ID(Cod(x)) \<^bold>\<and> (x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))"  sledgehammer [timeout = 100, remote_leo2] (C)  
+   (*  Leo2 can prove this, but proof reconstruction fails **)
+   (* by (metis (full_types) C) *)
+   oops
+
+  lemma "(\<exists>Cod. ((\<forall>y. (E(Cod(y)) \<^bold>\<rightarrow> E(y))) \<^bold>\<and> (\<^bold>\<forall>x.(ID(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+      sledgehammer [remote_leo2 remote_satallax, verbose] (S C) 
+      sledgehammer [timeout = 100] (S C) 
+      nitpick [user_axioms, show_all, format = 2]  
+      (* by (metis S C)  *)
+      oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(ID(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+     (* by (metis S C D) *)
+      nitpick [user_axioms, show_all, format = 2] 
+      oops
+ end
+
+
+
+context (* Scott_Benzmueller_4: 
+   The new set of axioms is implied by the S-axioms.  *)
+ assumes 
+  S1: "E(dom x) \<^bold>\<rightarrow> E(x)" and
+  S2: "E(cod x) \<^bold>\<rightarrow> E(x)" and 
+  S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" and 
+  S4: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" and 
+  S5: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" and 
+  S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
+begin 
+   lemma (*S:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))" using S1 S2 S3 by blast
+   lemma (*A:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
+   lemma (*C:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" by (smt S3 S5 S6) 
+   lemma (*D:*) "\<^bold>\<forall>y. \<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" by (smt S3 S5 S6)
+   lemma (*E:*) "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))" by (metis S3)
+end
+
+context (* Scott_Benzmueller_5: 
+   The new set of axioms is implied by the F-axioms.  *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and Cod_a: "(E(cod(x)) \<^bold>\<rightarrow> E(x))"
+ and Cod_b: "(\<^bold>\<forall>x.(ID(cod(x)) \<^bold>\<and> x\<cdot>cod(x) \<^bold>=\<^bold>= x))" 
+ and Dom_a: "(E(dom(y)) \<^bold>\<rightarrow> E(y))"
+ and Dom_b: "(\<^bold>\<forall>y.(ID(dom(y)) \<^bold>\<and> dom(y)\<cdot>y \<^bold>=\<^bold>= y))"
+begin 
+   lemma (*S:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))" using F1 by blast
+   lemma (*A:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast
+   lemma (*C:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" by (metis (full_types) Dom_a Dom_b) 
+   lemma (*D:*) "\<^bold>\<forall>y. \<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" by (metis (full_types) Dom_a Dom_b) 
+   lemma (*E:*) "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))" by (metis Dom_a Dom_b)
+end
+
+
+context (* Scott_Benzmueller_6: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs  *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+
+begin 
+  lemma (*F1:*)  "(E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y)))" using S by blast
+  lemma (*F5:*)  "(x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z)" using A by blast
+  lemma (*Cod_ab:*) "(\<exists>Cod. ((E(Cod(x)) \<^bold>\<rightarrow> E(x)) \<^bold>\<and> (\<^bold>\<forall>x.(ID(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+    (* sledgehammer (S A C D E)  nitpick *) oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(ID(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+    (* sledgehammer nitpick *)  oops
+end
+
+
+
+context (* Scott_Benzmueller_7: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs  *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+
+begin 
+  lemma "\<exists>Dom Cod. 
+         (E(Dom x) \<^bold>\<rightarrow> E(x)) \<^bold>\<and> 
+         (E(Cod x) \<^bold>\<rightarrow> E(x)) \<^bold>\<and>
+         (E(x\<cdot>y) \<^bold>\<leftrightarrow> (Dom x \<^bold>= Cod y)) \<^bold>\<and>
+         (x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z) \<^bold>\<and>
+         (x\<cdot>(Dom x) \<^bold>=\<^bold>= x) \<^bold>\<and>
+         ((Cod x)\<cdot>x \<^bold>=\<^bold>= x)"
+   nitpick oops
+end
+
+
+
+abbreviation IdF1 where "IdF1 i \<equiv> (\<^bold>\<forall>x. (E(i\<cdot>x) \<^bold>\<rightarrow> (i\<cdot>x \<^bold>=\<^bold>= x)))"
+(* Freyd's definition of identity morphism version 1 *)
+
+abbreviation IdF2 where "IdF2 i \<equiv> (\<^bold>\<forall>x. (E(x\<cdot>i) \<^bold>\<rightarrow> (x\<cdot>i \<^bold>=\<^bold>= x)))"
+(* Freyd's definition of identity morphism version 2 *)
+
+(* Remember: ID(i) \<equiv> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> E(u\<cdot>v)) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v)) *)
+
+context (* Tests about notions of identity morphism in new S-axioms. *)
+ assumes 
+  S1: "E(dom x) \<^bold>\<rightarrow> E(x)" and
+  S2: "E(cod x) \<^bold>\<rightarrow> E(x)" and 
+  S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" and 
+  S4: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" and 
+  S5: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" and 
+  S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
+ begin 
+  lemma "ID(x) \<^bold>\<leftrightarrow> IdF1(x)" by (smt S2 S3 S5 S6)
+  lemma "ID(x) \<^bold>\<leftrightarrow> IdF2(x)" by (smt S2 S3 S5 S6)
+end
+
+
+context (* Tests about notions of identity morphism in new SACDE-axioms. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+begin 
+ lemma  "ID(x) \<^bold>\<rightarrow> IdF1(x)" by (metis A S) 
+ lemma  "IdF1(x) \<^bold>\<rightarrow> ID(x)" sledgehammer nitpick oops (* sledgehammer timeout; need lemmata, see below *)
+ lemma IdF1_help1: "IdF1(i) \<^bold>\<rightarrow>  i\<cdot>i \<^bold>=\<^bold>= i" by (metis C S) 
+ lemma IdF1_help2: "IdF1(i) \<^bold>\<rightarrow>  (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> E(u\<cdot>v)) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v))" by (metis D S)
+ lemma  "IdF1(x) \<^bold>\<rightarrow> ID(x)" using IdF1_help1 IdF1_help2 by blast
+
+ lemma  "ID(x) \<^bold>\<rightarrow> IdF2(x)" by (metis S) 
+ lemma  "IdF2(x) \<^bold>\<rightarrow> ID(x)" sledgehammer nitpick oops (* sledgehammer timeout; need lemmata, see below *)
+ lemma IdF2_help1: "IdF2(i) \<^bold>\<rightarrow>  i\<cdot>i \<^bold>=\<^bold>= i" by (metis D S) 
+ lemma IdF2_help2: "IdF2(i) \<^bold>\<rightarrow>  (\<^bold>\<forall>u.\<^bold>\<forall>v.(u\<cdot>(i\<cdot>v) \<^bold>=\<^bold>= u\<cdot>v \<^bold>\<and> E(u\<cdot>v)) \<^bold>\<rightarrow> (u\<cdot>i \<^bold>=\<^bold>= u \<^bold>\<and> i\<cdot>v \<^bold>=\<^bold>= v))" by (metis D S)
+ lemma  "IdF2(x) \<^bold>\<rightarrow> ID(x)" using IdF2_help1 IdF2_help2 by blast
+end
+
+context (* Tests about notions of identity morphism in new SACDE-axioms. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (IdF1(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (IdF1(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+begin 
+ lemma "ID(x) \<^bold>\<rightarrow> IdF1(x)" by (metis A S) 
+ lemma "IdF1(x) \<^bold>\<rightarrow> ID(x)" nitpick [user_axioms, show_all, format = 2] oops 
+end
+
+context (* Tests about notions of identity morphism in new SACDE-axioms. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (IdF2(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (IdF2(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+begin 
+ lemma "ID(x) \<^bold>\<rightarrow> IdF2(x)" by (metis S) 
+ lemma "IdF2(x) \<^bold>\<rightarrow> ID(x)" nitpick [user_axioms, show_all, format = 2] oops 
+end
+
+
+abbreviation IDD where "IDD i \<equiv> (\<^bold>\<forall>x. (E(i\<cdot>x) \<^bold>\<rightarrow> (i\<cdot>x \<^bold>=\<^bold>= x))) \<^bold>\<and> (\<^bold>\<forall>x. (E(x\<cdot>i) \<^bold>\<rightarrow> (x\<cdot>i \<^bold>=\<^bold>= x)))"
+(* A new definition of identity morphism; we call this IDD. *)
+
+context (* Tests about notions of identity morphism in new SACDE-axioms. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+begin 
+ lemma "ID(x) \<^bold>\<rightarrow> IDD(x)" by (metis A S) 
+ lemma "IDD(x) \<^bold>\<rightarrow> ID(x)" sledgehammer nitpick [user_axioms] oops (* timeout by sledgehammer *)
+
+ lemma IDD_help1: "IDD(i) \<^bold>\<rightarrow>  i\<cdot>i \<^bold>=\<^bold>= i" by (metis C S) 
+ lemma "IDD(x) \<^bold>\<rightarrow> ID(x)" by (metis IDD_help1 A S) 
+end
+
+
+context (* Scott_Benzmueller_8: 
+   The new set of axioms with IDD is implied by the S-axioms.  *)
+ assumes 
+  S1: "E(dom x) \<^bold>\<rightarrow> E(x)" and
+  S2: "E(cod x) \<^bold>\<rightarrow> E(x)" and 
+  S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" and 
+  S4: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" and 
+  S5: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" and 
+  S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
+begin 
+   lemma (*S:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))" using S1 S2 S3 by blast
+   lemma (*A:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
+   lemma C_help1: "E(x) \<^bold>\<rightarrow> (\<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x))" by (smt S3 S5 S6) 
+   lemma (*C:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" using C_help1 by blast
+     (* In C sledgehammer succeeds but smt/metis verification gets a timeout; therefore C_help1 is needed. *)
+   lemma D_help1: "E(y) \<^bold>\<rightarrow> (\<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y))" by (smt S3 S5 S6)
+   lemma (*D:*) "\<^bold>\<forall>y. \<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" using D_help1 by blast
+     (* In D sledgehammer succeeds but smt/metis verification gets a timeout; therefore D_help1 is needed. *)
+   lemma (*E:*) "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))" by (metis S3)
+end
+
+
+
+context (* Scott_Benzmueller_9: 
+   The new set of axioms is implied by the F-axioms.  *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and Cod_a: "(E(cod(x)) \<^bold>\<rightarrow> E(x))"
+ and Cod_b: "(\<^bold>\<forall>x.(ID(cod(x)) \<^bold>\<and> x\<cdot>cod(x) \<^bold>=\<^bold>= x))" 
+ and Dom_a: "(E(dom(y)) \<^bold>\<rightarrow> E(y))"
+ and Dom_b: "(\<^bold>\<forall>y.(ID(dom(y)) \<^bold>\<and> dom(y)\<cdot>y \<^bold>=\<^bold>= y))"
+begin 
+   lemma (*S:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))" using F1 by blast
+   lemma (*A:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast
+   lemma (*C:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" by (metis (full_types) Dom_a Dom_b) 
+   lemma (*D:*) "\<^bold>\<forall>y. \<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" by (metis (full_types) Dom_a Dom_b) 
+   lemma (*E:*) "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))" by (metis Dom_a Dom_b)
+end
+
+context (* Scott_Benzmueller_10: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs; here with 
+   IDD instead of ID. *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x. \<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y. \<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+
+
+ begin 
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops   (* Nitpick finds a model *)
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+
+  lemma (*UC_attempt_1:*) "\<^bold>\<forall>x. \<^bold>\<exists>i.((IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<^bold>\<forall>j.((IDD(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))" 
+    sledgehammer (S A C D E) oops
+   (* Attempts to prove UC with sledgehammer directly from the axioms fail, the ATPs are to weak. 
+      Attempts to prove UC from S, C and A succeed, but we run into proof reconstruction errors.
+      We need two lemmata. *)
+  lemma L1_UC_IDD: "E(x) \<^bold>\<rightarrow> (\<^bold>\<exists>i.((IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<forall>j. (E(j) \<^bold>\<rightarrow> ((IDD(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))))" by (smt A C S) 
+  lemma L2_UC_IDD: "\<^bold>\<forall>x. \<^bold>\<exists>i.((IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<forall>j. (E(j) \<^bold>\<rightarrow> ((IDD(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j))))" using  C L1_UC_IDD by blast  
+  lemma UC_IDD: "\<^bold>\<forall>x. \<^bold>\<exists>i.((IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x) \<^bold>\<and> (\<^bold>\<forall>j. ((IDD(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))"  using L2_UC_IDD by blast 
+   
+
+  lemma (*UD_attempt_1*) "\<^bold>\<forall>y. \<^bold>\<exists>j.((ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<^bold>\<forall>i.((ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))" 
+    sledgehammer (D) oops
+   (* Attempts to prove UC with sledgehammer directly from the axioms fail, the ATPs are to weak. 
+      Attempts to prove UC from D succeeds, but runs into proof reconstruction errors. 
+      We need two lemmata. *)
+  lemma L1_UD_IDD: "E(y) \<^bold>\<rightarrow> (\<^bold>\<exists>j.((IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<forall>i. (E(i) \<^bold>\<rightarrow> ((IDD(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))))" by (smt A D S) 
+  lemma L2_UD_IDD: "\<^bold>\<forall>y. \<^bold>\<exists>j.((IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<forall>i. (E(i) \<^bold>\<rightarrow> ((IDD(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i))))" using  C L1_UD_IDD by blast  
+  lemma UD_IDD: "\<^bold>\<forall>y. \<^bold>\<exists>j.((IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<and> (\<^bold>\<forall>i.((IDD(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))"  using L2_UD_IDD by blast 
+   
+
+  lemma F2_IDD: "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)" using E S by blast
+  lemma F3_IDD:  "\<^bold>\<forall>x.\<^bold>\<exists>i.(i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))" by (metis (full_types) A C S)
+  lemma F4_IDD: "\<^bold>\<forall>y.\<^bold>\<exists>j.(j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))"  by (metis (full_types) A D S)
+
+  lemma L3_IDD: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (E(x) \<^bold>\<and> E(y) \<^bold>\<and> (\<^bold>\<exists>z. ( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y )))" by (smt A C E S)
+
+  lemma (*F1:*)  "(E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y)))" using S by blast
+  lemma (*F5:*)  "(x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z)" using A by blast
+
+  lemma Cod_ab_1_IDD: "(E(ddom(x)) \<^bold>\<rightarrow> E(x))" sledgehammer nitpick [user_axioms, show_all, format = 2]
+   
+
+  lemma Cod_ab_2_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)))))"   (* only Leo2 helped to find this *)
+    by (metis C) 
+
+  lemma Cod_ab_3_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(x\<cdot>Cod(x) \<^bold>=\<^bold>= x)))"    (* only Leo2  helped to find this*)
+   by (metis C)
+
+ lemma Cod_ab_4_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> (x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))"  using C   
+ (* only Leo2  helped to find this*)
+sledgehammer [timeout = 60, remote_vampire remote_leo2 remote_satallax, verbose] (C)
+   sledgehammer [timeout = 100, verbose] (S A C D E) 
+   by (metis C) 
+  
+
+  lemma (*Cod_ab:*) "(\<exists>Cod. ((\<forall>y. (E(Cod(y)) \<^bold>\<rightarrow> E(y))) \<^bold>\<and> (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+      sledgehammer [timeout = 60, remote_vampire remote_leo2 remote_satallax, verbose] (S C A D E) 
+      sledgehammer [timeout = 100] (S A C D E) 
+      nitpick [user_axioms, show_all, format = 2]  
+      by (metis S C)  
+      oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(ID(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+     (* by (metis S C D) *)
+      nitpick [user_axioms, show_all, format = 2] 
+      oops
+
+  lemma Cod_ab_1_IDD: "(\<exists>Cod. ((E(Cod(x)) \<^bold>\<rightarrow> E(x))))" 
+   using S by blast 
+
+  lemma Cod_ab_2_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)))))"   (* only Leo2 helped to find this *)
+    by (metis C) 
+
+  lemma Cod_ab_3_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(x\<cdot>Cod(x) \<^bold>=\<^bold>= x)))"    (* only Leo2  helped to find this*)
+   by (metis C)
+
+ lemma Cod_ab_4_IDD: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> (x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))"    (* only Leo2  helped to find this*)
+   by (metis (full_types) C) 
+  
+
+  lemma (*Cod_ab:*) "(\<exists>Cod. ((\<forall>y. (E(Cod(y)) \<^bold>\<rightarrow> E(y))) \<^bold>\<and> (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+      sledgehammer [timeout = 60, remote_vampire remote_leo2 remote_satallax, verbose] (S C A D E) 
+      sledgehammer [timeout = 100] (S A C D E) 
+      nitpick [user_axioms, show_all, format = 2]  
+      by (metis S C)  
+      oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(ID(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+     (* by (metis S C D) *)
+      nitpick [user_axioms, show_all, format = 2] 
+      oops
+ end
+
+
+
+
+
+
+context (* Scott_Benzmueller_11: 
+   A new set of axioms, developed in a joint effort between Dana, Christoph and ATPs  *)
+ assumes 
+     S: "E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y))"
+ and A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and C: "\<^bold>\<forall>x.\<^bold>\<exists>i.  (IDD(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x)" 
+ and D: "\<^bold>\<forall>y.\<^bold>\<exists>j.  (IDD(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y)" 
+ and E: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z.(( z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y ) \<^bold>\<rightarrow> E(x\<cdot>y))"
+
+begin 
+  lemma (*F1:*)  "(E(x\<cdot>y) \<^bold>\<rightarrow> (E(x) \<^bold>\<and> E(y)))" using S by blast
+  lemma (*F5:*)  "(x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z)" using A by blast
+
+  lemma CCod_ab_1: "(\<exists>Cod. ((E(Cod(x)) \<^bold>\<rightarrow> E(x))))" 
+   using S by blast 
+
+  lemma CCod_ab_2: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)))))"   (* only Leo2 helped to find this *)
+    by (metis C) 
+
+  lemma CCod_ab_3: "(\<exists>Cod. (\<^bold>\<forall>x.(x\<cdot>Cod(x) \<^bold>=\<^bold>= x)))"    (* only Leo2  helped to find this*)
+   by (metis C)
+
+ lemma CCod_ab_4: "(\<exists>Cod. (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> (x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))"    (* only Leo2  helped to find this*)
+   by (metis C) 
+
+ 
+
+  lemma (*Cod_ab:*) "(\<exists>Cod. ((\<forall>y. (E(Cod(y)) \<^bold>\<rightarrow> E(y))) \<^bold>\<and> (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+      sledgehammer [timeout = 100, remote_vampire remote_leo2 remote_satallax, verbose] (S A C D E) 
+      sledgehammer [timeout = 100] (S C D E) 
+      nitpick [user_axioms, show_all, format = 2]  
+      (* by (metis S C) *)
+      oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(IDD(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+     (* by (metis S C D) *)
+      nitpick [user_axioms, show_all, format = 2] 
+      oops
+
+  lemma (*Cod_ab:*) "(\<exists>Cod. ((E(Cod(x)) \<^bold>\<rightarrow> E(x)) \<^bold>\<and> (\<^bold>\<forall>x.(IDD(Cod(x)) \<^bold>\<and> x\<cdot>Cod(x) \<^bold>=\<^bold>= x))))" 
+    sledgehammer (S A C D E)  nitpick  oops
+  lemma (*Dom_ab:*) "(\<exists>Dom. ((E(Dom(y)) \<^bold>\<rightarrow> E(y)) \<^bold>\<and> ((\<^bold>\<forall>y.(IDD(Dom(y)) \<^bold>\<and> Dom(y)\<cdot>y \<^bold>=\<^bold>= y)))))"
+    (* sledgehammer nitpick *)  oops
+end
+
+(*
+Old experiments
+
+context (* Scott_7: 
+   A new set of axioms from Dana Scott: Is this set derivable from the old one? *)
+ assumes 
+  S1: "E(dom x) \<^bold>\<rightarrow> E(x)" and
+  S2: "E(cod x) \<^bold>\<rightarrow> E(x)" and 
+  S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" and 
+  S4: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" and 
+  S5: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" and 
+  S6: "(cod x)\<cdot>x \<^bold>=\<^bold>= x" 
+ begin 
+  lemma (*test*)  "\<^bold>\<forall>x. ID(cod(x))" by (metis (full_types) S3 S5 S6)
+
+  lemma (*D2:*) "\<^bold>\<forall>i. (dom x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (ID(i) \<^bold>\<and> i\<cdot>x \<^bold>=\<^bold>= x))" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*D3:*) "\<^bold>\<forall>i. (cod x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x))" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*E1:*) "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))" using S1 S2 S3 by blast 
+  lemma (*E2:*) "(\<^bold>\<forall>x.\<^bold>\<exists>y. E(x\<cdot>y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<exists>x. E(x\<cdot>y))" by (meson S3 S5 S6) 
+  lemma (*E3:*) "E(x\<cdot>y) \<^bold>\<rightarrow> (\<^bold>\<exists>i. (ID(i) \<^bold>\<and> x\<cdot>(i\<cdot>y) \<^bold>=\<^bold>= x\<cdot>y))" by (metis S2 S3 S5 S6) 
+  lemma (*E4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
+
+  lemma (*F1:*) "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))" using S1 S2 S3 by blast 
+  lemma (*F2:*) "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)" by (metis S2 S3)
+  lemma (*F3:*) "\<^bold>\<forall>x. \<^bold>\<exists>i. (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))" by (metis S3 S5 S6) 
+  lemma (*F4:*) "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))" by (metis S3 S5 S6) 
+  lemma (*F5:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using S4 by blast
+ end
+
+
+
+context (* Scott_8: 
+   A new set of axioms from Dana Scott. *)
+ assumes  
+     D2: "\<^bold>\<forall>i. (dom x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (ID(i) \<^bold>\<and> i\<cdot>x \<^bold>=\<^bold>= x))"
+ and D3: "\<^bold>\<forall>i. (cod x \<^bold>=\<^bold>= i \<^bold>\<leftrightarrow> (ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x))"
+ and E1: "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))"
+ and E2: "(\<^bold>\<forall>x.\<^bold>\<exists>y. E(x\<cdot>y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<exists>x. E(x\<cdot>y))"
+ and E3: "E(x\<cdot>y) \<^bold>\<rightarrow> (\<^bold>\<exists>i. (ID(i) \<^bold>\<and> x\<cdot>(i\<cdot>y) \<^bold>=\<^bold>= x\<cdot>y))"   
+ and E4: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+  lemma Nonexistence_implies_Falsity:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+  
+  lemma (*S1:*) "E(dom x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S2:*) "E(cod x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S3:*) "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using E4 by blast 
+  lemma (*S5:*) "x\<cdot>(dom x) \<^bold>=\<^bold>= x"  sledgehammer nitpick [user_axioms, show_all, format = 2] oops (* Timeout *)
+  lemma (*S6:*) "(cod x)\<cdot>x \<^bold>=\<^bold>= x"  sledgehammer nitpick [user_axioms, show_all, format = 2] oops  (* Timeout *)
+ end
+
+
+context (* Scott_9: 
+   Another new set of axioms from Dana Scott. *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))"
+ and F2: "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)"
+ and F3: "\<^bold>\<forall>x. \<^bold>\<exists>i. (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))"
+ and F4: "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+  
+  lemma (*T1*) "\<^bold>\<forall>x.\<^bold>\<exists>i.(ID(i) \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>j.((ID(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x) \<^bold>\<rightarrow> i \<^bold>=\<^bold>= j)))" sledgehammer
+    nitpick  [user_axioms, show_all, format = 2] oops (* Timeout *)
+
+  lemma (*T2*) "\<^bold>\<forall>y.\<^bold>\<exists>j.(ID(j) \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>i.((ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> j \<^bold>=\<^bold>= i)))" sledgehammer
+    nitpick  [user_axioms, show_all, format = 2] oops (* Timeout *)
+
+
+  (* We try to verify the previous axioms from Scott *)
+  lemma (*S1:*) "E(dom x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S2:*) "E(cod x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S3:*) "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast 
+  lemma (*S5:*) "x\<cdot>(dom x) \<^bold>=\<^bold>= x" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *) 
+  lemma (*S6:*) "(cod x)\<cdot>x \<^bold>=\<^bold>= x" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+ end
+
+
+context (* Scott_10: 
+   Another new set of axioms from Dana Scott. *)
+ assumes 
+     F1: "E(x\<cdot>y) \<^bold>\<rightarrow>  (E(x) \<^bold>\<and> E(y))"
+ and F2: "(E(x) \<^bold>\<and> E(y) \<^bold>\<and> i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y) \<^bold>\<rightarrow> E(x\<cdot>y)"
+ and F3: "\<^bold>\<forall>x. \<^bold>\<exists>i. (i\<cdot>i \<^bold>=\<^bold>= i \<^bold>\<and> x\<cdot>i \<^bold>=\<^bold>= x \<^bold>\<and> (\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<rightarrow> i\<cdot>y \<^bold>=\<^bold>= y))"
+ and F4: "\<^bold>\<forall>y. \<^bold>\<exists>j. (j\<cdot>j \<^bold>=\<^bold>= j \<^bold>\<and> j\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>y) \<^bold>\<rightarrow> x\<cdot>j \<^bold>=\<^bold>= x))"
+ and F5: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" 
+ and Cod: "(E(cod(x)) \<^bold>\<leftrightarrow> E(x)) \<^bold>\<and> (\<^bold>\<forall>x.(ID(cod(x)) \<^bold>\<and> x\<cdot>cod(x) \<^bold>=\<^bold>= x)) \<^bold>\<and> (\<^bold>\<forall>x.\<^bold>\<forall>j.(ID(j) \<^bold>\<and> x\<cdot>j \<^bold>=\<^bold>= x \<^bold>\<rightarrow> cod(x) \<^bold>=\<^bold>= j))"
+ and Dom: "(E(cod(y)) \<^bold>\<leftrightarrow> E(y)) \<^bold>\<and> (\<^bold>\<forall>y.(ID(dom(y)) \<^bold>\<and> dom(y)\<cdot>y \<^bold>=\<^bold>= y)) \<^bold>\<and> (\<^bold>\<forall>y.\<^bold>\<forall>i.(ID(i) \<^bold>\<and> i\<cdot>y \<^bold>=\<^bold>= y \<^bold>\<rightarrow> dom(y) \<^bold>=\<^bold>= i))"
+
+ begin 
+  (* Nitpick does find a model *)
+  lemma True nitpick [satisfy, user_axioms, show_all, format = 2] oops
+
+  lemma Nonexistence_implies_Falsity_1:
+    assumes "\<exists>x. \<^bold>\<not>(E x)"   (* We assume an undefined object, i.e. that D-E is non-empty.  *) 
+    shows False  (* We then try to prove falsity. Nitpick finds a countermodel. *) 
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops   (* Countermodel *) 
+  
+ 
+  (* We try to verify the previous axioms from Scott *)
+  lemma (*S1:*) "E(dom x) \<^bold>\<rightarrow> E(x)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S2:*) "E(cod x) \<^bold>\<rightarrow> E(x)" sledgehammer nitpick [user_axioms, show_all, format = 2] oops (* Timeout *)
+  lemma (*S3:*) "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>= cod y)" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S4:*) "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using F5 by blast 
+  lemma (*S5:*) "x\<cdot>(dom x) \<^bold>=\<^bold>= x" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+  lemma (*S6:*) "(cod x)\<cdot>x \<^bold>=\<^bold>= x" nitpick [user_axioms, show_all, format = 2] oops (* Countermodel *)
+ end
+
+*)
 
 
 end
