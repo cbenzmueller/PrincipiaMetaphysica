@@ -1,0 +1,107 @@
+\begin{thebibliography}{10}
+
+\bibitem{C57}
+Christoph Benzm{\"u}ller and Dana Scott.
+\newblock Automating {Free Logic} in {Isabelle/HOL}.
+\newblock In G.-M. Greuel, T.~Koch, P.~Paule, and A.~Sommese, editors, {\em
+  Mathematical Software -- ICMS 2016, 5th International Congress, Proceedings},
+  volume 9725 of {\em LNCS}, pages 43--50, Berlin, Germany, 2016. Springer.
+
+\bibitem{LEO}
+Christoph Benzm{\"{u}}ller, Nik Sultana, Lawrence~C. Paulson, and Frank Theiss.
+\newblock The higher-order prover {Leo-II}.
+\newblock {\em J. of Automated Reasoning}, 55(4):389--404, 2015.
+
+\bibitem{Spass}
+Jasmin~Christian Blanchette, Andrei Popescu, Daniel Wand, and Christoph
+  Weidenbach.
+\newblock {More {SPASS} with Isabelle - Superposition with Hard Sorts and
+  Configurable Simplification}.
+\newblock In {\em Interactive Theorem Proving - Third International Conference,
+  {ITP} 2012, Princeton, NJ, USA, August 13-15, 2012. Proceedings}, volume 7406
+  of {\em Lecture Notes in Computer Science}, pages 345--360. Springer, 2012.
+
+\bibitem{Sledgehammer}
+J.C. Blanchette, S.~B\"ohme, and L.C. Paulson.
+\newblock Extending {Sledgehammer} with {SMT} solvers.
+\newblock {\em J. of Automated Reasoning}, 51(1):109--128, 2013.
+
+\bibitem{Nitpick}
+J.C. Blanchette and T.~Nipkow.
+\newblock Nitpick: A counterexample generator for higher-order logic based on a
+  relational model finder.
+\newblock In {\em ITP 2010}, number 6172 in LNCS, pages 131--146. Springer,
+  2010.
+
+\bibitem{Satallax}
+Chad~E. Brown.
+\newblock Satallax: An automatic higher-order prover.
+\newblock In {\em Automated Reasoning - 6th International Joint Conference,
+  {IJCAR} 2012, Manchester, UK, June 26-29, 2012. Proceedings}, volume 7364 of
+  {\em Lecture Notes in Computer Science}, pages 111--117. Springer, 2012.
+
+\bibitem{Z3}
+Leonardo~Mendon{\c{c}}a de~Moura and Nikolaj Bj{\o}rner.
+\newblock {Z3: An Efficient {SMT} Solver}.
+\newblock In {\em Tools and Algorithms for the Construction and Analysis of
+  Systems, 14th International Conference, {TACAS} 2008, Held as Part of the
+  Joint European Conferences on Theory and Practice of Software, {ETAPS} 2008,
+  Budapest, Hungary, March 29-April 6, 2008. Proceedings}, volume 4963 of {\em
+  Lecture Notes in Computer Science}, pages 337--340. Springer, 2008.
+
+\bibitem{CVC4}
+Morgan Deters, Andrew Reynolds, Tim King, Clark~W. Barrett, and Cesare Tinelli.
+\newblock A tour of {CVC4:} how it works, and how to use it.
+\newblock In {\em Formal Methods in Computer-Aided Design, {FMCAD} 2014,
+  Lausanne, Switzerland, October 21-24, 2014}, page~7. {IEEE}, 2014.
+
+\bibitem{FreydScedrov90}
+Peter~J. Freyd and Andre Scedrov.
+\newblock {\em Categories, Allegories}.
+\newblock North Holland, 1990.
+
+\bibitem{Vampire}
+Laura Kov{\'{a}}cs and Andrei Voronkov.
+\newblock {First-Order Theorem Proving and Vampire}.
+\newblock In {\em Computer Aided Verification - 25th International Conference,
+  {CAV} 2013, Saint Petersburg, Russia, July 13-19, 2013. Proceedings}, volume
+  8044 of {\em Lecture Notes in Computer Science}, pages 1--35. Springer, 2013.
+
+\bibitem{Isabelle}
+T.~Nipkow, L.C. Paulson, and M.~Wenzel.
+\newblock {\em {{Isabelle/HOL: A Proof Assistant for Higher-Order Logic}}}.
+\newblock Number 2283 in LNCS. Springer, 2002.
+
+\bibitem{E}
+Stephan Schulz.
+\newblock System description: {E} 1.8.
+\newblock In {\em Logic for Programming, Artificial Intelligence, and Reasoning
+  - 19th International Conference, LPAR-19, Stellenbosch, South Africa,
+  December 14-19, 2013. Proceedings}, volume 8312 of {\em Lecture Notes in
+  Computer Science}, pages 735--743. Springer, 2013.
+
+\bibitem{Scott67}
+Dana Scott.
+\newblock Existence and description in formal logic.
+\newblock In R.~Schoenman, editor, {\em Bertrand Russell: Philosopher of the
+  Century}, pages 181--200. George Allen \& Unwin, London, 1967.
+\newblock (Reprinted with additions in: Philosophical Application of Free
+  Logic, edited by K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48).
+
+\bibitem{Scott79}
+Dana Scott.
+\newblock Identity and existence in intuitionistic logic.
+\newblock In Michael Fourman, Christopher Mulvey, and Dana Scott, editors, {\em
+  Applications of Sheaves: Proceedings of the Research Symposium on
+  Applications of Sheaf Theory to Logic, Algebra, and Analysis, Durham, July
+  9--21, 1977}, volume 752 of {\em Lecture Notes in Mathematics}, pages
+  660--696. Springer Berlin Heidelberg, 1979.
+
+\bibitem{IsabelleManual2016}
+Makarius Wenzel.
+\newblock {The Isabelle System Manual}.
+\newblock
+  \url{https://www.cl.cam.ac.uk/research/hvg/Isabelle/dist/Isabelle2016/doc/system.pdf},
+  February 2016.
+
+\end{thebibliography}
