@@ -704,7 +704,9 @@ text {* Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5
    However, when assuming strictness of @{text "dom"} and @{text "cod"}, the axioms @{text "A2a"}, 
    @{text "A2b"}, @{text "A4a"} and @{text "A4b"} are all implied. Hence, under this 
    assumptions, the reasoning tools quickly identify @{text "(A1 A3a A3b A5)"} as a minimal axiom 
-   set, which then exactly matches the Axiom Set V from above.
+   set, which then exactly matches the Axiom Set V from above.\footnote{This minimal set of axioms 
+   is also mentioned by Freyd in @{cite "Freyd16"} and attributed to Martin Knopman. However, the proof
+   sketch presented there seems to fail when the corrected version of A1 (with @{text "\<simeq>"}) is employed.}
 *}
 (*<*)
 end

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  17 AUG 2016 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  18 AUG 2016 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -346,10 +346,10 @@ Package rerunfilecheck Info: File `root.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 65.
  ) 
 Here is how much of TeX's memory you used:
- 6213 strings out of 493117
- 88493 string characters out of 6135433
- 185313 words of memory out of 5000000
- 9541 multiletter control sequences out of 15000+600000
+ 6216 strings out of 493117
+ 88525 string characters out of 6135433
+ 185343 words of memory out of 5000000
+ 9542 multiletter control sequences out of 15000+600000
  21315 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,11n,31p,1910b,505s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -374,10 +374,10 @@ e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2014/te
 xmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/20
 14/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
-Output written on root.pdf (15 pages, 279373 bytes).
+Output written on root.pdf (15 pages, 280886 bytes).
 PDF statistics:
- 273 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
- 50 named destinations out of 1000 (max. 500000)
+ 277 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
+ 52 named destinations out of 1000 (max. 500000)
  89 words of extra memory for PDF output out of 10000 (max. 10000000)
 
