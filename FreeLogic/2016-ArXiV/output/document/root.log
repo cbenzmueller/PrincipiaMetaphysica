@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  18 AUG 2016 15:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.10)  19 AUG 2016 14:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -333,16 +333,21 @@ Missing character: There is no ” in font cmr10!
  [4] [5]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 690.
- [6] [7] [8] [9] [10] [11] [12])) (./root.bbl [13] [14])
+ [6] [7] [8]
+Overfull \hbox (7.35583pt too wide) in paragraph at lines 1634--1634
+[]\OT1/cmr/bx/n/14.4 The Con-stricted In-con-sis-tency in the Ax-iom Sys-tem by
+ Freyd
+ []
+
+[9] [10] [11] [12] [13])) (./root.bbl [14])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 65.
  [15]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 65.
-
-(./root.aux)
+ (./root.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 65.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 65.
 Package rerunfilecheck Info: File `root.out' has not changed.
-(rerunfilecheck)             Checksum: 4316EC52445C9821D1325DBA34D34C8F;746.
+(rerunfilecheck)             Checksum: 5D05B5B8A4D46BBAAC9AE482F2BEAEDD;758.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 65.
  ) 
 Here is how much of TeX's memory you used:
@@ -352,7 +357,7 @@ Here is how much of TeX's memory you used:
  9542 multiletter control sequences out of 15000+600000
  21315 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,11n,31p,1910b,505s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,11n,31p,1910b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pf
 b></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy
 9.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10
@@ -369,15 +374,16 @@ texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
 live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
 e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
 014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-14/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2014
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2014/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2014/te
-xmf-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/20
-14/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
-Output written on root.pdf (15 pages, 280886 bytes).
+14/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2014/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2014/texm
+f-dist/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></usr/local/texlive/2014
+/texmf-dist/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
+Output written on root.pdf (15 pages, 289432 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 236 compressed objects within 3 object streams
+ 284 PDF objects out of 1000 (max. 8388607)
+ 242 compressed objects within 3 object streams
  52 named destinations out of 1000 (max. 500000)
  89 words of extra memory for PDF output out of 10000 (max. 10000000)
 
