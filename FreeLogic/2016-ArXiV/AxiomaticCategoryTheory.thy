@@ -18,7 +18,7 @@ in classical higher-order logic. The modeling and formal analysis of our axiom s
 significantly supported  by series of experiments with automated reasoning tools integrated 
 with Isabelle/HOL. We also address the relation of our axiom systems to alternative proposals 
 from the literature, including an axiom set proposed by Freyd and Scedrov for which we reveal 
-a technical flaw: either all operations, e.g. morphism composition, are total or 
+a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, are total or 
 their axiom system is inconsistent. The repair for this problem is quite straightforward, however. 
 \end{abstract}
 *}
@@ -31,19 +31,21 @@ the standard axioms for a monoid to a partial composition operation. Our purpose
 claim any contribution to category theory but rather to show how formalizations involving the kind 
 of logic required (free logic) can be validated within modern proof assistants. 
 
-A total of seven different axiom systems is studied. The systems I-VI are shown to 
-be equivalent. The last axiom system VII slightly modifies axiom system VI to obtain exactly (modulo 
+A total of eight different axiom systems is studied. The systems I-VI are shown to 
+be equivalent. The axiom system VII slightly modifies axiom system VI to obtain (modulo 
 notational transformation) the set of axioms as proposed by  Freyd and Scedrov in their textbook
  ``Categories, Allegories'' @{cite "FreydScedrov90"}, published in 1990; 
 see also Subsection \ref{subsec:FreydNotation} where we present their original system.
 While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
-obtained for system VII: @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where @{text "E"} is the existence 
-predicate. Read this as: If there 
+obtained for system VII (when encoded in free logic where free variables range over all 
+objects): We can prove @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where @{text "E"} is the existence predicate. Read this as: If there 
 are undefined objects, e.g. the value of an undefined composition @{text "x\<cdot>y"}, then we have falsity.
-By contraposition,  all objects (and thus all compositions) must exist. But when we assume the latter,
-then the axiom system by Freyd and Scedrov essentially reduces categories to monoids.
+By contraposition, all objects (and thus all compositions) must exist. But when we assume the latter,
+then the axiom system VII essentially reduces categories to monoids.
 We note that axiom system V, which avoids this problem, corresponds to a set of axioms proposed 
-by Scott @{cite "Scott79"} in the 1970s.
+by Scott @{cite "Scott79"} in the 1970s. The problem can also be avoided by restricting the variables 
+in axiom system VII to range only over existing objects and by postulating strictness conditions. 
+This gives us axiom system VIII.
 
 Our exploration has been significantly supported by series of experiments in which automated reasoning tools 
 have been called from within the proof assistant Isabelle/HOL @{cite "Isabelle"} via the Sledgehammer 
@@ -55,8 +57,8 @@ on a significant amount of human-machine interaction with integrated interactive
 theorem proving technology. The experiments we have conducted are such that the required 
 reasoning is often too tedious and time-consuming for humans to be carried out repeatedly with 
 highest level of precision. It is here where cycles of formalization and experimentation efforts in 
-Isabelle/HOL provided  significant support. Moreover, our novel oversight result for axiom 
-system VII, which was discovered by the automated theorem provers, further emphasises the added 
+Isabelle/HOL provided  significant support. Moreover, the technical inconsistency issue for
+axiom system VII was discovered by automated theorem provers, which further emphasises the added 
 value of automated theorem proving in this area. 
 
 To enable our experiments we have exploited an embedding of free logic @{cite "Scott67"} 
@@ -79,7 +81,7 @@ text {* Free logic models partial functions as total functions over a ``raw doma
 A subset @{text "E"} of @{text "D"} is used to characterize the subdomain of ``existing'' objects; cf.
 @{cite "Scott67"} for further details.
 
-The experiments presented in the subsequent section exploit our embedding of free logic 
+The experiments presented in the subsequent sections exploit our embedding of free logic 
 in HOL @{cite "C57"}. This embedding is trivial for the standard Boolean connectives. The interesting
 aspect is that free logic quantifiers are guarded in the embedding by an explicit existence 
 predicate @{text "E"} (associated with the subdomain @{text "E"} of @{text "D"}), so 
@@ -237,8 +239,8 @@ text {* Nitpick confirms that this axiom set is consistent. *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   
 
-text {* Even if we assume there are non-existing objects we get consistency (which was not the case for
-  the axiom system proposed by Freyd and Scedrov owing to a technical oversight). *}  
+text {* Even if we assume there are non-existing objects we get consistency (which is e.g. not the
+case for Axiom Set VII below). *}  
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model\footnote{To display the models or countermodels from Nitpick in the Isabelle/HOL system interface 
 simply put the mouse on the expression "nitpick".}  *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
@@ -534,10 +536,8 @@ section {* Axiom Set V *}
 
 text {* Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"} when corrected and further simplified. 
- Their original axioms set is technically flawed (if we assume the possibility of 
-  non-existing objects of type @{text "i"}, that is, that some operations are non-total, 
- then we get inconsistency). This issue has been detected by automated theorem provers
+ ``Categories, Allegories'' @{cite "FreydScedrov90"} when encoded in free logic, corrected/adapted and further simplified. 
+ Their axiom set is technically flawed when encoded in our given context. This issue has been detected by automated theorem provers
  with the same technical infrastructure as employed so far. See the subsequent section  
  for more details. 
  We have modified the axioms of @{cite "FreydScedrov90"} by replacing the original Kleene 
@@ -612,11 +612,10 @@ begin
 end
 (*>*)
 
-section {* The Constricted Inconsistency in the Axiom System by  Freyd and Scedrov -- The Axiom Sets VI 
-  and VII *}
+section {* Axiom Sets VI and VII *}
 
 text {* The axiom set of Freyd and Scedrov from their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"} is inconsistent if we assume 
+ ``Categories, Allegories'' @{cite "FreydScedrov90"} becomes inconsistent in our free logic setting if we assume 
   non-existing objects of type @{text "i"}, respectively, if we assume that the operations are 
   non-total.  Freyd and Scedrov employ a different notation for 
   @{text "dom x"} and @{text "cod x"}. They denote these operations by @{text "\<box>x"} 
@@ -631,21 +630,25 @@ text {* The axiom set of Freyd and Scedrov from their textbook
 (iii) replace @{text "\<phi>\<box>"} by @{text "cod \<phi>"} and @{text "\<box>\<phi>"}  by @{text "dom \<phi>"}, and finally
 (iv) replace @{text "cod y \<cong> dom x"} (resp. @{text "cod y \<simeq> dom x"}) 
    by @{text "dom x \<cong> cod y"} (resp. @{text "dom x \<simeq> cod y"}).}
-  Below we will also prove the constricted inconsistency of their original system using their original notation.
+  In Subsection 9.2 we will also analyze their axiom system using their original notation.
 
-  The only difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
+  A main difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
   axiom @{text "S3"}. Namely, instead of the non-reflexive @{text "\<simeq>"}, they use Kleene 
   equality @{text "\<cong>"}, cf. definition 1.11 on page 3 of @{cite "FreydScedrov90"}.\footnote{Def. 1.11 in Freyd 
   Scedrov: ``The ordinary equality sign @{text "="} [i.e., our @{text "\<cong>"}] will be used in the
   symmetric sense, to wit: if either side is defined then so is the other and they are equal. \ldots''} 
-  The difference seems minor, but it has the effect to cause the mentioned
-  constricted inconsistency issue. This flaw should perhaps be regarded merely as an oversight.
+  The difference seems minor, but in our free logic setting (where free variables range over defined 
+  and undefined objects) it has the effect to cause the mentioned
+  constricted inconsistency issue. This could perhaps be an oversight, or it could indicate
+  that Freyd and Scedrov actually mean the Axiom Set VIII below (where the variables in the axioms range 
+  over defined objects only). However, in Axiom Set VIII we had to (re-)introduce explicit 
+  strictness conditions to ensure equivalence to the Axiom Set V by Scott.
 *}
 
-subsection {* The Axiom Set VI (Freyd and Scedrov when corrected and in our notation) *}
+subsection {* Axiom Set VI *}
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov when corrected and in our notation) *}
+context -- {* Axiom Set VI *}
 assumes
 (*>*)
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
@@ -674,11 +677,11 @@ text {* Axiom Set VI implies Axiom Set V. *}
     using A1 A2b A3b by metis
   lemma S3FromVI: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" 
     by (metis A1)
-  lemma S4FromIV: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
+  lemma S4FromVI: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
     using A5 by blast
-  lemma S5FromIV: "x\<cdot>(dom x) \<cong> x" 
+  lemma S5FromVI: "x\<cdot>(dom x) \<cong> x" 
     using A3a by blast
-  lemma S6FromIV: "(cod y)\<cdot>y \<cong> y" 
+  lemma S6FromVI: "(cod y)\<cdot>y \<cong> y" 
     using A3b by blast
 
 text {* Note, too, that Axiom Set VI is redundant. For example, axioms @{text "A4a"} and @{text "A4b"} are
@@ -688,7 +691,7 @@ text {* Note, too, that Axiom Set VI is redundant. For example, axioms @{text "A
     by (smt A1 A2a A3a A5)  
   lemma A4bRedundant: "cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))"  
     by (smt A1 A2b A3b A5) 
-text {* Our attempts to further reduce the axiom set @{text "(A1 A2a A2b A3a A3b A5)"}  were not successful.
+text {* Our attempts to further reduce the axioms set @{text "(A1 A2a A2b A3a A3b A5)"}  were not successful.
 Alternatively, we can e.g. keep @{text "A4a"} and @{text "A4b"} and show that axioms @{text "A2a"} 
 and @{text "A2b"} are implied. *}
 (*<*)declare [[ smt_solver = z3]](*>*) 
@@ -706,14 +709,14 @@ text {* Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5
    assumptions, the reasoning tools quickly identify @{text "(A1 A3a A3b A5)"} as a minimal axiom 
    set, which then exactly matches the Axiom Set V from above.\footnote{This minimal set of axioms 
    is also mentioned by Freyd in @{cite "Freyd16"} and attributed to Martin Knopman. However, the proof
-   sketch presented there seems to fail when the corrected version of A1 (with @{text "\<simeq>"}) is employed.}
+   sketch presented there seems to fail when the adapted version of A1 (with @{text "\<simeq>"}) is employed.}
 *}
 (*<*)
 end
 (*>*) 
 text {* Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent. *}
 (*<*)
-context -- {* Axiom Set V (Freyd and Scedrov when corrected and simplified)  *}
+context -- {* Axiom Set V (Freyd and Scedrov) when adapted/corrected and simplified)  *}
 assumes
  S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
  S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
@@ -745,11 +748,13 @@ end
 (*>*)
 
 
-subsection {* The Axiom Set VII (Freyd and Scedrov in our notation) *}
+subsection {* Axiom Set VII *}
 
 text {* We now study the constricted inconsistency in Axiom Set VI when replacing  @{text "\<simeq>"}  
  in  @{text "A1"} by  @{text "\<cong>"}. We call this Axiom Set VII. This set corresponds
- modulo representational transformation to the axioms as presented by Freyd and Scedrov. *}
+ modulo representational transformation to the axioms as presented by Freyd and Scedrov. Remember, however,
+ that the free variables are ranging here over all objects, defined or undefined. Below, when we study
+ Axiom Set VIII, we will restrict the variables to range only over existing objects.  *}
 
 (*<*)
 context -- {* Axiom Set VII (Freyd and Scedrov in our notation) *}
@@ -795,7 +800,7 @@ text {* In fact, the automated theorem provers quickly prove falsity when assumi
   lemma InconsistencyAutomaticVII: "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False" 
     by (metis A1 A2a A3a)
 
-   text {* Hence, all morphisms must be defined in the theory of Freyd and Scedrov, or in other 
+   text {* Hence, all morphisms must be defined in theory of Axiom Set VII, or in other 
       words, all operations must be total. *}
   lemma "\<forall>x. E x" using InconsistencyAutomaticVII by auto
 
@@ -831,7 +836,7 @@ end
 (*>*)
 
 
-text {* We finally present the constricted inconsistency argument once again, but this time in the original
+text {* We present the constricted inconsistency argument once again, but this time in the original
   notation of Freyd and Scedrov. *}
 
 consts  
@@ -840,9 +845,10 @@ consts
    compositionF:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<^bold>\<cdot>" 110)
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov in their notation) *}   
+context -- {* Axiom Set VI (Freyd and Scedrov) in their notation *}   
 assumes           
 (*>*)
+
   A1: "E(x\<^bold>\<cdot>y) \<^bold>\<leftrightarrow> (x\<box> \<cong> \<box>y)" and 
  A2a: "((\<box>x)\<box>) \<cong> \<box>x" and 
  A2b: "\<box>(x\<box>) \<cong> \<box>x" and 
@@ -886,14 +892,160 @@ text {* The following alternative interactive proof is slightly shorter than the
 
 text {* Obviously Axiom Set VII is also redundant, and we have previously reported 
 on respective redundancies @{cite "C57"}. However, this was before the discovery of the above 
-constricted inconsistency issue, which tells us that the system can even be reduced 
+constricted inconsistency issue, which tells us that the system (in our setting) can even be reduced 
 to @{text "A1"}, @{text "A2a"} and @{text "A3a"} (when we additionally assume @{text "NEx"}). *}
 (*<*)
 end
 (*>*)
 
+section {* Axiom Set VIII *}
+
+text {* We study the axiom system by Freyd and Scedrov once again. However, this time we restrict 
+the free variables in their system to range over existing objects only. By employing the free logic 
+universal quantifier @{text "\<^bold>\<forall>"} we thus modify Axiom Set VII as follows:*}   
+(*<*)
+context -- {* Axiom Set VII (Freyd and Scedrov) in our notation *}
+assumes
+(*>*)
+  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
+ B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " and  
+ B2b: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" and  
+ B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" and 
+ B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" and 
+ B4a: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" and 
+ B4b: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" and 
+  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
+(*<*)
+begin
+(*>*)
+text {* Now, the two consistency checks succeed. *}
+  lemma True  -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+
+text {* However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
+the @{text "V"}-axioms are implied: *}
+
+  lemma S1: "E(dom x) \<^bold>\<rightarrow> E x"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S2: "E(cod y) \<^bold>\<rightarrow> E y"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S4: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S5: "x\<cdot>(dom x) \<cong> x"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S6: "(cod y)\<cdot>y \<cong> y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+(*<*)
+end
+(*>*)
+
+text {* The situation changes when we explicitly postulate strictness of @{text "dom"},
+@{text "cod"} and @{text "\<cdot>"}. We thus obtain our Axiom Set VIII: *}
+(*<*)
+context -- {* Axiom Set VIII. *}
+assumes
+(*>*)
+ B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
+ B0b: "E(dom x) \<^bold>\<rightarrow> E x" and
+ B0c: "E(cod x) \<^bold>\<rightarrow> E x" and
+  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
+ B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " and  
+ B2b: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" and  
+ B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" and 
+ B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" and 
+ B4a: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" and 
+ B4b: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" and 
+  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
+(*<*)
+begin
+(*>*)
+text {* Again, the two consistency checks succeed *}
+  lemma True  -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+
+text {* Now Axiom Set V is implied. *}
+  lemma S1FromVIII: "E(dom x) \<^bold>\<rightarrow> E x"  using B0b by blast
+  lemma S2FromVIII: "E(cod y) \<^bold>\<rightarrow> E y"  using B0c by blast 
+  lemma S3FromVIII: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" by (metis B0a B0b B0c B1 B3a)
+  lemma S4FromVIII: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" by (meson B0a B5) 
+  lemma S5FromVIII: "x\<cdot>(dom x) \<cong> x" using B0a B3a by blast  
+  lemma S6FromVIII: "(cod y)\<cdot>y \<cong> y" using B0a B3b by blast
+(*<*)
+end
+(*>*)
+
+text {* Vive versa, Axiom Set V implies Axiom Set VIII. Hence, both theories are equivalent. *}
+
+(*<*)
+context -- {* Axiom Set V (Freyd and Scedrov) when adapted/corrected and simplified)  *}
+assumes
+(*>*)
+ S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
+ S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
+ S3: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and 
+ S4: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ S5: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" and
+ S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
+
+(*<*)
+begin
+(*>*)
+
+  lemma B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" using S1 S2 S3 by blast
+  lemma B0b: "E(dom x) \<^bold>\<rightarrow> E x" using S1 by blast
+  lemma B0c: "E(cod x) \<^bold>\<rightarrow> E x" using S2 by blast
+  lemma  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" by (metis S3 S5)
+  lemma B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " by (metis S3 S5)
+  lemma B2b: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" by (metis S3 S6)  
+  lemma B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" using S5 by auto
+  lemma B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" using S6 by blast
+  lemma B4a: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" by (metis S1 S3 S4 S5)
+  lemma B4b: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" by (metis S2 S3 S4 S6)
+  lemma  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" using S4 by blast
+(*<*)
+end
+(*>*)
+
+text {* Axiom Set VIII is redundant (as expected from previous observations).
+The theorem provers quickly confirm that axioms @{text "B2a, B2b, B4a, B4b"} are implied. *}
+
+(*<*)
+context -- {* Axiom Set VII (Freyd and Scedrov) in our notation *}
+assumes
+(*>*)
+ B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
+ B0b: "E(dom x) \<^bold>\<rightarrow> E x" and
+ B0c: "E(cod x) \<^bold>\<rightarrow> E x" and
+  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
+ B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" and 
+ B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" and 
+  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
+
+(*<*)
+begin
+(*>*)
+
+  lemma B2aRedundant: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " by (metis B0a B1 B3a) 
+  lemma B2bRedundant: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" by (metis B0a B1 B3b) 
+  lemma B4aRedundant: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" by (metis B0a B0b B1 B3a B5) 
+  lemma B4bRedundant: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" by (metis B0a B0c B1 B3b B5) 
+(*<*)
+end
+(*>*)
+
+text {* Again, note the relation and similarity of the reduced Axiom Set VIII to Axiom Set V by Scott, 
+which we prefer, since it avoids a mixed use of free and bound variables in the encoding and 
+since it is smaller. *}
+
+
 paragraph {* Acknowledgements *}
-text {* We thank G\"unter Rote for his valuable comments to earlier drafts of this paper. *}
+text {* We thank G\"unter Rote and Lutz Schr\"oder for their valuable comments to earlier drafts of this paper. *}
 
 (*
 section {* Observations during Experiments *}
@@ -1073,7 +1225,7 @@ end
 
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov in their notation) *}   
+context -- {* Axiom Set VI (Freyd and Scedrov in their notation *}   
 assumes           
 (*>*)
 

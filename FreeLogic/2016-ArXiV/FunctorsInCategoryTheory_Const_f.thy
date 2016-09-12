@@ -134,15 +134,36 @@ end
 
 
 consts A::"i\<Rightarrow>bool" B::"i\<Rightarrow>bool" 
-abbreviation Equi (infix "\<^bold>=\<^bold>=" 56) where "x \<^bold>=\<^bold>= y \<equiv>  ((A x \<^bold>\<and> x \<cong> y) \<^bold>\<rightarrow> A y) \<^bold>\<and> ((B x \<^bold>\<and> x \<cong> y) \<^bold>\<rightarrow> B y)"
+abbreviation EquiA (infix "\<^bold>=\<^bold>=A" 56) where "x \<^bold>=\<^bold>=A y \<equiv> (A x \<^bold>\<or> A y) \<^bold>\<rightarrow> x = y" 
+abbreviation EquiB (infix "\<^bold>=\<^bold>=B" 56) where "x \<^bold>=\<^bold>=B y \<equiv> (B x \<^bold>\<or> B y) \<^bold>\<rightarrow> x = y" 
+abbreviation EquiAB (infix "\<^bold>=\<^bold>=AB" 56) where "x \<^bold>=\<^bold>=AB y \<equiv> (x \<^bold>=\<^bold>=A y \<^bold>\<or> x \<^bold>=\<^bold>=B y)" 
+abbreviation Equi1 (infix "\<^bold>=\<^bold>=1" 56) where "x \<^bold>=\<^bold>=1 y \<equiv>  ((A x \<^bold>\<and> x \<cong> y) \<^bold>\<rightarrow> A y) \<^bold>\<and> ((B x \<^bold>\<and> x \<cong> y) \<^bold>\<rightarrow> B y)"
+abbreviation Equi (infix "\<^bold>=\<^bold>=" 56) where "x \<^bold>=\<^bold>= y \<equiv>  ((A x \<^bold>\<and> x = y) \<^bold>\<rightarrow> A y) \<^bold>\<and> ((B x \<^bold>\<and> x = y) \<^bold>\<rightarrow> B y)"
 abbreviation IA where "IA i \<equiv> (\<^bold>\<forall>x. A(i\<cdot>x) \<^bold>\<rightarrow> i\<cdot>x \<cong> x) \<^bold>\<and> (\<^bold>\<forall>x. A(x\<cdot>i) \<^bold>\<rightarrow> x\<cdot>i \<cong> x)"
 abbreviation IB where "IB i \<equiv> (\<^bold>\<forall>x. B(i\<cdot>x) \<^bold>\<rightarrow> i\<cdot>x \<cong> x) \<^bold>\<and> (\<^bold>\<forall>x. B(x\<cdot>i) \<^bold>\<rightarrow> x\<cdot>i \<cong> x)"
 
+lemma "x \<^bold>=\<^bold>=1 y \<^bold>\<rightarrow> x \<^bold>=\<^bold>= y" nitpick oops
+lemma "x \<^bold>=\<^bold>=1 y \<^bold>\<leftarrow> x \<^bold>=\<^bold>= y" nitpick oops
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<rightarrow> x \<cong>  y" nitpick oops
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<leftarrow> x \<cong>  y" nitpick oops
+
+lemma "x \<^bold>=\<^bold>= x" nitpick  by blast
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<rightarrow> y \<^bold>=\<^bold>= x" nitpick oops
+lemma "(x \<^bold>=\<^bold>= y \<^bold>\<and> y \<^bold>=\<^bold>= z) \<^bold>\<rightarrow> x \<^bold>=\<^bold>= z" nitpick oops
+
+lemma "x \<^bold>=\<^bold>=AB x" by blast
+lemma "x \<^bold>=\<^bold>=AB y \<^bold>\<rightarrow> y \<^bold>=\<^bold>=AB x" by auto
+lemma "(x \<^bold>=\<^bold>=AB y \<^bold>\<and> y \<^bold>=\<^bold>=AB z) \<^bold>\<rightarrow> x \<^bold>=\<^bold>=AB z" nitpick oops
+
+lemma "x \<cong> x" by blast
+lemma "x \<cong> y \<^bold>\<rightarrow> y \<cong> x" by auto
+lemma "(x \<cong> y \<^bold>\<and> y \<cong> z) \<^bold>\<rightarrow> x \<cong> z" by auto
+
 context -- {* S-Axioms; extended by functor *}
 assumes 
- Disj: "(A x \<^bold>\<rightarrow> E x) \<^bold>\<and> (B x \<^bold>\<rightarrow> E x) \<^bold>\<and> (A x \<^bold>\<rightarrow> \<^bold>\<not>(B x))" and
- SA: "(A(x\<cdot>y) \<^bold>\<rightarrow> (A x \<^bold>\<and> A y)) \<^bold>\<and> (A(dom x ) \<^bold>\<rightarrow> A x) \<^bold>\<and> (A(cod y) \<^bold>\<rightarrow> A y)" and
- SB: "(B(x\<cdot>y) \<^bold>\<rightarrow> (B x \<^bold>\<and> B y)) \<^bold>\<and> (B(dom x ) \<^bold>\<rightarrow> B x) \<^bold>\<and> (B(cod y) \<^bold>\<rightarrow> B y)" and
+ Disj: "(A x \<^bold>\<rightarrow> E x) \<^bold>\<and> (B x \<^bold>\<rightarrow> E x) \<^bold>\<and> (A x \<^bold>\<rightarrow> \<^bold>\<not>(B x)) \<^bold>\<and> (E x \<^bold>\<rightarrow> (A x \<^bold>\<or> B x))" and
+ SA: "(A(x\<cdot>y) \<^bold>\<rightarrow> (A x \<^bold>\<and> A y)) \<^bold>\<and> (A(dom x) \<^bold>\<rightarrow> A x) \<^bold>\<and> (A(cod y) \<^bold>\<rightarrow> A y)" and
+ SB: "(B(x\<cdot>y) \<^bold>\<rightarrow> (B x \<^bold>\<and> B y)) \<^bold>\<and> (B(dom x) \<^bold>\<rightarrow> B x) \<^bold>\<and> (B(cod y) \<^bold>\<rightarrow> B y)" and
  EA: "A(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> A(cod x))" and
  EB: "B(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> B(cod x))" and
 (* A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" and — is implied by Disj, see below *) 
@@ -152,6 +173,28 @@ assumes
  CompAB: "A(x\<cdot>y) \<^bold>\<rightarrow> f(x\<cdot>y) \<^bold>=\<^bold>= f(x)\<cdot>f(y)" and
  IdenAB: "(A x \<^bold>\<and> IA x) \<^bold>\<rightarrow> IB (f x)"
 begin
+lemma "E x \<^bold>\<rightarrow> (A x \<^bold>\<or> B x)" nitpick oops
+
+lemma "x \<^bold>=\<^bold>= x" by blast
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<rightarrow> y \<^bold>=\<^bold>= x" using Disj by blast
+lemma "(x \<^bold>=\<^bold>= y \<^bold>\<and> y \<^bold>=\<^bold>= z) \<^bold>\<rightarrow> x \<^bold>=\<^bold>= z" nitpick [user_axioms, show_all, format = 2] using Disj by auto
+
+lemma "x \<^bold>=\<^bold>=AB x" by blast
+lemma "x \<^bold>=\<^bold>=AB y \<^bold>\<rightarrow> y \<^bold>=\<^bold>=AB x" by auto
+lemma "(x \<^bold>=\<^bold>=AB y \<^bold>\<and> y \<^bold>=\<^bold>=AB z) \<^bold>\<rightarrow> x \<^bold>=\<^bold>=AB z" nitpick oops
+
+lemma "x \<cong> x" by blast
+lemma "x \<cong> y \<^bold>\<rightarrow> y \<cong> x" by auto
+lemma "(x \<cong> y \<^bold>\<and> y \<cong> z) \<^bold>\<rightarrow> x \<cong> z" by auto
+
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<rightarrow> x \<cong>  y" nitpick [user_axioms, show_all, format = 2] oops
+lemma "x \<^bold>=\<^bold>= y \<^bold>\<leftarrow> x \<cong>  y" using Disj by blast
+
+lemma "x \<^bold>=\<^bold>=AB y \<^bold>\<rightarrow> x \<^bold>=\<^bold>= y" nitpick oops
+lemma "x \<^bold>=\<^bold>=AB y \<^bold>\<leftarrow> x \<^bold>=\<^bold>= y" nitpick [user_axioms, show_all, format = 2] oops
+lemma "x \<^bold>=\<^bold>=AB y \<^bold>\<rightarrow> x \<cong>  y" nitpick [user_axioms, show_all, format = 2] oops
+lemma "x \<^bold>=\<^bold>=A y \<^bold>\<leftarrow> x \<cong>  y" nitpick oops
+
   (* Various forms of consistency *)
   lemma True  -- {* Nitpick finds a model *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
@@ -162,24 +205,27 @@ begin
   (* A and B are disjunct *)
   lemma Disj': "\<^bold>\<not>(A x \<^bold>\<and> B x)" using Disj by blast 
   (* A, C, D are implied by Disj *)
-  lemma A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using Disj by auto
-  lemma C: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" using Disj by auto
-  lemma D: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" using Disj by auto  
+  lemma A: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using Disj by auto   
+  lemma C: "x\<cdot>(dom x) \<^bold>=\<^bold>= x" using Disj SA SB by blast 
+  lemma D: "(cod x)\<cdot> x \<^bold>=\<^bold>= x" using Disj SA SB by blast
   (* Proving A-/B-copies of the axioms from Axiom Set III *)
   lemma S\<^sub>i\<^sub>i\<^sub>iA: "(A(x\<cdot>y) \<^bold>\<rightarrow> (A x \<^bold>\<and> A y)) \<^bold>\<and> (A(dom x ) \<^bold>\<rightarrow> A x) \<^bold>\<and> (A(cod y) \<^bold>\<rightarrow> A y)" using SA by blast
   lemma S\<^sub>i\<^sub>i\<^sub>iB: "(B(x\<cdot>y) \<^bold>\<rightarrow> (B x \<^bold>\<and> B y)) \<^bold>\<and> (B(dom x ) \<^bold>\<rightarrow> B x) \<^bold>\<and> (B(cod y) \<^bold>\<rightarrow> B y)" using SB by blast
-  lemma E\<^sub>i\<^sub>i\<^sub>iA: "A(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> A(cod y))" by (metis Disj EA SA) 
-  lemma E\<^sub>i\<^sub>i\<^sub>iB: "B(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> B(cod y))" by (metis Disj EB SB) 
-  lemma A\<^sub>i\<^sub>i\<^sub>i: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using Disj by auto
-  lemma C\<^sub>i\<^sub>i\<^sub>iA:  "A y \<^bold>\<rightarrow> (IA(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EA Map SA)
-  lemma C\<^sub>i\<^sub>i\<^sub>iB:  "B y \<^bold>\<rightarrow> (IB(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EB Map SB)
-  lemma D\<^sub>i\<^sub>i\<^sub>iA: "A x \<^bold>\<rightarrow> (IA(dom x) \<^bold>\<and> x\<cdot>(dom x) \<^bold>=\<^bold>= x)" by (metis Disj EA Map SA)
-  lemma D\<^sub>i\<^sub>i\<^sub>iB: "B x \<^bold>\<rightarrow> (IB(dom x) \<^bold>\<and> x\<cdot>(dom x) \<^bold>=\<^bold>= x)"  by (metis Disj EB Map SB)
+  lemma E\<^sub>i\<^sub>i\<^sub>iA: "A(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> A(cod y))" by (metis Disj EA SA SB)  
+  lemma E\<^sub>i\<^sub>i\<^sub>iB: "B(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<^bold>=\<^bold>= cod y \<^bold>\<and> B(cod y))" by (metis Disj EB SA SB) 
+  lemma A\<^sub>i\<^sub>i\<^sub>i: "x\<cdot>(y\<cdot>z) \<^bold>=\<^bold>= (x\<cdot>y)\<cdot>z" using Disj by auto 
+  lemma C\<^sub>i\<^sub>i\<^sub>iA:  "A y \<^bold>\<rightarrow> (IA(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EA Map SA SB)
+  lemma C\<^sub>i\<^sub>i\<^sub>iB:  "B y \<^bold>\<rightarrow> (IB(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EB Map SA SB)
+  lemma D\<^sub>i\<^sub>i\<^sub>iA: "A x \<^bold>\<rightarrow> (IA(dom x) \<^bold>\<and> x\<cdot>(dom x) \<^bold>=\<^bold>= x)" by (metis Disj EA Map SA SB)
+  lemma D\<^sub>i\<^sub>i\<^sub>iB: "B x \<^bold>\<rightarrow> (IB(dom x) \<^bold>\<and> x\<cdot>(dom x) \<^bold>=\<^bold>= x)" by (metis Disj EB Map SA SB)
   (* Proving A-/B-copies of the axioms from Axiom Set II *)
   lemma S\<^sub>i\<^sub>iA: "(A(x\<cdot>y) \<^bold>\<rightarrow> (A x \<^bold>\<and> A y)) \<^bold>\<and> (A(dom x) \<^bold>\<rightarrow> A x) \<^bold>\<and> (A(cod y) \<^bold>\<rightarrow> A y)" using SA by blast
   lemma S\<^sub>i\<^sub>iB: "(B(x\<cdot>y) \<^bold>\<rightarrow> (B x \<^bold>\<and> B y)) \<^bold>\<and> (B(dom x) \<^bold>\<rightarrow> B x) \<^bold>\<and> (B(cod y) \<^bold>\<rightarrow> B y)" using SB by blast
+  lemma  TE: "E(dom x) \<^bold>\<leftarrow> E x" nitpick  [show_all, format = 2, card = 2] sorry (* Countermodel *)
+  lemma  TA: "A(dom x) \<^bold>\<leftarrow> A x" nitpick  [show_all, format = 2, card = 3] sorry (* Countermodel *)
+  lemma  TB: "B(dom x) \<^bold>\<leftarrow> B x" nitpick  [show_all, format = 2, card = 2] sorry (* Countermodel *)
   lemma E\<^sub>i\<^sub>iA:  "A(x\<cdot>y) \<^bold>\<leftarrow> (A x \<^bold>\<and> A y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y))" nitpick  [show_all, format = 2, card = 3] sorry (* Countermodel *) 
-  lemma E\<^sub>i\<^sub>iB:  "A(x\<cdot>y) \<^bold>\<leftarrow> (B x \<^bold>\<and> B y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y))" nitpick  [show_all, format = 2, card = 3] sorry (* Countermodel *)
+  lemma E\<^sub>i\<^sub>iB:  "B(x\<cdot>y) \<^bold>\<leftarrow> (B x \<^bold>\<and> B y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<^bold>=\<^bold>= z \<^bold>\<and> x\<cdot>z \<^bold>=\<^bold>= x \<^bold>\<and> z\<cdot>y \<^bold>=\<^bold>= y))" nitpick  [show_all, format = 2, card = 3] sorry (* Countermodel *)
   lemma C\<^sub>i\<^sub>iA: "A y \<^bold>\<rightarrow> (IA(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EA Map SA) 
   lemma C\<^sub>i\<^sub>iB: "B y \<^bold>\<rightarrow> (IB(cod y) \<^bold>\<and> (cod y)\<cdot>y \<^bold>=\<^bold>= y)" by (metis Disj EB Map SB)  
   lemma D\<^sub>i\<^sub>iA: "A x \<^bold>\<rightarrow> (IA(dom x) \<^bold>\<and> x\<cdot>(dom x) \<^bold>=\<^bold>= x)" by (metis Disj EA Map SA)

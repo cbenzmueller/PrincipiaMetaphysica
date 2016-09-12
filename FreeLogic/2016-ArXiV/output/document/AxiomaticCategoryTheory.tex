@@ -25,7 +25,7 @@ in classical higher-order logic. The modeling and formal analysis of our axiom s
 significantly supported  by series of experiments with automated reasoning tools integrated 
 with Isabelle/HOL. We also address the relation of our axiom systems to alternative proposals 
 from the literature, including an axiom set proposed by Freyd and Scedrov for which we reveal 
-a technical flaw: either all operations, e.g. morphism composition, are total or 
+a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, are total or 
 their axiom system is inconsistent. The repair for this problem is quite straightforward, however. 
 \end{abstract}%
 \end{isamarkuptext}\isamarkuptrue%
@@ -40,19 +40,21 @@ the standard axioms for a monoid to a partial composition operation. Our purpose
 claim any contribution to category theory but rather to show how formalizations involving the kind 
 of logic required (free logic) can be validated within modern proof assistants. 
 
-A total of seven different axiom systems is studied. The systems I-VI are shown to 
-be equivalent. The last axiom system VII slightly modifies axiom system VI to obtain exactly (modulo 
+A total of eight different axiom systems is studied. The systems I-VI are shown to 
+be equivalent. The axiom system VII slightly modifies axiom system VI to obtain (modulo 
 notational transformation) the set of axioms as proposed by  Freyd and Scedrov in their textbook
  ``Categories, Allegories'' \cite{FreydScedrov90}, published in 1990; 
 see also Subsection \ref{subsec:FreydNotation} where we present their original system.
 While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
-obtained for system VII: \isa{{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False}, where \isa{E} is the existence 
-predicate. Read this as: If there 
+obtained for system VII (when encoded in free logic where free variables range over all 
+objects): We can prove \isa{{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False}, where \isa{E} is the existence predicate. Read this as: If there 
 are undefined objects, e.g. the value of an undefined composition \isa{x{\isasymcdot}y}, then we have falsity.
-By contraposition,  all objects (and thus all compositions) must exist. But when we assume the latter,
-then the axiom system by Freyd and Scedrov essentially reduces categories to monoids.
+By contraposition, all objects (and thus all compositions) must exist. But when we assume the latter,
+then the axiom system VII essentially reduces categories to monoids.
 We note that axiom system V, which avoids this problem, corresponds to a set of axioms proposed 
-by Scott \cite{Scott79} in the 1970s.
+by Scott \cite{Scott79} in the 1970s. The problem can also be avoided by restricting the variables 
+in axiom system VII to range only over existing objects and by postulating strictness conditions. 
+This gives us axiom system VIII.
 
 Our exploration has been significantly supported by series of experiments in which automated reasoning tools 
 have been called from within the proof assistant Isabelle/HOL \cite{Isabelle} via the Sledgehammer 
@@ -64,8 +66,8 @@ on a significant amount of human-machine interaction with integrated interactive
 theorem proving technology. The experiments we have conducted are such that the required 
 reasoning is often too tedious and time-consuming for humans to be carried out repeatedly with 
 highest level of precision. It is here where cycles of formalization and experimentation efforts in 
-Isabelle/HOL provided  significant support. Moreover, our novel oversight result for axiom 
-system VII, which was discovered by the automated theorem provers, further emphasises the added 
+Isabelle/HOL provided  significant support. Moreover, the technical inconsistency issue for
+axiom system VII was discovered by automated theorem provers, which further emphasises the added 
 value of automated theorem proving in this area. 
 
 To enable our experiments we have exploited an embedding of free logic \cite{Scott67} 
@@ -89,7 +91,7 @@ Free logic models partial functions as total functions over a ``raw domain'' \is
 A subset \isa{E} of \isa{D} is used to characterize the subdomain of ``existing'' objects; cf.
 \cite{Scott67} for further details.
 
-The experiments presented in the subsequent section exploit our embedding of free logic 
+The experiments presented in the subsequent sections exploit our embedding of free logic 
 in HOL \cite{C57}. This embedding is trivial for the standard Boolean connectives. The interesting
 aspect is that free logic quantifiers are guarded in the embedding by an explicit existence 
 predicate \isa{E} (associated with the subdomain \isa{E} of \isa{D}), so 
@@ -390,8 +392,8 @@ Nitpick confirms that this axiom set is consistent.%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Even if we assume there are non-existing objects we get consistency (which was not the case for
-  the axiom system proposed by Freyd and Scedrov owing to a technical oversight).%
+Even if we assume there are non-existing objects we get consistency (which is e.g. not the
+case for Axiom Set VII below).%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ \isacommand{lemma}\isamarkupfalse%
 \ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
@@ -1343,10 +1345,8 @@ Vice versa, Axiom Set III implies Axiom Set IV. Hence, both theories are
 \begin{isamarkuptext}%
 Axiom Set V has been proposed by Scott \cite{Scott79} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
- ``Categories, Allegories'' \cite{FreydScedrov90} when corrected and further simplified. 
- Their original axioms set is technically flawed (if we assume the possibility of 
-  non-existing objects of type \isa{i}, that is, that some operations are non-total, 
- then we get inconsistency). This issue has been detected by automated theorem provers
+ ``Categories, Allegories'' \cite{FreydScedrov90} when encoded in free logic, corrected/adapted and further simplified. 
+ Their axiom set is technically flawed when encoded in our given context. This issue has been detected by automated theorem provers
  with the same technical infrastructure as employed so far. See the subsequent section  
  for more details. 
  We have modified the axioms of \cite{FreydScedrov90} by replacing the original Kleene 
@@ -1629,14 +1629,13 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \endisadelimproof
 %
-\isamarkupsection{The Constricted Inconsistency in the Axiom System by  Freyd and Scedrov -- The Axiom Sets VI 
-  and VII%
+\isamarkupsection{Axiom Sets VI and VII%
 }
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
 The axiom set of Freyd and Scedrov from their textbook
- ``Categories, Allegories'' \cite{FreydScedrov90} is inconsistent if we assume 
+ ``Categories, Allegories'' \cite{FreydScedrov90} becomes inconsistent in our free logic setting if we assume 
   non-existing objects of type \isa{i}, respectively, if we assume that the operations are 
   non-total.  Freyd and Scedrov employ a different notation for 
   \isa{dom\ x} and \isa{cod\ x}. They denote these operations by \isa{{\isasymbox}x} 
@@ -1651,18 +1650,22 @@ The axiom set of Freyd and Scedrov from their textbook
 (iii) replace \isa{{\isasymphi}{\isasymbox}} by \isa{cod\ {\isasymphi}} and \isa{{\isasymbox}{\isasymphi}}  by \isa{dom\ {\isasymphi}}, and finally
 (iv) replace \isa{cod\ y\ {\isasymcong}\ dom\ x} (resp. \isa{cod\ y\ {\isasymsimeq}\ dom\ x}) 
    by \isa{dom\ x\ {\isasymcong}\ cod\ y} (resp. \isa{dom\ x\ {\isasymsimeq}\ cod\ y}).}
-  Below we will also prove the constricted inconsistency of their original system using their original notation.
+  In Subsection 9.2 we will also analyze their axiom system using their original notation.
 
-  The only difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
+  A main difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
   axiom \isa{S{\isadigit{3}}}. Namely, instead of the non-reflexive \isa{{\isasymsimeq}}, they use Kleene 
   equality \isa{{\isasymcong}}, cf. definition 1.11 on page 3 of \cite{FreydScedrov90}.\footnote{Def. 1.11 in Freyd 
   Scedrov: ``The ordinary equality sign \isa{{\isacharequal}} [i.e., our \isa{{\isasymcong}}] will be used in the
   symmetric sense, to wit: if either side is defined then so is the other and they are equal. \ldots''} 
-  The difference seems minor, but it has the effect to cause the mentioned
-  constricted inconsistency issue. This flaw should perhaps be regarded merely as an oversight.%
+  The difference seems minor, but in our free logic setting (where free variables range over defined 
+  and undefined objects) it has the effect to cause the mentioned
+  constricted inconsistency issue. This could perhaps be an oversight, or it could indicate
+  that Freyd and Scedrov actually mean the Axiom Set VIII below (where the variables in the axioms range 
+  over defined objects only). However, in Axiom Set VIII we had to (re-)introduce explicit 
+  strictness conditions to ensure equivalence to the Axiom Set V by Scott.%
 \end{isamarkuptext}\isamarkuptrue%
 %
-\isamarkupsubsection{The Axiom Set VI (Freyd and Scedrov when corrected and in our notation)%
+\isamarkupsubsection{Axiom Set VI%
 }
 \isamarkuptrue%
 \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
@@ -1775,7 +1778,7 @@ Axiom Set VI implies Axiom Set V.%
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{4}}FromIV{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{4}}FromVI{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1793,7 +1796,7 @@ Axiom Set VI implies Axiom Set V.%
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{5}}FromIV{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{5}}FromVI{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1811,7 +1814,7 @@ Axiom Set VI implies Axiom Set V.%
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{6}}FromIV{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{6}}FromVI{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1868,7 +1871,7 @@ Note, too, that Axiom Set VI is redundant. For example, axioms \isa{A{\isadigit{
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Our attempts to further reduce the axiom set \isa{{\isacharparenleft}A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{5}}{\isacharparenright}}  were not successful.
+Our attempts to further reduce the axioms set \isa{{\isacharparenleft}A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{2}}b\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{5}}{\isacharparenright}}  were not successful.
 Alternatively, we can e.g. keep \isa{A{\isadigit{4}}a} and \isa{A{\isadigit{4}}b} and show that axioms \isa{A{\isadigit{2}}a} 
 and \isa{A{\isadigit{2}}b} are implied.%
 \end{isamarkuptext}\isamarkuptrue%
@@ -1917,7 +1920,7 @@ Again, attempts to further reduce the set \isa{{\isacharparenleft}A{\isadigit{1}
    assumptions, the reasoning tools quickly identify \isa{{\isacharparenleft}A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{5}}{\isacharparenright}} as a minimal axiom 
    set, which then exactly matches the Axiom Set V from above.\footnote{This minimal set of axioms 
    is also mentioned by Freyd in \cite{Freyd16} and attributed to Martin Knopman. However, the proof
-   sketch presented there seems to fail when the corrected version of A1 (with \isa{{\isasymsimeq}}) is employed.}%
+   sketch presented there seems to fail when the adapted version of A1 (with \isa{{\isasymsimeq}}) is employed.}%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
@@ -2065,14 +2068,16 @@ Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent.%
 %
 \endisadelimproof
 %
-\isamarkupsubsection{The Axiom Set VII (Freyd and Scedrov in our notation)%
+\isamarkupsubsection{Axiom Set VII%
 }
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
 We now study the constricted inconsistency in Axiom Set VI when replacing  \isa{{\isasymsimeq}}  
  in  \isa{A{\isadigit{1}}} by  \isa{{\isasymcong}}. We call this Axiom Set VII. This set corresponds
- modulo representational transformation to the axioms as presented by Freyd and Scedrov.%
+ modulo representational transformation to the axioms as presented by Freyd and Scedrov. Remember, however,
+ that the free variables are ranging here over all objects, defined or undefined. Below, when we study
+ Axiom Set VIII, we will restrict the variables to range only over existing objects.%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
@@ -2167,7 +2172,7 @@ In fact, the automated theorem provers quickly prove falsity when assuming a
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Hence, all morphisms must be defined in the theory of Freyd and Scedrov, or in other 
+Hence, all morphisms must be defined in theory of Axiom Set VII, or in other 
       words, all operations must be total.%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ \isacommand{lemma}\isamarkupfalse%
@@ -2281,7 +2286,7 @@ The constricted inconsistency proof can be turned into an interactive mathematic
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-We finally present the constricted inconsistency argument once again, but this time in the original
+We present the constricted inconsistency argument once again, but this time in the original
   notation of Freyd and Scedrov.%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{consts}\isamarkupfalse%
@@ -2289,6 +2294,7 @@ We finally present the constricted inconsistency argument once again, but this t
 \ \ \ source{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \isanewline
 \ \ \ target{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isacharunderscore}{\isasymbox}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \isanewline
 \ \ \ compositionF{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}\isactrlbold {\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}\isanewline
+\isanewline
 \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x\isactrlbold {\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}x{\isasymbox}\ {\isasymcong}\ {\isasymbox}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
 \ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymcong}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
 \ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymcong}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
@@ -2404,8 +2410,655 @@ The following alternative interactive proof is slightly shorter than the one
 \begin{isamarkuptext}%
 Obviously Axiom Set VII is also redundant, and we have previously reported 
 on respective redundancies \cite{C57}. However, this was before the discovery of the above 
-constricted inconsistency issue, which tells us that the system can even be reduced 
+constricted inconsistency issue, which tells us that the system (in our setting) can even be reduced 
 to \isa{A{\isadigit{1}}}, \isa{A{\isadigit{2}}a} and \isa{A{\isadigit{3}}a} (when we additionally assume \isa{NEx}).%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsection{Axiom Set VIII%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+We study the axiom system by Freyd and Scedrov once again. However, this time we restrict 
+the free variables in their system to range over existing objects only. By employing the free logic 
+universal quantifier \isa{\isactrlbold {\isasymforall}} we thus modify Axiom Set VII as follows:%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\begin{isamarkuptext}%
+Now, the two consistency checks succeed.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
+the \isa{V}-axioms are implied:%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}\ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \ \ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The situation changes when we explicitly postulate strictness of \isa{dom},
+\isa{cod} and \isa{{\isasymcdot}}. We thus obtain our Axiom Set VIII:%
+\end{isamarkuptext}\isamarkuptrue%
+\ B{\isadigit{0}}a{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{0}}b{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{0}}c{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\begin{isamarkuptext}%
+Again, the two consistency checks succeed%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Now Axiom Set V is implied.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}c\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}b\ B{\isadigit{0}}c\ B{\isadigit{1}}\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}meson\ B{\isadigit{0}}a\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}a\ B{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}FromVIII{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}a\ B{\isadigit{3}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Vive versa, Axiom Set V implies Axiom Set VIII. Hence, both theories are equivalent.%
+\end{isamarkuptext}\isamarkuptrue%
+\ S{\isadigit{1}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Strictness:}%
+}
+\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{2}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Strictness:}%
+}
+\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{3}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Existence:}%
+}
+\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ S{\isadigit{4}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Associativity:}%
+}
+\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{5}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Domain:}%
+}
+\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{6}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Codomain:}%
+}
+\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}a{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}b{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}c{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{2}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{3}}\ S{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{3}}\ S{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{3}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{1}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{2}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Axiom Set VIII is redundant (as expected from previous observations).
+The theorem provers quickly confirm that axioms \isa{B{\isadigit{2}}a{\isacharcomma}\ B{\isadigit{2}}b{\isacharcomma}\ B{\isadigit{4}}a{\isacharcomma}\ B{\isadigit{4}}b} are implied.%
+\end{isamarkuptext}\isamarkuptrue%
+\ B{\isadigit{0}}a{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{0}}b{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{0}}c{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \ \isanewline
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{1}}\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{1}}\ B{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}b\ B{\isadigit{1}}\ B{\isadigit{3}}a\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}c\ B{\isadigit{1}}\ B{\isadigit{3}}b\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Again, note the relation and similarity of the reduced Axiom Set VIII to Axiom Set V by Scott, 
+which we prefer, since it avoids a mixed use of free and bound variables in the encoding and 
+since it is smaller.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \isamarkupparagraph{Acknowledgements%
@@ -2413,7 +3066,7 @@ to \isa{A{\isadigit{1}}}, \isa{A{\isadigit{2}}a} and \isa{A{\isadigit{3}}a} (whe
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-We thank G\"unter Rote for his valuable comments to earlier drafts of this paper.%
+We thank G\"unter Rote and Lutz Schr\"oder for their valuable comments to earlier drafts of this paper.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \isadelimtheory

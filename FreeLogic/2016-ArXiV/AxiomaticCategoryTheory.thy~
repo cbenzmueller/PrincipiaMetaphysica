@@ -18,7 +18,7 @@ in classical higher-order logic. The modeling and formal analysis of our axiom s
 significantly supported  by series of experiments with automated reasoning tools integrated 
 with Isabelle/HOL. We also address the relation of our axiom systems to alternative proposals 
 from the literature, including an axiom set proposed by Freyd and Scedrov for which we reveal 
-a technical flaw: either all operations, e.g. morphism composition, are total or 
+a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, are total or 
 their axiom system is inconsistent. The repair for this problem is quite straightforward, however. 
 \end{abstract}
 *}
@@ -32,13 +32,13 @@ claim any contribution to category theory but rather to show how formalizations 
 of logic required (free logic) can be validated within modern proof assistants. 
 
 A total of seven different axiom systems is studied. The systems I-VI are shown to 
-be equivalent. The last axiom system VII slightly modifies axiom system VI to obtain exactly (modulo 
+be equivalent. The last axiom system VII slightly modifies axiom system VI to obtain (modulo 
 notational transformation) the set of axioms as proposed by  Freyd and Scedrov in their textbook
  ``Categories, Allegories'' @{cite "FreydScedrov90"}, published in 1990; 
 see also Subsection \ref{subsec:FreydNotation} where we present their original system.
 While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
-obtained for system VII: @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where @{text "E"} is the existence 
-predicate. Read this as: If there 
+obtained for system VII (when encoded in free logic): @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where 
+@{text "E"} is the existence predicate. Read this as: If there 
 are undefined objects, e.g. the value of an undefined composition @{text "x\<cdot>y"}, then we have falsity.
 By contraposition,  all objects (and thus all compositions) must exist. But when we assume the latter,
 then the axiom system by Freyd and Scedrov essentially reduces categories to monoids.
@@ -171,7 +171,7 @@ lemma "x \<simeq> x" -- {* This does not hold; Nitpick finds a countermodel.\foo
   ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) conjecture is 
   then not made available for further use. The simplest countermodel for the conjecture given
   here consists of single, non-existing element. } *}
-  nitpick [user_axioms, show_all, format = 2, expect = genuine, card = 1] oops  
+  nitpick [user_axioms, show_all, format = 2, expect = genuine] oops  
 lemma " (x \<simeq> y \<^bold>\<rightarrow> y \<simeq> x) \<^bold>\<and> ((x \<simeq> y \<^bold>\<and> y \<simeq> z) \<^bold>\<rightarrow> x \<simeq> z)" 
   by blast
 lemma "x \<simeq> y \<^bold>\<rightarrow> x \<cong> y" 
@@ -234,14 +234,14 @@ abbreviation Dom where
 
 text {* Nitpick confirms that this axiom set is consistent. *}
   lemma True  -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   
 
 text {* Even if we assume there are non-existing objects we get consistency (which was not the case for
   the axiom system proposed by Freyd and Scedrov owing to a technical oversight). *}  
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model\footnote{To display the models or countermodels from Nitpick in the Isabelle/HOL system interface 
 simply put the mouse on the expression "nitpick".}  *} 
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i"} is implied. *}
@@ -272,7 +272,7 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
    function symbols @{text "C"} and @{text "D"} this can be encoded in
    our formalization as follows: *}
  lemma "(\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D = C))"
-   nitpick [satisfy, user_axioms, show_all, format = 2] oops  -- {* Nitpick finds a model. *}
+   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
  text {* Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two non-existing
    objects @{text "i\<^sub>1"} and @{text "i\<^sub>2"}. @{text "C"} maps both @{text "i\<^sub>1"} and @{text "i\<^sub>2"} to
    @{text "i\<^sub>2"}. @{text "D"} maps @{text "i\<^sub>1"} to @{text "i\<^sub>2"}, and vice versa. The composition 
@@ -287,7 +287,7 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
     E = (\<lambda>x. _)(i\<^sub>1 := False, i\<^sub>2 := False) *)
  text {* Even if we require at least one existing object Nitpick still finds a model: *}
  lemma "(\<exists>x. E x) \<^bold>\<and> (\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D = C))"
-   nitpick [satisfy, user_axioms, show_all, format = 2] oops  -- {* Nitpick finds a model. *}
+   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
  text {* Again the model is of cardinality @{text "i = 2"}, but now we have a non-existing @{text "i\<^sub>1"} and 
   and an existing @{text "i\<^sub>2"}. Composition @{text "\<cdot>"} and @{text "C"} are as above, but 
   @{text "D"} is now identity on all objects.  *}
@@ -331,9 +331,9 @@ begin
 
 text {* As above, we first check for consistency. *}
   lemma True  -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i"} is implied. *}
   lemma E\<^sub>i\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
@@ -390,9 +390,9 @@ begin
   
 text {* The obligatory consistency check is positive. *}
   lemma True  -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *} 
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i\<^sub>i"} is implied. *}
   lemma E\<^sub>i\<^sub>i\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" 
@@ -479,9 +479,9 @@ begin
 
 text {* The obligatory consistency check is again positive. *}
   lemma True  -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The Axiom Set III is implied. The only interesting cases are 
  lemmata @{text "C\<^sub>i\<^sub>i\<^sub>iFromIV"} and @{text "D\<^sub>i\<^sub>i\<^sub>iFromIV"}. Note that the strengthened 
@@ -534,8 +534,8 @@ section {* Axiom Set V *}
 
 text {* Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"} when corrected and further simplified. 
- Their original axioms set is technically flawed (if we assume the possibility of 
+ ``Categories, Allegories'' @{cite "FreydScedrov90"} when encoded in free logic, corrected and further simplified. 
+ Their axioms set is technically flawed in the context of free logic (if we assume the possibility of 
   non-existing objects of type @{text "i"}, that is, that some operations are non-total, 
  then we get inconsistency). This issue has been detected by automated theorem provers
  with the same technical infrastructure as employed so far. See the subsequent section  
@@ -562,9 +562,9 @@ begin
 
 text {* The obligatory consistency check is again positive. *}
   lemma True -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The Axiom Set IV is implied. The only interesting cases are 
  lemmata @{text "E\<^sub>i\<^sub>vFromV"} and @{text "E\<^sub>i\<^sub>vFromV"}.*}
@@ -615,8 +615,8 @@ end
 section {* The Constricted Inconsistency in the Axiom System by  Freyd and Scedrov -- The Axiom Sets VI 
   and VII *}
 
-text {* The axiom set of Freyd and Scedrov from their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"} is inconsistent if we assume 
+text {* The axioms set of Freyd and Scedrov from their textbook
+ ``Categories, Allegories'' @{cite "FreydScedrov90"} is inconsistent in our setting  if we assume 
   non-existing objects of type @{text "i"}, respectively, if we assume that the operations are 
   non-total.  Freyd and Scedrov employ a different notation for 
   @{text "dom x"} and @{text "cod x"}. They denote these operations by @{text "\<box>x"} 
@@ -642,10 +642,10 @@ text {* The axiom set of Freyd and Scedrov from their textbook
   constricted inconsistency issue. This flaw should perhaps be regarded merely as an oversight.
 *}
 
-subsection {* The Axiom Set VI (Freyd and Scedrov when corrected and in our notation) *}
+subsection {* The Axiom Set VI (Freyd and Scedrov) when corrected and in our notation) *}
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov when corrected and in our notation) *}
+context -- {* Axiom Set VI (Freyd and Scedrov) when corrected and in our notation) *}
 assumes
 (*>*)
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
@@ -663,9 +663,9 @@ begin
 text {* The obligatory consistency checks are again positive. 
  But note that this only holds when we use @{text "\<simeq>"} instead of  @{text "\<cong>"} in  @{text "A1"}. *}
   lemma True  -- {* Nitpick finds a model *}
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
 
 text {* Axiom Set VI implies Axiom Set V. *}
   lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x" 
@@ -713,7 +713,7 @@ end
 (*>*) 
 text {* Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent. *}
 (*<*)
-context -- {* Axiom Set V (Freyd and Scedrov when corrected and simplified)  *}
+context -- {* Axiom Set V (Freyd and Scedrov) when corrected and simplified)  *}
 assumes
  S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
  S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
@@ -745,14 +745,14 @@ end
 (*>*)
 
 
-subsection {* The Axiom Set VII (Freyd and Scedrov in our notation) *}
+subsection {* The Axiom Set VII (Freyd and Scedrov) in our notation) *}
 
 text {* We now study the constricted inconsistency in Axiom Set VI when replacing  @{text "\<simeq>"}  
  in  @{text "A1"} by  @{text "\<cong>"}. We call this Axiom Set VII. This set corresponds
  modulo representational transformation to the axioms as presented by Freyd and Scedrov. *}
 
 (*<*)
-context -- {* Axiom Set VII (Freyd and Scedrov in our notation) *}
+context -- {* Axiom Set VII (Freyd and Scedrov) in our notation) *}
 assumes
 (*>*)
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
@@ -770,7 +770,7 @@ begin
 text {* A model can still be constructed if we do not make assumptions about non-existing
   objects. In fact, the model presented by Nitpick consists of a single, existing morphism.  *}
   lemma True 
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- {* Nitpick finds a model *}
 
 text {* However, one can see directly that axiom  @{text "A1"} is problematic as written:
 If  @{text "x"} and  @{text "y"} are undefined, then (presumably)  @{text "dom x"} and 
@@ -783,10 +783,11 @@ even stronger. It implies that \emph{all} objects are defined,
 that is, composition (as well as @{text "dom"} and @{text "cod"}) become total operations.
 The theory described by these axioms ``collapses'' to the theory of
 monoids. (If all objects are defined, then one can conclude from @{text "A1"} that 
-@{text "dom x = dom y"}, and according to 1.14 of @{cite "FreydScedrov90"}, 
+@{text "dom x \<cong> dom y"} (resp.~@{text "dom x \<cong> cod y"} and @{text "cod x \<cong> cod y"}), 
+and according to 1.14 of @{cite "FreydScedrov90"}, 
 the category reduces to a monoid provided that it is not empty.) *}
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick does *not* find a model *} 
-    nitpick [satisfy, user_axioms, show_all, format = 2] oops
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = none] oops
 
 text {* In fact, the automated theorem provers quickly prove falsity when assuming a 
  non-existing object of type @{text "i"}. The provers identify the axioms @{text "A1"}, @{text "A2a"}
@@ -838,12 +839,10 @@ consts
    target:: "i\<Rightarrow>i" ("_\<box>" [110] 111) 
    compositionF:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<^bold>\<cdot>" 110)
 
-
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov in their notation) *}   
+context -- {* Axiom Set VI (Freyd and Scedrov) in their notation) *}   
 assumes           
 (*>*)
-
   A1: "E(x\<^bold>\<cdot>y) \<^bold>\<leftrightarrow> (x\<box> \<cong> \<box>y)" and 
  A2a: "((\<box>x)\<box>) \<cong> \<box>x" and 
  A2b: "\<box>(x\<box>) \<cong> \<box>x" and 
@@ -893,6 +892,100 @@ to @{text "A1"}, @{text "A2a"} and @{text "A3a"} (when we additionally assume @{
 end
 (*>*)
 
+section {* Restricting the Interpretation of Free Variables *}
+
+text {* We now study what happens when we restrict the interpretation of the free variables in the axiom system
+by Freyd and Scedrov to existing objects only. We thus consider the following quantified adaptation
+of the Axiom Set VII.*}   
+
+(*<*)
+context -- {* Axiom Set VII (Freyd and Scedrov) in our notation) *}
+assumes
+(*>*)
+  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
+ B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " and  
+ B2b: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" and  
+ B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" and 
+ B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" and 
+ B4a: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" and 
+ B4b: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" and 
+  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
+(*<*)
+begin
+(*>*)
+text {* Now, the two consistency checks succeed *}
+
+  lemma True  -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+
+text {* However, this axiom set is weaker than our Axiom V *}
+
+text {* Axiom Set VI implies Axiom Set V. *}
+  lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S2FromVI: "E(cod y) \<^bold>\<rightarrow> E y"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S3FromVI: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S4FromIV: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S5FromIV: "x\<cdot>(dom x) \<cong> x"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S6FromIV: "(cod y)\<cdot>y \<cong> y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+(*<*)
+end
+(*>*)
+
+text {* The situation changes if we explicitly postulate strictness of @{text "dom"} @{text "cod"} and
+@{text "\<cdot>"} *}
+
+(*<*)
+context -- {* Axiom Set VII (Freyd and Scedrov) in our notation) *}
+assumes
+(*>*)
+  B0: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod x) \<^bold>\<rightarrow> E x)" and
+  B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
+ B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " and  
+ B2b: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" and  
+ B3a: "\<^bold>\<forall>x. x\<cdot>(dom x) \<cong> x" and 
+ B3b: "\<^bold>\<forall>y. (cod y)\<cdot>y \<cong> y" and 
+ B4a: "\<^bold>\<forall>x.\<^bold>\<forall>y. dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" and 
+ B4b: "\<^bold>\<forall>x.\<^bold>\<forall>y. cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" and 
+  B5: "\<^bold>\<forall>x.\<^bold>\<forall>y.\<^bold>\<forall>z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
+(*<*)
+begin
+(*>*)
+text {* Now, the two consistency checks succeed *}
+
+  lemma True  -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+
+text {* However, this axiom set is weaker than our Axiom V *}
+
+text {* Axiom Set VI implies Axiom Set V. *}
+  lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S2FromVI: "E(cod y) \<^bold>\<rightarrow> E y"  -- {* Nitpick finds a countermodel *}  
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S3FromVI: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S4FromIV: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S5FromIV: "x\<cdot>(dom x) \<cong> x"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+  lemma S6FromIV: "(cod y)\<cdot>y \<cong> y"   -- {* Nitpick finds a countermodel *} 
+    nitpick [user_axioms, show_all, format = 2] oops 
+(*<*)
+end
+(*>*)
+
+
+
 paragraph {* Acknowledgements *}
 text {* We thank G\"unter Rote for his valuable comments to earlier drafts of this paper. *}
 
@@ -917,6 +1010,7 @@ exception Option raised (line 82 of "General/basics.ML")
  \item ATPs sometimes timeout on very trivial problems, e.g. proving the quantified version of 
    E\<^sub>i from Axiom Set I.
  \item The strengths of ATPs are surprisingly complementary. They all contributed.
+ \item Nitpick's results could be better supported in the interface.
 \end{itemize}
 *}
 
