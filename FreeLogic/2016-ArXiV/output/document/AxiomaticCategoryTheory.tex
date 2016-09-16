@@ -1643,7 +1643,7 @@ The axiom set of Freyd and Scedrov from their textbook
   (functional composition from left to right) instead of the set-theoretic 
   definition \isa{{\isacharparenleft}f{\isasymcdot}g{\isacharparenright}\ x\ {\isasymcong}\ f{\isacharparenleft}g\ x{\isacharparenright}} (functional composition from right to left) used so far.
  
-  We leave it to the reader to verify that their axiom system in fact corresponds to the 
+  We leave it to the reader to verify that their axiom system corresponds to the 
   axiom system given below modulo an appropriate conversion of notation.\footnote{A recipe for 
   this translation is as follows: (i) replace all \isa{x{\isasymcdot}y} by \isa{y{\isasymcdot}x}, 
 (ii) rename the variables to get them again in alphabetical order,
@@ -1652,13 +1652,13 @@ The axiom set of Freyd and Scedrov from their textbook
    by \isa{dom\ x\ {\isasymcong}\ cod\ y} (resp. \isa{dom\ x\ {\isasymsimeq}\ cod\ y}).}
   In Subsection 9.2 we will also analyze their axiom system using their original notation.
 
+
   A main difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
   axiom \isa{S{\isadigit{3}}}. Namely, instead of the non-reflexive \isa{{\isasymsimeq}}, they use Kleene 
   equality \isa{{\isasymcong}}, cf. definition 1.11 on page 3 of \cite{FreydScedrov90}.\footnote{Def. 1.11 in Freyd 
   Scedrov: ``The ordinary equality sign \isa{{\isacharequal}} [i.e., our \isa{{\isasymcong}}] will be used in the
   symmetric sense, to wit: if either side is defined then so is the other and they are equal. \ldots''} 
-  The difference seems minor, but in our free logic setting (where free variables range over defined 
-  and undefined objects) it has the effect to cause the mentioned
+  The difference seems minor, but in our free logic setting it has the effect to cause the mentioned
   constricted inconsistency issue. This could perhaps be an oversight, or it could indicate
   that Freyd and Scedrov actually mean the Axiom Set VIII below (where the variables in the axioms range 
   over defined objects only). However, in Axiom Set VIII we had to (re-)introduce explicit 
@@ -1926,7 +1926,6 @@ Again, attempts to further reduce the set \isa{{\isacharparenleft}A{\isadigit{1}
 \begin{isamarkuptext}%
 Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent.%
 \end{isamarkuptext}\isamarkuptrue%
-\isanewline
 \ \ \isacommand{lemma}\isamarkupfalse%
 \ \ A{\isadigit{1}}FromV{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isanewline
 %

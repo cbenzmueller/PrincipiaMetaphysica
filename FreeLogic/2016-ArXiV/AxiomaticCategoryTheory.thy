@@ -623,7 +623,7 @@ text {* The axiom set of Freyd and Scedrov from their textbook
   (functional composition from left to right) instead of the set-theoretic 
   definition @{text "(f\<cdot>g) x \<cong> f(g x)"} (functional composition from right to left) used so far.
  
-  We leave it to the reader to verify that their axiom system in fact corresponds to the 
+  We leave it to the reader to verify that their axiom system corresponds to the 
   axiom system given below modulo an appropriate conversion of notation.\footnote{A recipe for 
   this translation is as follows: (i) replace all @{text "x\<cdot>y"} by @{text "y\<cdot>x"}, 
 (ii) rename the variables to get them again in alphabetical order,
@@ -632,13 +632,13 @@ text {* The axiom set of Freyd and Scedrov from their textbook
    by @{text "dom x \<cong> cod y"} (resp. @{text "dom x \<simeq> cod y"}).}
   In Subsection 9.2 we will also analyze their axiom system using their original notation.
 
+
   A main difference in the system by Freyd and Scedrov to our Axiom Set V from above concerns
   axiom @{text "S3"}. Namely, instead of the non-reflexive @{text "\<simeq>"}, they use Kleene 
   equality @{text "\<cong>"}, cf. definition 1.11 on page 3 of @{cite "FreydScedrov90"}.\footnote{Def. 1.11 in Freyd 
   Scedrov: ``The ordinary equality sign @{text "="} [i.e., our @{text "\<cong>"}] will be used in the
   symmetric sense, to wit: if either side is defined then so is the other and they are equal. \ldots''} 
-  The difference seems minor, but in our free logic setting (where free variables range over defined 
-  and undefined objects) it has the effect to cause the mentioned
+  The difference seems minor, but in our free logic setting it has the effect to cause the mentioned
   constricted inconsistency issue. This could perhaps be an oversight, or it could indicate
   that Freyd and Scedrov actually mean the Axiom Set VIII below (where the variables in the axioms range 
   over defined objects only). However, in Axiom Set VIII we had to (re-)introduce explicit 
@@ -726,7 +726,6 @@ assumes
  S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
 begin
 (*>*)
-
   lemma  A1FromV: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" 
     using S3 by blast
   lemma A2aFromV: "cod(dom x) \<cong> dom x"  
