@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/MacPorts 2016_4)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: article.aux
+The style file: spmpsci.bst
+Database file #1: bibliography.bib
+Warning--I didn't find a database entry for "RefB"
+Warning--I didn't find a database entry for "RefJ"
+You've used 3 entries,
+            2946 wiz_defined-function locations,
+            643 strings with 5448 characters,
+and the built_in function-call counts, 1913 in all, are:
+= -- 186
+> -- 56
+< -- 1
++ -- 28
+- -- 19
+* -- 104
+:= -- 224
+add.period$ -- 7
+call.type$ -- 3
+change.case$ -- 20
+chr.to.int$ -- 0
+cite$ -- 3
+duplicate$ -- 197
+empty$ -- 145
+format.name$ -- 23
+if$ -- 396
+int.to.chr$ -- 0
+int.to.str$ -- 3
+missing$ -- 33
+newline$ -- 22
+num.names$ -- 8
+pop$ -- 78
+preamble$ -- 1
+purify$ -- 14
+quote$ -- 0
+skip$ -- 76
+stack$ -- 0
+substring$ -- 57
+swap$ -- 144
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 10
+warning$ -- 0
+while$ -- 9
+width$ -- 4
+write$ -- 41
+(There were 2 warnings)

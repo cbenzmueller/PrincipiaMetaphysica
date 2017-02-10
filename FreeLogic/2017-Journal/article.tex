@@ -70,7 +70,7 @@ grestore
 
 %\titlerunning{Short form of title}        % if too long for running head
 
-\author{Christoph Benzmüller       \and
+\author{Christoph Benzm\"uller       \and
       Dana Scott 
 }
 
@@ -145,7 +145,7 @@ theoretically appealing solution, but is has been considered as rather
 unsuited towards practical utilisation.
 
 
-In this article we show how free logic can be
+In the first part of this article (\S2 and \S3) we show how free logic can be
 ``implemented'' in any theorem proving system for classical
 higher-order logic (HOL) \cite{B5}. The proposed solution employs a
 semantic embedding of free (or inclusive logic) in HOL. We present an
@@ -160,67 +160,72 @@ elegant and powerful implementation of an interactive and automated
 theorem proving (and model finding) system for free logic.
 
 
-  The two main contributions of this article are: (i) A shallow
-  semantical embedding of free logic in classical higher-order logic
-  is presented; this embedding enables the application of higher-order
-  interactive and automated theorem provers (and their integrated
-  subprovers) for the formalisation and verification of free logic
-  theories.  (ii) This approach to automate free logic is exemplarily
-  employed in a selected domain of mathematics: Starting from a
-  generalization of the standard axioms for a monoid we present a
-  stepwise development of various, mutually equivalent foundational
-  axiom systems for category theory. As a side-effect of this work
-  some (minor) issue in a prominent category theory textbook have been
-  revealed.
+%   The two main contributions of this article are: (i) A shallow
+%   semantical embedding of free logic in classical higher-order logic
+%   is presented; this embedding enables the application of higher-order
+%   interactive and automated theorem provers (and their integrated
+%   subprovers) for the formalisation and verification of free logic
+%   theories.  (ii) This approach to automate free logic is exemplarily
+%   employed in a selected domain of mathematics: Starting from a
+%   generalization of the standard axioms for a monoid we present a
+%   stepwise development of various, mutually equivalent foundational
+%   axiom systems for category theory. As a side-effect of this work
+%   some (minor) issue in a prominent category theory textbook have been
+%   revealed.
 
 
 
-Partiality and undefinedness are core concepts in various areas of
-mathematics.  Modern mathematical proof assistants and theorem proving
-systems are often based on traditional classical or intuitionistic
-logics and provide rather inadequate support for these challenge
-concepts.  Free logic @{cite "sep-logic-free,scott67:exist"}, in
-contrast, offers a theoretically and practically appealing
-solution. Unfortunately, however, we are not aware of any implemented
-and available theorem proving system for free logic.
+% Partiality and undefinedness are core concepts in various areas of
+% mathematics.  Modern mathematical proof assistants and theorem proving
+% systems are often based on traditional classical or intuitionistic
+% logics and provide rather inadequate support for these challenge
+% concepts.  Free logic @{cite "sep-logic-free,scott67:exist"}, in
+% contrast, offers a theoretically and practically appealing
+% solution. Unfortunately, however, we are not aware of any implemented
+% and available theorem proving system for free logic.
  
-In this extended abstract we show how free logic can be
-``implemented'' in any theorem proving system for classical
-higher-order logic (HOL) @{cite "B5"}. The proposed solution employs a
-semantic embedding of free (or inclusive logic) in HOL. We present an
-exemplary implementation of this idea in the mathematical proof
-assistant Isabelle/HOL @{cite "NPW02"}. Various state-of-the-art
-first-order and higher-order automated theorem provers and model
-finders are integrated (modulo suitable logic translations) with
-Isabelle via the Sledgehammer tool @{cite "Sledgehammer"}, so that our
-solution can be utilized, via Isabelle as foreground system, with a
-whole range of other background reasoners. As a result we obtain an
-elegant and powerful implementation of an interactive and automated
-theorem proving (and model finding) system for free logic.
+% In this extended abstract we show how free logic can be
+% ``implemented'' in any theorem proving system for classical
+% higher-order logic (HOL) @{cite "B5"}. The proposed solution employs a
+% semantic embedding of free (or inclusive logic) in HOL. We present an
+% exemplary implementation of this idea in the mathematical proof
+% assistant Isabelle/HOL @{cite "NPW02"}. Various state-of-the-art
+% first-order and higher-order automated theorem provers and model
+% finders are integrated (modulo suitable logic translations) with
+% Isabelle via the Sledgehammer tool @{cite "Sledgehammer"}, so that our
+% solution can be utilized, via Isabelle as foreground system, with a
+% whole range of other background reasoners. As a result we obtain an
+% elegant and powerful implementation of an interactive and automated
+% theorem proving (and model finding) system for free logic.
   
-To demonstrate the practical relevance of our new system, we present a
-stepwise development of axiom systems for category theory by
-generalizing the standard axioms for a monoid to a partial composition
-operation. Our purpose is not to make or claim any contribution to
-category theory but rather to show how formalizations involving the
-kind of logic required (free logic) can be validated within modern
-proof assistants.
+To demonstrate the practical relevance of our new system, we present,
+in the second part of this article, a stepwise development of axiom
+systems for category theory by generalizing the standard axioms for a
+monoid to a partial composition operation. Our purpose is not to make
+or claim any contribution to category theory but rather to show how
+formalizations involving the kind of logic required (free logic) can
+be validated within modern proof assistants.
 
-A total of eight different axiom systems is studied. The systems I-VI are shown to 
-be equivalent. The axiom system VII slightly modifies axiom system VI to obtain (modulo 
-notational transformation) the set of axioms as proposed by  Freyd and Scedrov in their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"}, published in 1990; 
-see also Subsection \ref{subsec:FreydNotation} where we present their original system.
-While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
-obtained for system VII (when encoded in free logic where free variables range over all 
-objects): We can prove @{text "(∃x. ❙¬(E x)) ❙→ False"}, where @{text "E"} is the existence predicate. Read this as: If there 
-are undefined objects, e.g. the value of an undefined composition @{text "x⋅y"}, then we have falsity.
-By contraposition, all objects (and thus all compositions) must exist. But when we assume the latter,
-then the axiom system VII essentially reduces categories to monoids.
-We note that axiom system V, which avoids this problem, corresponds to a set of axioms proposed 
-by Scott @{cite "Scott79"} in the 1970s. The problem can also be avoided by restricting the variables 
-in axiom system VII to range only over existing objects and by postulating strictness conditions. 
-This gives us axiom system VIII.
+A total of eight different axiom systems is studied. The systems I-VI
+are shown to be equivalent. The axiom system VII slightly modifies
+axiom system VI to obtain (modulo notational transformation) the set
+of axioms as proposed by Freyd and Scedrov in their textbook
+``Categories, Allegories'' \cite{FreydScedrov90}, published in 1990;
+see also Subsection \ref{subsec:FreydNotation} where we present their
+original system.  While the axiom systems I-VI are shown to be
+consistent, a constricted inconsistency result is obtained for system
+VII (when encoded in free logic where free variables range over all
+objects): We can prove $\exists x. \neg(E x) \rightarrow False$, where
+$E$ is the existence predicate. Read this as: If there are undefined
+objects, e.g. the value of an undefined composition $x\cdot y$
+then we have falsity.  By contraposition, all objects (and thus all
+compositions) must exist. But when we assume the latter, then the
+axiom system VII essentially reduces categories to monoids.  We note
+that axiom system V, which avoids this problem, corresponds to a set
+of axioms proposed by Scott @{cite "Scott79"} in the 1970s. The
+problem can also be avoided by restricting the variables in axiom
+system VII to range only over existing objects and by postulating
+strictness conditions.  This gives us axiom system VIII.
 
 Our exploration has been significantly supported by series of experiments in which automated reasoning tools 
 have been called from within the proof assistant Isabelle/HOL @{cite "Isabelle"} via the Sledgehammer 
@@ -236,16 +241,39 @@ Isabelle/HOL provided  significant support. Moreover, the technical inconsistenc
 axiom system VII was discovered by automated theorem provers, which further emphasises the added 
 value of automated theorem proving in this area. 
 
-To enable our experiments we have exploited an embedding of free logic @{cite "Scott67"} 
-in classical higher-order logic, which we have recently presented in a related paper @{cite "C57"}.
+The content of article is combines, extends and clarifies the
+contributions reported in two previous papers \cite{ICMS,ArXiv}.
+
+% To enable our experiments we have exploited an embedding of free logic @{cite "Scott67"} 
+% in classical higher-order logic, which we have recently presented in a related paper @{cite "C57"}.
 
 
-We also want to emphasize that this paper has been written entirely within the Isabelle 
-framework by utilizing the Isabelle ``build'' tool; cf. @{cite "IsabelleManual2016"}, Section~2. 
-It is thus an example of a formally verified mathematical document, where the PDF document as 
-presented here has been generated directly from the verified source files mentioned above.
-We also note that once the proofs have been mechanically checked, they are generally easy 
-to find by hand using paper and pencil.
+% We also want to emphasize that this paper has been written entirely within the Isabelle 
+% framework by utilizing the Isabelle ``build'' tool; cf. @{cite "IsabelleManual2016"}, Section~2. 
+% It is thus an example of a formally verified mathematical document, where the PDF document as 
+% presented here has been generated directly from the verified source files mentioned above.
+% We also note that once the proofs have been mechanically checked, they are generally easy 
+% to find by hand using paper and pencil.
+
+\section{Preliminaries}
+\label{sec:preliminaries}
+\subsection{Free Logic}
+Free logic \cite{Lambert60,Scottt} refers to a class of logic
+formalisms that are free of basic existence assumptions regarding the
+denotation of terms. Remember that terms in e.g. traditional classical
+and intuitionistic predicate logics always denote an object in a given
+(non-empty) domain $D$, which also serves as the domain of
+quantification, that is, the set of objects the existential and
+universal quantifiers of the logic range over. In free logic these
+basic assumption are abolished. Terms do still denote objects in a
+(non-empty) domain $D$, but a (possibly empty) set $E\subseteq D$ is
+added to characterize the subdomain of ``existing'' resp. ``defined''
+objects in $D$. Quantification, in contrast to traditional logics, now
+ranges over this set $E$ of existing/defined objects only. It is
+obvious how this helps to model undefideness and partiality:
+problematic terms, such as $1/0$, still denote, but they refer to
+undefined objects, that is, objects $d$ in $D\setminus E$ lying
+outside of the scope of quantification.
 
 
 \section{Section title}
@@ -308,20 +336,20 @@ number & number & number \\
 %\bibliographystyle{spphys}       % APS-like style for physics
 \bibliography{bibliography}   % name your BibTeX data base
 
-% Non-BibTeX users please use
-\begin{thebibliography}{}
-%
-% and use \bibitem to create references. Consult the Instructions
-% for authors for reference list style.
-%
-\bibitem{RefJ}
-% Format for Journal Reference
-Author, Article title, Journal, Volume, page numbers (year)
-% Format for books
-\bibitem{RefB}
-Author, Book title, page numbers. Publisher, place (year)
-% etc
-\end{thebibliography}
+% % Non-BibTeX users please use
+% \begin{thebibliography}{}
+% %
+% % and use \bibitem to create references. Consult the Instructions
+% % for authors for reference list style.
+% %
+% \bibitem{RefJ}
+% % Format for Journal Reference
+% Author, Article title, Journal, Volume, page numbers (year)
+% % Format for books
+% \bibitem{RefB}
+% Author, Book title, page numbers. Publisher, place (year)
+% % etc
+% \end{thebibliography}
 
 \end{document}
 % end of file template.tex

@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{B5}
+Benzm{\"u}ller, C., Miller, D.: Automation of higher-order logic.
+\newblock In: J.~Siekmann, D.~Gabbay, J.~Woods (eds.) Handbook of the History
+  of Logic, Volume 9 --- Logic and Computation. Elsevier (2014)
+
+\bibitem{Sledgehammer}
+Blanchette, J.C., B\"ohme, S., Paulson, L.C.: Extending {Sledgehammer} with
+  {SMT} solvers.
+\newblock Journal of Automated Reasoning \textbf{51}(1), 109--128 (2013).
+\newblock \doi{10.1007/s10817-013-9278-5}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/s10817-013-9278-5}
+
+\bibitem{NPW02}
+Nipkow, T., Paulson, L.C., Wenzel, M.: {Isabelle/HOL: A Proof Assistant for
+  Higher-Order Logic}.
+\newblock No. 2283 in LNCS. Springer (2002)
+
+\end{thebibliography}
