@@ -45,7 +45,7 @@ grestore
 %
 \smartqed  % flush right qed marks, e.g. at end of proof
 %
-\usepackage{graphicx}
+\usepackage{graphicx,tikz}
 %
 % \usepackage{mathptmx}      % use Times fonts if available on your TeX system
 %
@@ -59,6 +59,20 @@ grestore
 % Insert the name of "your journal" with
 % \journalname{myjournal}
 %
+
+
+\def\D{\mathbf{D}}
+\def\E{\mathbf{E}}
+
+\def\FFOL{\mathit{FFOL}}
+\def\V{\mathit{V}}
+\def\F{\mathit{F}}
+\def\P{\mathit{P}}
+\def\True{\mathit{True}}
+\def\False{\mathit{False}}
+
+
+
 \begin{document}
 
 \title{Exploring Axiom Systems for Category Theory%\thanks{Grants or other notes
@@ -261,20 +275,118 @@ contributions reported in two previous papers \cite{ICMS,ArXiv}.
 Free logic \cite{Lambert60,Scottt} refers to a class of logic
 formalisms that are free of basic existence assumptions regarding the
 denotation of terms. Remember that terms in e.g. traditional classical
-and intuitionistic predicate logics always denote an object in a given
-(non-empty) domain $D$, which also serves as the domain of
+and intuitionistic predicate logics always denote an (existing) object
+in a given (non-empty) domain $\D$, which also serves as the domain of
 quantification, that is, the set of objects the existential and
 universal quantifiers of the logic range over. In free logic these
 basic assumption are abolished. Terms do still denote objects in a
-(non-empty) domain $D$, but a (possibly empty) set $E\subseteq D$ is
-added to characterize the subdomain of ``existing'' resp. ``defined''
-objects in $D$. Quantification, in contrast to traditional logics, now
-ranges over this set $E$ of existing/defined objects only. It is
-obvious how this helps to model undefideness and partiality:
-problematic terms, such as $1/0$, still denote, but they refer to
-undefined objects, that is, objects $d$ in $D\setminus E$ lying
-outside of the scope of quantification.
+(non-empty) domain $\D$, but a (possibly empty) set $\E\subseteq \D$ is
+chosen to characterize the subdomain of ``existing'' resp. ``defined''
+objects in $\D$. Quantification, in contrast to traditional logics, is
+now restricted to this set $\E$ of existing/defined objects only. It is
+obvious how this can be used to model undefideness and partiality:
+problematic terms, e.g. division by zero or improper definite
+descriptions, still denote, but they refer to undefined objects, that
+is, objects $d$ in $\D\setminus \E$ lying outside of the scope of
+quantification.  
 
+The particular notion of free logic as exploited in the remainder of
+this article has been introduced by Scott \cite{scott67:_exist}.  A graphical
+illustration of this notion of free logic is presented in
+Fig.~\ref{fig1}. It
+employs a distinguished undefined object $\star$.  
+% Free logic (and inclusive logic) has been proposed as an alternative
+% to remedy these shortcomings. It distinguishes between a raw domain of
+% possibly non-existing objects ‹❙D› and a particular subdomain ‹❙E› of ‹❙D›,
+% containing only the ``existing'' entities. Free variables range over ‹❙D›
+% and quantified variables only over ‹❙E›. Each term denotes in ‹❙D› but not
+% necessarily in ‹❙E›. The particular notion of free logic as exploited below has been
+% introduced by Scott @{cite "scott67:_exist"}. A graphical 
+% illustration of this notion of free logic is presented in Fig.~\ref{fig1}.
+\begin{figure}
+\centering
+\newcommand\firstellipse{(2,-5) ellipse (6cm and 4cm)}
+\newcommand\secondellipse{(0,-5.3) ellipse (3.5cm and 2.5cm)}1
+\begin{tikzpicture}
+  \begin{scope}[fill opacity=1]
+    \fill[gray!40] \firstellipse;
+    \fill[gray!10] \secondellipse;
+  \end{scope}
+  \begin{scope}[very thick,font=\large]
+    \draw \firstellipse node[font=\normalsize\bfseries] at (-.5,-5) {\underline{\textbf{E}: existing objects}};
+    \draw \firstellipse node[font=\small] at (-.5,-5.5) {values of bound variables};
+    \draw \secondellipse node[font=\normalsize\bfseries] at (4.3,-2.5) {\underline{\textbf{D}: raw objects}};
+    \draw \secondellipse node[font=\small] at (4.3,-3) {values of free variables};
+  \end{scope}
+  \node[font=\normalsize\bfseries] at (6,-5) {$\star$};
+  \node[font=\normalsize\bfseries] at (6,-5.3) {undefined};
+\end{tikzpicture}
+\caption{Illustration of the Semantical Domains of Free Logic \label{fig1}}
+\end{figure}
+
+
+\begin{definition}[Syntax of $\FFOL$]
+  Given a denumerable set $\V$ of variable symbols, a denumerable set
+  $\F$ of $n$-ary function symbols ($n\geq 0$), and a denumerable set
+  $\P$ of $n$-ary predicate symbols ($n\geq 0$).
+
+  The terms and formulas of $\FFOL$ are formally defined as the
+  smallest sets such that:
+\begin{enumerate}
+\item each variable $x\in\V$ is a term of $\FFOL$, 
+\item given any $n$-ary ($n\geq 0$) function symbol $f\in\F$ and terms
+  $t_1,\ldots,t_n$ of $\FFOL$, then $f(t_1,\ldots,t_n)$ is a term of $\FFOL$, 
+\item given terms $t_1$ and $t_2$ of $\FFOL$, then $t_1 = t_2$ is an
+  (atomic) formula of $\FFOL$,
+\item given any $n$-ary ($n\geq 0$) predicate symbol $p\in\P$ and terms
+$t_1,\ldots,t_n$ of $\FFOL$, then $p(t_1,\ldots,t_n)$ is an (atomic)
+formula of $\FFOL$, 
+\item given formulas $r$ and $s$ of $\FFOL$, then $\neg r$, $r
+  \rightarrow s$ and $\forall x. r$ are (complex) formulas of $\FFOL$
+\item given a formulas $r$ of $\FFOL$, then $\ x. r$ is a
+  term of $\FFOL$ (definite  description).
+\end{enumerate}
+\end{definition}
+
+Further formulas of $\FFOL$  can be defined as usual.
+
+\begin{definition}[Dual-domain (positive) semantics of $\FFOL$]
+  A model structure for $\FFOL$ consists of a triple
+  $\langle D, E, I\rangle$, where $D$ is a non-empty raw domain of
+  objects, $E\subseteq D$ a possible empty set of ``existing''
+  resp. ``defined'' objects, and $I$ an Interpretation function
+  mapping 0-ary function symbols (constants) to objects $d\in E$, 
+ 0-ary predicate symbols (propositions) to $\True$ or $\False$, 
+  $n$-ary function symbols (for $n\geq 1$) to $n$-ary functions
+  $D \times \ldots \times D \longrightarrow D$ and $n$-ary predicate
+  symbols (for $n\geq 1$) to $n$-ary relations
+  $D \times \ldots \times D$.
+
+  Given an variable assignment $g: \V \longrightarrow D$, we
+  define the interpretation function $\|\cdot\|^{I,g}$ for terms and formulas of
+  $\FFOL$ as follows:
+\begin{enumerate}
+\item $\| x \|^{I,g} = g(x)$ for variable symbols $x$
+  $f\in\F$
+\item $\| c \|^{I,g} = I(c)$, where $c\in\F$ is an 0-ary function
+  symbol
+\item $\| f(t_1,\ldots,t_n)\|^{I,g} = I(f)(\| t_1 \|^{I,g},\ldots,\|
+  t_n \|^{I,g})$, where $f\in\F$ is an $n$-ary ($n\geq 1$) function symbol
+\item $\| p \|^{I,g} = I(p)$, where $p\in\F$ is an 0-ary predicate
+  symbol
+\item $\| t_1 = t_2 \|^{I,g} = \True$ iff $\| t_1 \|^{I,g} = \| t_2
+  \|^{I,g}$ (\footnote{Here we could e.g. require $\| t_1 \|^{I,g} \in E$ and
+  $\| t_2 \|^{I,g} \in E$ as an additional condition.}
+\item $\| p(t_1,\ldots,t_n) \|^{I,g} = \True$ iff $(\| t_1 \|^{I,g},\ldots,\|
+  t_n \|^{I,g}) \in I(p)$ for $n$-ary ($n\geq 1$) predicate symbols
+  $p\in\P$
+\item 
+\end{enumerate}
+\end{definition}
+ 
+
+\pagebreak
+\newpage
 
 \section{Section title}
 \label{sec:1}
