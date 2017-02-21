@@ -1,0 +1,32 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Preliminaries}{}% 2
+\BOOKMARK [1][-]{section.3}{Embedding of Modal Relational Type Theory}{}% 3
+\BOOKMARK [1][-]{section.4}{Further Logical Connectives}{}% 4
+\BOOKMARK [1][-]{section.5}{Meta-Logic}{}% 5
+\BOOKMARK [1][-]{section.6}{Some Basic Tests}{}% 6
+\BOOKMARK [2][-]{subsection.6.1}{Verifying Necessitation}{section.6}% 7
+\BOOKMARK [2][-]{subsection.6.2}{Modal Collapse is Countersatisfiable}{section.6}% 8
+\BOOKMARK [2][-]{subsection.6.3}{Verifying S5 Principles }{section.6}% 9
+\BOOKMARK [2][-]{subsection.6.4}{Relations between Meta-Logical Notions}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.5}{Testing the Propagation of Syntactical Category Information}{section.6}% 11
+\BOOKMARK [2][-]{subsection.6.6}{Are Priorities Defined Correctly?}{section.6}% 12
+\BOOKMARK [1][-]{section.7}{E!, O!, A! and =E}{}% 13
+\BOOKMARK [2][-]{subsubsection.7.0.1}{Remark: Nested lambda-expressions}{section.7}% 14
+\BOOKMARK [2][-]{subsection.7.1}{Identity on Individuals}{section.7}% 15
+\BOOKMARK [3][-]{subsubsection.7.1.1}{Remark: Tracing the propagation of annotations}{subsection.7.1}% 16
+\BOOKMARK [2][-]{subsection.7.2}{Identitiy on Relations}{section.7}% 17
+\BOOKMARK [2][-]{subsection.7.3}{Negation of Properties}{section.7}% 18
+\BOOKMARK [2][-]{subsection.7.4}{Individual Constant 42 1000 63 1000 33 1000 58 1000 59 1000 44 1000 aV and Function Term 42 1000 63 1000 33 1000 58 1000 59 1000 44 1000 aG}{section.7}% 19
+\BOOKMARK [1][-]{section.8}{Axioms}{}% 20
+\BOOKMARK [2][-]{subsection.8.1}{Axioms for Negations and Conditionals}{section.8}% 21
+\BOOKMARK [2][-]{subsection.8.2}{Axioms of Identity}{section.8}% 22
+\BOOKMARK [2][-]{subsection.8.3}{Axioms of Quantification}{section.8}% 23
+\BOOKMARK [2][-]{subsection.8.4}{Axioms of Actuality}{section.8}% 24
+\BOOKMARK [2][-]{subsection.8.5}{Axioms of Necessity}{section.8}% 25
+\BOOKMARK [2][-]{subsection.8.6}{\(Instances of\) Barcan Formula and Converse Barcan Formula}{section.8}% 26
+\BOOKMARK [2][-]{subsection.8.7}{Axioms of Necessity and Actuality}{section.8}% 27
+\BOOKMARK [2][-]{subsection.8.8}{Axioms for Descriptions}{section.8}% 28
+\BOOKMARK [2][-]{subsection.8.9}{Axioms for Complex relation Terms}{section.8}% 29
+\BOOKMARK [2][-]{subsection.8.10}{Axioms of Encoding}{section.8}% 30
+\BOOKMARK [1][-]{section.9}{Various Further Test Examples}{}% 31
+\BOOKMARK [1][-]{section.10}{Leibniz Theory of Concepts}{}% 32

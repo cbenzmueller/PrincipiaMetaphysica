@@ -528,7 +528,7 @@ section {* E!, O!, A! and =E *}
 
  lemma "a\<^sup>T \<^bold>=\<^sub>E a\<^sup>T = X" apply simp oops      -- {* X is "@{text "(...)\<^sup>P"} *}
 
- subsubsection {* Remark: Nested \<lambda>-expressions *}
+ subsubsection {* Remark: Nested lambda-expressions *}
  
  lemma "(\<^bold>\<lambda> x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) = X" apply simp oops
  lemma "(\<^bold>\<lambda> x. x\<^sup>T \<^bold>=\<^sub>E a\<^sup>T) = (\<^bold>\<lambda> x. a\<^sup>T \<^bold>=\<^sub>E x\<^sup>T)" apply simp by metis
@@ -725,12 +725,12 @@ section {* Axioms *}
   descriptions is still not well enough developed in ATPs. 
   *}
  
-  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp sorry
+  lemma a34_Inst_1: "[(x\<^sup>T \<^bold>= (\<^bold>\<iota>x.\<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>)) \<^bold>\<equiv> (\<^bold>\<forall>z. (\<^bold>\<A>(\<lbrace>z\<^sup>T,R\<^sup>T\<rbrace>) \<^bold>\<equiv> (z\<^sup>T \<^bold>= x\<^sup>T)))] = \<top>" apply simp oops
 
 
  subsection {* Axioms for Complex relation Terms *}
    
-  text {* We check for some \<alpha>-renaming instances *}
+  text {* We check for some alpha-renaming instances *}
 
   lemma "(\<^bold>\<lambda>z.\<lparr>R\<^sup>T,z\<^sup>T,(\<^bold>\<iota>y.\<lparr>Q\<^sup>T,y\<^sup>T\<rparr>)\<rparr>) = (\<^bold>\<lambda>x.\<lparr>R\<^sup>T,x\<^sup>T,(\<^bold>\<iota>z.\<lparr>Q\<^sup>T,z\<^sup>T\<rparr>)\<rparr>)" apply simp done
   
@@ -747,11 +747,11 @@ section {* Axioms *}
    a37: "[\<^bold>\<A>\<lbrace>x\<^sup>T,G\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,G\<^sup>T\<rbrace>] = \<top>" 
 
   text {* The following however holds *}
-  lemma "[\<^bold>\<box>(\<^bold>\<A>\<lbrace>x\<^sup>T,G\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,G\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick
+  lemma "[\<^bold>\<box>(\<^bold>\<A>\<lbrace>x\<^sup>T,G\<^sup>T\<rbrace> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,G\<^sup>T\<rbrace>)] = \<top>" apply simp nitpick oops
 
-(*<*)
+
 section {* Various Further Test Examples *}
-
+(*<*)
   text {* Todo: ... select, adapt, and explain some of examples below ... *}
 
  lemma "\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr> \<^bold>\<rightarrow> \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>,a\<^sup>T\<rparr> = X" apply simp oops     -- {* X is @{text "(...)\<^sup>E"} *}
@@ -796,9 +796,9 @@ lemma "[x\<^sup>T \<preceq> y\<^sup>T \<^bold>\<equiv> (x\<^sup>T \<Oplus> y\<^s
 
 (* the provers still give up *)
 
-lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,y\<^sup>T\<rparr>] = X" apply simp sorry
-lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>\<rbrace>] = X" apply simp sorry
-lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>\<rbrace>] = X" apply simp sorry
+lemma "[\<lparr>\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>,y\<^sup>T\<rparr>] = X" apply simp oops
+lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lbrace>x\<^sup>T,R\<^sup>T\<rbrace>\<rbrace>] = X" apply simp oops
+lemma "[\<lbrace>y\<^sup>T,\<^bold>\<lambda>x. \<lparr>R\<^sup>T,x\<^sup>T\<rparr>\<rbrace>] = X" apply simp oops
 
 (*<*)
 end

@@ -103,7 +103,8 @@ abbreviation fNot ("\<^bold>\<not>") --{* Free negation *}
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
 abbreviation fImplies (infixr "\<^bold>\<rightarrow>" 13) --{* Free implication *}        
  where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> \<phi> \<longrightarrow> \<psi>"
-abbreviation fForall ("\<^bold>\<forall>") --{* Free universal quantification is guarded by existence predicate @{text "E"}*}                  
+abbreviation fForall ("\<^bold>\<forall>") --{* Free universal quantification guarded by existence 
+                                predicate @{text "E"}*}                  
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. E x \<longrightarrow> \<Phi> x"   
 abbreviation fForallBinder (binder "\<^bold>\<forall>" [8] 9) --{* Binder notation *} 
  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall>\<phi>"
