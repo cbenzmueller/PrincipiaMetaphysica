@@ -246,6 +246,9 @@ case for Axiom Set VII below). *}
 simply put the mouse on the expression "nitpick".}  *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
+text {* We may also assume an existing and a non-existing object and still get consistency. *}  
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i"} is implied. *}
   lemma E\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
@@ -294,14 +297,17 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
  text {* Again the model is of cardinality @{text "i = 2"}, but now we have a non-existing @{text "i\<^sub>1"} and 
   and an existing @{text "i\<^sub>2"}. Composition @{text "\<cdot>"} and @{text "C"} are as above, but 
   @{text "D"} is now identity on all objects.  *}
-(* Nitpick found a model for card i = 2:
+(* 
+  Nitpick found a model for card i = 2:
   Skolem constants:
-    Cod = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>2)
-    Dom = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>1, i\<^sub>2 := i\<^sub>2)
+  Skolem constants:
+    C = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>2)
+    D = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>1, i\<^sub>2 := i\<^sub>2)
     x = i\<^sub>2
   Constants:
     op \<cdot> = (\<lambda>x. _)((i\<^sub>1, i\<^sub>1) := i\<^sub>1, (i\<^sub>1, i\<^sub>2) := i\<^sub>1, (i\<^sub>2, i\<^sub>1) := i\<^sub>1, (i\<^sub>2, i\<^sub>2) := i\<^sub>2)
-    E = (\<lambda>x. _)(i\<^sub>1 := False, i\<^sub>2 := True) *)
+    E = (\<lambda>x. _)(i\<^sub>1 := False, i\<^sub>2 := True)
+*)
 (*<*)
 end
 (*>*)
@@ -336,6 +342,8 @@ text {* As above, we first check for consistency. *}
   lemma True  -- {* Nitpick finds a model *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i"} is implied. *}
@@ -395,7 +403,9 @@ text {* The obligatory consistency check is positive. *}
   lemma True  -- {* Nitpick finds a model *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *} 
-    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops   
 
 text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i\<^sub>i"} is implied. *}
   lemma E\<^sub>i\<^sub>i\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" 
@@ -423,7 +433,7 @@ text {* A side remark on the experiments: All proofs above and all proofs in the
  Remotely, also provers such as Vampire @{cite "Vampire"}, or the higher-order provers 
  Satallax @{cite "Satallax"} and LEO-II @{cite "LEO"} 
  can be reached. For example, to prove lemma @{text "E\<^sub>i\<^sub>i\<^sub>iFromII"} we have called Sledgehammer on all 
- postulated axioms of the theory: @{text "sledgehammer (S\<^sub>i\<^sub>i\<^sub>i E\<^sub>i\<^sub>i\<^sub>i A\<^sub>i\<^sub>i\<^sub>i C\<^sub>i\<^sub>i\<^sub>i D\<^sub>i\<^sub>i\<^sub>i)"}.  
+ postulated axioms of the theory: @{text "sledgehammer (S\<^sub>i\<^sub>i E\<^sub>i\<^sub>i A\<^sub>i\<^sub>i C\<^sub>i\<^sub>i D\<^sub>i\<^sub>i)"}.  
  The provers then, via Sledgehammer, suggested to call trusted/verified tools in Isabelle/HOL
  with the exactly required dependencies they detected. In lemma @{text "E\<^sub>i\<^sub>i\<^sub>iFromII"}, for 
  example, all  axioms from Axiom Set II are required. With the provided dependency information 
@@ -484,6 +494,8 @@ text {* The obligatory consistency check is again positive. *}
   lemma True  -- {* Nitpick finds a model *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The Axiom Set III is implied. The only interesting cases are 
@@ -565,6 +577,8 @@ text {* The obligatory consistency check is again positive. *}
   lemma True -- {* Nitpick finds a model *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The Axiom Set IV is implied. The only interesting cases are 
@@ -670,6 +684,8 @@ text {* The obligatory consistency checks are again positive.
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* Axiom Set VI implies Axiom Set V. *}
   lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x" 
@@ -923,6 +939,8 @@ text {* Now, the two consistency checks succeed. *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
 the @{text "V"}-axioms are implied: *}
@@ -968,6 +986,8 @@ text {* Again, the two consistency checks succeed *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* Now Axiom Set V is implied. *}
   lemma S1FromVIII: "E(dom x) \<^bold>\<rightarrow> E x"  using B0b by blast

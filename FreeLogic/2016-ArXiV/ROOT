@@ -7,3 +7,4 @@ session "2016-ArXiV" = "HOL" +
     AxiomaticCategoryTheory
   document_files
     "root.tex"
+    "root.bib"

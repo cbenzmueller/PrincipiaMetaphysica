@@ -3,52 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: article.aux
 The style file: spmpsci.bst
 Database file #1: bibliography.bib
-Warning--I didn't find a database entry for "ICMS"
-Warning--I didn't find a database entry for "ArXiv"
-Warning--I didn't find a database entry for "Lambert60"
-Warning--I didn't find a database entry for "Scottt"
-Warning--I didn't find a database entry for "scott67:_exist"
-Warning--I didn't find a database entry for "RefB"
-Warning--I didn't find a database entry for "RefJ"
-You've used 4 entries,
+Warning--I didn't find a database entry for "BenzmuellerScott2016"
+You've used 18 entries,
             2946 wiz_defined-function locations,
-            658 strings with 5606 characters,
-and the built_in function-call counts, 2263 in all, are:
-= -- 211
-> -- 68
-< -- 1
-+ -- 33
-- -- 23
-* -- 120
-:= -- 273
-add.period$ -- 8
-call.type$ -- 4
-change.case$ -- 24
+            770 strings with 9382 characters,
+and the built_in function-call counts, 14697 in all, are:
+= -- 1674
+> -- 268
+< -- 19
++ -- 171
+- -- 89
+* -- 695
+:= -- 1432
+add.period$ -- 50
+call.type$ -- 18
+change.case$ -- 117
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 230
-empty$ -- 183
-format.name$ -- 28
-if$ -- 473
+cite$ -- 18
+duplicate$ -- 1634
+empty$ -- 1029
+format.name$ -- 104
+if$ -- 3151
 int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 41
-newline$ -- 26
-num.names$ -- 10
-pop$ -- 96
+int.to.str$ -- 18
+missing$ -- 202
+newline$ -- 99
+num.names$ -- 44
+pop$ -- 564
 preamble$ -- 1
-purify$ -- 18
+purify$ -- 75
 quote$ -- 0
-skip$ -- 86
+skip$ -- 843
 stack$ -- 0
-substring$ -- 62
-swap$ -- 157
-text.length$ -- 1
+substring$ -- 635
+swap$ -- 1329
+text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 66
 warning$ -- 0
-while$ -- 11
-width$ -- 5
-write$ -- 50
-(There were 7 warnings)
+while$ -- 79
+width$ -- 20
+write$ -- 234
+(There was 1 warning)

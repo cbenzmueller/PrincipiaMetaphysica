@@ -130,7 +130,8 @@ e.g. in \isa{fNot}, stands for ``free''.%
 \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymrightarrow}\ {\isasympsi}\ {\isasymequiv}\ {\isasymphi}\ {\isasymlongrightarrow}\ {\isasympsi}{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
 \ fForall\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isachardoublequoteclose}{\isacharparenright}\ %
-\isamarkupcmt{Free universal quantification is guarded by existence predicate \isa{E}%
+\isamarkupcmt{Free universal quantification guarded by existence 
+                                predicate \isa{E}%
 }
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isanewline
 \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymPhi}\ {\isasymequiv}\ {\isasymforall}x{\isachardot}\ E\ x\ {\isasymlongrightarrow}\ {\isasymPhi}\ x{\isachardoublequoteclose}\ \ \ \isanewline
@@ -418,6 +419,30 @@ simply put the mouse on the expression "nitpick".}%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
+We may also assume an existing and a non-existing object and still get consistency.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
 The left-to-right direction of existence axiom \isa{E\isactrlsub i} is implied.%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ \isacommand{lemma}\isamarkupfalse%
@@ -611,6 +636,27 @@ As above, we first check for consistency.%
 \isamarkupcmt{Nitpick finds a model%
 }
 \ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -851,6 +897,27 @@ The obligatory consistency check is positive.%
 \isadelimproof
 %
 \endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
 %
 \begin{isamarkuptext}%
 The left-to-right direction of existence axiom \isa{E\isactrlsub i\isactrlsub i\isactrlsub i} is implied.%
@@ -972,7 +1039,7 @@ A side remark on the experiments: All proofs above and all proofs in the rest of
  Remotely, also provers such as Vampire \cite{Vampire}, or the higher-order provers 
  Satallax \cite{Satallax} and LEO-II \cite{LEO} 
  can be reached. For example, to prove lemma \isa{E\isactrlsub i\isactrlsub i\isactrlsub iFromII} we have called Sledgehammer on all 
- postulated axioms of the theory: \isa{sledgehammer\ {\isacharparenleft}S\isactrlsub i\isactrlsub i\isactrlsub i\ E\isactrlsub i\isactrlsub i\isactrlsub i\ A\isactrlsub i\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i\isactrlsub i{\isacharparenright}}.  
+ postulated axioms of the theory: \isa{sledgehammer\ {\isacharparenleft}S\isactrlsub i\isactrlsub i\ E\isactrlsub i\isactrlsub i\ A\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i{\isacharparenright}}.  
  The provers then, via Sledgehammer, suggested to call trusted/verified tools in Isabelle/HOL
  with the exactly required dependencies they detected. In lemma \isa{E\isactrlsub i\isactrlsub i\isactrlsub iFromII}, for 
  example, all  axioms from Axiom Set II are required. With the provided dependency information 
@@ -1134,6 +1201,27 @@ The obligatory consistency check is again positive.%
 \isamarkupcmt{Nitpick finds a model%
 }
 \ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -1407,6 +1495,27 @@ The obligatory consistency check is again positive.%
 \isamarkupcmt{Nitpick finds a model%
 }
 \ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -1706,6 +1815,27 @@ The obligatory consistency checks are again positive.
 \isamarkupcmt{Nitpick finds a model%
 }
 \ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -2474,6 +2604,27 @@ Now, the two consistency checks succeed.%
 \isadelimproof
 %
 \endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
 %
 \begin{isamarkuptext}%
 However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
@@ -2649,6 +2800,27 @@ Again, the two consistency checks succeed%
 \isamarkupcmt{Nitpick finds a model%
 }
 \ \ \isanewline
+\ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
+\isamarkupcmt{Nitpick finds a model%
+}
+\ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof

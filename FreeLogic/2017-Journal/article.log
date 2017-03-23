@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  21 FEB 2017 15:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  23 MAR 2017 10:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -155,6 +155,10 @@ Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup5
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+)
+(/opt/local/share/texmf-texlive/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 (/opt/local/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -452,27 +456,32 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \rotFPbot=\skip47
 \rot@float@box=\box42
 \rot@mess@toks=\toks34
-) (./article.aux
+)
+(/opt/local/share/texmf-texlive/tex/latex/underscore/underscore.sty
+Package: underscore 2006/09/13
+LaTeX Info: Redefining \_ on input line 42.
+)
+(./article.aux
 
 LaTeX Warning: Label `homlvalid' multiply defined.
 
 )
 \openout1 = `article.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 174.
-LaTeX Font Info:    ... okay on input line 174.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 188.
+LaTeX Font Info:    ... okay on input line 188.
 
 Unknown journal: specify \journalname{<name of your journal>} in preambel
 
@@ -538,58 +547,42 @@ e
 ))
 ABD: EveryShipout initializing macros
 SVJour3 warning: Missing \journalname
-LaTeX Font Info:    Try loading font information for U+stmry on input line 206.
+LaTeX Font Info:    Try loading font information for U+stmry on input line 218.
 
 (/opt/local/share/texmf-texlive/tex/latex/stmaryrd/Ustmry.fd)
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 206.
+(Font)              using `U/stmry/m/n' instead on input line 218.
 
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 206.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 218.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 206.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 218.
 [1{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 264.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 276.
 
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 264.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 276.
 
 
 LaTeX Warning: Reference `subsec:FreydNotation' on page 2 undefined on input li
-ne 330.
+ne 342.
 
 [2]
-
-LaTeX Warning: Citation `ICMS' on page 3 undefined on input line 361.
-
-
-LaTeX Warning: Citation `ArXiv' on page 3 undefined on input line 361.
-
-
-LaTeX Warning: Citation `Lambert60' on page 3 undefined on input line 377.
-
-
-LaTeX Warning: Citation `Scottt' on page 3 undefined on input line 377.
-
-
-LaTeX Warning: Citation `Scott67' on page 3 undefined on input line 395.
-
-
-Overfull \hbox (4.63303pt too wide) in paragraph at lines 410--425
+Overfull \hbox (4.63303pt too wide) in paragraph at lines 427--442
  [] 
  []
 
-[3]
+[3] [4]
 
-LaTeX Warning: Citation `Scott67' on page 4 undefined on input line 462.
+LaTeX Warning: Reference `??' on page 5 undefined on input line 526.
 
-[4]
-Overfull \hbox (5.20326pt too wide) in paragraph at lines 522--532
+
+Overfull \hbox (5.20326pt too wide) in paragraph at lines 546--556
 []\OT1/cmr/m/n/10 A for-mula $\OML/cmm/m/it/10 s[]$ \OT1/cmr/m/n/10 is \OT1/cmr
 /m/it/10 true \OT1/cmr/m/n/10 in model $\OML/cmm/m/it/10 M$ \OT1/cmr/m/n/10 un-
 der as-sign-ment $\OML/cmm/m/it/10 g$ \OT1/cmr/m/n/10 iff $\OMS/cmsy/m/n/10 k\O
@@ -597,83 +590,44 @@ ML/cmm/m/it/10 s[]\OMS/cmsy/m/n/10 k[] \OT1/cmr/m/n/10 =
  []
 
 [5]
-
-LaTeX Warning: Reference `homlgrammar' on page 6 undefined on input line 568.
-
-
-LaTeX Warning: Reference `homlsubstitution' on page 6 undefined on input line 5
-72.
-
-
-LaTeX Warning: Reference `homlbetaeta' on page 6 undefined on input line 572.
-
-
-LaTeX Warning: Reference `homlframe' on page 6 undefined on input line 572.
-
-
-LaTeX Warning: Reference `homlassignment' on page 6 undefined on input line 572
-.
-
-
-Overfull \hbox (16.75221pt too wide) in paragraph at lines 600--604
+Overfull \hbox (16.75221pt too wide) in paragraph at lines 669--673
 []$[] \OT1/cmr/m/n/10 = []$ iff for all $[] \OMS/cmsy/m/n/10 2 []$ \OT1/cmr/m/n
 /10 we have $[] =
  []
 
-
-Overfull \hbox (5.20326pt too wide) in paragraph at lines 621--630
+[6]
+Overfull \hbox (10.95323pt too wide) in paragraph at lines 690--699
 []\OT1/cmr/m/n/10 A for-mula $\OML/cmm/m/it/10 s[]$ \OT1/cmr/m/n/10 is \OT1/cmr
 /m/it/10 true \OT1/cmr/m/n/10 in model $\OML/cmm/m/it/10 M$ \OT1/cmr/m/n/10 un-
 der as-sign-ment $\OML/cmm/m/it/10 g$ \OT1/cmr/m/n/10 iff $\OMS/cmsy/m/n/10 k\O
 ML/cmm/m/it/10 s[]\OMS/cmsy/m/n/10 k[] \OT1/cmr/m/n/10 =
  []
 
-<EmbeddingPic.png, id=37, 856.19875pt x 672.5125pt>
+<EmbeddingPic.png, id=46, 856.19875pt x 672.5125pt>
 File: EmbeddingPic.png Graphic file (type png)
  <use EmbeddingPic.png>
-Package pdftex.def Info: EmbeddingPic.png used on input line 646.
+Package pdftex.def Info: EmbeddingPic.png used on input line 718.
 (pdftex.def)             Requested size: 338.0pt x 265.48047pt.
 
-[6]
+[7 <./EmbeddingPic.png>]
 
-LaTeX Warning: Citation `RefB' on page 7 undefined on input line 656.
+LaTeX Warning: Citation `BenzmuellerScott2016' on page 8 undefined on input lin
+e 736.
 
 
-LaTeX Warning: Citation `RefJ' on page 7 undefined on input line 656.
+LaTeX Warning: Float too large for page by 58.47224pt on input line 818.
 
-Package epstopdf Info: Source file: <example.eps>
-(epstopdf)                    date: 2017-02-10 13:08:42
-(epstopdf)                    size: 286 bytes
-(epstopdf)             Output file: <example-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-02-10 13:08:43
-(epstopdf)                    size: 2431 bytes
-(epstopdf)             Command: <repstopdf --outfile=example-eps-converted-to.p
-df example.eps>
-(epstopdf)             \includegraphics on input line 670.
-Package epstopdf Info: Output file is already uptodate.
-<example-eps-converted-to.pdf, id=47, 202.7575pt x 202.7575pt>
-File: example-eps-converted-to.pdf Graphic file (type pdf)
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ” in font cmr10!
+[8] [9] [10] [11] [12]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<use example-eps-converted-to.pdf>
-Package pdftex.def Info: example-eps-converted-to.pdf used on input line 670.
-(pdftex.def)             Requested size: 202.757pt x 202.757pt.
-Package epstopdf Info: Source file: <example.eps>
-(epstopdf)                    date: 2017-02-10 13:08:42
-(epstopdf)                    size: 286 bytes
-(epstopdf)             Output file: <example-eps-converted-to.pdf>
-(epstopdf)                    date: 2017-02-10 13:08:43
-(epstopdf)                    size: 2431 bytes
-(epstopdf)             Command: <repstopdf --outfile=example-eps-converted-to.p
-df example.eps>
-(epstopdf)             \includegraphics on input line 680.
-Package epstopdf Info: Output file is already uptodate.
-File: example-eps-converted-to.pdf Graphic file (type pdf)
- <use example-eps-converted-to.pdf>
-Package pdftex.def Info: example-eps-converted-to.pdf used on input line 680.
-(pdftex.def)             Requested size: 253.5pt x 253.50812pt.
+ [13]
+Missing character: There is no Â in font cmr10!
+Missing character: There is no ¬ in font cmr10!
 
-(./article.bbl [7 <./EmbeddingPic.png>] [8 <./example-eps-converted-to.pdf>])
-[9] (./article.aux)
+[14] (./article.bbl [15] [16]) [17] (./article.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -685,38 +639,45 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13162 strings out of 493014
- 255661 string characters out of 6135157
- 294957 words of memory out of 5000000
- 16429 multiletter control sequences out of 15000+600000
- 14359 words of font info for 55 fonts, out of 8000000 for 9000
+ 13285 strings out of 493014
+ 257182 string characters out of 6135157
+ 305462 words of memory out of 5000000
+ 16542 multiletter control sequences out of 15000+600000
+ 14852 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,13n,54p,395b,723s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,16n,54p,557b,732s stack positions out of 5000i,500n,10000p,200000b,80000s
 </opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></
+opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb></
 opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/l
 ocal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></opt/local/
 share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx7.pfb></opt/local/share/
 texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx8.pfb></opt/local/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmmib10.pfb></opt/local/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cmextra/cmmib5.pfb></opt/local/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cmextra/cmmib7.pfb></opt/local/share/texmf-texlive/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-msy5.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.p
-fb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></
-opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti8.pfb></opt/lo
-cal/share/texmf-texlive/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></opt/l
-ocal/share/texmf-texlive/fonts/type1/public/amsfonts/latxfont/lasyb10.pfb></opt
-/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary10.pfb></opt/local
-/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary7.pfb>
-Output written on article.pdf (9 pages, 417436 bytes).
+texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></opt/local/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf-texlive/
+fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texlive/fonts/
+type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-texlive/fonts/type1/
+public/amsfonts/cm/cmmib10.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cmextra/cmmib5.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cmextra/cmmib7.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr6.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/c
+m/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></opt/l
+ocal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></opt/local/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/local/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></opt/local/share/texmf-
+texlive/fonts/type1/public/amsfonts/cm/cmti8.pfb></opt/local/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmtt10.pfb></opt/local/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmtt8.pfb></opt/local/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/latxfont/lasy10.pfb></opt/local/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/latxfont/lasy8.pfb></opt/local/share/texmf-texlive/fonts/ty
+pe1/public/stmaryrd/stmary10.pfb></opt/local/share/texmf-texlive/fonts/type1/pu
+blic/stmaryrd/stmary7.pfb>
+Output written on article.pdf (17 pages, 519602 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
+ 182 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

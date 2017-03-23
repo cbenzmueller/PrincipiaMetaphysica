@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \providecommand{\url}[1]{{#1}}
 \providecommand{\urlprefix}{URL }
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -11,6 +11,26 @@ Benzm{\"u}ller, C., Miller, D.: Automation of higher-order logic.
 \newblock In: J.~Siekmann, D.~Gabbay, J.~Woods (eds.) Handbook of the History
   of Logic, Volume 9 --- Logic and Computation. Elsevier (2014)
 
+\bibitem{ICMS}
+Benzm{\"u}ller, C., Scott, D.: Automating free logic in {Isabelle/HOL}.
+\newblock In: G.M. Greuel, T.~Koch, P.~Paule, A.~Sommese (eds.) Mathematical
+  Software -- ICMS 2016, 5th International Congress, Proceedings, \emph{LNCS},
+  vol. 9725, pp. 43--50. Springer, Berlin, Germany (2016).
+\newblock \doi{10.1007/978-3-319-42432-3_6}.
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/C57.pdf}
+
+\bibitem{ArXiv}
+Benzm{\"{u}}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
+\newblock CoRR \textbf{abs/1609.01493} (2016).
+\newblock \urlprefix\url{http://arxiv.org/abs/1609.01493}
+
+\bibitem{LEO}
+Benzm{\"{u}}ller, C., Sultana, N., Paulson, L.C., Theiss, F.: The higher-order
+  prover {Leo-II}.
+\newblock J. of Automated Reasoning \textbf{55}(4), 389--404 (2015).
+\newblock \doi{10.1007/s10817-015-9348-y}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/s10817-015-9348-y}
+
 \bibitem{Sledgehammer}
 Blanchette, J.C., B\"ohme, S., Paulson, L.C.: Extending {Sledgehammer} with
   {SMT} solvers.
@@ -18,13 +38,95 @@ Blanchette, J.C., B\"ohme, S., Paulson, L.C.: Extending {Sledgehammer} with
 \newblock \doi{10.1007/s10817-013-9278-5}.
 \newblock \urlprefix\url{http://dx.doi.org/10.1007/s10817-013-9278-5}
 
+\bibitem{Nitpick}
+Blanchette, J.C., Nipkow, T.: Nitpick: A counterexample generator for
+  higher-order logic based on a relational model finder.
+\newblock In: ITP 2010, no. 6172 in LNCS, pp. 131--146. Springer (2010)
+
+\bibitem{Spass}
+Blanchette, J.C., Popescu, A., Wand, D., Weidenbach, C.: {More {SPASS} with
+  Isabelle - Superposition with Hard Sorts and Configurable Simplification}.
+\newblock In: Interactive Theorem Proving - Third International Conference,
+  {ITP} 2012, Princeton, NJ, USA, August 13-15, 2012. Proceedings,
+  \emph{Lecture Notes in Computer Science}, vol. 7406, pp. 345--360. Springer
+  (2012).
+\newblock \doi{10.1007/978-3-642-32347-8}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-32347-8}
+
+\bibitem{Satallax}
+Brown, C.E.: Satallax: An automatic higher-order prover.
+\newblock In: Automated Reasoning - 6th International Joint Conference, {IJCAR}
+  2012, Manchester, UK, June 26-29, 2012. Proceedings, \emph{Lecture Notes in
+  Computer Science}, vol. 7364, pp. 111--117. Springer (2012).
+\newblock \doi{10.1007/978-3-642-31365-3}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-31365-3}
+
+\bibitem{CVC4}
+Deters, M., Reynolds, A., King, T., Barrett, C.W., Tinelli, C.: A tour of
+  {CVC4:} how it works, and how to use it.
+\newblock In: Formal Methods in Computer-Aided Design, {FMCAD} 2014, Lausanne,
+  Switzerland, October 21-24, 2014, p.~7. {IEEE} (2014).
+\newblock
+  \urlprefix\url{http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=6975680}
+
 \bibitem{FreydScedrov90}
 Freyd, P., Scedrov, A.: Categories, Allegories.
 \newblock North Holland (1990)
+
+\bibitem{Vampire}
+Kov{\'{a}}cs, L., Voronkov, A.: {First-Order Theorem Proving and Vampire}.
+\newblock In: Computer Aided Verification - 25th International Conference,
+  {CAV} 2013, Saint Petersburg, Russia, July 13-19, 2013. Proceedings,
+  \emph{Lecture Notes in Computer Science}, vol. 8044, pp. 1--35. Springer
+  (2013).
+\newblock \doi{10.1007/978-3-642-39799-8}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-39799-8}
+
+\bibitem{Lambert60}
+Lambert, K.: The definition of e(xistence)! in free logic.
+\newblock In: Abstracts: The International Congress for Logic, Methodology and
+  Philosophy of Science. Stanford: Stanford University Press (1960)
+
+\bibitem{lambert02:_free_logic}
+Lambert, K.: Free Logic: Selected Essays.
+\newblock Cambridge: Cambridge University Press (2002)
+
+\bibitem{Z3}
+de~Moura, L.M., Bj{\o}rner, N.: {Z3: An Efficient {SMT} Solver}.
+\newblock In: Tools and Algorithms for the Construction and Analysis of
+  Systems, 14th International Conference, {TACAS} 2008, Held as Part of the
+  Joint European Conferences on Theory and Practice of Software, {ETAPS} 2008,
+  Budapest, Hungary, March 29-April 6, 2008. Proceedings, \emph{Lecture Notes
+  in Computer Science}, vol. 4963, pp. 337--340. Springer (2008).
+\newblock \doi{10.1007/978-3-540-78800-3}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-540-78800-3}
 
 \bibitem{NPW02}
 Nipkow, T., Paulson, L.C., Wenzel, M.: {Isabelle/HOL: A Proof Assistant for
   Higher-Order Logic}.
 \newblock No. 2283 in LNCS. Springer (2002)
+
+\bibitem{E}
+Schulz, S.: System description: {E} 1.8.
+\newblock In: Logic for Programming, Artificial Intelligence, and Reasoning -
+  19th International Conference, LPAR-19, Stellenbosch, South Africa, December
+  14-19, 2013. Proceedings, \emph{Lecture Notes in Computer Science}, vol.
+  8312, pp. 735--743. Springer (2013).
+\newblock \doi{10.1007/978-3-642-45221-5}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-45221-5}
+
+\bibitem{Scott67}
+Scott, D.: Existence and description in formal logic.
+\newblock In: R.~Schoenman (ed.) Bertrand Russell: Philosopher of the Century,
+  pp. 181--200. George Allen \& Unwin, London (1967).
+\newblock (Reprinted with additions in: Philosophical Application of Free
+  Logic, edited by K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48)
+
+\bibitem{Scott79}
+Scott, D.: Identity and existence in intuitionistic logic.
+\newblock In: M.~Fourman, C.~Mulvey, D.~Scott (eds.) Applications of Sheaves:
+  Proceedings of the Research Symposium on Applications of Sheaf Theory to
+  Logic, Algebra, and Analysis, Durham, July 9--21, 1977, \emph{Lecture Notes
+  in Mathematics}, vol. 752, pp. 660--696. Springer Berlin Heidelberg (1979)
 
 \end{thebibliography}
