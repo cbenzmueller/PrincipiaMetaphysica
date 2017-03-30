@@ -24,6 +24,11 @@ Benzm{\"{u}}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
 \newblock CoRR \textbf{abs/1609.01493} (2016).
 \newblock \urlprefix\url{http://arxiv.org/abs/1609.01493}
 
+\bibitem{R58}
+Benzm{\"u}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
+\newblock arXiv, \url{http://arxiv.org/abs/1609.01493}  (2016).
+\newblock \urlprefix\url{http://arxiv.org/abs/1609.01493}
+
 \bibitem{LEO}
 Benzm{\"{u}}ller, C., Sultana, N., Paulson, L.C., Theiss, F.: The higher-order
   prover {Leo-II}.

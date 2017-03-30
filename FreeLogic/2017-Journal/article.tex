@@ -158,6 +158,7 @@ grestore
 
 \def\ar{\shortrightarrow}
 
+\newcommand\map[1]{\hat{#1}}
 \newcommand\hol[1]{\boldsymbol{#1}}
 \newcommand\lift[1]{\lceil #1 \rceil}
 \newcommand\llift[1]{\dot{#1}}
@@ -251,9 +252,10 @@ grestore
   side-effect of this work some (minor) issue in a prominent category
   theory textbook has been revealed.
 
-The purpose of this article is not to claim any novel results in category
-theory, but to demonstrate an elegant way to ``implement'' and utilise
-reasoning in free logic, and to present respective experiments.
+  The purpose of this article is not to claim any novel results in
+  category theory, but to demonstrate an elegant way to ``implement''
+  and utilise interactive and automated reasoning in free logic, and
+  to present respective experiments.
 
 
 \keywords{Free Logic \and Classical Higher-Order Logic \and Category
@@ -401,12 +403,20 @@ basic assumption are abolished. Terms do still denote objects in a
 (non-empty) domain $\D$, but a (possibly empty) set $\ex\subseteq \D$ is
 chosen to characterize the subdomain of ``existing'' resp. ``defined''
 objects in $\D$. Quantification is
-now restricted to set $\ex$ of existing/defined objects only. It is
-obvious how this can be used to model undefideness and partiality:
-problematic terms, e.g. division by zero or improper definite
-descriptions, still denote, but they refer to undefined objects, that
-is, objects $d$ in $\D\setminus \ex$ lying outside of the scope of
-quantification.  
+now restricted to set $\ex$ of existing/defined objects only. 
+
+
+It is obvious how this can be used to model undefideness and
+partiality: problematic terms, e.g. division by zero or improper
+definite descriptions, still denote, but they refer to undefined
+objects, that is, objects $d$ in $\D\setminus \ex$ lying outside of
+the scope of quantification.
+%In this framework partial and total functions are modelled as follows: 
+Moreover, a function $f$ is \emph{total} if and only if for all $x$ we have $\ex x \imp \ex(f x)$ 
+For \emph{partial} functions $f$ we may have some $x$ such that $\ex x$ but not
+$\ex(f x)$. A function $f$ is \emph{strict}  if  and only if for all $x$
+ we have $\ex(f x) \imp \ex x$.
+
 
 The particular notion of free logic as exploited in the remainder of
 this article has been proposed by Scott \cite{Scott67}.  A graphical
@@ -491,8 +501,8 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
   $\langle D, \ex, I, \star\rangle$, where $D$ is a non-empty raw domain of
   objects, $\ex\subseteq D$ a possible empty set of ``existing''
   resp. ``defined'' objects, and $I$ an interpretation function
-  mapping 0-ary function symbols (constants) to defined objects $d\in \ex$, 
- 0-ary predicate symbols (propositions) to $\True$ or $\False$, 
+  mapping $0$-ary function symbols (constants) to defined objects $d\in \ex$, 
+ $0$-ary predicate symbols (propositions) to $\True$ or $\False$, 
   $n$-ary function symbols (for $n\geq 1$) to $n$-ary functions
   $D \times \ldots \times D \longrightarrow D$ and $n$-ary predicate
   symbols (for $n\geq 1$) to $n$-ary relations
@@ -507,7 +517,7 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 \item{Terms}
 \begin{enumerate}
 \item $\| x \|^{I,g} = g(x)$ for variable symbols $x\in\V$
-\item $\| c \|^{I,g} = I(c)$, where $c\in\F$ is an 0-ary function symbol
+\item $\| c \|^{I,g} = I(c)$, where $c\in\F$ is an $0$-ary function symbol
 \item $\| f(t_1,\ldots,t_n)\|^{I,g} = I(f)(\| t_1 \|^{I,g},\ldots,\|
   t_n \|^{I,g})$, where $f\in\F$ is an $n$-ary ($n\geq 1$) function symbol
 \item $\| \Descr x. r \|^{I,g} = d \in \ex$, such that $\| r
@@ -519,7 +529,7 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 
 \item{Formulas}
 \begin{enumerate}
-\item $\| p \|^{I,g} = I(p)$, where $p\in\F$ is an 0-ary predicate
+\item $\| q \|^{I,g} = I(q)$, where $q\in\P$ is an $0$-ary predicate
   symbol
 \item $\| t_1 = t_2 \|^{I,g} = \True$ iff $\| t_1 \|^{I,g} = \| t_2
   \|^{I,g}$ (this basic notion of primitive equality on $D$ implies that equations such as $1/0 = 1/0$ are
@@ -557,9 +567,21 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 
 
 \subsection{Classical Higher-Order Logic}
-Short introduction ... todo.
+Simple type theory, also referred to as classical higher-order logic
+(HOL), is an expressive logic formalism that allows for higher-order
+quantification, that is quantification over arbitrary set and function
+variables.  It is based on the simply typed
+$\lambda$-calculus\footnote{ For a detailed discussion of typed
+  $\lambda$-calculi, we refer to the
+  literature~\cite{DBLP:books/daglib/0032840}.  }
+  %\footnote{
+    %Although \sys~actually supports a polymorphic typed $\lambda$-calculus
+    %we will
+    %stick here to the simply typed $\lambda$-calculus for a better understanding.}
+  and it has its origin in the work by
+  Church~\cite{DBLP:journals/jsyml/Church40}.
 
-\begin{definition}\label{holtypes}
+\begin{definition}[Types]\label{holtypes}
   The set $\hol{T}$ of simple types freely generated from a set of
   basic types $\{\hol{o}, \hol{\mu}, \hol{\iota}\}$ using the function type
   constructor $\hol{\ar}$. $\hol{o}$ is the type of Booleans,
@@ -568,30 +590,31 @@ Short introduction ... todo.
   may avoid parentheses if the structure of a complex type is clear in context.
 \end{definition}
 
-\begin{definition}\label{holgrammar}
+\begin{definition}[Syntax of $\HOL$]\label{holgrammar}
 The language of higher-order logic $\HOL$ is defined by the following
 grammar:\footnote{Ednote: Maybe better to define this analagous to $\FFOL$.}
 \begin{align*} 
   \hol{s},\hol{t} \quad ::= \quad & \hol{p_\alpha} \mid \hol{X_\alpha} \mid \hol{(\lam{X_\alpha}
   s_\beta)_{\alpha\ar\beta}} \mid \hol{(s_{\alpha\ar\beta}\, t_\alpha)_\beta} \mid  \hol{\neg_{o\ar o}\, s_o} \mid \\
   & \hol{(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)} \mid \hol{\forall_{(\alpha\ar
-    o)\ar o}(\lam{X_\alpha} s_o)} 
+    o)\ar o}(\lam{X_\alpha} s_o)} \mid \hol{\Descr(\lam{X_\alpha} s_o)}
 \end{align*}
-where $\hol{\alpha},\hol{\beta}\in \hol{T}$. $p_\alpha$ denotes typed constants and
-$X_\alpha$ typed variables (distinct from $p_\alpha$).  Complex typed
+where $\hol{\alpha},\hol{\beta}\in \hol{T}$. $\hol{p_\alpha}$ denotes typed constants and
+$\hol{X_\alpha}$ typed variables (distinct from $\hol{p_\alpha}$).  Complex typed
 terms are constructed via abstraction and application. The type of
-each term is given as a subscript.  Terms $s_o$ of type $o$ are called
+each term is given as a subscript.  Terms $\hol{s_o}$ of type $\hol{o}$ are called
 formulas.  The logical connectives of choice are
 $\hol{\neg_{o\ar o}}$, $\hol{\vee_{o\ar
-  o\ar o}}$, and $\hol{\forall_{(\alpha\ar
-  o)\ar o}}$ (for $\hol{\alpha\in T}$).  Type subscripts may be dropped if
+  o\ar o}}$, $\hol{\forall_{(\alpha\ar
+  o)\ar o}}$ (for $\hol{\alpha\in T}$) and $\hol{\Descr_{(\alpha\ar
+  o)\ar \alpha}}$ (for $\hol{\alpha\in T}$).  Type subscripts may be dropped if
 irrelevant or obvious. Similarly, parentheses may be avoided.  Binder
-notation $\hol{\all{X_\alpha} s_o}$ is used as shorthand for
+notation $\hol{\all{X_\alpha} s_o}$ and $\hol{\Descr {X_\alpha} s_o}$ is used as shorthand for
 $\hol{\forall_{(\alpha\ar o)\ar o}
-(\lam{X_\alpha} s_o)}$, and infix notation $\hol{s \vee t}$ is employed
+(\lam{X_\alpha} s_o)}$ and $\hol{\Descr(\lam{X_\alpha} s_o)}$, and infix notation $\hol{s \vee t}$ is employed
 instead of $\hol{((\vee s)\, t)}$. From the above connectives, other logical
 connectives, such as $\hol{\top}$, $\hol{\bot}$, $\hol{\wedge}$,
-$\hol{\supset}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in the usual way.
+$\hol{\Impl}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in the usual way.
 \end{definition}
 
 
@@ -610,7 +633,7 @@ $\hol{\supset}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in the usual
   converted to $\hol{t}$ by a series of $\hol{\beta}$-reductions and expansions.
   Similarly, $\hol{s\eqbe t}$ means $\hol{s}$ can be converted to $\hol{t}$ using both
   $\hol{\beta}$ and $\hol{\eta}$.  For each $\hol{s_\alpha\in \HOL}$ there is a unique
-  \emph{$\beta$-normal form} and a unique \emph{$\beta\eta$-normal
+  \emph{$\hol{\beta}$-normal form} and a unique \emph{$\hol{\beta\eta}$-normal
     form}.
 % From this fact we know $s\eqb t$ ($s\eqbe t$) iff
 % $\Bnormform s\Metaeq\Bnormform t$
@@ -622,7 +645,7 @@ $\hol{\supset}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in the usual
 
 
 %\begin{definition}\label{homlassignment}
-A \emph{variable assignment} $g$ maps
+A \emph{variable assignment} $\hol{g}$ maps
 variables $\hol{X_\alpha}$ to elements in $\hol{D_\alpha}$. $\hol{g[d/W]}$ denotes the
 assignment that is identical to $\hol{g}$, except for variable $\hol{W}$, which is
 now mapped to $\hol{d}$.
@@ -669,6 +692,11 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
 \item $\hol{\|(\forall_{(\alpha\ar o)\ar o}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = \hol{T}$ iff for all $\hol{d}\in
   \hol{D_\alpha}$ we have $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = \hol{T}$
+\item $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
+    s_o))_o\|^{M,g}} = \hol{d}$ if there exists a unique $\hol{d}\in \hol{D_{\alpha}}$ such that
+  $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = \hol{T}$, 
+otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
+    s_o))_o\|^{M,g}} = \hol{e}$ for an arbitrary element $\hol{e}\in \hol{D_{\alpha}}$
 %\item $\|(\Box_{o\ar o}\, s_o)_o\|^{M,g,w} = T$ iff for all $v \in W$ with $w R v$ we have  $\|s_o\|^{M,g,v}  = T$
 \end{enumerate}
 \end{definition}
@@ -676,26 +704,25 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
 
 \begin{definition}\label{homlhenkinmodel}
  A model $\hol{M}=\hol{\langle D, I \rangle}$ is called a
- \emph{standard model} iff for all $\alpha,\beta\in T$ we have
- $D_{\alpha\ar\beta} = \{ f \mid f : D_\alpha \longrightarrow D_\beta
- \}$. In a \emph{Henkin model} function spaces are not necessarily
- full. Instead it is only required that $D_{\alpha\ar\beta}
- \subseteq \{ f \mid f : D_\alpha \longrightarrow D_\beta \}$ (for all
- $\alpha,\beta\in T$) and that the valuation function 
- $\|\cdot\|^{M,g}$ from above is total (i.e., every term denotes). Any standard model is obviously
+ \emph{standard model} iff for all $\hol{\alpha,\beta}\in \hol{T}$ we have
+ $\hol{D_{\alpha\ar\beta}} = \{ f \mid f : \hol{D_\alpha} \longrightarrow \hol{D_\beta}\}$. In a \emph{Henkin model} function spaces are not necessarily
+ full. Instead it is only required that $\hol{D_{\alpha\ar\beta}}
+ \subseteq \{ f \mid f : \hol{D_\alpha} \longrightarrow \hol{D_\beta}\}$ (for all
+ $\hol{\alpha,\beta}\in \hol{T}$) and that the valuation function 
+ $\hol{\|\cdot\|^{M,g}}$ from above is total (i.e., every term denotes). Any standard model is obviously
  also a Henkin model. We consider Henkin models in the remainder.
 \end{definition}
 
 \begin{definition}\label{homlvalid}
-A formula $s_o$ is \emph{true} in model $M$ 
-under assignment $g$ iff $\|s_o\|^{M,g} = T$; this is also denoted
-as $M,g \models^\HOL s_o$.  A formula $s_o$ is called \emph{valid} in
-$M$, which is denoted as $M \models^\HOL s_o$, iff $M,g \models^\HOL s_o$ for all
-assignments $g$. Finally, a formula $s_o$ is called
-\emph{valid}, which we denote by $\models^\HOL s_o$, iff $s_o$ is valid for
-all $M$. Moreover, we write $\Gamma\models^\HOL \Delta$ (for sets of
- formulas $\Gamma$ and $\Delta$) iff there is a model $M$ and an assignment $g$ such that  
- $M,g \models^\HOL s_o$ for all $s_o\in \Gamma$ and $M,g \models^\HOL t_o$ for at least one $t_o\in \Delta$.
+A formula $\hol{s_o}$ is \emph{true} in model $M$ 
+under assignment $\hol{g}$ iff $\hol{\|s_o\|^{M,g}} = \hol{T}$; this is also denoted
+as $\hol{M,g \models^\HOL s_o}$.  A formula $\hol{s_o}$ is called \emph{valid} in
+$\hol{M}$, which is denoted as $\hol{M \models^\HOL s_o}$, iff $\hol{M,g \models^\HOL s_o}$ for all
+assignments $\hol{g}$. Finally, a formula $\hol{s_o}$ is called
+\emph{valid}, which we denote by $\hol{\models^\HOL s_o}$, iff $\hol{s_o}$ is valid for
+all $\hol{M}$. Moreover, we write $\hol{\Gamma\models^\HOL \Delta}$ (for sets of
+ formulas $\hol{\Gamma}$ and $\hol{\Delta}$) iff there is a model $\hol{M}$ and an assignment $\hol{g}$ such that  
+ $\hol{M,g \models^\HOL s_o}$ for all $\hol{s_o}\in \hol{\Gamma}$ and $\hol{M,g \models^\HOL t_o}$ for at least one $\hol{t_o}\in \hol{\Delta}$.
 \end{definition}
 
 % The definition for standard and Henkin models
@@ -709,22 +736,71 @@ all $M$. Moreover, we write $\Gamma\models^\HOL \Delta$ (for sets of
 
 
 
-
-\section{Sound and Complete Embedding of $\FFOL$ in HOL}
-Todo ... the embedding in Isabelle/HOL is depicted in 
-figure \ref{pic1}
-
-\begin{figure}[t]
+\begin{figure}[tp]
  \includegraphics[width=\textwidth]{EmbeddingPic}
  \caption{Isabelle/HOL formalisation of $\FFOL$ in $\HOL$ \label{pic1}}
 \end{figure}
 
+\section{Shallow Semantical Embedding of $\FFOL$ in HOL}
 
-In this framework partial and total functions are modelled as follows: 
-A function $f$ is total if and only if for all $x$ we have $\ex x \imp \ex(f x)$ 
-For partial functions $f$ we may have some $x$ such that $\ex x$ but not
- $\ex(f x)$. A function $f$ is strict  if  and only if for all $x$
-we have $\ex(f x) \imp \ex x$.
+The existence predicate $E$ is realized in the embedding as a $\HOL$
+predicate $\hol{\ex}$ of type $\hol{ i\ar o}$; we assume that a
+respective constant symbol is given in the signature of \HOL.  The raw domain $\hol{D}$ is simply
+associated with the set of all objects of type $\hol{i}$, respectively
+with the universal
+predicate $\hol{\lambda X_i. T}$. Moreover, let
+constant symbol $\hol{\star}$ of type $i$ be in the signature of
+\HOL. We assume that $\hol{\|E \star\|^{M,g}=F}$ for all $\hol{M,g}$
+i.e. that the element denoted by $\hol{\star}$ is not an element of
+the domain of existing objects denoted by $\hol{\ex}$.
+
+\begin{definition}[Embedding of $\FFOL$ in \HOL]
+Given a formula $s \in \FFOL$. We map each language construct $s$ in the
+signature of $\FFOL$ to a corresponding term $\map{s}$ of \HOL. This
+mapping is defined as follows:
+
+\begin{tabular}{lcll}
+$\map{x}$    & := & $\hol{X_i}$ &for all $x\in \V$\\
+$\map{f(t^1,\ldots,t^n)}$    & := & $\hol{(f \map{t^1} \ldots \map{t^n})}$  \quad
+              & for all $n$-ary $f\in F$\\
+ & & &  $\hol{f}$ has type $\hol{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} i}$\\
+%$\map{p}$    & := & $\hol{p_o}$ & for all $0$-ary $p\in \P$\\
+$\map{s = t}$    & := & $\hol{\map{s} = \map{t}}$ \\
+$\map{p(t^1,\ldots,t^n)}$    & := & $\hol{(p \map{t^1} \ldots \map{t^n})}$  \quad
+             &  for all $n$-ary $p\in P$ \\ 
+   & & & $\hol{p}$ has type $\hol{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} o}$\\
+$\map{\neg \varphi}$ & := &  $\hol{\neg\map{\varphi}}$  \\
+$\map{\varphi \Impl \psi}$ & := &  $\hol{ \map{\varphi} \Impl \map{\psi}}$  \\
+$\map{\forall x. s}$ & := &  $\hol{\forall X_i. \ex
+                       X_i \Impl \map{s}}$   \\
+$\map{\Descr x. s}$ & := &  $\hol{\textbf{IfThenElse}}$ \\
+  & & \quad $\hol{(\exists x. \ex x \wedge \map{s} \wedge (\forall
+      y. (\ex y \wedge ((\lambda X_i. \map{s}) y)) \Impl y = x))}$ \\
+  & & \quad $\hol{ (\Descr  X_i. \map{s})}$ \\
+  & & \quad $\hol{\star}$  \\
+\end{tabular}
+where $\hol{\textbf{IfThenElse}}$ is an abbreviation for the term
+$\hol{\lam{S_o}\lam{X_i}\lam{Y_i}. \Descr Z_i. (S_o \wedge Z = X) \vee
+(\neg S_o \wedge Z
+= Y)}$.
+
+Further connectives can be introduced as usual: $r \vee  s := \neg r
+\Impl s$, $r \wedge  s := \neg (\neg r \vee \neg s)$, 
+\end{definition}
+
+
+
+Todo ... the embedding in Isabelle/HOL is depicted in 
+figure \ref{pic1}
+
+
+% In this framework partial and total functions are modelled as follows: 
+% A function $f$ is total if and only if for all $x$ we have $\ex x \imp \ex(f x)$ 
+% For partial functions $f$ we may have some $x$ such that $\ex x$ but not
+%  $\ex(f x)$. A function $f$ is strict  if  and only if for all $x$
+% we have $\ex(f x) \imp \ex x$.
 
 
 \section{Exploring Axioms Systems for Category Theory}
@@ -732,14 +808,16 @@ In an exemplary theory exploration study, we have shown how Scott's
 \cite{Scott79} axiom system for category theory can be derived from a
 notion of partial monoids. These axioms systems are presented in Table \ref{axioms-sets-1}.
 
-The stepwise evolution has been described in
-\cite{R58}. Below we summarise these experiments.
-However, first we describe some basic modeling decisions for the
-technical encoding in Isabelle/HOL. The Isabelle/HOL sources of our experiments are
-available at \url{todo-sources}.
+The stepwise evolution has been described in \cite{R58}. Below we
+summarise these experiments.  However, first we describe some basic
+modeling decisions for the technical encoding in Isabelle/HOL. The
+Isabelle/HOL sources of our experiments are available at
+\url{todo-sources}. Note that in these sources we did add neither the
+definite description operator nor the designated undefined object
+$\star$, since both were not required in our experiments.
 
 
-\begin{table} \centering \normalsize
+\begin{table}[tp] \centering \normalsize
 \begin{tabular}{ll}
 \hline
 \\

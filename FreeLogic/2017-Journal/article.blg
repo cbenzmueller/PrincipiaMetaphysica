@@ -3,46 +3,47 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: article.aux
 The style file: spmpsci.bst
 Database file #1: bibliography.bib
-Warning--I didn't find a database entry for "BenzmuellerScott2016"
-You've used 18 entries,
+Warning--I didn't find a database entry for "DBLP:books/daglib/0032840"
+Warning--I didn't find a database entry for "DBLP:journals/jsyml/Church40"
+You've used 19 entries,
             2946 wiz_defined-function locations,
-            770 strings with 9382 characters,
-and the built_in function-call counts, 14697 in all, are:
-= -- 1674
-> -- 268
+            776 strings with 9540 characters,
+and the built_in function-call counts, 15057 in all, are:
+= -- 1702
+> -- 280
 < -- 19
-+ -- 171
-- -- 89
-* -- 695
-:= -- 1432
-add.period$ -- 50
-call.type$ -- 18
-change.case$ -- 117
++ -- 176
+- -- 93
+* -- 714
+:= -- 1485
+add.period$ -- 52
+call.type$ -- 19
+change.case$ -- 122
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 1634
-empty$ -- 1029
-format.name$ -- 104
-if$ -- 3151
+cite$ -- 19
+duplicate$ -- 1670
+empty$ -- 1061
+format.name$ -- 109
+if$ -- 3225
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 202
-newline$ -- 99
-num.names$ -- 44
-pop$ -- 564
+int.to.str$ -- 19
+missing$ -- 210
+newline$ -- 104
+num.names$ -- 46
+pop$ -- 581
 preamble$ -- 1
-purify$ -- 75
+purify$ -- 79
 quote$ -- 0
-skip$ -- 843
+skip$ -- 852
 stack$ -- 0
-substring$ -- 635
-swap$ -- 1329
+substring$ -- 640
+swap$ -- 1343
 text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 66
+type$ -- 70
 warning$ -- 0
-while$ -- 79
-width$ -- 20
-write$ -- 234
-(There was 1 warning)
+while$ -- 81
+width$ -- 21
+write$ -- 245
+(There were 2 warnings)

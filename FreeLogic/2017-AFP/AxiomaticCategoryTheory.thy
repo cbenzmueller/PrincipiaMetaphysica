@@ -1,7 +1,7 @@
 (*<*)
 theory AxiomaticCategoryTheory imports Main
 begin 
-declare [[ smt_solver = cvc4]]
+declare [[ smt_solver = cvc4 ]]
 (*
 declare [[ smt_timeout = 200 ]]
 declare [[ z3_options = "-memory:1500" ]]
@@ -103,6 +103,8 @@ abbreviation fNot ("\<^bold>\<not>") --{* Free negation *}
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
 abbreviation fImplies (infixr "\<^bold>\<rightarrow>" 13) --{* Free implication *}        
  where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> \<phi> \<longrightarrow> \<psi>"
+abbreviation fIdentity (infixr "\<^bold>=" 13) --{* Free identity *}        
+ where "l \<^bold>= r \<equiv> l = r"
 abbreviation fForall ("\<^bold>\<forall>") --{* Free universal quantification guarded by existence 
                                 predicate @{text "E"}*}                  
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. E x \<longrightarrow> \<Phi> x"   
@@ -155,7 +157,7 @@ is defined as follows (where @{text "="} is identity on all objects, existing or
 of type @{text "i"}): *}
 
 abbreviation KlEq (infixr "\<cong>" 56) -- {* Kleene equality *}
- where "x \<cong> y \<equiv> (E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x = y"  
+ where "x \<cong> y \<equiv> (E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x \<^bold>= y"  
 
 text {* 
 Reasoning tools in Isabelle quickly confirm that @{text "\<cong>"} is an equivalence relation. 
@@ -164,7 +166,7 @@ reflexivity. It is defined as:
 *}
 
 abbreviation ExId (infixr "\<simeq>" 56) -- {* Existing identity *}  
- where "x \<simeq> y \<equiv> E x \<^bold>\<and> E y \<^bold>\<and> x = y"
+ where "x \<simeq> y \<equiv> E x \<^bold>\<and> E y \<^bold>\<and> x \<^bold>= y"
 
 text {* We have: *}
 
@@ -277,7 +279,7 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
  text {* However, the @{text "i"} and @{text "j"} need not be equal. Using the Skolem 
    function symbols @{text "C"} and @{text "D"} this can be encoded in
    our formalization as follows: *}
- lemma "(\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D = C))"
+ lemma "(\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D \<^bold>= C))"
    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
  text {* Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two non-existing
    objects @{text "i\<^sub>1"} and @{text "i\<^sub>2"}. @{text "C"} maps both @{text "i\<^sub>1"} and @{text "i\<^sub>2"} to
@@ -292,7 +294,7 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
     op \<cdot> = (\<lambda>x. _)((i\<^sub>1, i\<^sub>1) := i\<^sub>1, (i\<^sub>1, i\<^sub>2) := i\<^sub>1, (i\<^sub>2, i\<^sub>1) := i\<^sub>1, (i\<^sub>2, i\<^sub>2) := i\<^sub>2)
     E = (\<lambda>x. _)(i\<^sub>1 := False, i\<^sub>2 := False) *)
  text {* Even if we require at least one existing object Nitpick still finds a model: *}
- lemma "(\<exists>x. E x) \<^bold>\<and> (\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D = C))"
+ lemma "(\<exists>x. E x) \<^bold>\<and> (\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D \<^bold>= C))"
    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
  text {* Again the model is of cardinality @{text "i = 2"}, but now we have a non-existing @{text "i\<^sub>1"} and 
   and an existing @{text "i\<^sub>2"}. Composition @{text "\<cdot>"} and @{text "C"} are as above, but 
