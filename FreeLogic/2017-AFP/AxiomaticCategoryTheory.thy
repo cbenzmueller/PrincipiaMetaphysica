@@ -707,17 +707,17 @@ text {* Note, too, that Axiom Set VI is redundant. For example, axioms @{text "A
   implied from the others. This kind of flaw in presenting axioms in our view is a more serious oversight.
   The automated theorem provers can quickly reveal such redundancies. *}
   lemma A4aRedundant: "dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" 
-    by (smt A1 A2a A3a A5)  
+    using A1 A2a A3a A5 by metis
   lemma A4bRedundant: "cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))"  
-    by (smt A1 A2b A3b A5) 
+    using A1 A2b A3b A5 by metis
 text {* Our attempts to further reduce the axioms set @{text "(A1 A2a A2b A3a A3b A5)"}  were not successful.
 Alternatively, we can e.g. keep @{text "A4a"} and @{text "A4b"} and show that axioms @{text "A2a"} 
 and @{text "A2b"} are implied. *}
 (*<*)declare [[ smt_solver = z3]](*>*) 
   lemma A2aRedundant: "cod(dom x) \<cong> dom x" 
-    by (smt A1 A3a A3b A4a A4b)
+    using A1 A3a A3b A4a A4b by smt
   lemma A2bRedundant: "dom(cod y) \<cong> cod y" 
-    by (smt A1 A3a A3b A4a A4b)
+    using  A1 A3a A3b A4a A4b by smt 
 text {* Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5)"} were not successful.
    Other reduced sets of axioms we identified in experiments are @{text "(A1 A2a A3a A3b A4b A5)"} and
     @{text "(A1 A2b A3a A3b A4a A5)"}. Attempts to remove axioms @{text "A1"}, @{text "A3a"}, 

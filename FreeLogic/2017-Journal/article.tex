@@ -50,6 +50,9 @@ grestore
 \usepackage{graphicx,tikz,rotating}
 \usepackage[strings]{underscore}
 
+
+%\usepackage{authblk}
+
 %
 % \usepackage{mathptmx}      % use Times fonts if available on your TeX system
 %
@@ -188,29 +191,44 @@ grestore
 
 \begin{document}
 
-\title{Automating Free Logic in HOL, with an Application in Category Theory\thanks{Mention DFG grants ...}}
+\title{Automating Free Logic in HOL, with an Application in Category Theory}
 %\title{Free Logic and Axiom Systems for Category Theory in HOL\thanks{Mention DFG grants ...}}
 %\title{Embedding Free Logic and Axiom Systems for Category Theory in HOL\thanks{Mention DFG grants ...}}
 %\subtitle{(And an Exemplary Application in Category Theory)}
 
 %\titlerunning{Short form of title}        % if too long for running head
 
-\author{Christoph Benzm\"uller       \and
-      Dana Scott 
+
+\author{Christoph Benzm\"uller  and Dana S. Scott}
+\institute{Christoph Benzm\"uller \at
+   University of Luxembourg, Luxembourg \& Freie Universit\"at Berlin, Berlin, Germany \\
+%   Stanford University, CSLI/Cordura Hall, Stanford, CA 94305-4115, U.S. \\
+   \email{c.benzmueller@gmail.com} \\
+% \\
+ %            \emph{Present address:} of F. Author  %  if needed
+Dana S. Scott \at
+Visiting Scholar at University of Califormia, Berkeley,  USA \\
+  \email{dana.scott@cs.cmu.edu}
 }
+
+\date{\today}                     %% if you don't need date to appear
+
+% \author{Christoph Benzm\"uller       \and
+%       Dana Scott 
+% }
 
 %\authorrunning{Short form of author list} % if too long for running head
 
-\institute{F. Author \at
-              first address \\
-              Tel.: +123-45-678910\\
-              Fax: +123-45-678910\\
-              \email{fauthor@example.com}           %  \\
-%             \emph{Present address:} of F. Author  %  if needed
-           \and
-           S. Author \at
-              second address
-}
+% \institute{F. Author \at
+%               first address \\
+%               Tel.: +123-45-678910\\
+%               Fax: +123-45-678910\\
+%               \email{fauthor@example.com}           %  \\
+% %             \emph{Present address:} of F. Author  %  if needed
+%            \and
+%            S. Author \at
+%               second address
+% }
 
 \date{Received: date / Accepted: date}
 % The correct dates will be entered by the editor
@@ -243,7 +261,7 @@ grestore
   A shallow semantical embedding of free logic in classical
   higher-order logic is presented, which enables the off-the-shelf
   application of higher-order interactive and automated theorem
-  provers (and their integrated subprovers) for the formalisation and
+  provers for the formalisation and
   verification of free logic theories.  
   Subsequently, this approach is exemplarily employed in a selected domain of
   mathematics: starting from a generalization of the standard axioms
@@ -328,34 +346,43 @@ theorem proving (and model finding) system for free logic.
 % elegant and powerful implementation of an interactive and automated
 % theorem proving (and model finding) system for free logic.
   
-To demonstrate the practical relevance of our new system, we present,
-in the second part of this article, a stepwise development of axiom
+To demonstrate the practical relevance of our new system, we present
+in \S4 a stepwise development of axioms
 systems for category theory by generalizing the standard axioms for a
 monoid to a partial composition operation. Our purpose is not to make
 or claim any contribution to category theory but rather to show how
 formalizations involving the kind of logic required (free logic) can
-be implemented and validated within modern proof assistants.
+be implemented and validated within modern proof assistants such as
+Isabelle/HOL.  We also address the relation of our axioms systems to
+alternative proposals from the literature, including an axiom set
+proposed by Freyd and Scedrov in their textbook ``Categories,
+Allegories'' \cite{FreydScedrov90} for which we reveal a technical
+flaw: either all operations, e.g. morphism composition, are total or
+their axiom system is inconsistent. The repair for this problem is
+quite straightforward, however. The solution essentially corresponds
+to a set of axioms proposed by Scott \cite{Scott79} in the 1970s.
 
-A total of eight different axiom systems is studied. The systems I-VI
-are shown to be equivalent. The axiom system VII slightly modifies
-axiom system VI to obtain (modulo notational transformation) the set
-of axioms as proposed by Freyd and Scedrov in their textbook
-``Categories, Allegories'' \cite{FreydScedrov90}, published in 1990;
-see also Subsection \ref{subsec:FreydNotation} where we present their
-original system.  While the axiom systems I-VI are shown to be
-consistent, a constricted inconsistency result is obtained for system
-VII (when encoded in free logic where free variables range over all
-objects): We can prove $\exists x. \neg(\ex x) \Impl False$, where
-$\ex$ is the existence predicate. Read this as: If there are undefined
-objects, e.g. the value of an undefined composition $x\cdot y$
-then we have falsity.  By contraposition, all objects (and thus all
-compositions) must exist. But when we assume the latter, then the
-axiom system VII essentially reduces categories to monoids.  We note
-that axiom system V, which avoids this problem, corresponds to a set
-of axioms proposed by Scott \cite{Scott79} in the 1970s. The
-problem can also be avoided by restricting the variables in axiom
-system VII to range only over existing objects and by postulating
-strictness conditions.  This gives us axiom system VIII.
+% \marginpar{will rewrite this part}
+% A total of eight different axiom systems is studied. The systems I-VI
+% are shown to be equivalent. The axiom system VII slightly modifies
+% axiom system VI to obtain (modulo notational transformation) the set
+% of axioms as proposed by Freyd and Scedrov in their textbook
+% ``Categories, Allegories'' \cite{FreydScedrov90}, published in 1990;
+% see also Subsection \ref{subsec:FreydNotation} where we present their
+% original system.  While the axiom systems I-VI are shown to be
+% consistent, a constricted inconsistency result is obtained for system
+% VII (when encoded in free logic where free variables range over all
+% objects): We can prove $\exists x\lambdot \neg(\ex x) \Impl False$, where
+% $\ex$ is the existence predicate. Read this as: If there are undefined
+% objects, e.g. the value of an undefined composition $x\cdot y$
+% then we have falsity.  By contraposition, all objects (and thus all
+% compositions) must exist. But when we assume the latter, then the
+% axiom system VII essentially reduces categories to monoids.  We note
+% that axiom system V, which avoids this problem, corresponds to a set
+% of axioms proposed by Scott \cite{Scott79} in the 1970s. The
+% problem can also be avoided by restricting the variables in axiom
+% system VII to range only over existing objects and by postulating
+% strictness conditions.  This gives us axiom system VIII.
 
 Our exploration has been significantly supported by series of
 experiments in which automated reasoning tools have been called from
@@ -452,7 +479,7 @@ employs a distinguished undefined object $\star$.
 \caption{Illustration of the Semantical Domains of Free Logic \label{fig1}}
 \end{figure}
 
-We now formally introduce the syntax and semantics of free logic as
+We now formally introduce the syntax and semantics of Scott's \cite{Scott67} free logic as
 assumed in the remainder of this article. We refer to this logic with $\FFOL$.
 
 \begin{definition}[Syntax of $\FFOL$]
@@ -472,8 +499,8 @@ assumed in the remainder of this article. We refer to this logic with $\FFOL$.
 $t_1,\ldots,t_n$ of $\FFOL$, then $p(t_1,\ldots,t_n)$ is an (atomic)
 formula of $\FFOL$, 
 \item given formulas $r$ and $s$ of $\FFOL$, then $\neg r$, $r
-  \Impl s$ and $\forall x. r$ are (compound) formulas of $\FFOL$
-\item given a formula $r$ of $\FFOL$, then $\Descr x. r$ is a
+  \Impl s$ and $\forall x\lambdot r$ are (compound) formulas of $\FFOL$
+\item given a formula $r$ of $\FFOL$, then $\Descr x\lambdot r$ is a
   term of $\FFOL$ (definite  description)
 \end{enumerate}
 \end{definition}
@@ -497,8 +524,8 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 
 
 \begin{definition}[Dual-domain semantics of $\FFOL$]
-  A \emph{model structure for $\FFOL$} consists of a triple
-  $\langle D, \ex, I, \star\rangle$, where $D$ is a non-empty raw domain of
+  A \emph{model structure for $\FFOL$} consists of a quadruple
+  $M = \langle D, \ex, I, \star\rangle$, where $D$ is a non-empty raw domain of
   objects, $\ex\subseteq D$ a possible empty set of ``existing''
   resp. ``defined'' objects, and $I$ an interpretation function
   mapping $0$-ary function symbols (constants) to defined objects $d\in \ex$, 
@@ -510,40 +537,40 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
   (non-existing/undefined) object. 
 
   Given a variable assignment $g$, we
-  define the interpretation function $\|\cdot\|^{I,g}$ for terms and formulas of
+  define the interpretation function $\|\cdot\|^{M,g}$ for terms and formulas of
   $\FFOL$ as follows:
 \noindent
 \begin{description}
 \item{Terms}
 \begin{enumerate}
-\item $\| x \|^{I,g} = g(x)$ for variable symbols $x\in\V$
-\item $\| c \|^{I,g} = I(c)$, where $c\in\F$ is an $0$-ary function symbol
-\item $\| f(t_1,\ldots,t_n)\|^{I,g} = I(f)(\| t_1 \|^{I,g},\ldots,\|
-  t_n \|^{I,g})$, where $f\in\F$ is an $n$-ary ($n\geq 1$) function symbol
-\item $\| \Descr x. r \|^{I,g} = d \in \ex$, such that $\| r
-  \|^{I,g[d/x]} = \True$ and  $\| r
-  \|^{I,g[d'/x]} = \False$ for all $d'\not=d\in \ex$ (i.e. $d$ is the
+\item $\| x \|^{M,g} = g(x)$ for variable symbols $x\in\V$
+\item $\| c \|^{M,g} = I(c)$, where $c\in\F$ is an $0$-ary function symbol
+\item $\| f(t_1,\ldots,t_n)\|^{M,g} = I(f)(\| t_1 \|^{M,g},\ldots,\|
+  t_n \|^{M,g})$, where $f\in\F$ is an $n$-ary ($n\geq 1$) function symbol
+\item $\| \Descr x\lambdot r \|^{M,g} = d \in \ex$, such that $\| r
+  \|^{M,g[d/x]} = \True$ and  $\| r
+  \|^{M,g[d'/x]} = \False$ for all $d'\not=d\in \ex$ (i.e. $d$ is the
   unique existing object for which $r$ holds); if there is no
-  such $d\in \ex$, then $\| \Descr x. r \|^{I,g} = \star$
+  such $d\in \ex$, then $\| \Descr x\lambdot r \|^{M,g} = \star$
 \end{enumerate}
 
 \item{Formulas}
 \begin{enumerate}
-\item $\| q \|^{I,g} = I(q)$, where $q\in\P$ is an $0$-ary predicate
+\item $\| q \|^{M,g} = I(q)$, where $q\in\P$ is an $0$-ary predicate
   symbol
-\item $\| t_1 = t_2 \|^{I,g} = \True$ iff $\| t_1 \|^{I,g} = \| t_2
-  \|^{I,g}$ (this basic notion of primitive equality on $D$ implies that equations such as $1/0 = 1/0$ are
-  evaluated to $\True$; later, in Section \ref{??}, we will
+\item $\| t_1 = t_2 \|^{M,g} = \True$ iff $\| t_1 \|^{M,g} = \| t_2
+  \|^{M,g}$ (this basic notion of primitive equality on $D$ implies that equations such as $1/0 = 1/0$ are
+  evaluated to $\True$; later, in \S4, we will
   define and utilise further notions of equality, including \emph{Kleene equality}
   and \emph{existing equality}).
-\item $\| p(t_1,\ldots,t_n) \|^{I,g} = \True$ iff $(\| t_1 \|^{I,g},\ldots,\|
-  t_n \|^{I,g}) \in I(p)$ for $n$-ary ($n\geq 1$) predicate symbols
+\item $\| p(t_1,\ldots,t_n) \|^{M,g} = \True$ iff $(\| t_1 \|^{M,g},\ldots,\|
+  t_n \|^{M,g}) \in I(p)$ for $n$-ary ($n\geq 1$) predicate symbols
   $p\in\P$
-\item $\| \neg r \|^{I,g} = \True$ iff $\| r \|^{I,g} = \False$
-\item $\| r \Impl s \|^{I,g} = \True$ iff $\| r \|^{I,g} = \False$
-  or $\| s \|^{I,g} = \True$
-\item $\| \forall x. r  \|^{I,g} = \True$ iff for all $d \in \ex$ we
-  have $\|  r  \|^{I,g[d/x]} = \True$ % (here $g[d/x]$ denotes the
+\item $\| \neg r \|^{M,g} = \True$ iff $\| r \|^{M,g} = \False$
+\item $\| r \Impl s \|^{M,g} = \True$ iff $\| r \|^{M,g} = \False$
+  or $\| s \|^{M,g} = \True$
+\item $\| \forall x\lambdot r  \|^{M,g} = \True$ iff for all $d \in \ex$ we
+  have $\|  r  \|^{M,g[d/x]} = \True$ % (here $g[d/x]$ denotes the
   % variable assignment that is identical to $g$, except for variable
   % $x$, which is now mapped to object $d$)
 \end{enumerate}
@@ -552,16 +579,16 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 \end{definition}
  
 
-\begin{definition}\label{homlvalid}
+\begin{definition}[Validity]\label{ffollvalid}
   A formula $s_o$ is \emph{true} in model $M$ under assignment $g$ iff
-  $\|s_o\|^{M,g} = T$; this is also denoted as $M,g \models s_o$.  A
+  $\|s_o\|^{M,g} = T$; this is also denoted as $M,g \models^\FFOL s_o$.  A
   formula $s_o$ is called \emph{valid} in $M$, which is denoted as
-  $M \models s_o$, iff $M,g \models s_o$ for all assignments
+  $M \models^\FFOL s_o$, iff $M,g \models^\FFOL s_o$ for all assignments
   $g$. Finally, a formula $s_o$ is called \emph{valid}, which we
-  denote by $\models s_o$, iff $s_o$ is valid for all $M$. Moreover,
-  we write $\Gamma\models \Delta$ (for sets of formulas $\Gamma$ and
+  denote by $\models^\FFOL s_o$, iff $s_o$ is valid for all $M$. Moreover,
+  we write $\Gamma\models^\FFOL \Delta$ (for sets of formulas $\Gamma$ and
   $\Delta$) iff there is a model $M$ and an assignment $g$ such that
-  $M,g \models s_o$ for all $s_o\in \Gamma$ and $M,g \models t_o$ for
+  $M,g \models^\FFOL s_o$ for all $s_o\in \Gamma$ and $M,g \models^\FFOL t_o$ for
   at least one $t_o\in \Delta$.
 \end{definition}
 
@@ -591,11 +618,18 @@ $\lambda$-calculus\footnote{ For a detailed discussion of typed
 \end{definition}
 
 \begin{definition}[Syntax of $\HOL$]\label{holgrammar}
-The language of higher-order logic $\HOL$ is defined by the following
-grammar:\footnote{Ednote: Maybe better to define this analagous to $\FFOL$.}
+The language of higher-order logic $\HOL$ with primitive equality and
+choice is defined by the following
+grammar:\footnote{It is well known that we could work with a much smaller set
+  of logical connectives, see e.g. \cite{Andrews02}. The choice here is motivated by the
+  signature supported in higher-order automated theorem provers such
+  as LEO-II \cite{LEO-II} and Leo-III \cite{Leo-III}.}
 \begin{align*} 
   \hol{s},\hol{t} \quad ::= \quad & \hol{p_\alpha} \mid \hol{X_\alpha} \mid \hol{(\lam{X_\alpha}
-  s_\beta)_{\alpha\ar\beta}} \mid \hol{(s_{\alpha\ar\beta}\, t_\alpha)_\beta} \mid  \hol{\neg_{o\ar o}\, s_o} \mid \\
+  s_\beta)_{\alpha\ar\beta}} \mid \hol{(s_{\alpha\ar\beta}\,
+                                    t_\alpha)_\beta} \mid
+                                    \hol{s_\alpha = t_\alpha} \mid
+                                    \hol{\neg_{o\ar o}\, s_o} \mid\\
   & \hol{(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)} \mid \hol{\forall_{(\alpha\ar
     o)\ar o}(\lam{X_\alpha} s_o)} \mid \hol{\Descr(\lam{X_\alpha} s_o)}
 \end{align*}
@@ -609,12 +643,15 @@ $\hol{\neg_{o\ar o}}$, $\hol{\vee_{o\ar
   o)\ar o}}$ (for $\hol{\alpha\in T}$) and $\hol{\Descr_{(\alpha\ar
   o)\ar \alpha}}$ (for $\hol{\alpha\in T}$).  Type subscripts may be dropped if
 irrelevant or obvious. Similarly, parentheses may be avoided.  Binder
-notation $\hol{\all{X_\alpha} s_o}$ and $\hol{\Descr {X_\alpha} s_o}$ is used as shorthand for
+notation $\hol{\all{X_\alpha} s_o}$ and $\hol{\Descr {X_\alpha}\lambdot s_o}$ is used as shorthand for
 $\hol{\forall_{(\alpha\ar o)\ar o}
 (\lam{X_\alpha} s_o)}$ and $\hol{\Descr(\lam{X_\alpha} s_o)}$, and infix notation $\hol{s \vee t}$ is employed
 instead of $\hol{((\vee s)\, t)}$. From the above connectives, other logical
 connectives, such as $\hol{\top}$, $\hol{\bot}$, $\hol{\wedge}$,
-$\hol{\Impl}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in the usual way.
+$\hol{\Impl}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in
+the usual way. For example, $\hol{\Impl}$ can be defined as $\hol{\lam{X_o}\lam{Y_o}
+  \neg X \vee Y}$ and $\hol{\wedge}$ as $\hol{\lam{X_o}\lam{Y_o}
+  \neg (\neg X \vee \neg Y)}$.
 \end{definition}
 
 
@@ -651,10 +688,10 @@ assignment that is identical to $\hol{g}$, except for variable $\hol{W}$, which 
 now mapped to $\hol{d}$.
 %\end{definition}
 
-\begin{definition}\label{homlframe}
+\begin{definition}[Frame for \HOL]\label{homlframe}
 A \emph{frame} $\hol{D}$ is a collection $\hol{\{D_\alpha\}_{\alpha\in\entity{T}}}$
-of nonempty sets $\hol{D_\alpha}$, such that $\hol{D_o = \{T,F\}}$
-(for truth and falsehood).  The
+of nonempty sets $\hol{D_\alpha}$, such that $\hol{D_o} = \{\True,\False\}$
+(where, as before, $\True$ and $\False$ denote truth and falsehood).  The
 $\hol{D_{\alpha\ar\beta}}$ are collections of functions mapping
 $\hol{D_\alpha}$ into $\hol{D_\beta}$. 
 \end{definition}
@@ -663,7 +700,7 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
 
 
 
-\begin{definition}\label{holmodel}
+\begin{definition}[Model for \HOL]\label{holmodel}
   A \emph{model} for \HOL is a tuple $\hol{M}=\hol{\langle D, I \rangle}$, where
   $\hol{D}$ is a frame, and $\hol{I}$ is a family of typed interpretation
   functions mapping constant symbols $\hol{p_\alpha}$ to appropriate
@@ -674,7 +711,7 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
 \end{definition}
 
 
-\begin{definition}\label{holvalue}
+\begin{definition}[Evaluation Function]\label{holvalue}
   The \emph{value} $\hol{\| s_\alpha\|^{M,g}}$ of a \HOL term
   $\hol{s_\alpha}$ on a model $\hol{M}=\hol{\langle D, I \rangle}$ under assignment $\hol{g}$ is an element $\hol{d}\in \hol{D_\alpha}$
   defined in the following way:
@@ -685,16 +722,17 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
   the function $\hol{f}$ from $\hol{D_\alpha}$ to $\hol{D_\beta}$ such
   that $\hol{f(d)} = \hol{\|s_\beta\|^{M,g[d/X_\alpha]}}$ for all
   $\hol{d}\in \hol{D_\alpha}$
-\item $\hol{\|(\neg_{o\ar o}\, s_o)_o\|^{M,g}} = \hol{T}$ iff $\hol{\|s_o\|^{M,g}} = \hol{F}$
+\item $\hol{\|s_\alpha = t_\alpha\|^{M,g}} = {\True}$ iff $\hol{\|s_\alpha\|^{M,g}} = \hol{\|t_\alpha\|^{M,g}} $
+\item $\hol{\|(\neg_{o\ar o}\, s_o)_o\|^{M,g}} = {\True}$ iff $\hol{\|s_o\|^{M,g}} = {\False}$
 \item $\hol{\|(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)_o\|^{M,g}} =
-  \hol{T}$ iff\, $\hol{\|s_o\|^{M,g}} = \hol{T}$ or $\hol{\|t_o\|^{M,g}}
-  = \hol{T}$
-\item $\hol{\|(\forall_{(\alpha\ar o)\ar o}(\lam{X_\alpha}
-    s_o))_o\|^{M,g}} = \hol{T}$ iff for all $\hol{d}\in
-  \hol{D_\alpha}$ we have $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = \hol{T}$
+  {\True}$ iff\, $\hol{\|s_o\|^{M,g}} = {\True}$ or $\hol{\|t_o\|^{M,g}}
+  = {\True}$
+\item \sloppy $\hol{\|(\forall_{(\alpha\ar o)\ar o}(\lam{X_\alpha}
+    s_o))_o\|^{M,g}} = {\True}$ iff for all $\hol{d}\in
+  \hol{D_\alpha}$ we have $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = {\False}$
 \item $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = \hol{d}$ if there exists a unique $\hol{d}\in \hol{D_{\alpha}}$ such that
-  $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = \hol{T}$, 
+  $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = {\True}$, 
 otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = \hol{e}$ for an arbitrary element $\hol{e}\in \hol{D_{\alpha}}$
 %\item $\|(\Box_{o\ar o}\, s_o)_o\|^{M,g,w} = T$ iff for all $v \in W$ with $w R v$ we have  $\|s_o\|^{M,g,v}  = T$
@@ -702,7 +740,7 @@ otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
 \end{definition}
 
 
-\begin{definition}\label{homlhenkinmodel}
+\begin{definition}[Standard model and Henkin model]\label{homlhenkinmodel}
  A model $\hol{M}=\hol{\langle D, I \rangle}$ is called a
  \emph{standard model} iff for all $\hol{\alpha,\beta}\in \hol{T}$ we have
  $\hol{D_{\alpha\ar\beta}} = \{ f \mid f : \hol{D_\alpha} \longrightarrow \hol{D_\beta}\}$. In a \emph{Henkin model} function spaces are not necessarily
@@ -713,9 +751,9 @@ otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
  also a Henkin model. We consider Henkin models in the remainder.
 \end{definition}
 
-\begin{definition}\label{homlvalid}
+\begin{definition}[Validity]\label{homlvalid}
 A formula $\hol{s_o}$ is \emph{true} in model $M$ 
-under assignment $\hol{g}$ iff $\hol{\|s_o\|^{M,g}} = \hol{T}$; this is also denoted
+under assignment $\hol{g}$ iff $\hol{\|s_o\|^{M,g}} = {\True}$; this is also denoted
 as $\hol{M,g \models^\HOL s_o}$.  A formula $\hol{s_o}$ is called \emph{valid} in
 $\hol{M}$, which is denoted as $\hol{M \models^\HOL s_o}$, iff $\hol{M,g \models^\HOL s_o}$ for all
 assignments $\hol{g}$. Finally, a formula $\hol{s_o}$ is called
@@ -736,71 +774,232 @@ all $\hol{M}$. Moreover, we write $\hol{\Gamma\models^\HOL \Delta}$ (for sets of
 
 
 
-\begin{figure}[tp]
- \includegraphics[width=\textwidth]{EmbeddingPic}
- \caption{Isabelle/HOL formalisation of $\FFOL$ in $\HOL$ \label{pic1}}
-\end{figure}
 
-\section{Shallow Semantical Embedding of $\FFOL$ in HOL}
 
-The existence predicate $E$ is realized in the embedding as a $\HOL$
-predicate $\hol{\ex}$ of type $\hol{ i\ar o}$; we assume that a
-respective constant symbol is given in the signature of \HOL.  The raw domain $\hol{D}$ is simply
-associated with the set of all objects of type $\hol{i}$, respectively
-with the universal
-predicate $\hol{\lambda X_i. T}$. Moreover, let
-constant symbol $\hol{\star}$ of type $i$ be in the signature of
-\HOL. We assume that $\hol{\|E \star\|^{M,g}=F}$ for all $\hol{M,g}$
-i.e. that the element denoted by $\hol{\star}$ is not an element of
-the domain of existing objects denoted by $\hol{\ex}$.
+\section{Shallow Semantical Embedding of $\FFOL$ in $\HOL$}
+We now present a shallow embedding of $\FFOL$ in $\HOL$ by identifying
+the language constructs of $\FFOL$ with corresponding terms of $\HOL$.
+In this embedding raw domains $D$ of a $\FFOL$ model structures are
+identified with the $\HOL$ domains $\hol{D_i}$.  The subdomain $E$ of
+existing objects is characterized in the embedding by a $\HOL$
+predicate $\hol{\ex}$ of type $\hol{ i\ar o}$. Hence, we assume in the
+remainder that a respective uninterpreted constant symbol $\hol{\ex}$
+is given in the signature of $\HOL$. Moreover, we assume that an
+uninterpreted constant symbol $\hol{\star}$ of type $i$ be in the
+signature of $\HOL$. We assume that $\hol{\|E \star\|^{M,g}=F}$ for
+all $\hol{M,g}$, i.e. that the element denoted by $\hol{\star}$ is not
+an element of the domain of existing objects denoted by $\hol{\ex}$.
 
 \begin{definition}[Embedding of $\FFOL$ in \HOL]
-Given a formula $s \in \FFOL$. We map each language construct $s$ in the
-signature of $\FFOL$ to a corresponding term $\map{s}$ of \HOL. This
+Given a formula $s \in \FFOL$. We map $s$ to a corresponding term $\map{s}$ of \HOL. This
 mapping is defined as follows:
 
+\noindent
 \begin{tabular}{lcll}
 $\map{x}$    & := & $\hol{X_i}$ &for all $x\in \V$\\
-$\map{f(t^1,\ldots,t^n)}$    & := & $\hol{(f \map{t^1} \ldots \map{t^n})}$  \quad
+$\map{f(t^1,\ldots,t^n)}$    & := & $(\map{f}\ \map{t^1} \ldots \map{t^n})$  \quad
               & for all $n$-ary $f\in F$\\
- & & &  $\hol{f}$ has type $\hol{\underbrace{{i \ar
-               \ldots  \ar i} \ar }_{n\geq o} i}$\\
+ & & &  where $\map{f}=\hol{f_{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} i}} \in \map{F}$\\
 %$\map{p}$    & := & $\hol{p_o}$ & for all $0$-ary $p\in \P$\\
-$\map{s = t}$    & := & $\hol{\map{s} = \map{t}}$ \\
-$\map{p(t^1,\ldots,t^n)}$    & := & $\hol{(p \map{t^1} \ldots \map{t^n})}$  \quad
+$\map{s = t}$    & := & $\map{s} \hol{=} \map{t}$ \\
+$\map{p(t^1,\ldots,t^n)}$    & := & $(\map{p}\ \map{t^1} \ldots \map{t^n})$  \quad
              &  for all $n$-ary $p\in P$ \\ 
-   & & & $\hol{p}$ has type $\hol{\underbrace{{i \ar
-               \ldots  \ar i} \ar }_{n\geq o} o}$\\
-$\map{\neg \varphi}$ & := &  $\hol{\neg\map{\varphi}}$  \\
-$\map{\varphi \Impl \psi}$ & := &  $\hol{ \map{\varphi} \Impl \map{\psi}}$  \\
-$\map{\forall x. s}$ & := &  $\hol{\forall X_i. \ex
-                       X_i \Impl \map{s}}$   \\
-$\map{\Descr x. s}$ & := &  $\hol{\textbf{IfThenElse}}$ \\
-  & & \quad $\hol{(\exists x. \ex x \wedge \map{s} \wedge (\forall
-      y. (\ex y \wedge ((\lambda X_i. \map{s}) y)) \Impl y = x))}$ \\
-  & & \quad $\hol{ (\Descr  X_i. \map{s})}$ \\
-  & & \quad $\hol{\star}$  \\
+   & & & where $\map{p}=\hol{p_{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} o}} \in \map{P}$\\
+
+$\map{\neg s}$ & := &  $\hol{\neg}\map{s}$  \\
+$\map{s \Impl r}$ & := &  $\map{s} \hol{\Impl} \map{r}$  \\
+$\map{\forall x\lambdot r}$ & := &  $\hol{\forall X_i\lambdot  \ex
+                       X_i\ \Impl}\ \map{r}$   \\
+$\map{\Descr x\lambdot r}$ & := &  $\hol{\textbf{IfThenElse}}$ \\
+  & & \multicolumn{2}{c}{\quad $\hol{(\exists X_i\lambdot \ex X \wedge} \map{r}\ \hol{\wedge (\forall
+      Y_i\lambdot (\ex Y \wedge ((\lam{X_i}} \map{r}) \hol{Y)) \Impl Y = X))}$} \\
+  & & \quad $\hol{(\Descr  X_i\lambdot}\map{r})$ \\
+  & & \quad $\hol{\star}$  \\[1em]
 \end{tabular}
 where $\hol{\textbf{IfThenElse}}$ is an abbreviation for the term
-$\hol{\lam{S_o}\lam{X_i}\lam{Y_i}. \Descr Z_i. (S_o \wedge Z = X) \vee
+$$\hol{\lam{S_o}\lam{X_i}\lam{Y_i} \Descr Z_i\lambdot (S_o \wedge Z = X) \vee
 (\neg S_o \wedge Z
-= Y)}$.
+= Y)}$$
 
-Further connectives can be introduced as usual: $r \vee  s := \neg r
-\Impl s$, $r \wedge  s := \neg (\neg r \vee \neg s)$, 
+% Further connectives can be introduced as usual, e.g. $r \vee  s := \neg r
+% \Impl s$, $r \wedge  s := \neg (\neg r \vee \neg s)$, 
 \end{definition}
 
 
 
-Todo ... the embedding in Isabelle/HOL is depicted in 
-figure \ref{pic1}
 
+The above mapping induces mappings from the sets $\map{V}$, $\map{F}$ and $\map{P}$
+of $\FFOL$ to corresponding variables (of type $i$), uninterpreted function
+symbols and uninterpreted predicate symbols in \HOL.
+
+To prove soundness and completeness\footnote{Similar soundness and completeness proofs for
+  shallow semantical embeddings have been presented in \cite{C37} and
+  \cite{J31}.} for the embedding, a
+mapping from $\FFOL$ models into Henkin models is
+employed.
+This mapping utilizes a mapping of $FFOL$ variable
+assignments $g$ into corresponding $\HOL$ variable assignments
+$\hol{g}$ (remember that $\FFOL$  domains $D$ are  identified with 
+\HOL domains $\hol{D_i}$, i.e. $\map{D} = \hol{D_i}$): Let $g$ be a variable assignment for
+  $\FFOL$.  Then $\map{g}:
+  \map{V}\mapsto \map{D}$ for $\HOL$ is defined such that
+  $\map{g}(X_i) = \map{g} \map{x} = g(x)$ 
+for all $\hol{X_i}\in \map{V}$. 
+Finally, $\map{g}$ is extended to an assignment for arbitrary
+variables $\hol{Y_\alpha} \notin \map{V}$  by choosing
+$\map{g}(\hol{Y_\alpha}) = \hol{d}\in \hol{D_\alpha}$ arbitrary (for
+all types $\alpha$).
+
+\begin{definition}[Henkin model $\map{M}$ for $\FFOL$ model $M$]\label{def:hm}
+Given a $\FFOL$ model $M = \langle D, \ex, I, \star\rangle$. The Henkin
+model $\map{M} = \hol{\langle \{D_\alpha\}_{\alpha \in {T}},I \rangle}$ for
+$M$ is defined as follows: 
+\begin{itemize}
+\item $\hol{D_i} = D$
+\item $\hol{D_o} = \{\True,\False\}$
+\item $\hol{D_{\alpha\ar\beta}}$ are
+chosen as (not necessarily full) sets of functions from
+$\hol{D_\alpha}$ to $\hol{D_\beta}$. Remember, however, that the
+choice of $\hol{D_{\alpha\ar\beta}}$ must always ensure that 
+the valuation function 
+ $\hol{\|\cdot\|^{\map{M},\map{g}}}$ remains total, i.e. that
+ all terms denote. In particular, it is required that $\hol{D_{i\ar
+     o}}$ contains the element $\hol{I \ex}$ as characterized below.
+\item Let $X^i_i = \map{x^i}$
+  for $x^i\in V$.  The interpretation function $\hol{I}$ of $\map{M}$
+  is chosen as follows:
+\begin{itemize}
+\item  $\hol{I \star_i} = \star \in D$
+\item  For all
+    $\hol{d} \in \hol{D_i} = \map{D}$ we have: $(\hol{I \ex_{i\ar o}})(\hol{d}) =
+    \hol{T}$  if and only if $\hol{d} \in E$. Note that this implies $(\hol{I \ex})(\hol{\star_i}) = \hol{F}$.
+\item \sloppy For all $\hol{f_{{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} i}}} = \map{f} \in \map{F}$ we
+       have: $(\hol{I} \hol{f})(\hol{d^1},\ldots,\hol{d^n}) = (I f)(\hol{d^1},\ldots,\hol{d^n})$ for
+       all $\hol{d^i}\in \hol{D_i} = \map{D}$ ($i=1,\ldots,n$ and
+       $n\geq 0$).
+\item \sloppy For all $\hol{p_{{\underbrace{{i \ar
+               \ldots  \ar i} \ar }_{n\geq o} 0}}} = \map{p} \in \map{P}$ we
+       have: $(\hol{I} \hol{p})(\hol{d^1},\ldots,\hol{d^n}) = \hol{T}$
+       if and only if $(\hol{d^1},\ldots,\hol{d^n}) \in (I p)$ for
+       all $\hol{d^i}\in \hol{D_i} = \map{D}$ ($i=1,\ldots,n$ and
+       $n\geq 0$).
+\item For all other constants $\hol{c_\alpha}$, choose $\hol{I
+    c_\alpha} \in \hol{D_\alpha}$ arbitrary.\footnote{In fact, it may be safely assumed that there are
+  no other constant symbols given, except for the symbols in
+  $\map{F}$ and $\map{P}$, the symbols $\hol{\ex_{i\ar o}}$  and $\hol{\star_{i}}$ and the logical connectives.}
+\end{itemize}
+\end{itemize}
+
+It is not hard to verify that ${H}^{M}$ is a Henkin model.\footnote{In
+  $\map{M}$ we have merely fixed $D_i=D$ and the interpretations of
+  $\ex$ and $\star$.  These
+  choices are not in conflict with any of the requirements regarding
+  frames and interpretations. The existence of a valuation function
+  ${V}$ for an HOL interpretation crucially depends on how sparse the
+  function spaces have been chosen in frame $\{D_\alpha\}_{\alpha \in
+    {T}}$. Andrews \cite{Andrews72b} discusses criteria that are sufficient
+  to ensure the existence of a valuation function; in
+  $\map{M}$) these requirements are met.}
+ 
+% worlds $S$, $D_\utype$ is chosen as the first-order domain $D$ (cf.\
+% definition of $\lfloor g^{i} \rfloor$), $D_\proptype$ is chosen as the
+% set of sets of possible worlds $Q$ (cf.\ definition of $\lfloor g^{p}
+% \rfloor$)\footnote{Sets are identified with their characteristic
+%   functions.}, and all other sets $D_{\alpha\typearrow\beta}$ are
+% chosen as (not necessarily full) sets of functions from $D_\alpha$ to
+% $D_\beta$.  For all $D_{\alpha\typearrow\beta}$ the rule that
+% every term must have a denotation must be obeyed, in particular, it is required that
+% $D_{u^n\typearrow\proptype}$,
+% $D_{i\typearrow\proptype\typearrow\proptype}$ and
+% $D_{i\typearrow\utype\typearrow o}$ contain the elements $I
+% k_{u^n\typearrow\proptype}$, $I
+% f_{i\typearrow\proptype\typearrow\proptype}$ and $I
+% \exInW_{i\typearrow\utype\typearrow o}$ as characterized next. Interpretation $I$ is constructed as follows:
+\end{definition}
+
+
+\begin{lemma}\label{lemma:1} \sloppy
+  Let $\map{M}$ be a Henkin model for $\FFOL$ model $M$. For all
+  terms and formulas $s\in \FFOL$ and variable assignments $g$ we have $\| s
+  \|^{M,g} = \| \map s \|^{\map M, \map g}$.
+
+% $M,g,s
+%   \models \delta \text{\ if and only if\ } {V}(\lfloor g \rfloor [s/S_\itype],
+%   \lfloor \delta \rfloor\, S_\itype)=T$.
+
+\begin{proof} 
+  The proof is by induction on the structure of $s$.
+
+  For $s=x\in V$ the claim follows from the definition of
+  $\map{g}$. For $s=c\in F$ where $c$ is $0$-ary we get the claim by
+  the choice of $\hol{I}$ in $\map M$, and for $s=f(t^1,\ldots,t^n)$
+  where $f\in F$ is $n$-ary ($n\geq 1$) we additionally need to apply
+  the induction hypothesis. The arguments for $s=p\in P$ where $p$ is
+  $0$-ary and for $s=p(t^1,\ldots,t^n)$ where $p\in P$ is $n$-ary
+  ($n\geq 1$) are similar.  The most complicated case is when
+  $s=\Descr x\lambdot r$. We here consider two cases. We either have
+  $\| r \|^{M,g[d/x]} = \True$ and $\| r \|^{M,g[d'/x]} = \False$ for
+  all $d'\not=d\in \ex$ (i.e. $d$ is the unique existing object for
+  which $r$ holds) or there is no such $d\in \ex$. In the first case
+  we have $\| \Descr x\lambdot r \|^{M,g} = d \in \ex$. By the
+  definition of the embedding $\map{\ }$, definition of $\map M$ and
+  $\map g$, induction hypothesis and a series of tedious evaluation
+  steps in \HOL we get
+  $\| \map{\Descr x\lambdot r} \|^{\map M, \map g} = \| \hol{\Descr
+    x\lambdot \map{r}} \|^{\map M, \map g} = d \in \ex$
+  (for the very same $d$ as above). In the second case we have
+  $\| \Descr x\lambdot r \|^{M,g} = \star$. Again we apply the
+  definition of the embedding $\map{\ }$, the definition of $\map M$
+  and $\map g$, induction hypothesis and a series of tedious
+  evaluation steps in \HOL to verify that
+  $\| \map{\Descr x\lambdot r} \|^{\map M, \map g} = \hol{\star} =
+  \star$. The remaining cases are similar (actually simpler) and left to the reader.
+\end{proof}
+\end{lemma}
+
+
+\begin{theorem}[Soundness and Completeness of the Embedding]\ \\
+For all formulas $s\in FFOL$ we have
+ $\models^\FFOL s \text{ if and only if }  \models^\HOL \map{s}$
+
+
+ \begin{proof} 
+ (Soundness, $\leftarrow$) The proof is by
+   contraposition. Assume $\not\models^\FFOL s$, i.e, there is a
+   $\FFOL$ model $M$ and an assignment $g$ such that
+   $\|s\|^{M,g}=\False$. By Lemma \ref{lemma:1} we have $\| \map s
+   \|^{\map M, \map g}=\False$. Hence, we get $\not\models^\HOL \map{s}$.
+
+ (Completeness, $\rightarrow$) The proof is again by
+    contraposition and analogous to above.
+\end{proof}
+\end{theorem} 
 
 % In this framework partial and total functions are modelled as follows: 
 % A function $f$ is total if and only if for all $x$ we have $\ex x \imp \ex(f x)$ 
 % For partial functions $f$ we may have some $x$ such that $\ex x$ but not
 %  $\ex(f x)$. A function $f$ is strict  if  and only if for all $x$
 % we have $\ex(f x) \imp \ex x$.
+
+%\pagebreak
+
+In the remainder of this article we present an application of our
+framework for the exploration of axioms systems in category theory. In
+this context description is not required and we hence omit it in our 
+theory. Figure \ref{pic1} shows the embedding of $\FFOL$ in $\HOL$,
+encoded in Isabelle/HOL, 
+that we have employed in our experiments. A related Isabelle/HOL
+encoding of the above theory with description has been presented and  discussed in
+\cite{ICMS}. 
+
+\begin{figure}[htp]
+ \includegraphics[width=\textwidth]{EmbeddingPic}
+ \caption{Isabelle/HOL formalisation of $\FFOL$ (without description) in $\HOL$ \label{pic1}}
+\end{figure}
+
 
 
 \section{Exploring Axioms Systems for Category Theory}
@@ -817,7 +1016,7 @@ definite description operator nor the designated undefined object
 $\star$, since both were not required in our experiments.
 
 
-\begin{table}[tp] \centering \normalsize
+\begin{table}[htp] \centering \normalsize
 \begin{tabular}{ll}
 \hline
 \\
@@ -825,11 +1024,11 @@ $\star$, since both were not required in our experiments.
 %\hline
 \\
  $S_{i}$ & $\ex(x \comp y) \imp (\ex x \wedge \ex y)$ \\
- $E_{i}$ & $\ex(x \comp y) \limp (\ex x \wedge \ex y \wedge (\exists z. z \comp
+ $E_{i}$ & $\ex(x \comp y) \limp (\ex x \wedge \ex y \wedge (\exists z\lambdot z \comp
          z \cong z \wedge x \comp z \cong x \wedge z \comp y \cong y))$ \\
  $A_{i}$ & $x\comp (y \comp z) \cong (x \comp y) \comp z$ \\
- $C_{i}$ & $\forall y. \exists i.  \id i \wedge i \comp y \cong y$ \\
- $D_{i}$ & $\forall x. \exists j.  \id j \wedge x \comp j \cong x$  \\
+ $C_{i}$ & $\forall y\lambdot \exists i\lambdot  \id i \wedge i \comp y \cong y$ \\
+ $D_{i}$ & $\forall x\lambdot \exists j\lambdot  \id j \wedge x \comp j \cong x$  \\
 \\
 \hline
 \\
@@ -839,7 +1038,7 @@ $\star$, since both were not required in our experiments.
 $S_{ii}$ & $\ex(x \comp y) \imp (\ex x \wedge \ex y) \wedge (\ex (\dom x) \imp \ex
         x) \wedge (\ex (\cod y) \imp \ex
         y)$ \\
- $E_{ii}$ & $\ex(x \comp y) \limp (\ex x \wedge \ex y \wedge (\exists z. z \comp
+ $E_{ii}$ & $\ex(x \comp y) \limp (\ex x \wedge \ex y \wedge (\exists z\lambdot z \comp
          z \cong z \wedge x \comp z \cong x \wedge z \comp y \cong y))$ \\
  $A_{ii}$ & $x\comp (y \comp z) \cong (x \comp y) \comp z$ \\
  $C_{ii}$ & $\ex y \imp (\id(\cod y) \wedge (\cod y) \comp y \cong y)$ \\
@@ -925,8 +1124,8 @@ reflexivity. These observations are quickly confirmed by Isabelle.
 
 Next, we define the identity morphism predicate $\id$ as follows: 
 
-abbreviation I where \[\id i \ddef (\forall x. \ex(i \comp x) \imp i \comp
-x \cong x) \wedge (\forall x. \ex(x \comp i) \imp x \comp i \cong x)\]
+abbreviation I where \[\id i \ddef (\forall x\lambdot \ex(i \comp x) \imp i \comp
+x \cong x) \wedge (\forall x\lambdot \ex(x \comp i) \imp x \comp i \cong x)\]
 
 This definition was suggested by an exercise in \cite{FreydScedrov90}
 on p.~4.  In earlier experiments we used a longer definition which can
@@ -961,16 +1160,16 @@ indeed confirm the consistency of all axiom sets from Table \ref{axioms-sets-1}.
 
 
 
-\subsection{Axioms Set I}
+\subsection{Axioms Sets I and II}
  Axioms Set I is our most basic axiom set for category theory generalizing the 
 axioms for a monoid to a partial composition operation. Remember that a monoid is an 
 algebraic structure $(S,\circ)$, where $\circ$ is a binary operator on set $S$, 
 satisfying the following properties: 
 $$
 \begin{tabular}{ll}
-Closure: & $ \forall a,b \in S.\ a \circ b \in S$ \\
-Associativity: & $\forall a,b,c \in S.\ a \circ (b \circ c) = (a \circ b) \circ c$ \\
-Identity: & $\exists id_S \in S. \forall a\in S.\ id_S\circ a = a = a \circ id_S$
+Closure: & $ \forall a,b \in S\lambdot \ a \circ b \in S$ \\
+Associativity: & $\forall a,b,c \in S\lambdot\ a \circ (b \circ c) = (a \circ b) \circ c$ \\
+Identity: & $\exists id_S \in S\lambdot \forall a\in S\lambdot \ id_S\circ a = a = a \circ id_S$
 \end{tabular}
 $$
 
@@ -988,19 +1187,19 @@ meanings.
 We can prove that the $i$ in axiom $C_i$ and the $j$ in axiom $D_i$
 are unique. The proofs and the dependencies can be 
    found automatically by Sledgehammer.
-$$  \forall y. \exists i. \id i \wedge i \comp y \cong y
-\wedge (\forall j.d(\id j \wedge j \comp y \cong y) \imp i \cong j)
+$$  \forall y\lambdot \exists i\lambdot \id i \wedge i \comp y \cong y
+\wedge (\forall j\lambdot d(\id j \wedge j \comp y \cong y) \imp i \cong j)
 \quad 
     (\text{by } A_i, C_i, S_i) $$
-$$ \forall x. \exists j. \id j \wedge x \comp j \cong x \wedge
-(\forall i. (\id i \wedge x \comp i \cong x) \imp j \cong i) \quad   
+$$ \forall x\lambdot \exists j\lambdot \id j \wedge x \comp j \cong x \wedge
+(\forall i\lambdot (\id i \wedge x \comp i \cong x) \imp j \cong i) \quad   
     (\text{by }  A_i, D_i, S_i) $$
 
 However, the $i$ and $j$ need not be equal. Using existential
 variables $C$ and $D$, this can be encoded in
    our formalization as follows: 
- $$\exists C, D. (\forall y. \id (C y) \wedge (C y) \comp y \cong y)
- \wedge (\forall x. \id (D x) \wedge x \comp (D x) \cong x) \wedge
+ $$\exists C, D\lambdot (\forall y\lambdot \id (C y) \wedge (C y) \comp y \cong y)
+ \wedge (\forall x\lambdot \id (D x) \wedge x \comp (D x) \cong x) \wedge
  D \not= C$$
 
 The model finder Nitpick confirms that this formula is satisfiable:
@@ -1009,19 +1208,18 @@ in all other cases; variable $D$ is identity on domain $D$, but $C$ maps both
 $i_1$ and $i_2$ to $i_2$. 
 
 
-
-\subsection{Axioms Set II}
+%\subsection{Axioms Set II}
 Axioms Set II is developed from Axioms Set I by Skolemization of the
 existentially quantified variables $i$ and $j$ in axioms $C_i$ and
 $D_i$. We can argue semantically that every model of Axioms Set I has
 such functions. Hence, we get a conservative extension of Axioms Set
-I. This could be done for any theory with an $\forall x. \exists i$.-axiom. The strictness axiom $S$ is extended, so
+I. This could be done for any theory with an $\forall x\lambdot \exists i$.-axiom. The strictness axiom $S$ is extended, so
 that strictness is now also postulated for the new Skolem functions
 $\dom$ and $\cod$. Note that the values of Skolem functions
 outside $E$ can just be given by the identity function.
 
 The left-to-right direction of existence axiom $E_{ii}$ is implied. 
-  $$E(x \comp y) \imp (E x \wedge E y \wedge (\exists z. z \comp z
+  $$E(x \comp y) \imp (E x \wedge E y \wedge (\exists z\lambdot z \comp z
   \cong z \wedge x \comp z \cong x \wedge z\comp y \cong y)) \quad
   (\text{by } A_{ii}, C_{ii}, S_{ii})$$
 
@@ -1054,7 +1252,7 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   contributed by automated theorem provers.
 
 
-\subsection{Axioms Set III}
+\subsection{Axioms Set III, IV and V} \marginpar{will improve presentation}
 In Axioms Set III the existence  axiom  $E_{ii}$ from Axioms Set II  is simplified by taking advantage of 
   the two new Skolem functions ${\dom}$ and $\cod$.
 
@@ -1065,7 +1263,7 @@ The left-to-right direction of existence axiom $E_{iii}$ is implied.
  Axioms Set II and Axioms Set III are equivalent; this has been
  confirmed by the automated theorem provers and verified in Isabelle/HOL.
 
-\subsection{Axioms Set IV}
+%\subsection{Axioms Set IV}
 Axioms Set IV simplifies the axioms $C_{iii}$ and  $D_{iii}$ . However, as it turned 
  out, these simplifications also require the existence axiom $E_{iii}$ to be strengthened into
  an equivalence.
@@ -1074,7 +1272,7 @@ Axioms Set IV simplifies the axioms $C_{iii}$ and  $D_{iii}$ . However, as it tu
  confirmed by the automated theorem provers and verified in
  Isabelle/HOL.
 
-\subsection{Axioms Set V}
+%\subsection{Axioms Set V}
 Axioms Set V has been proposed by Scott \cite{Scott79} in the 1970s. 
 This set of axioms is equivalent to the axiom set presented by Freyd
 and Scedrov in their textbook ``Categories, Allegories''
@@ -1220,7 +1418,7 @@ the category reduces to a monoid provided that it is not empty.
 In fact, the automated theorem provers, via Sledgehammer, quickly
 prove falsity from Axioms Set FS-II (or FS-I) when assuming a 
  non-existing object of type $i$:
-$$(\exists x. \neg E x) \imp False$$
+$$(\exists x\lambdot \neg E x) \imp False$$
 
 The provers identify the axioms $A1$,
  $A2a$ and $A3a$ to cause the problem under this assumption. A
@@ -1243,7 +1441,7 @@ Next, we instantiate $A1$ with $a$ and $\dom a$ to obtain
    a)$. $\Box$
 
 As a corollary from the above constricted inconsistency result we get that all  must be
-defined: $\forall x. E x$
+defined: $\forall x\lambdot E x$
 
 
 
@@ -1319,7 +1517,13 @@ defined: $\forall x. E x$
 \ldots todo
 
 \begin{acknowledgements}
-DFG projects \ldots todo
+This work has been supported by the DFG Heisenberg fellowship (BE
+2501/9-2, \emph{, Towards Computational Metaphysics}) of the first
+author.
+
+We thank G{\"u}nter Rote, Lutz Schröder and and Emil Weydert for their
+valuable comments to earlier drafts of this article .
+
 \end{acknowledgements}
 
 % BibTeX users please use one of
