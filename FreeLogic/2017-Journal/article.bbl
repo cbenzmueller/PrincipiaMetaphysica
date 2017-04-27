@@ -6,6 +6,44 @@
   \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
   \urlstyle{rm}\Url}\fi
 
+\bibitem{Andrews:gmae72}
+Andrews, P.: General models and extensionality.
+\newblock Journal of Symbolic Logic \textbf{37}(2), 395--397 (1972)
+
+\bibitem{AndrewsSEP}
+Andrews, P.: Church's type theory.
+\newblock In: E.~Zalta (ed.) The Stanford Encyclopedia of Philosophy, spring
+  2014 edn. (2014)
+
+\bibitem{barendregt13book}
+Barendregt, H., Dekkers, W., Statman, R.: Lambda Calculus with Types.
+\newblock Perspectives in Logic. Cambridge University Press (2013)
+
+\bibitem{C37}
+Benzm{\"u}ller, C.: Automating quantified conditional logics in {HOL}.
+\newblock In: F.~Rossi (ed.) Proc. of IJCAI-23. Beijing, China (2013).
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/C37.pdf}
+
+\bibitem{J31}
+Benzm{\"u}ller, C.: Cut-elimination for quantified conditional logic.
+\newblock Journal of Philosophical Logic  (2016).
+\newblock \doi{10.1007/s10992-016-9403-0}.
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/J31.pdf}
+
+\bibitem{J6}
+Benzm{\"u}ller, C., Brown, C., Kohlhase, M.: Higher-order semantics and
+  extensionality.
+\newblock Journal of Symbolic Logic \textbf{69}(4), 1027--1088 (2004).
+\newblock \doi{10.2178/jsl/1102022211}.
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/J6.pdf}
+
+\bibitem{J18}
+Benzm{\"u}ller, C., Brown, C., Kohlhase, M.: Cut-simulation and
+  impredicativity.
+\newblock Logical Methods in Computer Science \textbf{5}(1:6), 1--21 (2009).
+\newblock \doi{10.2168/LMCS-5(1:6 for )2009}.
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/J18.pdf}
+
 \bibitem{B5}
 Benzm{\"u}ller, C., Miller, D.: Automation of higher-order logic.
 \newblock In: J.~Siekmann, D.~Gabbay, J.~Woods (eds.) Handbook of the History
@@ -24,10 +62,14 @@ Benzm{\"{u}}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
 \newblock CoRR \textbf{abs/1609.01493} (2016).
 \newblock \urlprefix\url{http://arxiv.org/abs/1609.01493}
 
-\bibitem{R58}
-Benzm{\"u}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
-\newblock arXiv, \url{http://arxiv.org/abs/1609.01493}  (2016).
-\newblock \urlprefix\url{http://arxiv.org/abs/1609.01493}
+\bibitem{Leo-III}
+Benzm{\"u}ller, C., Steen, A., Wisniewski, M.: {Leo-III} version 1.1 (system
+  description).
+\newblock In: T.~Eiter, D.~Sands (eds.) Logic for Programming, Artificial
+  Intelligence, and Reasoning (LPAR) --- Short Papers, Kalpa Puplications.
+  EasyChair, Maun, Botswana (2017).
+\newblock \urlprefix\url{http://christoph-benzmueller.de/papers/C64.pdf}.
+\newblock To appear
 
 \bibitem{LEO}
 Benzm{\"{u}}ller, C., Sultana, N., Paulson, L.C., Theiss, F.: The higher-order
@@ -66,6 +108,10 @@ Brown, C.E.: Satallax: An automatic higher-order prover.
 \newblock \doi{10.1007/978-3-642-31365-3}.
 \newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-31365-3}
 
+\bibitem{Church40}
+Church, A.: A formulation of the simple theory of types.
+\newblock Journal of Symbolic Logic \textbf{5}, 56--68 (1940)
+
 \bibitem{CVC4}
 Deters, M., Reynolds, A., King, T., Barrett, C.W., Tinelli, C.: A tour of
   {CVC4:} how it works, and how to use it.
@@ -73,6 +119,13 @@ Deters, M., Reynolds, A., King, T., Barrett, C.W., Tinelli, C.: A tour of
   Switzerland, October 21-24, 2014, p.~7. {IEEE} (2014).
 \newblock
   \urlprefix\url{http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=6975680}
+
+\bibitem{Freyd16}
+Freyd, P.: {Amplifications, Diminutions, Subscorings for Categories,
+  Allegories} (2016).
+\newblock \urlprefix\url{https://www.math.upenn.edu/~pjf/amplifications.pdf}.
+\newblock University of Pennsylvania. Unpublished. Available at
+  \url{https://www.math.upenn.edu/~pjf/amplifications.pdf}
 
 \bibitem{FreydScedrov90}
 Freyd, P., Scedrov, A.: Categories, Allegories.
@@ -110,6 +163,11 @@ de~Moura, L.M., Bj{\o}rner, N.: {Z3: An Efficient {SMT} Solver}.
 Nipkow, T., Paulson, L.C., Wenzel, M.: {Isabelle/HOL: A Proof Assistant for
   Higher-Order Logic}.
 \newblock No. 2283 in LNCS. Springer (2002)
+
+\bibitem{sep-logic-free}
+Nolt, J.: Free logic.
+\newblock In: E.N. Zalta (ed.) The Stanford Encyclopedia of Philosophy, winter
+  2014 edn. (2014)
 
 \bibitem{E}
 Schulz, S.: System description: {E} 1.8.

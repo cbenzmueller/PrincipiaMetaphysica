@@ -3,47 +3,49 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: article.aux
 The style file: spmpsci.bst
 Database file #1: bibliography.bib
-Warning--I didn't find a database entry for "DBLP:books/daglib/0032840"
-Warning--I didn't find a database entry for "DBLP:journals/jsyml/Church40"
-You've used 19 entries,
+Warning--I'm ignoring Freyd16's extra "note" field
+--line 4897 of file bibliography.bib
+Warning--missing publisher in AndrewsSEP
+Warning--missing publisher in sep-logic-free
+You've used 29 entries,
             2946 wiz_defined-function locations,
-            776 strings with 9540 characters,
-and the built_in function-call counts, 15057 in all, are:
-= -- 1702
-> -- 280
+            852 strings with 11244 characters,
+and the built_in function-call counts, 21016 in all, are:
+= -- 2334
+> -- 404
 < -- 19
-+ -- 176
-- -- 93
-* -- 714
-:= -- 1485
-add.period$ -- 52
-call.type$ -- 19
-change.case$ -- 122
++ -- 247
+- -- 132
+* -- 1003
+:= -- 2144
+add.period$ -- 74
+call.type$ -- 29
+change.case$ -- 180
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 1670
-empty$ -- 1061
-format.name$ -- 109
-if$ -- 3225
+cite$ -- 31
+duplicate$ -- 2322
+empty$ -- 1519
+format.name$ -- 152
+if$ -- 4470
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 210
-newline$ -- 104
-num.names$ -- 46
-pop$ -- 581
+int.to.str$ -- 29
+missing$ -- 305
+newline$ -- 153
+num.names$ -- 74
+pop$ -- 830
 preamble$ -- 1
-purify$ -- 79
+purify$ -- 116
 quote$ -- 0
-skip$ -- 852
+skip$ -- 1120
 stack$ -- 0
-substring$ -- 640
-swap$ -- 1343
+substring$ -- 859
+swap$ -- 1831
 text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 70
-warning$ -- 0
-while$ -- 81
-width$ -- 21
-write$ -- 245
-(There were 2 warnings)
+type$ -- 108
+warning$ -- 2
+while$ -- 115
+width$ -- 31
+write$ -- 363
+(There were 3 warnings)
