@@ -71,7 +71,7 @@ grestore
 \def\D{\mathit{D}}
 \def\E{\mathit{E}}
 
-\def\FFOL{\mathit{FFOL}}
+\def\FFOL{\entity{FFOL}\xspace}
 \def\V{\mathit{V}}
 \def\F{\mathit{F}}
 \def\P{\mathit{P}}
@@ -290,7 +290,7 @@ proof assistant systems and automated theorem provers based on
 traditional classical or intuitionistic logics provide rather
 inadequate support for these challenge concepts.  Free logic \cite{Lambert60,Scott67,lambert02:_free_logic,sep-logic-free} offers a
 theoretically appealing solution, but is has been considered as rather
-unsuited towards practical utilisation.
+unsuited towards practical utilization.
 
 
 In the first part of this article (\S2 and \S3) we show how free logic
@@ -389,7 +389,7 @@ experiments in which automated reasoning tools have been called from
 within the proof assistant Isabelle/HOL via the
 Sledgehammer tool. Moreover, we have obtained
 very useful feedback at various stages from the model finder Nitpick
-\cite{Nitpick} saving us from making several mistakes.
+\cite{Nitpick}, saving us from making several mistakes.
 
 At the conceptual level this paper exemplifies a new style of
 explorative mathematics which rests on a significant amount of
@@ -628,12 +628,12 @@ For a detailed discussion of the syntax, semantics and automation
 of  HOL we refer to the literature (see e.g.
 \cite{AndrewsSEP,B5,J6} and the
 references therein). Below we introduce a variant of \HOL with primitive equality
-and description. 
+and definite description. 
 
 
 
 \begin{definition}[Types]\label{holtypes}
-  The set $\hol{T}$ of simple types freely generated from a set of
+  The set $\hol{T}$ of simple types is freely generated from a set of
   basic types $\{\hol{o}, \hol{i}\}$ using the function type
   constructor $\hol{\ar}$. $\hol{o}$ is the type of Booleans and 
   $\hol{i}$ is the type of individuals. We
@@ -641,8 +641,8 @@ and description.
 \end{definition}
 
 \begin{definition}[Syntax of $\HOL$]\label{holgrammar}
-The language of higher-order logic $\HOL$ with primitive equality and
-description is defined by the following
+The terms of $\HOL$ with primitive equality and
+definite description are defined by the following
 grammar:\footnote{It is well known that we could work with a much smaller set
   of logical connectives, see e.g. \S1.4 of Andrews's overview
   article~\cite{AndrewsSEP}. The choice here closely reflects the
@@ -661,7 +661,7 @@ where $\hol{\alpha},\hol{\beta}\in \hol{T}$. $\hol{p_\alpha}$ denotes typed cons
 $\hol{X_\alpha}$ typed variables (distinct from $\hol{p_\alpha}$).  Complex typed
 terms are constructed via abstraction and application. The type of
 each term is given as a subscript.  Terms $\hol{s_o}$ of type $\hol{o}$ are called
-formulas.  The logical connectives of choice are
+\emph{formulas}.  The \emph{logical connectives} of choice are
 $\hol{\neg_{o\ar o}}$, $\hol{\vee_{o\ar
   o\ar o}}$, $\hol{=_{\alpha\ar\alpha\ar  o}}$, $\hol{\forall_{(\alpha\ar
   o)\ar o}}$ and $\hol{\Descr_{(\alpha\ar
@@ -728,7 +728,7 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
 
 
 \begin{definition}[Model for \HOL]\label{holmodel}
-  A \emph{model} for \HOL is a tuple $\hol{M}=\hol{\langle D, I \rangle}$, where
+  A \emph{model (structure)} for \HOL is a tuple $\hol{M}=\hol{\langle D, I \rangle}$, where
   $\hol{D}$ is a frame, and $\hol{I}$ is a family of typed interpretation
   functions mapping constant symbols $\hol{p_\alpha}$ to appropriate
   elements of $\hol{D_\alpha}$, called the \emph{denotation of $\hol{p_\alpha}$}
@@ -752,12 +752,12 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
   $\hol{d}\in \hol{D_\alpha}$
 \item $\hol{\|s_\alpha = t_\alpha\|^{M,g}} = {\True}$ if and only if $\hol{\|s_\alpha\|^{M,g}} = \hol{\|t_\alpha\|^{M,g}} $
 \item $\hol{\|(\neg_{o\ar o}\, s_o)_o\|^{M,g}} = {\True}$ if and only if $\hol{\|s_o\|^{M,g}} = {\False}$
-\item $\hol{\|(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)_o\|^{M,g}} =
+\item \sloppy $\hol{\|(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)_o\|^{M,g}} =
   {\True}$ if and only if\, $\hol{\|s_o\|^{M,g}} = {\True}$ or $\hol{\|t_o\|^{M,g}}
   = {\True}$
 \item \sloppy $\hol{\|(\forall_{(\alpha\ar o)\ar o}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = {\True}$ if and only if for all $\hol{d}\in
-  \hol{D_\alpha}$ we have $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = {\False}$
+  \hol{D_\alpha}$ we have $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = {\True}$
 \item $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = \hol{d}$ if there exists a unique $\hol{d}\in \hol{D_{\alpha}}$ such that
   $\hol{\|s_o\|^{M,g[d/X_\alpha]}} = {\True}$, 
@@ -826,7 +826,8 @@ uninterpreted constant symbol $\hol{\star}$ of type $\hol{i}$ be in the
 signature of $\HOL$. Finally, we assume that $\hol{\|E \star_i\|^{M,g}=F}$ for
 all $\hol{M,g}$, i.e. that the element denoted by $\hol{\star_i}$ is not
 an element of the domain of existing objects denoted by
-$\hol{\ex_{i\ar o}}$.
+$\hol{\ex_{i\ar o}}$ (technically this can be achieved by postulating
+a respective axiom).
 
 \begin{definition}[Embedding of $\FFOL$ in \HOL]
 Given a formula $s \in \FFOL$. We map $s$ to a corresponding term $\map{s}$ of \HOL. This
@@ -871,7 +872,7 @@ $$\hol{\lam{S_o}\lam{X_i}\lam{Y_i} \Descr Z_i\lambdot (S_o \wedge Z = X) \vee
 
 The above mapping induces mappings from the sets $\map{V}$, $\map{F}$ and $\map{P}$
 of $\FFOL$ to corresponding variables (of type $i$), uninterpreted function
-symbols and uninterpreted predicate symbols in \HOL.
+symbols and uninterpreted predicate symbols in \HOL, respectively.
 
 To prove soundness and completeness\footnote{Similar soundness and completeness proofs for
   shallow semantical embeddings have been presented in \cite{C37} and
@@ -1029,7 +1030,7 @@ The above results enable the employment of any theorem prover that
 supports $\HOL$ with definite description to reason with $\FFOL$,
 including TPTP THF \cite{J22} compliant systems such as Satallax,
 Nitpick, LEO-II and Leo-III. Alternatively, this theory can be encoded
-in interactive proof assistants, such as Isabelle/HOL. <
+in interactive proof assistants, such as Isabelle/HOL. 
   % \footnote{An example of respective abstract level proof
   % tactics in the context of a semantical embedding of an
   % hyperintensional higher-order modal logic in $\HOL$ can be found at:
@@ -1037,7 +1038,7 @@ in interactive proof assistants, such as Isabelle/HOL. <
   % computer-formalization of Ed Zalta's Principia
   % Logico-Metaphysica \url{https://mally.stanford.edu/principia.pdf} is presented.}
 
-Properties of $\FFOL$ could now be experimentally explored with
+The different properties of $\FFOL$ could now be experimentally explored with
 automated reasoning tools for $\HOL$. We have conducted such
 experiments in 
 an earlier paper \cite{ICMS}. These experiments confirm the
@@ -1045,32 +1046,35 @@ illustrating examples discussed in Scott's paper \cite{Scott67}.
 
 
 \section{Exploring Axioms Systems for Category Theory}
-In an experimental theory exploration study, in which we utilized the
-free logic reasoning farmework from above, 
+In an experimental theory exploration study, utilizing the
+free logic reasoning framework from above, 
 we have shown how Scott's
 \cite{Scott79} axiom system for category theory can be derived from a
 notion of partial monoids. These axioms systems are presented in Table \ref{axioms-sets-1}.
 
-The stepwise evolution has been described in detail
-in\cite{ArXiv}. Below we summarize these experiments.  However, first
-we describe some basic modeling decisions for the technical encoding
-in Isabelle/HOL. The sources of our experiments, as discussed in
+The stepwise evolution has been described in detail in
+\cite{ArXiv}. Below we summarize these experiments.  However, first we
+describe some basic modeling decisions for the technical encoding in
+Isabelle/HOL. 
+
+The sources of our experiments, as discussed in
 \cite{ArXiv}, are available at
 \url{http://christoph-benzmueller.de/papers/2017-arXiv.zip}. Note that
 in these sources we added neither the definite description operator
 nor the designated undefined object $\hol{\star}$, since both were not
-required in this particular application.
+required in this particular application. A related Isabelle/HOL
+encoding of the above theory with description has been presented and
+discussed in \cite{ICMS}.
 
 Figure \ref{pic1} displays (parts of) the embedding of $\FFOL$ in
 $\HOL$, encoded in Isabelle/HOL, that we have employed in our
-experiments. Excerpts of these experiments are illustrated in Fig.~\ref{pic2}. A related Isabelle/HOL encoding of the above theory with
-description has been presented and discussed in
-\cite{ICMS}.\footnote{In the remainder of this article, and inline
+experiments.\footnote{In the remainder of this article, and inline
   with our text so far,  we present the formulas of
   $\FFOL$ in non-boldface font. These formulas have been encoded in Isabelle/HOL using the
   abbreviations as introduced in Fig.~\ref{pic1}. In the actual source
   encoding, however, the usage of boldface and non-boldface is
-  (for technical reasons) reversed.}
+  (for technical reasons) reversed.} 
+An excerpt of these experiments is shown in Fig.~\ref{pic2}.
 
 \begin{figure}[htp]
  \includegraphics[width=\textwidth]{FFOL-Pic1}
@@ -1171,7 +1175,7 @@ $S6$ & $x \comp (\dom x) \cong x$  \\
 \subsection{Modeling of basic concepts}
 Morphisms in the category are modeled as objects in $D$ (respectively,
 $\hol{D_i}$). We introduce three partial functions, 
-$\dom$ (domain), $\cod$ (codomain), and $\comp$ (morphism composition). 
+$dom$ (domain), $cod$ (codomain), and $\comp$ (morphism composition). 
 Partiality of composition is handled exactly as expected: we generally may have 
 non-existing compositions $x\comp y$ (i.e. $\neg(\ex(x\comp y))$) for some existing  
 morphisms $x$ and $y$ (i.e. $\ex x$ and $\ex y$).
@@ -1212,10 +1216,10 @@ The model finder Nitpick confirms consistency for all of the axioms
 sets from Table \ref{axioms-sets-1}. For example, when asked to consider at least one defined and one undefined object, then
 Nitpick generates for all cases the following model (called $M_1$ in the remainder):
 $D=\{i_i,i_2\}$ and $E=\{i_1\}$;  $i_1\comp i_1$ is $i_1$,  and $i_2$
-in all other cases; $\cod$ and $\dom$ are identity on $D$. Without constraining the request, Nitpick
+in all other cases; $cod$ and $dom$ are identity on $D$. Without constraining the request, Nitpick
 generates an even simpler model (called $M_0$ in the remainder):
-$D=\{i_i\}$ and $E=\emptyset$; $i_1\comp i_1$ is $i_1$; $\cod$ and
-$\dom$ are identity on $D$. It is trivial to check that these models
+$D=\{i_i\}$ and $E=\emptyset$; $i_1\comp i_1$ is $i_1$; $cod$ and
+$dom$ are identity on $D$. It is trivial to check that these models
 indeed confirm the consistency of all axioms sets from Table \ref{axioms-sets-1}.
 
   % Constants:
@@ -1250,8 +1254,8 @@ That is, a monoid is a semigroup with a two-sided identity element.
 
 Axioms Set I generalizes the notion of a monoid by introducing a partial, strict binary 
 composition operation $\comp$. The existence of left and right identity elements is 
-addressed in the last two axioms. The notions of $\dom$ (Domain) and
-$\cod$ (Codomain)
+addressed in the last two axioms. The notions of $dom$ (domain) and
+$cod$ (codomain)
 abstract from their common meaning in the context of sets. In category theory we
 work with just a single type of objects (the type $\hol{i}$ in our setting) and therefore 
 identity morphisms are employed to suitably characterize their
@@ -1288,7 +1292,7 @@ $D_i$. We can argue semantically that every model of Axioms Set I has
 such functions. Hence, we get a conservative extension of Axioms Set
 I. This could be done for any theory with an ``$\forall x\lambdot \exists i\lambdot$''-axiom. The strictness axiom $S$ is extended, so
 that strictness is now also postulated for the new Skolem functions
-$\dom$ and $cod$. Note that the values of Skolem functions
+$dom$ and $cod$. Note that the values of Skolem functions
 outside $E$ can just be given by the identity function.
 
 The left-to-right direction of existence axiom $E_{ii}$ is implied. 
@@ -1319,7 +1323,7 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   Sledgehammer on all axioms of Axioms Set II. The provers then, via
   Sledgehammer, suggested to call trusted/verified tools in
   Isabelle/HOL with the exactly required dependencies they
-  detected. With the provided dependency information the trusted tools
+  detected, in this case $C_{ii}$, $D_{ii}$, $E_{ii}$ and $S_{ii}$. With the provided dependency information the trusted tools
   in Isabelle/HOL were then able to reconstruct the external proofs on
   their own.  This way we obtain a verification of our claims in
   Isabelle/HOL, in which all the proofs have nevertheless been
@@ -1331,7 +1335,7 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
 
 
 
-\subsection{Axioms Set III, IV and V} 
+\subsection{Axioms Sets III, IV and V} 
 In Axioms Set III the existence  axiom  $E_{ii}$ from Axioms Set II  is simplified by taking advantage of 
   the two new Skolem functions ${\dom}$ and $cod$.
 
@@ -1456,7 +1460,7 @@ details.
  \subsection{Constricted Inconsistency in Free Logic
    Setting} \label{subsec-freyd-scedrov-1} A main difference in the
  system by Freyd and Scedrov to our Axioms Set V from Table
- \ref{axioms-sets-1} concerns axiom $S3$ respectively $A1$. Namely,
+ \ref{axioms-sets-1} concerns axiom $S3$, respectively $A1$. Namely,
  instead of the non-reflexive existing identity $\simeq$, they use
  Kleene equality $\cong$, cf. definition 1.11 on page 3 of their textbook
  \cite{FreydScedrov90}.\footnote{Def. 1.11 in Freyd Scedrov: ``The
@@ -1491,7 +1495,7 @@ this case, which appears unintended.
 
 As we will demonstrate now, the consequences of this version of the axiom are
 even stronger. It implies that \emph{all} objects are defined,
-that is, composition (as well as $\dom$ and $cod$) become total operations.
+that is, composition (as well as $dom$ and $cod$) become total operations.
 The theory described by these axioms ``collapses'' to the theory of
 monoids: If all objects are defined, then one can conclude from $A1$ that 
 $\dom x \cong \dom y$ (resp.~$\dom x \cong \cod y$) and $\cod x \cong \cod y$), 
@@ -1500,7 +1504,7 @@ the category reduces to a monoid provided that it is not empty.
 
 In fact, the automated theorem provers, via Sledgehammer, quickly
 prove falsity from Axioms Sets FS-II and FS-I when assuming a 
- non-existing object of type $i$:
+ non-existing object of type $\hol{i}$:
 $$(\exists x\lambdot \neg E x) \imp False$$
 
 The provers identify the axioms $A1$,
@@ -1604,7 +1608,7 @@ Table~\ref{axioms-sets-3}.
 
 Attempts to remove axioms A1', A3a, A3b, and A5 from Axiom Set VI failed. Nitpick shows that they are independent. 
 
-However, when assuming strictness of $\dom$ and $\cod$, the axioms
+However, when assuming strictness of $dom$ and $\cod$, the axioms
 A2a, A2b, A4a and A4b are all implied. Hence, under this 
    assumptions, the reasoning tools quickly identify (A1' A3a A3b A5) as a minimal axiom 
    set, which then exactly matches the Axioms Set V of Scott from Table~\ref{axioms-sets-1}.\footnote{This minimal set of axioms 
@@ -1663,12 +1667,12 @@ universal quantifier $\forall$, which realizes such a restriction,
 we thus modify Axioms Set FS-II into
 Axioms-Set FS-III as displayed in Table~\ref{axioms-sets-4}.  
 
-For Axioms Set FS-III the consistency checks with Nitpick succeeds,
+For Axioms Set FS-III the consistency checks with Nitpick succeed,
 even if we assume undefined objects. However, this axioms set is
 obviously weaker than Axioms Set V from Table
 \ref{axioms-sets-1}. In fact, as has been shown by Nitpick, none of
 the axioms of this set are implied.  The situation changes when we
-explicitly postulate strictness of $\dom$, $\cod$ and $\comp$. Doing
+explicitly postulate strictness of $dom$, $cod$ and $\comp$. Doing
 so we obtain Axioms Set FS-IV from Table \ref{axioms-sets-4}, which,
 as Nitpick confirms, is consistent even if we assume undefined
 objects. And the automated theorem provers via Sledgehammer confirm
@@ -1710,10 +1714,10 @@ Further work includes the continuation of our formalization studies in
 category theory and the application of free logic to various other
 mathematical domains, including, for example,  projective geometry.
 
-Moreover, abstract level proof tactics could be provided in proof
-assistants to support --- as an alternative to always unfolding the
-mapping from $\FFOL$ to $\HOL$ --- intuitive interaction (and even
-automation) in $\FFOL$ on top the semantical embedding. 
+Moreover, as an alternative to always unfolding the mapping from
+$\FFOL$ to $\HOL$, abstract level proof tactics could be provided
+e.g. in Isabelle/HOL to support intuitive interaction (and even
+automation) in $\FFOL$ on top the semantical embedding.
 
 \begin{acknowledgements}
 This work has been supported by the DFG Heisenberg fellowship (BE

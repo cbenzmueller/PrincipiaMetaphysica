@@ -512,7 +512,7 @@ text {* The Axiom Set III is implied. The only interesting cases are
   lemma C\<^sub>i\<^sub>i\<^sub>iFromIV: "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" 
     by (metis C\<^sub>i\<^sub>v D\<^sub>i\<^sub>v E\<^sub>i\<^sub>v)
   lemma D\<^sub>i\<^sub>i\<^sub>iFromIV: "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)"
-    by (metis (full_types) C\<^sub>i\<^sub>v D\<^sub>i\<^sub>v E\<^sub>i\<^sub>v)
+    by (metis C\<^sub>i\<^sub>v D\<^sub>i\<^sub>v E\<^sub>i\<^sub>v)
 (*<*)
 end
 (*>*)
@@ -584,7 +584,7 @@ text {* The obligatory consistency check is again positive. *}
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* The Axiom Set IV is implied. The only interesting cases are 
- lemmata @{text "E\<^sub>i\<^sub>vFromV"} and @{text "E\<^sub>i\<^sub>vFromV"}.*}
+ lemmata @{text "S\<^sub>i\<^sub>vFromV"} and @{text "E\<^sub>i\<^sub>vFromV"}.*}
   lemma S\<^sub>i\<^sub>vFromV: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"   
     using S1 S2 S3 by blast
   lemma E\<^sub>i\<^sub>vFromV: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" 
