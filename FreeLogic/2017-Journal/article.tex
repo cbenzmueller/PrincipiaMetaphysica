@@ -196,7 +196,7 @@ grestore
 %\title{Embedding Free Logic and Axiom Systems for Category Theory in HOL\thanks{Mention DFG grants ...}}
 %\subtitle{(And an Exemplary Application in Category Theory)}
 
-%\titlerunning{Short form of title}        % if too long for running head
+\titlerunning{Automating Free Logic in HOL}        % if too long for running head
 
 
 \author{Christoph Benzm\"uller  and Dana S. Scott}
@@ -296,9 +296,9 @@ unsuited towards practical utilisation.
 In the first part of this article (\S2 and \S3) we show how free logic
 can be elegantly ``implemented'' in any theorem proving system for
 classical higher-order logic (HOL) \cite{B5}. The proposed solution
-employs a semantic embedding of free in HOL. We
-present an exemplary implementation of this idea in the mathematical
-proof assistant Isabelle/HOL \cite{NPW02}. Various state-of-the-art
+employs a semantic embedding of free in HOL. We present, as an
+example, one implementation of this idea in the mathematical proof
+assistant Isabelle/HOL \cite{NPW02}. Various state-of-the-art
 first-order and higher-order automated theorem provers and model
 finders are integrated (modulo suitable logic translations) with
 Isabelle via the Sledgehammer tool \cite{Sledgehammer}, so that our
@@ -1025,6 +1025,17 @@ For all formulas $s\in FFOL$ we have
 %\pagebreak
 
 
+The above results enable the employment of any theorem prover that
+supports $\HOL$ with definite description to reason with $\FFOL$,
+including TPTP THF \cite{J22} compliant systems such as Satallax,
+Nitpick, LEO-II and Leo-III. Alternatively, this theory can be encoded
+in interactive proof assistants, such as Isabelle/HOL. <
+  % \footnote{An example of respective abstract level proof
+  % tactics in the context of a semantical embedding of an
+  % hyperintensional higher-order modal logic in $\HOL$ can be found at:
+  % \url{https://github.com/ekpyron/TAO}; in this document a
+  % computer-formalization of Ed Zalta's Principia
+  % Logico-Metaphysica \url{https://mally.stanford.edu/principia.pdf} is presented.}
 
 Properties of $\FFOL$ could now be experimentally explored with
 automated reasoning tools for $\HOL$. We have conducted such
@@ -1040,14 +1051,15 @@ we have shown how Scott's
 \cite{Scott79} axiom system for category theory can be derived from a
 notion of partial monoids. These axioms systems are presented in Table \ref{axioms-sets-1}.
 
-The stepwise evolution has been described in detail in\cite{ArXiv}. Below we
-summarize these experiments.  However, first we describe some basic
-modeling decisions for the technical encoding in Isabelle/HOL. The
-sources of our experiments, as discussed in \cite{ArXiv}, are available at
-\url{http://christoph-benzmueller.de/papers/2017-arXiv.zip}. Note that in these
-sources we did add neither the definite description operator nor the
-designated undefined object $\hol{\star}$, since both were not required in
-this particular application.
+The stepwise evolution has been described in detail
+in\cite{ArXiv}. Below we summarize these experiments.  However, first
+we describe some basic modeling decisions for the technical encoding
+in Isabelle/HOL. The sources of our experiments, as discussed in
+\cite{ArXiv}, are available at
+\url{http://christoph-benzmueller.de/papers/2017-arXiv.zip}. Note that
+in these sources we added neither the definite description operator
+nor the designated undefined object $\hol{\star}$, since both were not
+required in this particular application.
 
 Figure \ref{pic1} displays (parts of) the embedding of $\FFOL$ in
 $\HOL$, encoded in Isabelle/HOL, that we have employed in our
@@ -1186,7 +1198,7 @@ and Scedrov \cite{FreydScedrov90}
 on p.~4.  In earlier experiments we used a longer definition which can
 be proved equivalent on the basis of the other axioms. For monoids,
 where composition is total, $\id i$ means $i$ is a two-sided identity
-— and such are unique. For categories the property is much weaker.
+--- and such are unique. For categories the property is much weaker.
  
 
 \subsection{Consistency}
@@ -1307,7 +1319,7 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   Isabelle/HOL, in which all the proofs have nevertheless been
   contributed by automated theorem provers. However, there are still
   a few calls of the \textsc{smt}-tactic contained in our document, 
-   which we are not entirely trivial to replace. In this sense, our
+   which we found are not entirely trivial to replace. In this sense, our
    Isabelle/HOL verification is modulo the correctness of the \textsc{smt} solvers
    CVC4 \cite{CVC4} and Z3 \cite{Z3}.
 
@@ -1529,24 +1541,6 @@ defined: $\forall x\lambdot E x$.
 % universal quantifier @{text "❙∀"} we thus modify Axiom Set VII as follows:
 
 
-Obviously Axioms Sets FS-I and FS-II are also redundant, and we have previously reported 
-on respective redundancies \cite{ICMS}.\footnote{The discussion in our releated
-  conference paper \cite{ICMS} was before the discovery of the above 
-constricted inconsistency issue, which tells us that the system (in our setting) can even be reduced 
-to axioms A1, A2a, and A3a (when we assume undefined objects).} For
-the corrected Axioms Set VI we still get redundancies. The different options to reduce this system are reported in
-Table~\ref{axioms-sets-3}.
-
-Attempts to remove axioms A1', A3a, A3b, and A5 from Axiom Set VI failed. Nitpick shows that they are independent. 
-
-However, when assuming strictness of $\dom$ and $\cod$, the axioms
-A2a, A2b, A4a and A4b are all implied. Hence, under this 
-   assumptions, the reasoning tools quickly identify (A1' A3a A3b A5) as a minimal axiom 
-   set, which then exactly matches the Axioms Set V of Scott from Table~\ref{axioms-sets-1}.\footnote{This minimal set of axioms 
-   has also been mentioned by Freyd in a note \cite{Freyd16} and attributed to Martin Knopman. However, the proof
-   sketch presented there seems to fail when the adapted version of A1 (with $\simeq$) is employed.}
-
-
 \begin{table} \centering \normalsize
 \begin{tabular}{ll}
 \\
@@ -1594,29 +1588,22 @@ A2a, A2b, A4a and A4b are all implied. Hence, under this
 \caption{Reduced variants of Axioms Set VI.\label{axioms-sets-3}}
 \end{table}
 
+Obviously Axioms Sets FS-I and FS-II are also redundant, and we have previously reported 
+on respective redundancies \cite{ICMS}.\footnote{The discussion in our releated
+  conference paper \cite{ICMS} was before the discovery of the above 
+constricted inconsistency issue, which tells us that the system (in our setting) can even be reduced 
+to axioms A1, A2a, and A3a (when we assume undefined objects).} For
+the corrected Axioms Set VI we still get redundancies. The different options to reduce this system are reported in
+Table~\ref{axioms-sets-3}.
 
-\subsection{Missing Strictness Axioms in Alternative
-  Setting} \label{subsec-freyd-scedrov-2} We study the axiom system by
-Freyd and Scedrov once again. However, this time we restrict the free
-variables in their system to range over existing objects only. In the
-context of algebraic theories, it could be argued that this is the
-preferred reading of free variables.  By employing the free logic
-universal quantifier $\forall$, which realizes such a restriction, 
-we thus modify Axioms Set FS-II into
-Axioms-Set FS-III as displayed in Table~\ref{axioms-sets-3}.  
+Attempts to remove axioms A1', A3a, A3b, and A5 from Axiom Set VI failed. Nitpick shows that they are independent. 
 
-For Axioms Set FS-III the consistency checks with Nitpick succeeds,
-even if we assume undefined objects. However, this axioms set is
-obviously weaker than Axioms Set V from Table
-\ref{axioms-sets-1}. In fact, as has been shown by Nitpick, none of
-the axioms of this set are implied.  The situation changes when we
-explicitly postulate strictness of $\dom$, $\cod$ and $\comp$. Doing
-so we obtain Axioms Set FS-IV from Table \ref{axioms-sets-3}, which,
-as Nitpick confirms, is consistent even if we assume undefined
-objects. And the automated theorem provers via Sledgehammer confirm
-that Axioms Set FS-IV is equivalent to Axioms Set V, as
-intended. Unfortunately, however, respective strictness conditions are
-not mentioned in the textbook by Freyd and Scedrov.
+However, when assuming strictness of $\dom$ and $\cod$, the axioms
+A2a, A2b, A4a and A4b are all implied. Hence, under this 
+   assumptions, the reasoning tools quickly identify (A1' A3a A3b A5) as a minimal axiom 
+   set, which then exactly matches the Axioms Set V of Scott from Table~\ref{axioms-sets-1}.\footnote{This minimal set of axioms 
+   has also been mentioned by Freyd in a note \cite{Freyd16} and attributed to Martin Knopman. However, the proof
+   sketch presented there seems to fail when the adapted version of A1 (with $\simeq$) is employed.}
 
 
 
@@ -1657,8 +1644,34 @@ not mentioned in the textbook by Freyd and Scedrov.
 \hline
 \end{tabular}
 \caption{The axioms set of Freyd and Scedrov in our
-  notation and with variable restriction to existing objects only.\label{axioms-sets-3}}
+  notation and with variable restriction to existing objects only.\label{axioms-sets-4}}
 \end{table}
+
+\subsection{Missing Strictness Axioms in Alternative
+  Setting} \label{subsec-freyd-scedrov-2} We study the axiom system by
+Freyd and Scedrov once again. However, this time we restrict the free
+variables in their system to range over existing objects only. In the
+context of algebraic theories, it could be argued that this is the
+preferred reading of free variables.  By employing the free logic
+universal quantifier $\forall$, which realizes such a restriction, 
+we thus modify Axioms Set FS-II into
+Axioms-Set FS-III as displayed in Table~\ref{axioms-sets-4}.  
+
+For Axioms Set FS-III the consistency checks with Nitpick succeeds,
+even if we assume undefined objects. However, this axioms set is
+obviously weaker than Axioms Set V from Table
+\ref{axioms-sets-1}. In fact, as has been shown by Nitpick, none of
+the axioms of this set are implied.  The situation changes when we
+explicitly postulate strictness of $\dom$, $\cod$ and $\comp$. Doing
+so we obtain Axioms Set FS-IV from Table \ref{axioms-sets-4}, which,
+as Nitpick confirms, is consistent even if we assume undefined
+objects. And the automated theorem provers via Sledgehammer confirm
+that Axioms Set FS-IV is equivalent to Axioms Set V, as
+intended. Unfortunately, however, respective strictness conditions are
+not mentioned in the textbook by Freyd and Scedrov.
+
+
+
 
 
 \section{Summary and Further Work}
@@ -1668,7 +1681,7 @@ theory.  We have demonstrated how modern proof assistants and theorem
 provers for classical higher-order logic may well support the
 reasoning in free logic. More concretely, we have applied our new free
 logic reasoning framework for the systematic exploration of axiom
-systems for category theory. Without tools support such experiments
+systems for category theory. Without tools, support of such experiments
 would be extremely tedious and error prone.
 In the course of our experiments, automated theorem provers 
 have revealed some (minor) issue in the textbook of Freyd and Scedrov \cite{FreydScedrov90},
@@ -1690,6 +1703,11 @@ Comparisons with other theorem provers for free logic are not possible at this s
 Further work includes the continuation of our formalization studies in
 category theory and the application of free logic to various other
 mathematical domains, including, for example,  projective geometry.
+
+Moreover, abstract level proof tactics could be provided in proof
+assistants to support --- as an alternative to always unfolding the
+mapping from $\FFOL$ to $\HOL$ --- intuitive interaction (and even
+automation) in $\FFOL$ on top the semantical embedding. 
 
 \begin{acknowledgements}
 This work has been supported by the DFG Heisenberg fellowship (BE

@@ -129,6 +129,12 @@ e.g. in \isa{fNot}, stands for ``free''.%
 \ \ \ \ \ \ \ \ \isanewline
 \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymrightarrow}\ {\isasympsi}\ {\isasymequiv}\ {\isasymphi}\ {\isasymlongrightarrow}\ {\isasympsi}{\isachardoublequoteclose}\isanewline
 \isacommand{abbreviation}\isamarkupfalse%
+\ fIdentity\ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isacharequal}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{3}}{\isacharparenright}\ %
+\isamarkupcmt{Free identity%
+}
+\ \ \ \ \ \ \ \ \isanewline
+\ \isakeyword{where}\ {\isachardoublequoteopen}l\ \isactrlbold {\isacharequal}\ r\ {\isasymequiv}\ l\ {\isacharequal}\ r{\isachardoublequoteclose}\isanewline
+\isacommand{abbreviation}\isamarkupfalse%
 \ fForall\ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isachardoublequoteclose}{\isacharparenright}\ %
 \isamarkupcmt{Free universal quantification guarded by existence 
                                 predicate \isa{E}%
@@ -200,7 +206,7 @@ of type \isa{i}):%
 \isamarkupcmt{Kleene equality%
 }
 \isanewline
-\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymcong}\ y\ {\isasymequiv}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymor}\ E\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}%
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymcong}\ y\ {\isasymequiv}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymor}\ E\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 Reasoning tools in Isabelle quickly confirm that \isa{{\isasymcong}} is an equivalence relation. 
 But existing identity \isa{{\isasymsimeq}}, in contrast, is only symmetric and transitive, and lacks 
@@ -211,7 +217,7 @@ reflexivity. It is defined as:%
 \isamarkupcmt{Existing identity%
 }
 \ \ \isanewline
-\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymsimeq}\ y\ {\isasymequiv}\ E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}%
+\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymsimeq}\ y\ {\isasymequiv}\ E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 We have:%
 \end{isamarkuptext}\isamarkuptrue%
@@ -516,7 +522,7 @@ However, the \isa{i} and \isa{j} need not be equal. Using the Skolem
    our formalization as follows:%
 \end{isamarkuptext}\isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ I\ {\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ I\ {\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ I\ {\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ I\ {\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ \isactrlbold {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
 \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -548,7 +554,7 @@ Nitpick finds a model for cardinality \isa{i\ {\isacharequal}\ {\isadigit{2}}}. 
 Even if we require at least one existing object Nitpick still finds a model:%
 \end{isamarkuptext}\isamarkuptrue%
 \ \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ I\ {\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ I\ {\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ I\ {\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ I\ {\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ \isactrlbold {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
 \ \ \ \isacommand{nitpick}\isamarkupfalse%
 \ {\isacharbrackleft}satisfy{\isacharcomma}\ user{\isacharunderscore}axioms{\isacharcomma}\ show{\isacharunderscore}all{\isacharcomma}\ format\ {\isacharequal}\ {\isadigit{2}}{\isacharcomma}\ expect\ {\isacharequal}\ genuine{\isacharbrackright}%
 \isadelimproof
@@ -1974,13 +1980,14 @@ Note, too, that Axiom Set VI is redundant. For example, axioms \isa{A{\isadigit{
 \endisadelimproof
 %
 \isatagproof
-\isacommand{by}\isamarkupfalse%
-\ {\isacharparenleft}smt\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a\ A{\isadigit{5}}{\isacharparenright}%
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
 \endisatagproof
 {\isafoldproof}%
 %
 \isadelimproof
-\ \ \isanewline
+\isanewline
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
@@ -1991,8 +1998,9 @@ Note, too, that Axiom Set VI is redundant. For example, axioms \isa{A{\isadigit{
 \endisadelimproof
 %
 \isatagproof
-\isacommand{by}\isamarkupfalse%
-\ {\isacharparenleft}smt\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}b\ A{\isadigit{5}}{\isacharparenright}%
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}b\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -2013,8 +2021,9 @@ and \isa{A{\isadigit{2}}b} are implied.%
 \endisadelimproof
 %
 \isatagproof
-\isacommand{by}\isamarkupfalse%
-\ {\isacharparenleft}smt\ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b{\isacharparenright}%
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b\ \isacommand{by}\isamarkupfalse%
+\ smt%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -2030,8 +2039,9 @@ and \isa{A{\isadigit{2}}b} are implied.%
 \endisadelimproof
 %
 \isatagproof
-\isacommand{by}\isamarkupfalse%
-\ {\isacharparenleft}smt\ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b{\isacharparenright}%
+\isacommand{using}\isamarkupfalse%
+\ \ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b\ \isacommand{by}\isamarkupfalse%
+\ smt%
 \endisatagproof
 {\isafoldproof}%
 %

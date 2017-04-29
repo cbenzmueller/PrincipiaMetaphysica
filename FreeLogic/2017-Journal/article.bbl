@@ -192,4 +192,9 @@ Scott, D.: Identity and existence in intuitionistic logic.
   Logic, Algebra, and Analysis, Durham, July 9--21, 1977, \emph{Lecture Notes
   in Mathematics}, vol. 752, pp. 660--696. Springer Berlin Heidelberg (1979)
 
+\bibitem{J22}
+Sutcliffe, G., Benzm{\"u}ller, C.: Automated reasoning in higher-order logic
+  using the {TPTP THF} infrastructure.
+\newblock J. of Formalized Reasoning \textbf{3}(1), 1--27 (2010)
+
 \end{thebibliography}

@@ -1,9 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  29 MAR 2017 17:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  28 APR 2017 06:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**\nonstopmode\input{root.tex}
-(./root.tex (/opt/local/share/texmf-texlive/tex/latex/base/article.cls
+**root
+(./root.tex
+LaTeX2e <2016/03/31>
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+(/opt/local/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/opt/local/share/texmf-texlive/tex/latex/base/size11.clo
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
@@ -318,14 +321,14 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
 (Font)              Font shape `U/lasy/m/n' tried instead on input line 120.
 
-Overfull \hbox (0.16559pt too wide) in paragraph at lines 130--136
+Overfull \hbox (0.16559pt too wide) in paragraph at lines 136--142
 [][]\OT1/cmr/bx/n/10 abbreviation \OT1/cmr/m/it/10 fForall $\OT1/cmr/m/n/10 ($$
 \OMS/cmsy/b/n/10 8 $$\OT1/cmr/m/n/10 )$ --- Free uni-ver-sal quan-tifi-ca-tion 
 guarded by ex-is-tence pred-i-cate \OT1/cmr/m/it/10 E                   [] 
  []
 
 [2]
-Overfull \hbox (0.71509pt too wide) in paragraph at lines 178--183
+Overfull \hbox (0.71509pt too wide) in paragraph at lines 184--189
 \OT1/cmr/m/n/10.95 dled ex-actly as ex-pected: we gen-er-ally may have non-exis
 ting com-po-si-tions \OT1/cmr/m/it/10.95 x$\OMS/cmsy/m/n/10.95 ^^A$\OT1/cmr/m/i
 t/10.95 y \OT1/cmr/m/n/10.95 (i.e. $\OMS/cmsy/b/n/10.95 :$$\OT1/cmr/m/n/10.95 (
@@ -339,10 +342,10 @@ Missing character: There is no € in font cmr10!
 Missing character: There is no ” in font cmr10!
  [4] [5]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 738.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 744.
  [6] [7] [8] [9] [10]
 
-LaTeX Warning: Citation `Freyd16' on page 11 undefined on input line 2053.
+LaTeX Warning: Citation `Freyd16' on page 11 undefined on input line 2063.
 
 [11] [12] [13] [14] [15])) (./root.bbl [16])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
@@ -362,11 +365,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 75.
 Here is how much of TeX's memory you used:
  6296 strings out of 493014
  89194 string characters out of 6135157
- 188650 words of memory out of 5000000
+ 188630 words of memory out of 5000000
  9694 multiletter control sequences out of 15000+600000
  22011 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,11n,28p,1910b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,11n,28p,1886b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
 </opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></
 opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cmextra/cmbsy9.pfb></
 opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/l
@@ -388,7 +391,7 @@ exmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></opt/local/share/texmf-
 texlive/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/local/share/texmf-texliv
 e/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></opt/local/share/texmf-texli
 ve/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
-Output written on root.pdf (17 pages, 295755 bytes).
+Output written on root.pdf (17 pages, 295976 bytes).
 PDF statistics:
  292 PDF objects out of 1000 (max. 8388607)
  248 compressed objects within 3 object streams

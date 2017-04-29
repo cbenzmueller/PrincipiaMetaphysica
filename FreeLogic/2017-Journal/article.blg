@@ -7,45 +7,45 @@ Warning--I'm ignoring Freyd16's extra "note" field
 --line 4897 of file bibliography.bib
 Warning--missing publisher in AndrewsSEP
 Warning--missing publisher in sep-logic-free
-You've used 29 entries,
+You've used 30 entries,
             2946 wiz_defined-function locations,
-            852 strings with 11244 characters,
-and the built_in function-call counts, 21016 in all, are:
-= -- 2334
-> -- 404
+            858 strings with 11392 characters,
+and the built_in function-call counts, 21696 in all, are:
+= -- 2412
+> -- 416
 < -- 19
-+ -- 247
-- -- 132
-* -- 1003
-:= -- 2144
-add.period$ -- 74
-call.type$ -- 29
-change.case$ -- 180
++ -- 255
+- -- 136
+* -- 1034
+:= -- 2212
+add.period$ -- 75
+call.type$ -- 30
+change.case$ -- 185
 chr.to.int$ -- 0
-cite$ -- 31
-duplicate$ -- 2322
-empty$ -- 1519
-format.name$ -- 152
-if$ -- 4470
+cite$ -- 32
+duplicate$ -- 2401
+empty$ -- 1566
+format.name$ -- 157
+if$ -- 4612
 int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 305
-newline$ -- 153
-num.names$ -- 74
-pop$ -- 830
+int.to.str$ -- 30
+missing$ -- 315
+newline$ -- 157
+num.names$ -- 76
+pop$ -- 855
 preamble$ -- 1
-purify$ -- 116
+purify$ -- 120
 quote$ -- 0
-skip$ -- 1120
+skip$ -- 1159
 stack$ -- 0
-substring$ -- 859
-swap$ -- 1831
+substring$ -- 888
+swap$ -- 1896
 text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 108
+type$ -- 112
 warning$ -- 2
-while$ -- 115
-width$ -- 31
-write$ -- 363
+while$ -- 119
+width$ -- 32
+write$ -- 373
 (There were 3 warnings)

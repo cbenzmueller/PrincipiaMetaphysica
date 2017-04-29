@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  27 APR 2017 11:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  29 APR 2017 11:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -461,11 +461,7 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 Package: underscore 2006/09/13
 LaTeX Info: Redefining \_ on input line 42.
 )
-(./article.aux
-
-LaTeX Warning: Label `axioms-sets-3' multiply defined.
-
-)
+(./article.aux)
 \openout1 = `article.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 192.
@@ -550,10 +546,8 @@ SVJour3 warning: Missing \journalname
 LaTeX Font Info:    Try loading font information for U+stmry on input line 237.
 
 (/opt/local/share/texmf-texlive/tex/latex/stmaryrd/Ustmry.fd)
-
-SVJour3 Warning: Title too long for running head.
-Please supply a shorter form with \titlerunning prior to \maketitle
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 296.
+
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -602,24 +596,20 @@ LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
 File: EmbeddingPic.png Graphic file (type png)
 
 <use EmbeddingPic.png>
-Package pdftex.def Info: EmbeddingPic.png used on input line 1064.
+Package pdftex.def Info: EmbeddingPic.png used on input line 1076.
 (pdftex.def)             Requested size: 338.0pt x 265.48047pt.
 
 
-LaTeX Warning: Float too large for page by 58.47224pt on input line 1147.
+LaTeX Warning: Float too large for page by 58.47224pt on input line 1159.
 
-[10] [11]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ” in font cmr10!
- [12 <./EmbeddingPic.png>] [13] [14] [15]
-Underfull \vbox (badness 5147) has occurred while \output is active []
+[10] [11] [12 <./EmbeddingPic.png>] [13] [14] [15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ¬ in font cmr10!
 
-[17] [18] (./article.bbl [19]
+[17] [18] [19] (./article.bbl [20]
 Underfull \hbox (badness 2726) in paragraph at lines 28--32
 []\OT1/cmr/m/n/8 Benzm^^?uller, C.: Cut-elimination for quan-ti-fied con-di-tio
 nal logic.  Jour-nal of
@@ -631,19 +621,16 @@ Underfull \hbox (badness 2478) in paragraph at lines 28--32
 9403-[]0$.  URL $\OT1/cmtt/m/n/8 http : / /
  []
 
-[20] [21]) [22] (./article.aux)
+[21]) [22] (./article.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
  ) 
 Here is how much of TeX's memory you used:
- 13318 strings out of 493014
- 257530 string characters out of 6135157
- 305550 words of memory out of 5000000
- 16573 multiletter control sequences out of 15000+600000
+ 13320 strings out of 493014
+ 257550 string characters out of 6135157
+ 305524 words of memory out of 5000000
+ 16575 multiletter control sequences out of 15000+600000
  17406 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,18n,54p,559b,747s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -680,7 +667,7 @@ ts/cm/cmtt10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm
 t/lasy8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary1
 0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary6.pfb><
 /opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary7.pfb>
-Output written on article.pdf (22 pages, 593868 bytes).
+Output written on article.pdf (22 pages, 594983 bytes).
 PDF statistics:
  222 PDF objects out of 1000 (max. 8388607)
  159 compressed objects within 2 object streams
