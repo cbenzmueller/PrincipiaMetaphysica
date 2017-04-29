@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  29 APR 2017 11:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  29 APR 2017 11:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -598,21 +598,23 @@ File: FFOL-Pic1.png Graphic file (type png)
 <use FFOL-Pic1.png>
 Package pdftex.def Info: FFOL-Pic1.png used on input line 1076.
 (pdftex.def)             Requested size: 338.0pt x 271.06644pt.
- <FFOL-Pic2.png, id=67, 941.5175pt x 786.94pt>
+ <FFOL-Pic2.png, id=67, 837.1275pt x 831.105pt>
 File: FFOL-Pic2.png Graphic file (type png)
 
 <use FFOL-Pic2.png>
 Package pdftex.def Info: FFOL-Pic2.png used on input line 1081.
-(pdftex.def)             Requested size: 338.0pt x 282.50568pt.
+(pdftex.def)             Requested size: 338.0pt x 335.56847pt.
 
 
 LaTeX Warning: Float too large for page by 58.47224pt on input line 1165.
 
-[10] [11] [12 <./FFOL-Pic1.png>] [13 <./FFOL-Pic2.png>] [14] [15] [16] [17]
+[10] [11] [12 <./FFOL-Pic1.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13 <./FFOL-Pic2.png>] [14] [15] [16] [17]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ¬ in font cmr10!
-
-[18]
+ [18]
 Underfull \vbox (badness 6204) has occurred while \output is active []
 
  [19]
@@ -636,7 +638,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  13326 strings out of 493014
  257625 string characters out of 6135157
- 307533 words of memory out of 5000000
+ 308533 words of memory out of 5000000
  16580 multiletter control sequences out of 15000+600000
  17406 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -674,7 +676,7 @@ ts/cm/cmtt10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm
 t/lasy8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary1
 0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary6.pfb><
 /opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary7.pfb>
-Output written on article.pdf (23 pages, 873911 bytes).
+Output written on article.pdf (23 pages, 864152 bytes).
 PDF statistics:
  227 PDF objects out of 1000 (max. 8388607)
  161 compressed objects within 2 object streams
