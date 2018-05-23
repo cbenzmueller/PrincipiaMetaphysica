@@ -1,0 +1,33 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Embedding of Free Logic in HOL}{}% 2
+\BOOKMARK [1][-]{section.3}{Some Basic Notions in Category Theory}{}% 3
+\BOOKMARK [1][-]{section.4}{The Axioms Sets studied by Benzm\374ller and Scott R58}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{AxiomsSet1}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{AxiomsSet2}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{AxiomsSet2 entails AxiomsSet1}{subsection.4.2}% 7
+\BOOKMARK [3][-]{subsubsection.4.2.2}{AxiomsSet1 entails AxiomsSet2 \(by semantic means\)}{subsection.4.2}% 8
+\BOOKMARK [2][-]{subsection.4.3}{AxiomsSet3}{section.4}% 9
+\BOOKMARK [3][-]{subsubsection.4.3.1}{AxiomsSet3 entails AxiomsSet2}{subsection.4.3}% 10
+\BOOKMARK [3][-]{subsubsection.4.3.2}{AxiomsSet2 entails AxiomsSet3}{subsection.4.3}% 11
+\BOOKMARK [2][-]{subsection.4.4}{The Axioms Set AxiomsSet4}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.4.1}{AxiomsSet4 entails AxiomsSet3}{subsection.4.4}% 13
+\BOOKMARK [3][-]{subsubsection.4.4.2}{AxiomsSet3 entails AxiomsSet4}{subsection.4.4}% 14
+\BOOKMARK [2][-]{subsection.4.5}{AxiomsSet5}{section.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.5.1}{AxiomsSet5 entails AxiomsSet4}{subsection.4.5}% 16
+\BOOKMARK [3][-]{subsubsection.4.5.2}{AxiomsSet4 entails AxiomsSet5}{subsection.4.5}% 17
+\BOOKMARK [1][-]{section.5}{The Axioms Sets by Freyd and Scedrov FreydScedrov90}{}% 18
+\BOOKMARK [2][-]{subsection.5.1}{AxiomsSet6}{section.5}% 19
+\BOOKMARK [3][-]{subsubsection.5.1.1}{AxiomsSet6 entails AxiomsSet5}{subsection.5.1}% 20
+\BOOKMARK [3][-]{subsubsection.5.1.2}{AxiomsSet5 entails AxiomsSet6}{subsection.5.1}% 21
+\BOOKMARK [2][-]{subsection.5.2}{AxiomsSet7 \(technically flawed\)}{section.5}% 22
+\BOOKMARK [2][-]{subsection.5.3}{AxiomsSet7orig \(technically flawed\)}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.4}{AxiomsSet8 \(algebraic reading, still technically flawed\)}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.5}{AxiomsSet8Strict \(algebraic reading\)}{section.5}% 25
+\BOOKMARK [3][-]{subsubsection.5.5.1}{AxiomsSet8Strict entails AxiomsSet5}{subsection.5.5}% 26
+\BOOKMARK [3][-]{subsubsection.5.5.2}{AxiomsSet5 entails AxiomsSet8Strict}{subsection.5.5}% 27
+\BOOKMARK [3][-]{subsubsection.5.5.3}{AxiomsSet8Strict is Redundant}{subsection.5.5}% 28
+\BOOKMARK [1][-]{section.6}{The Axioms Sets of Mac Lane MacLane48}{}% 29
+\BOOKMARK [2][-]{subsection.6.1}{AxiomsSetMcL entails AxiomsSet1}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.2}{AxiomsSet1 entails AxiomsSetMcL}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.3}{Skolemization of the Axioms of Mac Lane}{section.6}% 32
+\BOOKMARK [2][-]{subsection.6.4}{SkolemizedAxiomsSetMcL entails AxiomsSetMcL and AxiomsSet1-5}{section.6}% 33

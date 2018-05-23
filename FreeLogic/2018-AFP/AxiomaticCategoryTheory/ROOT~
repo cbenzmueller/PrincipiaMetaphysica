@@ -1,0 +1,9 @@
+session "AxiomaticCategoryTheory-AFP" = "HOL" +
+  options [document = pdf, document_output = "output"]
+  theories [document = false]
+    (* Foo *)
+    (* Bar *)
+  theories
+    AxiomaticCategoryTheory
+  document_files
+    "root.tex"

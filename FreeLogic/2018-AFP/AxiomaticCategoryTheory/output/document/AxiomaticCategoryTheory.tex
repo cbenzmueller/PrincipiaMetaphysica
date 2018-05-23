@@ -1,0 +1,3514 @@
+%
+\begin{isabellebody}%
+\setisabellecontext{AxiomaticCategoryTheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isamarkupsection{Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+This document provides a concise overview on the core results of our previous
+       work \cite{C67,R58,C57} on the exploration of axioms systems for category theory.
+       Extending the previous studies we
+       include one further axiomatic theory in our experiments. This additional 
+       theory has been suggested by Mac Lane~\cite{MacLane48} in
+       1948. We show that the axioms proposed by Mac Lane are equivalent to the ones studied
+       in~\cite{R58}, which includes an axioms set suggested by Scott~\cite{Scott79} 
+       in the 1970s and another axioms set proposed by Freyd and Scedrov~\cite{FreydScedrov90} in 1990, 
+       which we slightly modified in~\cite{R58} to remedy a minor technical issue.   
+ 
+      The explanations given below are minimal, for more details we refer to the referenced 
+      papers, in particular, to~\cite{R58}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsection{Embedding of Free Logic in HOL%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+We introduce a shallow semantical embedding of free logic \cite{R58} in Isabelle/HOL. 
+     Definite description is omitted, since it is not needed in the studies below and also
+     since the definition provided in \cite{C57} introduces the here undesired commitment 
+     that at least one non-existing element of type $i$ is a priori given. We here want to
+     consider this an optional condition.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{typedecl}\isamarkupfalse%
+\ i\ %
+\isamarkupcmt{Type for individuals%
+}
+\isanewline
+\ \isacommand{consts}\isamarkupfalse%
+\ fExistence{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}bool{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}E{\isachardoublequoteclose}{\isacharparenright}\ %
+\isamarkupcmt{Existence/definedness predicate in free logic%
+}
+\isanewline
+\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fNot\ \ \ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isachardoublequoteclose}{\isacharparenright}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isasymphi}\ {\isasymequiv}\ {\isasymnot}{\isasymphi}{\isachardoublequoteclose}\ \ \ \ \ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fImpl\ \ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isasymrightarrow}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{3}}{\isacharparenright}\ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymrightarrow}\ {\isasympsi}\ {\isasymequiv}\ {\isasymphi}\ {\isasymlongrightarrow}\ {\isasympsi}{\isachardoublequoteclose}\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fId\ \ \ \ \ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isacharequal}{\isachardoublequoteclose}\ {\isadigit{2}}{\isadigit{5}}{\isacharparenright}\ \ \ \isakeyword{where}\ {\isachardoublequoteopen}l\ \isactrlbold {\isacharequal}\ r\ {\isasymequiv}\ l\ {\isacharequal}\ r{\isachardoublequoteclose}\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fAll\ \ \ \ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isachardoublequoteclose}{\isacharparenright}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymPhi}\ {\isasymequiv}\ {\isasymforall}x{\isachardot}\ E\ x\ {\isasymlongrightarrow}\ {\isasymPhi}\ x{\isachardoublequoteclose}\ \ \ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fAllBi\ {\isacharparenleft}\isakeyword{binder}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{8}}{\isacharbrackright}{\isadigit{9}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ {\isasymphi}\ x\ {\isasymequiv}\ \isactrlbold {\isasymforall}{\isasymphi}{\isachardoublequoteclose}\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fOr\ \ \ \ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isasymor}{\isachardoublequoteclose}\ {\isadigit{2}}{\isadigit{1}}{\isacharparenright}\ \ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymor}\ {\isasympsi}\ {\isasymequiv}\ {\isacharparenleft}\isactrlbold {\isasymnot}{\isasymphi}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isasympsi}{\isachardoublequoteclose}\ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fAnd\ \ \ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isasymand}{\isachardoublequoteclose}\ {\isadigit{2}}{\isadigit{2}}{\isacharparenright}\ \ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymand}\ {\isasympsi}\ {\isasymequiv}\ \isactrlbold {\isasymnot}{\isacharparenleft}\isactrlbold {\isasymnot}{\isasymphi}\ \isactrlbold {\isasymor}\ \isactrlbold {\isasymnot}{\isasympsi}{\isacharparenright}{\isachardoublequoteclose}\ \ \ \ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fImpli\ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isasymleftarrow}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{3}}{\isacharparenright}\ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymleftarrow}\ {\isasympsi}\ {\isasymequiv}\ {\isasympsi}\ \isactrlbold {\isasymrightarrow}\ {\isasymphi}{\isachardoublequoteclose}\ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fEquiv\ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}\isactrlbold {\isasymleftrightarrow}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{5}}{\isacharparenright}\ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymphi}\ \isactrlbold {\isasymleftrightarrow}\ {\isasympsi}\ {\isasymequiv}\ {\isacharparenleft}{\isasymphi}\ \isactrlbold {\isasymrightarrow}\ {\isasympsi}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isasympsi}\ \isactrlbold {\isasymrightarrow}\ {\isasymphi}{\isacharparenright}{\isachardoublequoteclose}\ \ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fEx\ \ \ \ \ {\isacharparenleft}{\isachardoublequoteopen}\isactrlbold {\isasymexists}{\isachardoublequoteclose}{\isacharparenright}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymexists}{\isasymPhi}\ {\isasymequiv}\ \isactrlbold {\isasymnot}{\isacharparenleft}\isactrlbold {\isasymforall}{\isacharparenleft}{\isasymlambda}y{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}{\isasymPhi}\ y{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ fExiBi\ {\isacharparenleft}\isakeyword{binder}\ {\isachardoublequoteopen}\isactrlbold {\isasymexists}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{8}}{\isacharbrackright}{\isadigit{9}}{\isacharparenright}\ \ \isakeyword{where}\ {\isachardoublequoteopen}\isactrlbold {\isasymexists}x{\isachardot}\ {\isasymphi}\ x\ {\isasymequiv}\ \isactrlbold {\isasymexists}{\isasymphi}{\isachardoublequoteclose}%
+\isamarkupsection{Some Basic Notions in Category Theory%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Morphisms in the category are modeled as objects of type $i$. 
+We introduce three partial functions, 
+$dom$ (domain), $cod$ (codomain), and morphism composition ($\cdot$). 
+
+For composition we assume set-theoretical composition here (i.e., functional 
+composition from right to left). \label{IDMcL}%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{consts}\isamarkupfalse%
+\isanewline
+\ \ domain{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}dom\ {\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \ \ \ \ \ \ \ \isanewline
+\ \ codomain{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}cod\ {\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \ \isanewline
+\ \ composition{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}{\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}\isanewline
+\isanewline
+\ %
+\isamarkupcmt{Kleene Equality%
+}
+\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ KlEq\ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}{\isasymcong}{\isachardoublequoteclose}\ {\isadigit{5}}{\isadigit{6}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymcong}\ y\ {\isasymequiv}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymor}\ E\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ x\ \isactrlbold {\isacharequal}\ y{\isachardoublequoteclose}\ \ \isanewline
+\ %
+\isamarkupcmt{Existing Identity%
+}
+\ \isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ ExId\ {\isacharparenleft}\isakeyword{infixr}\ {\isachardoublequoteopen}{\isasymsimeq}{\isachardoublequoteclose}\ {\isadigit{5}}{\isadigit{6}}{\isacharparenright}\ \isakeyword{where}\ {\isachardoublequoteopen}x\ {\isasymsimeq}\ y\ {\isasymequiv}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ x\ \isactrlbold {\isacharequal}\ y{\isacharparenright}{\isachardoublequoteclose}\ \ \isanewline
+\isanewline
+\ %
+\isamarkupcmt{Identity-morphism: see also p.~4. of \cite{FreydScedrov90}.%
+}
+\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ {\isachardoublequoteopen}ID\ i\ {\isasymequiv}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ E{\isacharparenleft}i{\isasymcdot}x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ i{\isasymcdot}x\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}i{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ x{\isasymcdot}i\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}\ \ \ \isanewline
+\ %
+\isamarkupcmt{Identity-morphism: Mac Lane's definition, the same as ID except for notion of equality.%
+}
+\isanewline
+\ \isacommand{abbreviation}\isamarkupfalse%
+\ {\isachardoublequoteopen}IDMcL\ {\isasymrho}\ {\isasymequiv}\ {\isacharparenleft}\isactrlbold {\isasymforall}{\isasymalpha}{\isachardot}\ E{\isacharparenleft}{\isasymrho}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isasymrho}{\isasymcdot}{\isasymalpha}\ {\isacharequal}\ {\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}{\isasymbeta}{\isachardot}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymrho}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isasymbeta}{\isasymcdot}{\isasymrho}\ {\isacharequal}\ {\isasymbeta}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\isanewline
+\ %
+\isamarkupcmt{The two notions of identity-morphisms are obviously equivalent.%
+}
+\isanewline
+\ \isacommand{lemma}\isamarkupfalse%
+\ IDPredicates{\isacharcolon}\ {\isachardoublequoteopen}ID\ {\isasymequiv}\ IDMcL{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsection{The Axioms Sets studied by Benzm\"uller and Scott \cite{R58}%
+}
+\isamarkuptrue%
+%
+\isamarkupsubsection{AxiomsSet1%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+AxiomsSet1 generalizes the notion of a monoid by introducing a partial, strict binary 
+      composition operation ``$\cdot$''. The existence of left and right identity elements is 
+      addressed in axioms \isa{C\isactrlsub i} and \isa{D\isactrlsub i}. The notions of $dom$ (domain) and
+      $cod$ (codomain)
+      abstract from their common meaning in the context of sets. In category theory we
+     work with just a single type of objects (the type $i$ in our setting) and therefore 
+     identity morphisms are employed to suitably characterize their
+     meanings.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{1}}\ {\isacharequal}\isanewline
+\ \ \isakeyword{assumes}\ \ \ \ \isanewline
+\ \ \ S\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ E\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ ID\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ D\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymexists}j{\isachardot}\ ID\ j\ \isactrlbold {\isasymand}\ x{\isasymcdot}j\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub iImpl{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A\isactrlsub i\ C\isactrlsub i\ S\isactrlsub i{\isacharparenright}\isanewline
+\ \ \ %
+\isamarkupcmt{Uniqueness of i and j in the latter two axioms.%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ UC\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ ID\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}j{\isachardot}{\isacharparenleft}ID\ j\ \isactrlbold {\isasymand}\ j{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ i\ {\isasymcong}\ j{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}smt\ A\isactrlsub i\ C\isactrlsub i\ S\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ UD\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymexists}j{\isachardot}\ ID\ j\ \isactrlbold {\isasymand}\ x{\isasymcdot}j\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}i{\isachardot}{\isacharparenleft}ID\ i\ \isactrlbold {\isasymand}\ x{\isasymcdot}i\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ j\ {\isasymcong}\ i{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}smt\ A\isactrlsub i\ D\isactrlsub i\ S\isactrlsub i{\isacharparenright}\ \ \ \isanewline
+\ \ \ %
+\isamarkupcmt{But i and j need not to equal.%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ ID\ {\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ ID\ {\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ \isactrlbold {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Model found%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isasymexists}C\ D{\isachardot}\ {\isacharparenleft}\isactrlbold {\isasymforall}y{\isachardot}\ ID{\isacharparenleft}C\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}C\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}x{\isachardot}\ ID{\isacharparenleft}D\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}D\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ \isactrlbold {\isasymnot}{\isacharparenleft}D\ \isactrlbold {\isacharequal}\ C{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Model found%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet2%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+AxiomsSet2 is developed from AxiomsSet1 by Skolemization of the
+     existentially quantified variables $i$ and $j$ in axioms $C_i$ and
+     $D_i$. We can argue semantically that every model of AxiomsSet1 has
+     such functions. Hence, we get a conservative extension of AxiomsSet1. 
+     The strictness axiom $S$ is extended, so
+     that strictness is now also postulated for the new Skolem functions
+     $dom$ and $cod$.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{2}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\ \isanewline
+\ \ \ S\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \ \isakeyword{and}\isanewline
+\ \ \ E\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ D\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \ \isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub iImpl{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ domTotal{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}dom\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ D\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ codTotal{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}cod\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet2 entails AxiomsSet1%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{2}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ ID\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymexists}j{\isachardot}\ ID\ j\ \isactrlbold {\isasymand}\ x{\isasymcdot}j\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ D\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet1 entails AxiomsSet2 (by semantic means)%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+By semantic means (Skolemization).%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{AxiomsSet3%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+In AxiomsSet3 the existence  axiom  $E_{ii}$ from AxiomsSet2  is simplified by taking 
+      advantage of the two new Skolem functions $dom$ and $cod$.
+
+      The left-to-right direction of existence axiom $E_{iii}$ is implied.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{3}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \ \isakeyword{and}\isanewline
+\ \ \ E\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ D\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i\isactrlsub iImpl{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ {\isacharparenleft}full{\isacharunderscore}types{\isacharparenright}\ A\isactrlsub i\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet3 entails AxiomsSet2%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{3}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A\isactrlsub i\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i\isactrlsub i\ E\isactrlsub i\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet2 entails AxiomsSet3%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{2}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i\ E\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{The Axioms Set AxiomsSet4%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+AxiomsSet4 simplifies the axioms $C_{iii}$ and  $D_{iii}$. However, as it turned 
+       out, these simplifications also require the existence axiom $E_{iii}$ to be strengthened 
+       into an equivalence.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{4}}\ {\isacharequal}\isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ S\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \ \isakeyword{and}\isanewline
+\ \ \ E\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ D\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet4 entails AxiomsSet3%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{4}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub v\ D\isactrlsub i\isactrlsub v\ E\isactrlsub i\isactrlsub v{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub v\ D\isactrlsub i\isactrlsub v\ E\isactrlsub i\isactrlsub v{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet3 entails AxiomsSet4%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{3}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ {\isacharparenleft}full{\isacharunderscore}types{\isacharparenright}\ A\isactrlsub i\isactrlsub i\isactrlsub i\ C\isactrlsub i\isactrlsub i\isactrlsub i\ D\isactrlsub i\isactrlsub i\isactrlsub i\ E\isactrlsub i\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i\isactrlsub i\ S\isactrlsub i\isactrlsub i\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet5%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+AxiomsSet5 has been proposed by Scott \cite{Scott79} in the 1970s. This set of
+ axioms is equivalent to the axioms set presented by Freyd and Scedrov in their textbook
+ ``Categories, Allegories'' \cite{FreydScedrov90} when encoded in free logic, corrected/adapted 
+ and further simplified, see Section 5.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{5}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\ \isanewline
+\ \ \ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet5 entails AxiomsSet4%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{5}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}dom\ x\ {\isasymcong}\ cod\ y\ \isactrlbold {\isasymand}\ E{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub v{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet4 entails AxiomsSet5%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{4}}\isanewline
+\ \ \isakeyword{begin}\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsection{The Axioms Sets by Freyd and Scedrov \cite{FreydScedrov90}%
+}
+\isamarkuptrue%
+%
+\isamarkupsubsection{AxiomsSet6%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The axioms by Freyd and Scedrov  \cite{FreydScedrov90} in our notation, when being 
+     corrected (cf. the modification in axiom A1).
+    
+     Freyd and Scedrov employ a different notation for $dom\ x$ and $cod\ 
+     x$. They denote these operations by $\Box x$ 
+     and $x\Box$. Moreover, they employ diagrammatic composition instead of the set-theoretic 
+     definition (functional composition from right to left) used so 
+     far.
+     We leave it to the reader to verify that their axioms corresponds to the axioms presented
+     here modulo an appropriate conversion of notation.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{6}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ \ A{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet6 entails AxiomsSet5%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{6}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}b\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{3}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{4}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{4}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{2}}b\ A{\isadigit{3}}b\ A{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ smt%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b\ \isacommand{by}\isamarkupfalse%
+\ smt%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ \ A{\isadigit{1}}\ A{\isadigit{3}}a\ A{\isadigit{3}}b\ A{\isadigit{4}}a\ A{\isadigit{4}}b\ \isacommand{by}\isamarkupfalse%
+\ smt%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet5 entails AxiomsSet6%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{5}}\isanewline
+\ \ \isakeyword{begin}\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ metis%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{1}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{5}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ {\isacharparenleft}full{\isacharunderscore}types{\isacharparenright}\ S{\isadigit{2}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{5}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \ A{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet7 (technically flawed)%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The axioms by Freyd and Scedrov in our notation, without the suggested correction of
+       axiom A1. This axioms set is technically flawed 
+       when encoded in our given context. It leads to a constricted inconsistency.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{7}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ \ A{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ InconsistencyAutomatic{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a{\isacharparenright}\ %
+\isamarkupcmt{Inconsistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}x{\isachardot}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ InconsistencyAutomatic\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ InconsistencyInteractive{\isacharcolon}\ \isanewline
+\ \ \ \ \isakeyword{assumes}\ NEx{\isacharcolon}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ False\ \isanewline
+%
+\isadelimproof
+\ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharminus}\isanewline
+\ \ \ \ \isacommand{obtain}\isamarkupfalse%
+\ a\ \isakeyword{where}\ {\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isacharparenleft}E\ a{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ NEx\ \isacommand{by}\isamarkupfalse%
+\ auto\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}a{\isasymcdot}{\isacharparenleft}dom\ a{\isacharparenright}\ {\isasymcong}\ a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ blast\ \ \isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isacharparenleft}E{\isacharparenleft}a{\isasymcdot}{\isacharparenleft}dom\ a{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{1}}\ {\isadigit{2}}\ \isacommand{by}\isamarkupfalse%
+\ metis\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}a{\isasymcdot}{\isacharparenleft}dom\ a{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ a\ {\isasymcong}\ cod{\isacharparenleft}dom\ a{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}cod{\isacharparenleft}dom\ a{\isacharparenright}\ {\isasymcong}\ dom\ a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}a\ \isacommand{by}\isamarkupfalse%
+\ blast\ \isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}a{\isasymcdot}{\isacharparenleft}dom\ a{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ a\ {\isasymcong}\ dom\ a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{4}}\ {\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ auto\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{7}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}a{\isasymcdot}{\isacharparenleft}dom\ a{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{show}\isamarkupfalse%
+\ {\isacharquery}thesis\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{7}}\ {\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet7orig (technically flawed)%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The axioms by Freyd and Scedrov in their original notation, without the suggested 
+     correction of axiom A1.
+
+      We present the constricted inconsistency argument from above once again,
+      but this time in the original notation of Freyd and Scedrov.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{7}}orig\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{fixes}\isanewline
+\ \ \ source{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isasymbox}{\isacharunderscore}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{0}}{\isadigit{8}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{0}}{\isadigit{9}}{\isacharparenright}\ \isakeyword{and}\isanewline
+\ \ \ target{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}{\isachardoublequoteopen}{\isacharunderscore}{\isasymbox}{\isachardoublequoteclose}\ {\isacharbrackleft}{\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharbrackright}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{1}}{\isacharparenright}\ \isakeyword{and}\isanewline
+\ \ \ compositionF{\isacharcolon}{\isacharcolon}\ {\isachardoublequoteopen}i{\isasymRightarrow}i{\isasymRightarrow}i{\isachardoublequoteclose}\ {\isacharparenleft}\isakeyword{infix}\ {\isachardoublequoteopen}\isactrlbold {\isasymcdot}{\isachardoublequoteclose}\ {\isadigit{1}}{\isadigit{1}}{\isadigit{0}}{\isacharparenright}\ \isanewline
+\ \ \isakeyword{assumes}\ \ \ \ \ \ \ \ \ \ \ \isanewline
+\ \ \ \ A{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x\isactrlbold {\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}x{\isasymbox}\ {\isasymcong}\ {\isasymbox}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isacharparenleft}{\isasymbox}x{\isacharparenright}{\isasymbox}{\isacharparenright}\ {\isasymcong}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymcong}\ {\isasymbox}x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}x{\isacharparenright}\isactrlbold {\isasymcdot}x\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}x\isactrlbold {\isasymcdot}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}{\isasymbox}{\isacharparenleft}x\isactrlbold {\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ {\isasymbox}{\isacharparenleft}x\isactrlbold {\isasymcdot}{\isacharparenleft}{\isasymbox}y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ A{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}x\isactrlbold {\isasymcdot}y{\isacharparenright}{\isasymbox}\ {\isasymcong}\ {\isacharparenleft}{\isacharparenleft}x{\isasymbox}{\isacharparenright}\isactrlbold {\isasymcdot}y{\isacharparenright}{\isasymbox}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ \ A{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}x\isactrlbold {\isasymcdot}{\isacharparenleft}y\isactrlbold {\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x\isactrlbold {\isasymcdot}y{\isacharparenright}\isactrlbold {\isasymcdot}z{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ InconsistencyAutomatic{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A{\isadigit{1}}\ A{\isadigit{2}}a\ A{\isadigit{3}}a{\isacharparenright}\ %
+\isamarkupcmt{Inconsistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}x{\isachardot}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ InconsistencyAutomatic\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ InconsistencyInteractive{\isacharcolon}\isanewline
+\ \ \ \ \isakeyword{assumes}\ NEx{\isacharcolon}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ False\ \isanewline
+%
+\isadelimproof
+\ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharminus}\isanewline
+\ \ \ \ \isacommand{obtain}\isamarkupfalse%
+\ a\ \isakeyword{where}\ {\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isacharparenleft}E\ a{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ assms\ \isacommand{by}\isamarkupfalse%
+\ auto\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a\ {\isasymcong}\ a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymnot}{\isacharparenleft}E{\isacharparenleft}{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{1}}\ {\isadigit{2}}\ \isacommand{by}\isamarkupfalse%
+\ metis\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ {\isacharparenleft}{\isasymbox}a{\isacharparenright}{\isasymbox}\ {\isasymcong}\ {\isasymbox}a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{1}}\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymbox}a{\isacharparenright}{\isasymbox}\ {\isasymcong}\ {\isasymbox}a{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}a\ \isacommand{by}\isamarkupfalse%
+\ blast\ \isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{4}}\ {\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ blast\ \isanewline
+\ \ \ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{show}\isamarkupfalse%
+\ {\isacharquery}thesis\ \isacommand{using}\isamarkupfalse%
+\ {\isadigit{6}}\ {\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet8 (algebraic reading, still technically flawed)%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The axioms by Freyd and Scedrov in our notation again, but this time we adopt 
+      an algebraic reading of the free variables, meaning that they range over existing 
+      morphisms only.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{8}}\ {\isacharequal}\ \isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \ \isanewline
+\ \ \ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\begin{isamarkuptext}%
+None of the axioms in AxiomsSet5 are implied.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{8}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ %
+\isamarkupcmt{Nitpick finds a countermodel%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet8Strict (algebraic reading)%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The situation changes when strictness conditions are postulated. Note that in the algebraic 
+      framework of Freyd and Scedrov such conditions have to be assumed as given in the 
+      logic, while here we can explicitly encode them as axioms.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSet{\isadigit{8}}Strict\ {\isacharequal}\ AxiomsSet{\isadigit{8}}\ {\isacharplus}\isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ B{\isadigit{0}}a{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ B{\isadigit{0}}b{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ B{\isadigit{0}}c{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet8Strict entails AxiomsSet5%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{8}}Strict\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}c\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}b\ B{\isadigit{0}}c\ B{\isadigit{1}}\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}meson\ B{\isadigit{0}}a\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}a\ B{\isadigit{3}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ B{\isadigit{0}}a\ B{\isadigit{3}}a\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet5 entails AxiomsSet8Strict%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{5}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}a{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}b{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{1}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{0}}c{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{2}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \ B{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{3}}\ S{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ A{\isadigit{2}}b\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{3}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{3}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}a{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{1}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{6}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}b{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ S{\isadigit{1}}\ S{\isadigit{2}}\ S{\isadigit{3}}\ S{\isadigit{4}}\ S{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \ B{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymforall}z{\isachardot}\ x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S{\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsubsection{AxiomsSet8Strict is Redundant%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+AxiomsSet8Strict is redundant: either the B2-axioms can be omitted or the B4-axioms.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{8}}Strict\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\ cod{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ dom\ x\ {\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{1}}\ B{\isadigit{3}}a{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{2}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}cod\ y{\isacharparenright}\ {\isasymcong}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{1}}\ B{\isadigit{3}}b{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}aRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ dom{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ dom{\isacharparenleft}{\isacharparenleft}dom\ x{\isacharparenright}{\isasymcdot}y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}b\ B{\isadigit{1}}\ B{\isadigit{3}}a\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ B{\isadigit{4}}bRedundant{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymforall}y{\isachardot}\ cod{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ {\isasymcong}\ cod{\isacharparenleft}x{\isasymcdot}{\isacharparenleft}cod\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ B{\isadigit{0}}a\ B{\isadigit{0}}c\ B{\isadigit{1}}\ B{\isadigit{3}}b\ B{\isadigit{5}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsection{The Axioms Sets of Mac Lane \cite{MacLane48}%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+We analyse the axioms set suggested by Mac Lane~\cite{MacLane48} already in 1948. 
+      As for the theory by
+       Freyd and Scedrov above, which was developed much later, we need to assume 
+       strictness of composition to show equivalence to our previous axioms sets.
+       Note that his complicated conditions on existence of compositions proved to be 
+       unnecessary, as we show. It shows it is hard to think about partial operations.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ AxiomsSetMcL\ {\isacharequal}\isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ C\isactrlsub {\isadigit{0}}\ {\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \ \ \isanewline
+\ \ \ C\isactrlsub {\isadigit{1}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{1}}{\isacharprime}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{2}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ {\isacharequal}\ {\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ C\isactrlsub {\isadigit{3}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eD{\isachardot}\ IDMcL{\isacharparenleft}eD{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}eD{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{4}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eR{\isachardot}\ IDMcL{\isacharparenleft}eR{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}eR{\isasymcdot}{\isasymgamma}{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\begin{isamarkuptext}%
+Remember that IDMcL  was defined on p.~\pageref{IDMcL} and proved
+       equivalent to ID.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{AxiomsSetMcL entails AxiomsSet1%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSetMcL\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{2}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{1}}\ C\isactrlsub {\isadigit{1}}{\isacharprime}\ C\isactrlsub {\isadigit{2}}\ C\isactrlsub {\isadigit{0}}{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ ID\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{4}}\ \isacommand{by}\isamarkupfalse%
+\ fastforce%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymexists}j{\isachardot}\ ID\ j\ \isactrlbold {\isasymand}\ x{\isasymcdot}j\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{3}}\ \isacommand{by}\isamarkupfalse%
+\ fastforce%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{AxiomsSet1 entails AxiomsSetMcL%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ AxiomsSet{\isadigit{1}}\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}\ {\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ S\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A\isactrlsub i\ S\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}{\isacharprime}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ A\isactrlsub i\ S\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{2}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ {\isacharequal}\ {\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}smt\ A\isactrlsub i\ C\isactrlsub i\ E\isactrlsub i\ S\isactrlsub i{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{3}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eD{\isachardot}\ IDMcL{\isacharparenleft}eD{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}eD{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ D\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ force%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{4}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eR{\isachardot}\ IDMcL{\isacharparenleft}eR{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}eR{\isasymcdot}{\isasymgamma}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\ \isacommand{by}\isamarkupfalse%
+\ force%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{Skolemization of the Axioms of Mac Lane%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Mac Lane employs diagrammatic composition instead of the set-theoretic 
+     definition as used in our axioms sets. As we have seen above, 
+      this is not a problem as long as composition is the only primitive. 
+      But when adding the Skolem terms $dom$ and $cod$ care must be taken and we should
+      actually transform all axioms into a common form. Below we address this (in a minimal way) by
+      using $dom$ in axiom \isa{C\isactrlsub {\isadigit{3}}s} and $cod$ in axiom \isa{C\isactrlsub {\isadigit{4}}s}, which is opposite of 
+      what Mac Lane proposed. For this axioms set we then show  equivalence to AxiomsSet1/2/5.%
+\end{isamarkuptext}\isamarkuptrue%
+\ \isacommand{locale}\isamarkupfalse%
+\ SkolemizedAxiomsSetMcL\ {\isacharequal}\isanewline
+\ \ \isakeyword{assumes}\isanewline
+\ \ \ C\isactrlsub {\isadigit{0}}s\ {\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \ \ \isanewline
+\ \ \ C\isactrlsub {\isadigit{1}}s\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{1}}{\isacharprime}s{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{2}}s\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ {\isacharequal}\ {\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\ \isanewline
+\ \ \ C\isactrlsub {\isadigit{3}}s\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ IDMcL{\isacharparenleft}dom\ {\isasymgamma}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}dom\ {\isasymgamma}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ \ \ C\isactrlsub {\isadigit{4}}s\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ IDMcL{\isacharparenleft}cod\ {\isasymgamma}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isacharparenleft}cod\ {\isasymgamma}{\isacharparenright}{\isasymcdot}{\isasymgamma}{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}{\isasymexists}x{\isachardot}\ {\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \isacommand{nitpick}\isamarkupfalse%
+\ {\isacharbrackleft}satisfy{\isacharbrackright}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+\ \ %
+\isamarkupcmt{Consistency%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+%
+\isamarkupsubsection{SkolemizedAxiomsSetMcL entails AxiomsSetMcL and AxiomsSet1-5%
+}
+\isamarkuptrue%
+\ \isacommand{context}\isamarkupfalse%
+\ SkolemizedAxiomsSetMcL\isanewline
+\ \ \isakeyword{begin}\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}\ {\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}{\isacharprime}{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{1}}{\isacharprime}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{2}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}\ {\isasymbeta}\ {\isasymalpha}{\isachardot}\ {\isacharparenleft}E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E{\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}{\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isasymbeta}{\isacharparenright}{\isasymcdot}{\isasymalpha}{\isacharparenright}\ {\isacharequal}\ {\isacharparenleft}{\isasymgamma}{\isasymcdot}{\isacharparenleft}{\isasymbeta}{\isasymcdot}{\isasymalpha}{\isacharparenright}{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{2}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{3}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eD{\isachardot}\ IDMcL{\isacharparenleft}eD{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}{\isasymgamma}{\isasymcdot}eD{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{3}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{4}}\ {\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}{\isasymgamma}{\isachardot}\ \isactrlbold {\isasymexists}eR{\isachardot}\ IDMcL{\isacharparenleft}eR{\isacharparenright}\ \isactrlbold {\isasymand}\ E{\isacharparenleft}eR{\isasymcdot}{\isasymgamma}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{4}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{2}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{1}}s\ C\isactrlsub {\isadigit{1}}{\isacharprime}s\ C\isactrlsub {\isadigit{2}}s\ C\isactrlsub {\isadigit{0}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ ID\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{4}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}x{\isachardot}\isactrlbold {\isasymexists}j{\isachardot}\ ID\ j\ \isactrlbold {\isasymand}\ x{\isasymcdot}j\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{3}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ E\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymexists}z{\isachardot}\ z{\isasymcdot}z\ {\isasymcong}\ z\ \isactrlbold {\isasymand}\ x{\isasymcdot}z\ {\isasymcong}\ x\ \isactrlbold {\isasymand}\ z{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{2}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ A\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{1}}s\ C\isactrlsub {\isadigit{1}}{\isacharprime}s\ C\isactrlsub {\isadigit{2}}s\ C\isactrlsub {\isadigit{0}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ y\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{4}}s\ \isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}E\ x\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}ID{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{3}}s\ \isacommand{by}\isamarkupfalse%
+\ auto\isanewline
+\isanewline
+\ \ \ %
+\isamarkupcmt{AxiomsSets3/4 are omitted here; we already know they are equivalent.%
+}
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{1}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}dom\ x{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\ \isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{2}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{3}}{\isacharcolon}\ {\isachardoublequoteopen}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymleftrightarrow}\ dom\ x\ {\isasymsimeq}\ cod\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ {\isacharparenleft}full{\isacharunderscore}types{\isacharparenright}\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{1}}s\ C\isactrlsub {\isadigit{1}}{\isacharprime}s\ C\isactrlsub {\isadigit{2}}s\ C\isactrlsub {\isadigit{3}}s\ C\isactrlsub {\isadigit{4}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{4}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}metis\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{1}}s\ C\isactrlsub {\isadigit{1}}{\isacharprime}s\ C\isactrlsub {\isadigit{2}}s{\isacharparenright}%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{5}}{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{4}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}{\isacharcolon}\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ \ \ \ \ \ \ \ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub {\isadigit{0}}s\ C\isactrlsub {\isadigit{3}}s\ \isacommand{by}\isamarkupfalse%
+\ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\ \ \isacommand{end}\isamarkupfalse%
+\isanewline
+\isanewline
+\isanewline
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\end{isabellebody}%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "root"
+%%% End:
