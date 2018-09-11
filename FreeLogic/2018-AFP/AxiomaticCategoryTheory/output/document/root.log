@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/MacPorts 2017_3) (preloaded format=pdflatex 2018.4.1)  22 MAY 2018 17:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/MacPorts 2017_4) (preloaded format=pdflatex 2018.4.1)  5 JUN 2018 08:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -399,21 +399,21 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\@ifnextchar' on input line 2743.
 
-[9] [10])) (./root.bbl [11])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 67.
+[9] [10])) [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
  [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 67.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
  (./root.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 67.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 67.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
 Package rerunfilecheck Info: File `root.out' has not changed.
 (rerunfilecheck)             Checksum: 002569FA33579034FD8B978E3501D4B1;2721.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 67.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 113.
  ) 
 Here is how much of TeX's memory you used:
- 6994 strings out of 492995
- 98802 string characters out of 6134534
- 204465 words of memory out of 5000000
+ 6991 strings out of 492995
+ 98780 string characters out of 6134534
+ 205465 words of memory out of 5000000
  10394 multiletter control sequences out of 15000+600000
  18403 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -433,7 +433,7 @@ m/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cms
 y7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pf
 b></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/latxfont/lasy10.p
 fb>
-Output written on root.pdf (12 pages, 218198 bytes).
+Output written on root.pdf (12 pages, 218085 bytes).
 PDF statistics:
  330 PDF objects out of 1000 (max. 8388607)
  298 compressed objects within 3 object streams

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  29 APR 2017 21:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  10 SEP 2017 21:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -546,14 +546,14 @@ SVJour3 warning: Missing \journalname
 LaTeX Font Info:    Try loading font information for U+stmry on input line 237.
 
 (/opt/local/share/texmf-texlive/tex/latex/stmaryrd/Ustmry.fd)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 296.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 297.
 
 
 (/opt/local/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 296.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 297.
  [1{/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -563,19 +563,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 LaTeX Font Warning: Font shape `U/stmry/b/n' undefined
-(Font)              using `U/stmry/m/n' instead on input line 636.
+(Font)              using `U/stmry/m/n' instead on input line 637.
 
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 636.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 637.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 636.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 637.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 650.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 651.
 
 Underfull \vbox (badness 6944) has occurred while \output is active []
 
  [5]
-Overfull \hbox (5.30484pt too wide) in paragraph at lines 681--683
+Overfull \hbox (5.30484pt too wide) in paragraph at lines 682--684
 []\OT1/cmr/m/n/10 We as-sume fa-mil-iar-ity with $\OML/cmm/m/it/10 ^^U$\OT1/cmr
 /m/n/10 -conversion (e.g. $\OML/cmm/m/it/10 $\OT1/cmr/m/it/10 -renaming \OT1/c
 mr/m/n/10 and $\OML/cmm/m/it/10 ^^L^^Q$\OT1/cmr/m/it/10 -reduction\OT1/cmr/m/n/
@@ -584,24 +584,24 @@ mr/m/n/10 and $\OML/cmm/m/it/10 ^^L^^Q$\OT1/cmr/m/it/10 -reduction\OT1/cmr/m/n/
 
 [6] [7] [8]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 930.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 931.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 930.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 931.
  [9] <FFOL-Pic1.png, id=65, 917.4275pt x 735.74875pt>
 File: FFOL-Pic1.png Graphic file (type png)
 
 <use FFOL-Pic1.png>
-Package pdftex.def Info: FFOL-Pic1.png used on input line 1080.
+Package pdftex.def Info: FFOL-Pic1.png used on input line 1081.
 (pdftex.def)             Requested size: 338.0pt x 271.06644pt.
  <FFOL-Pic2.png, id=67, 837.1275pt x 853.1875pt>
 File: FFOL-Pic2.png Graphic file (type png)
 
 <use FFOL-Pic2.png>
-Package pdftex.def Info: FFOL-Pic2.png used on input line 1085.
+Package pdftex.def Info: FFOL-Pic2.png used on input line 1086.
 (pdftex.def)             Requested size: 338.0pt x 344.48454pt.
 
 
-LaTeX Warning: Float too large for page by 58.47224pt on input line 1169.
+LaTeX Warning: Float too large for page by 58.47224pt on input line 1170.
 
 [10] [11] [12 <./FFOL-Pic1.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -633,7 +633,7 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of TeX's memory you used:
  13326 strings out of 493014
  257625 string characters out of 6135157
- 308534 words of memory out of 5000000
+ 308538 words of memory out of 5000000
  16580 multiletter control sequences out of 15000+600000
  17406 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -671,7 +671,7 @@ ts/cm/cmtt10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm
 t/lasy8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary1
 0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary6.pfb><
 /opt/local/share/texmf-texlive/fonts/type1/public/stmaryrd/stmary7.pfb>
-Output written on article.pdf (23 pages, 870439 bytes).
+Output written on article.pdf (23 pages, 870742 bytes).
 PDF statistics:
  227 PDF objects out of 1000 (max. 8388607)
  161 compressed objects within 2 object streams

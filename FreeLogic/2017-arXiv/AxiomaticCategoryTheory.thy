@@ -18,8 +18,9 @@ in classical higher-order logic. The modeling and formal analysis of our axiom s
 significantly supported  by series of experiments with automated reasoning tools integrated 
 with Isabelle/HOL. We also address the relation of our axiom systems to alternative proposals 
 from the literature, including an axiom set proposed by Freyd and Scedrov for which we reveal 
-a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, are total or 
-their axiom system is inconsistent. The repair for this problem is quite straightforward, however. 
+a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, 
+are total or their axiom system is inconsistent. The repair for this problem is quite 
+straightforward, however. 
 \end{abstract}
 *}
 
@@ -38,8 +39,9 @@ notational transformation) the set of axioms as proposed by  Freyd and Scedrov i
 see also Subsection \ref{subsec:FreydNotation} where we present their original system.
 While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
 obtained for system VII (when encoded in free logic where free variables range over all 
-objects): We can prove @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where @{text "E"} is the existence predicate. Read this as: If there 
-are undefined objects, e.g. the value of an undefined composition @{text "x\<cdot>y"}, then we have falsity.
+objects): We can prove @{text "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False"}, where @{text "E"} is the existence 
+predicate. Read this as: If there are undefined objects, e.g. the value of an undefined composition 
+@{text "x\<cdot>y"}, then we have falsity.
 By contraposition, all objects (and thus all compositions) must exist. But when we assume the latter,
 then the axiom system VII essentially reduces categories to monoids.
 We note that axiom system V, which avoids this problem, corresponds to a set of axioms proposed 
@@ -47,10 +49,11 @@ by Scott @{cite "Scott79"} in the 1970s. The problem can also be avoided by rest
 in axiom system VII to range only over existing objects and by postulating strictness conditions. 
 This gives us axiom system VIII.
 
-Our exploration has been significantly supported by series of experiments in which automated reasoning tools 
-have been called from within the proof assistant Isabelle/HOL @{cite "Isabelle"} via the Sledgehammer 
-tool @{cite "Sledgehammer"}. Moreover, we have obtained very useful feedback at various stages 
-from the model finder Nitpick @{cite "Nitpick"} saving us from making several mistakes.
+Our exploration has been significantly supported by series of experiments in which automated 
+reasoning tools  have been called from within the proof assistant Isabelle/HOL @{cite "Isabelle"} 
+via the Sledgehammer tool @{cite "Sledgehammer"}. Moreover, we have obtained very useful feedback 
+at various stages from the model finder Nitpick @{cite "Nitpick"} saving us from making several
+ mistakes.
 
 At the conceptual level this paper exemplifies a new style of explorative mathematics which rests 
 on a significant amount of human-machine interaction with integrated interactive-auto\-ma\-ted 
@@ -78,11 +81,11 @@ to find by hand using paper and pencil.
 section {* Embedding of Free Logic in HOL *}
 
 text {* Free logic models partial functions as total functions over a ``raw domain'' @{text "D"}. 
-A subset @{text "E"} of @{text "D"} is used to characterize the subdomain of ``existing'' objects; cf.
-@{cite "Scott67"} for further details.
+A subset @{text "E"} of @{text "D"} is used to characterize the subdomain of ``existing'' objects;
+ cf. @{cite "Scott67"} for further details.
 
-The experiments presented in the subsequent sections exploit our embedding of free logic 
-in HOL @{cite "C57"}. This embedding is trivial for the standard Boolean connectives. The interesting
+The experiments presented in the subsequent sections exploit our embedding of free logic in 
+HOL @{cite "C57"}. This embedding is trivial for the standard Boolean connectives. The interesting
 aspect is that free logic quantifiers are guarded in the embedding by an explicit existence 
 predicate @{text "E"} (associated with the subdomain @{text "E"} of @{text "D"}), so 
 that quantified variables range only over existing objects, while free 
@@ -90,10 +93,10 @@ variables and arbitrary terms may also denote undefined/non-existing objects out
 This way we obtain an 
 elegant treatment of partiality resp. undefinednes as required in category theory. In our related 
 paper @{cite "C57"} we also show how definite description can be appropriately modeled in this
-approach. However, the definite description is not required for purposes of this paper, so we omit it.
-Note that the connectives and quantifiers of free logic are displayed below in bold-face fonts. Normal, 
-non-bold-face connectives and quantifiers in contrast belong to the meta-logic HOL. The prefix ``f'',
-e.g. in @{text "fNot"}, stands for ``free''. 
+approach. However, the definite description is not required for purposes of this paper, so we omit 
+it. Note that the connectives and quantifiers of free logic are displayed below in bold-face fonts. 
+Normal,  non-bold-face connectives and quantifiers in contrast belong to the meta-logic HOL. The 
+prefix ``f'', e.g. in @{text "fNot"}, stands for ``free''. 
 *}
 
 typedecl i -- {* Type for individuals *}
@@ -135,8 +138,8 @@ we have @{text "E(f x) \<^bold>\<rightarrow> E x"}.
 
 section {* Preliminaries *}
 
-text {* Morphisms in the category are objects of type @{text "i"}. We introduce three partial functions, 
-@{text "dom"} (domain), @{text "cod"} (codomain), and @{text "\<cdot>"} (morphism composition). 
+text {* Morphisms in the category are objects of type @{text "i"}. We introduce three partial 
+functions, @{text "dom"} (domain), @{text "cod"} (codomain), and @{text "\<cdot>"} (morphism composition). 
 Partiality of composition is handled exactly as expected: we generally may have 
 non-existing compositions @{text "x\<cdot>y"} (i.e.~@{text "\<^bold>\<not>(E(x\<cdot>y))"}) for some existing  
 morphisms @{text "x"} and @{text "y"} (i.e.~@{text "E x"} and @{text "E y"}).
@@ -173,9 +176,9 @@ text {* We have: *}
 lemma "x \<cong> x \<^bold>\<and> (x \<cong> y \<^bold>\<rightarrow> y \<cong> x) \<^bold>\<and> ((x \<cong> y \<^bold>\<and> y \<cong> z) \<^bold>\<rightarrow> x \<cong> z)" 
   by blast
 lemma "x \<simeq> x" -- {* This does not hold; Nitpick finds a countermodel.\footnote{The keyword
-  ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) conjecture is 
-  then not made available for further use. The simplest countermodel for the conjecture given
-  here consists of single, non-existing element. } *}
+  ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) 
+  conjecture is then not made available for further use. The simplest countermodel for the 
+  conjecture given here consists of single, non-existing element. } *}
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops  
 lemma " (x \<simeq> y \<^bold>\<rightarrow> y \<simeq> x) \<^bold>\<and> ((x \<simeq> y \<^bold>\<and> y \<simeq> z) \<^bold>\<rightarrow> x \<simeq> z)" 
   by blast
@@ -232,10 +235,6 @@ assumes
 begin
 (*>*)
 
-(*
-abbreviation Dom where 
-  "Dom \<equiv> SOME j. (\<forall>x. (E(x) \<^bold>\<rightarrow> (I(j(x)) \<^bold>\<and> x\<cdot>(j(x)) \<cong> x)))"
-*)
 
 text {* Nitpick confirms that this axiom set is consistent. *}
   lemma True  -- {* Nitpick finds a model *}
@@ -244,8 +243,9 @@ text {* Nitpick confirms that this axiom set is consistent. *}
 
 text {* Even if we assume there are non-existing objects we get consistency (which is e.g. not the
 case for Axiom Set VII below). *}  
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model\footnote{To display the models or countermodels from Nitpick in the Isabelle/HOL system interface 
-simply put the mouse on the expression "nitpick".}  *} 
+lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model\footnote{To display the models 
+ or countermodels from Nitpick in the Isabelle/HOL system interface simply put the mouse on the 
+ expression "nitpick".}  *} 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 text {* We may also assume an existing and a non-existing object and still get consistency. *}  
@@ -257,14 +257,16 @@ text {* The left-to-right direction of existence axiom @{text "E\<^sub>i"} is im
     by (metis A\<^sub>i C\<^sub>i S\<^sub>i)
 
 text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique. The proofs can be 
-   found automatically by Sledgehammer.\footnote{In our initial experiments proof reconstruction of the
-   external ATP proofs failed in Isabelle/HOL. The SMT reasoner Z3 @{cite "Z3"}, which is employed
-   in the @{text "smt"} tactic by default, was too weak. Therefore we first introduced further lemmata, 
-   which helped. 
-   However, an alternative way out, which we discovered later, has been to replace Z3 by CVC4 @{cite "CVC4"} 
-   in Isabelle's @{text "smt"} 
-   tactic (this can be done by stating ``@{text "declare [[ smt_solver = cvc4]]"}'' in the source document).
-   In the latest version of the proof document we now suitably switch between the two SMT solvers to obtain best results.} *}
+   found automatically by Sledgehammer.\footnote{In our initial experiments proof reconstruction 
+   of the external ATP proofs failed in Isabelle/HOL. The SMT reasoner Z3 @{cite "Z3"}, which is 
+   employed in the @{text "smt"} tactic by default, was too weak. Therefore we first introduced 
+   further lemmata, which helped. 
+   However, an alternative way out, which we discovered later, has been to replace Z3 by 
+   CVC4 @{cite "CVC4"} in Isabelle's @{text "smt"} 
+   tactic (this can be done by stating ``@{text "declare [[ smt_solver = cvc4]]"}'' in the 
+   source document).
+   In the latest version of the proof document we now suitably switch between the two SMT solvers 
+   to obtain best results.} *}
 (* lemma L1i: "E y \<^bold>\<rightarrow> (\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<forall>j. E j \<^bold>\<rightarrow> ((I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j)))" 
     by (smt A\<^sub>i C\<^sub>i S\<^sub>i) 
   lemma L2i: "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<forall>j. E j \<^bold>\<rightarrow> ((I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j))" 
@@ -280,13 +282,12 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
    function symbols @{text "C"} and @{text "D"} this can be encoded in
    our formalization as follows: *}
  lemma "(\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D \<^bold>= C))"
-   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
- text {* Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two non-existing
-   objects @{text "i\<^sub>1"} and @{text "i\<^sub>2"}. @{text "C"} maps both @{text "i\<^sub>1"} and @{text "i\<^sub>2"} to
-   @{text "i\<^sub>2"}. @{text "D"} maps @{text "i\<^sub>1"} to @{text "i\<^sub>2"}, and vice versa. The composition 
-   @{text "i\<^sub>2\<cdot>i\<^sub>2"}
-   is mapped to @{text "i\<^sub>2"}. All other composition pairs are mapped to @{text "i\<^sub>1"}.
-   *}
+   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- {* Nitpick finds a model. *}
+   text {* Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two 
+   non-existing objects @{text "i\<^sub>1"} and @{text "i\<^sub>2"}. @{text "C"} maps both @{text "i\<^sub>1"} and 
+   @{text "i\<^sub>2"} to @{text "i\<^sub>2"}. @{text "D"} maps @{text "i\<^sub>1"} to @{text "i\<^sub>2"}, and vice versa. The 
+   composition {text "i\<^sub>2\<cdot>i\<^sub>2"} is mapped to @{text "i\<^sub>2"}. All other composition pairs are mapped 
+   to @{text "i\<^sub>1"}. *}
 (* Skolem constants:
     Cod = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>2)
     Dom = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>1)
@@ -551,18 +552,17 @@ section {* Axiom Set V *}
 
 text {* Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
- ``Categories, Allegories'' @{cite "FreydScedrov90"} when encoded in free logic, corrected/adapted and further simplified. 
- Their axiom set is technically flawed when encoded in our given context. This issue has been detected by automated theorem provers
- with the same technical infrastructure as employed so far. See the subsequent section  
- for more details. 
+ ``Categories, Allegories'' @{cite "FreydScedrov90"} when encoded in free logic, corrected/adapted 
+ and further simplified. Their axiom set is technically flawed when encoded in our given context. 
+ This issue has been detected by automated theorem provers with the same technical infrastructure 
+ as employed so far. See the subsequent section for more details. 
  We have modified the axioms of @{cite "FreydScedrov90"} by replacing the original Kleene 
- equality @{text "\<cong>"} in axiom S3 by the
- non-reflexive, existing identity @{text "\<simeq>"}. Note that the modified axiom @{text "S3"} is equivalent to @{text "E\<^sub>i\<^sub>v"};
- see the mutual proofs below.  
+ equality @{text "\<cong>"} in axiom S3 by the non-reflexive, existing identity @{text "\<simeq>"}. Note that 
+ the modified axiom @{text "S3"} is equivalent to @{text "E\<^sub>i\<^sub>v"}; see the mutual proofs below.  
 *}
 
 (*<*)
-context -- {* Axiom Set V (Freyd and Scedrov when corrected and simplified) *}
+context -- {* Axiom Set V *}
 assumes 
 (*>*)
  S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and

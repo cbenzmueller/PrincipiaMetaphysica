@@ -3,13 +3,11 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: article.aux
 The style file: spmpsci.bst
 Database file #1: bibliography.bib
-Warning--I'm ignoring Freyd16's extra "note" field
---line 4897 of file bibliography.bib
 Warning--missing publisher in AndrewsSEP
 Warning--missing publisher in sep-logic-free
 You've used 30 entries,
             2946 wiz_defined-function locations,
-            858 strings with 11392 characters,
+            857 strings with 11398 characters,
 and the built_in function-call counts, 21696 in all, are:
 = -- 2412
 > -- 416
@@ -48,4 +46,4 @@ warning$ -- 2
 while$ -- 119
 width$ -- 32
 write$ -- 373
-(There were 3 warnings)
+(There were 2 warnings)

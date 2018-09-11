@@ -1329,7 +1329,7 @@ The Axiom Set III is implied. The only interesting cases are
 %
 \isatagproof
 \isacommand{by}\isamarkupfalse%
-\ {\isacharparenleft}metis\ {\isacharparenleft}full{\isacharunderscore}types{\isacharparenright}\ C\isactrlsub i\isactrlsub v\ D\isactrlsub i\isactrlsub v\ E\isactrlsub i\isactrlsub v{\isacharparenright}%
+\ {\isacharparenleft}metis\ C\isactrlsub i\isactrlsub v\ D\isactrlsub i\isactrlsub v\ E\isactrlsub i\isactrlsub v{\isacharparenright}%
 \endisatagproof
 {\isafoldproof}%
 %
@@ -1465,13 +1465,13 @@ Axiom Set V has been proposed by Scott \cite{Scott79} in the 1970s. This set of
 }
 \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ S{\isadigit{5}}{\isacharcolon}\ %
-\isamarkupcmt{\makebox[2cm][l]{Domain:}%
-}
-\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
-\ S{\isadigit{6}}{\isacharcolon}\ %
 \isamarkupcmt{\makebox[2cm][l]{Codomain:}%
 }
-\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{6}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Domain:}%
+}
+\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 The obligatory consistency check is again positive.%
 \end{isamarkuptext}\isamarkuptrue%
@@ -1540,7 +1540,7 @@ The obligatory consistency check is again positive.%
 %
 \begin{isamarkuptext}%
 The Axiom Set IV is implied. The only interesting cases are 
- lemmata \isa{E\isactrlsub i\isactrlsub vFromV} and \isa{E\isactrlsub i\isactrlsub vFromV}.%
+ lemmata \isa{S\isactrlsub i\isactrlsub vFromV} and \isa{E\isactrlsub i\isactrlsub vFromV}.%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ \isacommand{lemma}\isamarkupfalse%
 \ S\isactrlsub i\isactrlsub vFromV{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ {\isacharparenleft}E\ x\ \isactrlbold {\isasymand}\ E\ y{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}dom\ x\ {\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ x{\isacharparenright}\ \isactrlbold {\isasymand}\ {\isacharparenleft}E{\isacharparenleft}cod\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ E\ y{\isacharparenright}{\isachardoublequoteclose}\ \ \ \isanewline
@@ -1605,7 +1605,7 @@ The Axiom Set IV is implied. The only interesting cases are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -1623,7 +1623,7 @@ The Axiom Set IV is implied. The only interesting cases are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -1709,7 +1709,7 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{5}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{5}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1717,7 +1717,7 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ D\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -1727,7 +1727,7 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{6}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{6}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1735,7 +1735,7 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ C\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ D\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -2496,8 +2496,8 @@ The following alternative interactive proof is slightly shorter than the one
 \ \ \ \ %
 \isamarkupcmt{By unfolding the definition of \isa{{\isasymcong}} we get from 1 that \isa{{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a} is 
          not defined. This is 
-         easy to see, since if \isa{{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a} were defined, we also had that  \isa{a} is defined, 
-         which is not the case by assumption.%
+         easy to see, since if \isa{{\isacharparenleft}{\isasymbox}a{\isacharparenright}\isactrlbold {\isasymcdot}a} were defined, we also had that  \isa{a} is 
+         defined, which is not the case by assumption.%
 }
 \isanewline
 \ \ \ \isacommand{have}\isamarkupfalse%
