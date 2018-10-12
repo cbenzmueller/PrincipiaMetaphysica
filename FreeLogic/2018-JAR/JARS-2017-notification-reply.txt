@@ -1,0 +1,505 @@
+Dear Armin, Cesare and Christoph,
+
+thank you (and reviewers) for your response to our submission to JARS-2017 from May 1, 2017.
+
+Yes, we are interested in the offered (very timely) publication in JAR. Attached is the revised version of our paper. Attached as also the new source files		
+AxiomaticCategoryTheory2018_FullFreeLogic.thy
+and
+AxiomaticCategoryTheory2018.thy	
+
+We looking forward to hear from you.
+
+Best regards,
+   Christoph and Dana
+
+% ----------------------- REVIEW 1 ---------------------
+% PAPER: 8
+% TITLE: Automating Free Logic in HOL, with an Experimental Application in Category Theory
+% AUTHORS: Christoph Benzmüller and Dana Scott
+
+% Overall evaluation: -1 (weak reject)
+
+% ----------- Overall evaluation -----------
+% In this paper the authors present an embedding from free first order
+% logic into higher order logic (HOL). After proving the correctness of
+% the embedding, they formalise a (slightly different) version of FFOL in
+% Isabelle/HOL. They present various axioms sets and show their
+% equivalence, using Sledgehammer. Finally, they show that the set of
+% axioms of Freyd and Scedrov implies that all object are existing, but
+% their axiom system can be repaired.
+
+% My major concerns are the following:
+% • this paper mentions a formalisation in a proof assistant, but not all
+%   the results are proven within the proof assistant (see the
+%   SMT-calls). So this paper is not really about a formalisation.
+ 
+
+We have added the following text to section 4.4 which is addressing this point:
+
+(***):
+ In our experiments we have also made use of the Isabelle/HOL's
+  \textsc{smt} method, which ``translates the conjecture and any
+  user-supplied facts to the SMT solvers’ many-sorted first-order
+  logic, invokes a solver, and (depending on the solver) either trusts
+  the result or attempts to reconstruct the proof in Isabelle.''
+  (\cite[p.~5]{Sledgehammer}).\footnote{Technical remark: We have
+    selected CVC4 in our experiments as the default SMT solver, since
+    we did run into errors when working with Z3. These errors can
+    easily be reconstructed in the provided source files when
+    switching back to Z3 as default.}  For quite some time the use of the \textsc{smt}
+  method has been controversially discussed in the Isabelle/HOL
+  community. However, since about a year, the \textsc{smt} method is
+  now even eligible in submissions to the Archive of Formal
+  Proofs. For the work presented here this community internal discussion is 
+  of little relevance, since we could replace all uses of the\textsc{smt} method
+  by alternative proofs (which we avoid in order to keep
+  our formalisation concise).
+
+% • this paper heavily relies on Sledgehammer, but fails to properly
+%   describes what it does and what is trusted.
+
+This paper is *not* about Sledgehammer, and it *not* heavily relies on it. In fact, Sledgehammer is *not* even mentioned anymore in the source files (see below). Hence, there is *no* dependency in these sources on Sledgehammer. We have simply used Sledgehammer to produce these source files.
+Moreover, Sledgehammer and its cooperation with SMT solvers has (e.g.) been described in: Blanchette, J.C., Böhme, S., Paulson, L.C.: Extending Sledgehammer with SMT
+solvers. Journal of Automated Reasoning 51(1), 109–128 (2013). 
+We have referenced this article. We have now also added a reference to the Sledgehammer tutorial by Jasmin Blanchette. We see no point in extensively copying text from these papers (which we  are not an author of) to our submission.
+
+Moreover, we have slightly adapted and extended the text in section 4.4. 
+
+% From what I understand from the application (Section 4), the authors
+% wrote the axioms in Isabelle, called Nitpick and Sledgehammer, and then
+% concluded that (i) the axioms systems are equivalent (ii) they are
+% consistent. I am not sure that JARS is the best place to present such
+% work.
+
+I assume this comment is obsolete, since we have now been invited to
+resubmit to JAR. Moreover, if JAR is not a good place for this paper,
+what actually would be a good place for it?
+
+% I would at least expect more information on the experiments: some
+% benchmarks about the efficiency of provers (using for example the
+% Isabelle tool mirabelle), more comparison between the system of
+% axioms. How much higher-order is really needed? Are Satallax, Leo-II,
+% and Leo-III able to prove some goals? Is one system of axioms better
+% suited to prove lemmas?
+
+This is definitely not a prover-comparison/evaluation paper (and due to the various
+prover specific translations in Sledgehammer, a fair prover comparison would
+anyway not be easy to achieve). We here demonstrate an elegant way to
+“implement” and utilize interactive and automated reasoning in free
+logic, and we present illustrative experiments. What the reviewer seems
+to have in mind is a different sort of paper. We did therefore not further 
+address this point.
+
+
+% 1 Comments
+% ══════════
+
+% 1.1 Question
+% ────────────
+
+%   ⁃ is the ⋆ related to Isabelle's undefined symbol?
+
+No (a respective footnote (footnote 4) has be added): The $\star$ symbol is not to be confused with any other symbol in Isabelle/HOL.
+
+% 1.2 Important
+% ─────────────
+
+%   ⁃ utilize "\usepackage{cite}" to ensure that the numbers are sorted
+%     (like "[22,28,23,26]" ~> "[22,23,26,28]")
+
+done (even though it may not always be appropriate to enforce such a reordering: the ordering may in fact convey some relevant information such as the suggested order of look-up.)
+
+%   ⁃ use only one numbering for definition, theorems, and lemmas
+
+done 
+
+%   ⁃ if you do not already know what sledgehammer is, you have no change
+%     to understand the sentence "The proofs are found by Sledgehammer and
+%     verified in Isabelle/HOL". Section 4.4 comes far too late.
+
+We have rewritten the sentence as follows:
+
+The proofs are found by the Sledgehammer tool and automatically
+reconstructed in Isabelle/HOL. Further information on these
+experiments are provided in section 4.4
+below. Using Sledgehammer we have also shown that Axioms Set II
+implies Axioms Set I. Vice versa, Axioms Set I also implies Axioms Set
+II. This can easily be shown by semantical means on the meta-level.
+
+Then the subsection 4.4 (which provides further information) starts right away. This should be easy to follow now.
+
+%   ⁃ Same for the SMT tactic. Why is it different from the other tactics?
+%     What is the tactic doing
+
+
+We have added some further explanations on this in subsection 4.4.
+
+
+
+% 1.2.1 Introduction
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+%   ⁃ "in the mathematical proof assistant Isabelle/HOL": what is the
+%     difference between a mathematical proof assistant and a
+%     non-mathematical one?
+
+"mathematical" has been removed.
+
+%   ⁃ "our solution can be utilized […] with a while range of other
+%     reasoners". I expected the solutions to be the embedding of FFOL in
+%     HOL, but you seem to see the formalisation of the embedding as the
+%     solution.
+
+We unfortunately do not understand this comment/critique. 
+Anyhow, we have modified the sentence as follows:
+
+"our solution can be utilized, via Isabelle as foreground system, with a
+whole range of other background reasoners, such as SMT solvers and
+first-order and higher-order automated theorem
+provers.\footnote{Cf.~\S\ref{sec-remarks-experiments} for further
+  information.}"
+
+
+% 1.2.2 Exploring Axioms Systems for Category Theory
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+% ◊ 1.2.2.1 Remark on the experiment
+
+%   ⁃ "The above results enable the employment of any theorem prover that
+%     supports HOL with definite description to reason with FFOL,
+%     including TPTP THF [30] compliant systems such as Satallax, Nitpick,
+%     LEO-II and Leo-III"… and in the formalisation you mostly rely on
+%     CVC4, E, SPASS, and Z3.
+
+We have rewritten the text as follows: 
+
+The above results enable the employment of any theorem prover that
+supports $\HOL$ with definite description to reason with $\FFOL$,
+including TPTP THF \cite{J22} compliant systems such as Satallax,
+Nitpick, LEO-II and Leo-III. Alternatively, this theory can be encoded
+in interactive proof assistants such as Isabelle/HOL, which is the
+option we have chosen here. We thereby significantly benefit
+from the powerful proof automation means as provided in Isabelle/HOL,
+in particular, from the integrated model finder Nitpick, the SMT
+solvers CVC4~\cite{CVC4} and Z3~\cite{Z3}, and the first-order theorem
+provers E~\cite{E} and Spass~\cite{Spass}.
+
+%   ⁃ "In this sense, our Isabelle/HOL verification is modulo the
+%     correctness of the smt solvers CVC4 [18] and Z3 [24]."  Emphasize
+%     that this is *not* the default setup. By default, (i.e., unless you
+%     are using smt as an oracle or you are changing the solver used by
+%     the SMT-tactic), the smt-tactic replays the z3-proof using the
+%     kernel.  "The smt method reconstructs Z3’s proofs" [Extending
+%     Sledgehammer with SMT Solvers, Blanchette, Paulson, and Böhme].
+
+See the text (***) above, which is now presented in section 4.4. 
+
+%   ⁃ "trusted/verified tools in Isabelle/HOL": which tools are "trusted"?
+%     (not SMT)
+
+See the text (***) above, which is now presented in section 4.4. 
+
+
+% 1.3 Typos
+% ─────────
+
+All typos have been addressed.
+
+
+% 1.3.1 Introduction
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+%   ⁃ "but *is has been* considered as rather unsuited": is or has been
+
+fixed 
+
+%   ⁃ "we reveal a technical flaw: either" (not capitalisation), but on p8
+%     "(remember that FFOL domains D […]): Let g be a variable assignment
+%     for FFOL"
+
+fixed
+
+
+% 1.3.2 Preliminaries
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+% ◊ 1.3.2.1 Free Logic
+
+%   ⁃ "these basic assumption are abolished": assumptions (plural)
+
+fixed 
+
+%   ⁃ Definition 2: "E ⊆" ~> "E ⊂ D" (since ⋆ ∈ D \ E, the equality is
+%     strict)
+
+fixed
+
+%   ⁃ Definition 4, "||s_o||^{M,g} = T": True instead of T?
+
+fixed
+
+% ◊ 1.3.2.2 Classical Higher-Order Logic
+
+%   ⁃ (footnote p6) "LEO-II [12], Leo-III [11] and Satallax [16].":
+%     missing Oxford comma ", and"
+
+
+
+
+% 1.3.3 Shallow Semantical Embedding of FFOl in HOL
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+%   ⁃ "we assume that an uninterpreted constant symbol ⋆ of type i *be* in
+%     the signature": is?
+
+fixed
+
+%   ⁃ Definition 12: Do not use a ^ over a full term. For s ^= t, do you
+%     mean ^(s = t) or s ^(=) t? Use \widehat instead or some symbols that
+%     scales. Don't rely on the ability of the reader to guess based on
+%     the height in line and the centering above the symbols.
+
+fixed
+
+%   ⁃ proof of lemma 1 "tedious evaluation steps"
+
+fixed 
+
+% 1.4 Exploring Axioms Systems for Category Theory
+% ────────────────────────────────────────────────
+
+% 1.4.1 Modelling of basic concepts
+% ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+%   ⁃ Fig 2:
+%     • take the screenshot, once the slow metis call you have has
+%       finished
+
+done
+
+%     • I find the cartouches (i.e., ‹› or \<open> \<close>) less
+%       disturbing that {* * } and \<comment> is less disturbing than
+%       –. So intead of "–{* comment *}", the screenshot would contain "―
+%       ‹comment›"
+
+done
+
+%   ⁃ Fig 3: remove the LaTeX commands in the Isabelle screenshot
+%     ("\makebox[2cm][l]"). Don't scare readers.
+
+done
+
+% 1.5 Bibliography
+% ────────────────
+
+%   ⁃ Entries have a different style:
+%     • Some have a DOI, some don't.
+
+done (removed all doi's since we could not find a doi for each paper; the publisher will for sure add doi's as needed)
+
+%     • Missing editors in, e.g., 17 and 30
+
+done (added editors)
+
+%     • Some journals names are abbreviated (J of Formalized Reasoning),
+%       most are not.
+
+done (this should also be the task of the publisher)
+
+%     • "Add a tour of CVC4: how it works" ~> "How it works" with capital
+%       H
+
+done
+
+%     • "More SPASS with Isabelle - Superposition with Hard Sorts and
+%       Configurable Simplification": use " – " instead of " - "
+
+done
+
+% 2 Isabelle Formalisation
+% ════════════════════════
+
+%   ⁃ You are abusing contexts. Locales are made from your purpose. Use
+%     "sublocale AxiomSet1 ⊆ AxiomSet2" to show inclusion.
+
+To address this critique we have now modified the files accordingly. We now do make proper use of "locales" and "context"; see the new files attached: 		
+AxiomaticCategoryTheory2018_FullFreeLogic.thy
+and 
+AxiomaticCategoryTheory2018.thy	
+
+%   ⁃ You mention issues with z3, SPASS, and Sledgehammer. Have you
+%     reported them?
+
+We added a footnote (footnote 10) about the errors with Z3.
+
+%   ⁃ In many cases, you are using @{text } where @{term } would probably
+%     be better.
+
+In files 
+AxiomaticCategoryTheory2018_FullFreeLogic.thy
+and 
+AxiomaticCategoryTheory2018.thy	
+we do not make use of @{text } or @{term } anymore.
+
+
+
+
+% 3 arXiv paper "Axiomatizing Category Theory in Free Logic"
+% ══════════════════════════════════════════════════════════
+
+%   ⁃ Bibliography: "Makarius Wenzel. The *isabelle* system manual.":
+%     Isabelle
+
+done
+
+%   ⁃ footnote "This minimal set of axioms is also mentioned by Freyd in
+%     [?] and attributed to Martin Knopman": fix reference
+
+fixed
+
+
+% ----------------------- REVIEW 2 ---------------------
+% PAPER: 8
+% TITLE: Automating Free Logic in HOL, with an Experimental Application in Category Theory
+% AUTHORS: Christoph Benzmüller and Dana Scott
+
+% Overall evaluation: 2 (accept)
+
+% ----------- Overall evaluation -----------
+% The paper presents a shallow embedding of a free logic. Free logic is a way to
+% reason about (non-)existence of individuals that are denoted by variables. The
+% presented logic is used to axiomatise category theory. In category theory, the
+% main operator (composition) is partial, and this can be dealt with in different
+% ways. The authors seem to favor a strict operator (where the existence of the
+% result of the operator implies the existence of the arguments).
+
+% The paper claims to be based on the contributions of two previous papers: one
+% on the embedding of free logic, and the other on its use for category theory.
+% The paper does not claim any novel results. This is unfortunate, as the
+% combination of the two topics raises a question that is not addressed in the
+% paper: the * (standing for some undefined object) is not required in the
+% exploration of category theory. Lack of this object, and the choice function
+% that uses it, greatly simplifies the free logic and the corresponding
+% embedding. What is this simpler version, and does the observation that * is not
+% really needed justify making this simplification? Without such analysis, I do
+% not see any added value of putting together two somewhat unrelated papers.
+
+The reviewer has been mislead here with his comment: 
+(a) There is no problem with adding * and definite description to our experiments and we have done this now; see Figure 2 and the attached file AxiomaticCategoryTheory2018_FullFreeLogic.thy (available also via http://christoph-benzmueller.de/papers/2018-JAR-sources.zip)
+(b) There is also no major effort (or vice versa a big simplification) involved as claimed above.
+(c) The only (very minor) point is that one single Nitpick model (consisting of one existing morphism only), which we previously mentioned in the paper, can now  no longer be generated (since * is now always present as an non-existing object). But this model was anyway included only for illustration purposes and is not essential for the presented material; we accordingly adapted the text in the paper. E.g. we now write:
+
+The sources of our experiments as conducted here are available at
+\url{http://christoph-benzmueller.de/papers/2018-JAR-sources.zip}.
+These sources contain an embedding of full free logic in Isabelle/HOL,
+that is, with $\star$ and definite description
+(cf.~Fig.\ref{fig2}). In \cite{ArXiv}, $\star$ and definite
+description were still avoided; they are in fact not really 
+relevant for the conducted experiments.
+
+% I recognise the lack of novel material may be a disqualifier for the paper, 
+
+See above. We have in fact combined an embedding of full free logic with an axiomatisation of category theory. And we have adapted the respective text parts. 
+
+% and
+% the above may be considered as suggestions towards adding the required novel
+% material. 
+
+See above. No addition material is needed since we have combined full free logic with an axiomatisation of category theory.
+
+% The authors have made the lack of novel material so clear in their
+% paper, that I can only write this review and the corresponding marks in full
+% expectation that no new material is required.
+
+See above. We have in fact combined full free logic with an axiomatisation of category theory, and we have added the respective source files demonstrating this.
+
+% In that light, I do think the research is interesting. The availability of the
+% Isabelle files has made the research highly reproducible. The paper is well
+% written, and I recommend the acceptance of this paper.
+
+Thank you very much.
+
+% There are some observations I would like to make about the paper. They are to
+% be regarded as a high-level commentary that I hope will help the authors
+% further improve the paper. They are not qualifying or disqualifying, or things
+% that necessarily have to be addressed - those comments follow at the end of
+% this review.
+
+% The shallow embedding of FFOL is trivial: this is because FFOL is defined
+% through its models. The 'shallow embedding' is nothing more than simply
+% repeating the definition of FFOL (Definition 12 and 3 respectively). This makes
+% Theorem 1 trivial, but does not make the work trivial. The introduction of a
+% variation on the forall quantifier and the selection operation are both
+% interesting. However, when calling FFOL a 'Logic', I would expect to see
+% (preferably sound and complete) calculi. The references [6,7] on page 7 do not
+% mention FFOL.
+
+We have added a footnote on page 3:
+\footnote{Calculi for free logic are presented in \cite{sep-logic-free} [26]; see also the references therein.}
+
+% Using the shallow embedding, there were some observations I could make about
+% FFOL using Isabelle: - Formula's are not implicitly universally quantified. -
+% Under the reasonable assumption that "I id" is undefined, there either Exist x
+% and y that are unequal, or y \neq y for all (existing) y. - "I phi" is either
+% equal to *, or it exists. - If alpha is such that: forall y. alpha \neq y, and
+% alpha is unequal to *, then alpha is unequal to "I phi" (regardless of phi).
+% Note that the last two statements fall outside of the syntax of FFOL, but could
+% be restricted to letting phi be any formula of FFOL. It would be interesting to
+% see what a free higher order logic would look like, and if it could be embedded
+% in a similar way: could we, for instance, obtain a logic in which formulas and
+% terms with free variables exist only if their evaluation does not distinguish
+% between non-existing values (i.e. phi[x:=c_1] = phi[x:=c_2] if both c_1 and c_2
+% don't exist, otherwise phi does not exist). The experiments mentioned above, as
+% well as the question, affirm my belief that the chosen shallow embedding is fun
+% to play with, and that other readers might find it interesting as
+% well.
+
+Yes, we agree here, the chosen shallow embedding is fun to play with,
+and it makes lots of sense to study higher order extensions of the
+embedding of FFOL. In fact, with students we have already produced some initial related
+work this direction the reviewer may want to have a look at:
+http://ceur-ws.org/Vol-1770/ARQNL2016_paper4.pdf and
+http://www.mi.fu-berlin.de/inf/groups/ag-ki/Theses/Completed-theses/Bachelor-theses/2016/Makarenko/Bachelor-Makarenko.pdf
+We have added respective references in the paper. 
+
+% The other theme in the paper is that of axiomatization of category theory.
+
+% The strictness laws of category theory are disputable: developing category
+% theory in a non-strict setting is appealing as it allows for more structures to
+% be categories. A strict version of such a non-strict operator could be derived:
+% if either argument does not exist, return the first non-existing argument. Is
+% the strict version of a category satisfying axioms set FS-III indeed equivalent
+% to axiom set VI? Axiom set FS-IV suggests this!
+
+Yes, axiom set FS-IV (the strict version of FS-III) has been shown
+equivalent to axiom set V, which in turn has been shown equivalent to
+axiom set VI. This is already mentioned in the paper.
+
+% It is worth noting that the Kleene equality (KlEq) and the non-reflexive
+% existing identity (ExId) can both be defined within FFOL. In fact, this is done
+% in the Isabelle files provided by the authors. It could also be noted that KlEq
+% and ExId can be defined in terms of one another without use of primitive
+% equality, but that this primitive equality cannot be recovered. Again, this is
+% a missed opportunity on doing something novel except putting two previously
+% published articles together.
+
+Well, there are many things in this regard that could be added. But here we want to keep our focus as is. And once again: we have in fact combined full free logic with an axiomatisation of category theory in this paper (as requested by the reviewer to justify a 
+"real" contribution, see above).
+
+% In category theory, limits and co-limits are partial operations as well. It
+% would be interesting to see a similar analysis in FFOL.
+
+That is also on our list of further work.
+
+% A few more detailed remarks:
+
+% - A1 in Axiom Set FS-I: the arrow needs to point both ways (FS write 'iff').
+% This has to be fixed. 
+
+done
+
+- The numbering of the axiom sets with and without FS is
+% confusing. I would like to see FS-I, FS-II .. renamed to FS-A, FS-B or to
+% FS-VII, FS-VIII, ...
+
+we have kept the numbering as is; this is also to keep things synchronised with other existing sources and texts on these experiments
