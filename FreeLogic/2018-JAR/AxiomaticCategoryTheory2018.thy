@@ -1,16 +1,8 @@
-(* Note: Same as AxiomaticCategoryTheory2018 except that full free logic is employed here (i.e.
-with * and definite description) and that the model consisting of only one existing object that 
-was previously constructed by nitpick for the axiom system FS-I (resp. FS-II) by Freyd Scedrov can 
-obviously no longer be obtained. This is because * has now been axiomatized as a 
-distinguished non-existing  object; therefore lines 307-310 (resp. 351-354) have been 
-commented. *) 
+theory AxiomaticCategoryTheory2018 imports Main
+begin declare [[smt_solver = cvc4]]
 
-theory AxiomaticCategoryTheory2018_FullFreeLogic imports Main
-begin 
 typedecl i  --\<open>Type for individuals\<close>
 consts fExistence:: "i\<Rightarrow>bool" ("E") --\<open>Existence/definedness predicate in free logic\<close>
-consts fStar:: "i" ("\<^bold>\<star>")   --\<open>Distinguished symbol for undefinedness\<close>
-axiomatization where fStarAxiom: "\<not>E(\<^bold>\<star>)" --\<open>\<star> is a ``non-existing'' object in D.\<close>
 
 abbreviation fNot ("\<^bold>\<not>") --\<open>Free negation\<close>                          
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
@@ -22,15 +14,8 @@ abbreviation fForall ("\<^bold>\<forall>") --\<open>Free universal quantificatio
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. E x \<longrightarrow> \<Phi> x"   
 abbreviation fForallBinder (binder "\<^bold>\<forall>" [8] 9) --\<open>Binder notation\<close> 
  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall>\<phi>"
-abbreviation fThat:: "(i\<Rightarrow>bool)\<Rightarrow>i" ("\<^bold>I") 
- where "\<^bold>I\<Phi> \<equiv> if \<exists>x. E(x) \<and> \<Phi>(x) \<and> (\<forall>y. (E(y) \<and> \<Phi>(y)) \<longrightarrow> (y = x)) 
-              then THE x. E(x) \<and> \<Phi>(x)
-              else \<^bold>\<star>"
-abbreviation fThatBinder:: "(i\<Rightarrow>bool)\<Rightarrow>i"  (binder "\<^bold>I" [8] 9) 
- where "\<^bold>Ix. \<phi>(x) \<equiv> \<^bold>I(\<phi>)"
 
-text \<open> Further free logic connectives can now be defined as usual.\<close>
-
+ text \<open> Further free logic connectives can now be defined as usual.\<close>
 abbreviation fOr (infixr "\<^bold>\<or>" 11)                                 
  where "\<phi> \<^bold>\<or> \<psi> \<equiv> (\<^bold>\<not>\<phi>) \<^bold>\<rightarrow> \<psi>" 
 abbreviation fAnd (infixr "\<^bold>\<and>" 12)                                
@@ -44,7 +29,6 @@ abbreviation fExists ("\<^bold>\<exists>")
 abbreviation fExistsBinder (binder "\<^bold>\<exists>" [8]9)                     
  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists>\<phi>"
 
-declare [[smt_solver = cvc4]]
 
 section \<open> Preliminaries \<close>
 
@@ -290,10 +274,8 @@ assumes
  A4b: "(x\<^bold>\<cdot>y)\<box> \<cong> ((x\<box>)\<^bold>\<cdot>y)\<box>" and 
   A5: "x\<^bold>\<cdot>(y\<^bold>\<cdot>z) \<cong> (x\<^bold>\<cdot>y)\<^bold>\<cdot>z"
 begin
-(* Commented (see explanation in header of file)   
   lemma True 
-   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-*) 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = none] oops
   lemma InconsistencyAutomatic: "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False" 
@@ -334,10 +316,8 @@ assumes
  A4b: "cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))" and 
   A5: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"  
 begin
-(* Commented (see explanation in header of file)   
   lemma True 
-   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-*) 
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = none] oops
   lemma InconsistencyAutomaticVII: "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False" 

@@ -50,6 +50,7 @@ grestore
 \usepackage{graphicx,tikz,rotating}
 \usepackage[strings]{underscore}
 
+\usepackage{cite}
 
 %\usepackage{authblk}
 
@@ -434,7 +435,8 @@ Free logic (respectively
 inclusive logic) 
 \cite{Lambert60,Scott67,lambert02:_free_logic,sep-logic-free} refers to a class of logic
 formalisms that are free of basic existence assumptions regarding the
-denotation of terms. Remember that terms in e.g. traditional classical
+denotation of terms.\footnote{Calculi for free logic are presented in \cite{sep-logic-free}; see also the references
+therein.} Remember that terms in e.g. traditional classical
 and intuitionistic predicate logics always denote an (existing) object
 in a given (non-empty) domain $\D$, and that $\D$ is also exactly the set the
 quantifiers range over. In free logic these
@@ -1075,14 +1077,19 @@ The stepwise evolution has been described in detail in
 describe some basic modeling decisions for the technical encoding in
 Isabelle/HOL. 
 
-The sources of our experiments, as discussed in
-\cite{ArXiv}, are available at
-\url{http://christoph-benzmueller.de/papers/2017-arXiv.zip}. Note that
-in these sources we added neither the definite description operator
-nor the designated undefined object $\hol{\star}$, since both were not
-required in this particular application. A related Isabelle/HOL
-encoding of the above theory with description has been presented and
-discussed in \cite{ICMS}.
+The sources of our experiments as conducted here are available at
+\url{http://christoph-benzmueller.de/papers/2018-JAR-sources.zip}.
+These sources contain an embedding of full free logic in Isabelle/HOL,
+that is, with $\star$ and definite description
+(cf.~Fig.\ref{pic1}). In \cite{ArXiv}, $\star$ and definite
+description were still avoided; they are in fact not really 
+relevant for the conducted experiments.
+% Note that
+% in these sources we added neither the definite description operator
+% nor the designated undefined object $\hol{\star}$, since both were not
+% required in this particular application. A related Isabelle/HOL
+% encoding of the above theory with description has been presented and
+% discussed in \cite{ICMS}.
 
 Figure \ref{pic1} displays (parts of) the embedding of $\FFOL$ in
 $\HOL$, encoded in Isabelle/HOL, that we have employed in our
@@ -1096,13 +1103,14 @@ An excerpt of these experiments is shown in Fig.~\ref{pic2}.
 
 \begin{figure}[htp]
  \includegraphics[width=\textwidth]{FFOL-Pic1}
- \caption{Isabelle/HOL encoding of $\FFOL$ (without description)\label{pic1}}
+ \caption{Isabelle/HOL encoding of $\FFOL$ (with $\star$ and definite description). \label{pic1}}
 \end{figure}
 
 \begin{figure}[htp]
  \includegraphics[width=\textwidth]{FFOL-Pic2}
  \caption{Encoding of Axioms Set V in Isabelle/HOL utilizing the
-   embedded logic $\FFOL$ \label{pic2}}
+   embedded logic $\FFOL$; Axioms Set V is proven equivalent to Axioms
+   Set IV. \label{pic2}}
 \end{figure}
 
 
@@ -1331,13 +1339,15 @@ implies Axioms Set I. Vice versa, Axioms Set I also implies Axioms Set
 II. This can easily be shown by semantical means on the meta-level.
 
 \subsection{Remark on the Experiments}  \label{sec-remarks-experiments}
-\marginpar{Include remark on SMT calls and the SMT tactic (see Reviewer 1)}
-\marginpar{Include remark on Sledgehammer and how it works (see Reviewer 1)}
+% \marginpar{Include remark on SMT calls and the SMT tactic (see Reviewer 1)}
+% \marginpar{Include remark on Sledgehammer and how it works (see
+%   Reviewer 1)}
+% \marginpar{Add footnote on some issues with Sledgehammer, Z3 and Spass}
 
 All proofs above and all proofs in the rest of this paper (unless
 stated otherwise) have been obtained fully automatically in very
 reasonable time (typically just a few seconds) with the
-Sledgehammer tool in Isabelle/HOL. This tool interfaces to prominent
+Sledgehammer tool in Isabelle/HOL (version Isabelle2017). This tool interfaces to prominent
 first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
 \cite{Z3}, E \cite{E} and Spass \cite{Spass}.  Remotely, also
   provers such as Vampire \cite{Vampire}, or the higher-order provers
@@ -1350,14 +1360,34 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   in Isabelle/HOL were then able to reconstruct the external proofs on
   their own.  This way we obtain a verification of our claims in
   Isabelle/HOL, in which all the proofs have nevertheless been
-  contributed by automated theorem provers. 
+  contributed by automated theorem provers. For further information on
+  the use and functioning of Sledgehammer we refer to the 
+  literature \cite{Sledgehammer,SledgehammerTutorial}.
 
-\marginpar{Remove this part? SMT is now called as an oracle.}
-  However, there are still
-  a few calls of the \textsc{smt}-tactic contained in our document, 
-   which we found are not entirely trivial to replace. In this sense, our
-   Isabelle/HOL verification is modulo the correctness of the \textsc{smt} solvers
-   CVC4 \cite{CVC4} and Z3 \cite{Z3}.
+  In our experiments we have also made use of the Isabelle/HOL's
+  \textsc{smt} method, which ``translates the conjecture and any
+  user-supplied facts to the SMT solvers’ many-sorted first-order
+  logic, invokes a solver, and (depending on the solver) either trusts
+  the result or attempts to reconstruct the proof in Isabelle.''
+  (\cite[p.~5]{Sledgehammer}).\footnote{Technical remark: We have
+    selected CVC4 in our experiments as the default SMT solver, since
+    we did run into errors when working with Z3. These errors can
+    easily be reconstructed in the provided source files when
+    switching back to Z3 as default.}  For quite some time the use of the \textsc{smt}
+  method has been controversially discussed in the Isabelle/HOL
+  community. However, since about a year, the \textsc{smt} method is
+  now even eligible in submissions to the Archive of Formal
+  Proofs. For the work presented here this community internal discussion is 
+  of little relevance, since we could replace all uses of the\textsc{smt} method
+  by alternative proofs (which we avoid in order to keep
+  our formalisation concise).
+
+% \marginpar{Remove this part? SMT is now called as an oracle.}
+%   However, there are still
+%   a few calls of the \textsc{smt}-tactic contained in our document, 
+%    which we found are not entirely trivial to replace. In this sense, our
+%    Isabelle/HOL verification is modulo the correctness of the \textsc{smt} solvers
+%    CVC4 \cite{CVC4} and Z3 \cite{Z3}.
 
 
 
@@ -1416,7 +1446,7 @@ details.
 \multicolumn{2}{c}{Axioms Set FS-I:  Freyd and Scedrov in original notation (with issues)} \\
 %\hline
 \\
-  $A1$ &  $\ex(x \circ y) \longleftarrow (x\Box \cong \Box y)$ \\ 
+  $A1$ &  $\ex(x \circ y) \longleftrightarrow (x\Box \cong \Box y)$ \\ 
   $A2a$ & $((\Box x)\Box) \cong \Box x$ \\ 
   $A2b$ & $\Box (x\Box) \cong \Box x$ \\ 
   $A3a$ & $(\Box x) \circ x \cong x$ \\ 
@@ -1511,7 +1541,8 @@ details.
   generate a model with at least one non-existing object, it claimed
   that there is no such model. However, a model can still be
   constructed if we do not make any assumptions about non-existing
-  objects. In fact, the model presented by Nitpick for this case
+  objects.\footnote{For this we have to inactivate the axiom
+    that postulates that $\star$ is an undefined/non-existing object.} In fact, the model presented by Nitpick for this case
   consists of a single, existing morphism.
 
 However, one can see directly that Axiom $A1$ is problematic
@@ -1742,9 +1773,13 @@ simplified.
 
 Comparisons with other theorem provers for free logic are not possible at this stage, since we are not aware of any other existing systems.
 
-Further work includes the continuation of our formalization studies in
+Further work includes the extension of our work towards an embedding of
+free higher-order logic, the continuation of our formalization studies in
 category theory and the application of free logic to various other
 mathematical domains, including, for example,  projective geometry.
+Regarding extensions towards free  higher-order logic some first steps
+have already been taken \cite{W56,makarenko16:_autom_logik_logik_stufe}.
+
 
 Moreover, as an alternative to always unfolding the mapping from
 $\FFOL$ to $\HOL$, abstract level proof tactics could be provided
