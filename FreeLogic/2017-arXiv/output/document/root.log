@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/MacPorts 2016_4) (preloaded format=pdflatex 2017.1.5)  1 MAY 2017 11:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/MacPorts 2018.47642_2) (preloaded format=pdflatex 2018.7.24)  12 OCT 2018 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -8,14 +8,14 @@ Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/opt/local/share/texmf-texlive/tex/latex/base/size11.clo
 File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
@@ -24,9 +24,9 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 Package: authblk 2001/02/27 1.3 (PWD)
 \affilsep=\skip43
 \@affilsep=\skip44
-\c@Maxaffil=\count87
-\c@authors=\count88
-\c@affil=\count89
+\c@Maxaffil=\count88
+\c@authors=\count89
+\c@affil=\count90
 )
 (/opt/local/share/texmf-texlive/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
@@ -41,7 +41,7 @@ LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
 (/opt/local/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2016/03/10 v2.15b AMS math features
+Package: amsmath 2017/09/02 v2.17a AMS math features
 \@mathmargin=\skip45
 
 For additional information on amsmath, use the `?' option.
@@ -60,30 +60,30 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (/opt/local/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count90
-LaTeX Info: Redefining \frac on input line 199.
-\uproot@=\count91
-\leftroot@=\count92
-LaTeX Info: Redefining \overline on input line 297.
-\classnum@=\count93
-\DOTSCASE@=\count94
-LaTeX Info: Redefining \ldots on input line 394.
-LaTeX Info: Redefining \dots on input line 397.
-LaTeX Info: Redefining \cdots on input line 518.
+\inf@bad=\count91
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count92
+\leftroot@=\count93
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count94
+\DOTSCASE@=\count95
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen105
-LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
-\macc@depth=\count95
-\c@MaxMatrixCols=\count96
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count96
+\c@MaxMatrixCols=\count97
 \dotsspace@=\muskip10
-\c@parentequation=\count97
-\dspbrk@lvl=\count98
+\c@parentequation=\count98
+\dspbrk@lvl=\count99
 \tag@help=\toks15
-\row@=\count99
-\column@=\count100
-\maxfields@=\count101
+\row@=\count100
+\column@=\count101
+\maxfields@=\count102
 \andhelp@=\toks16
 \eqnshift@=\dimen106
 \alignsep@=\dimen107
@@ -95,8 +95,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
 \multlinegap=\skip46
 \multlinetaggap=\skip47
 \mathdisplay@stack=\toks18
-LaTeX Info: Redefining \[ on input line 2739.
-LaTeX Info: Redefining \] on input line 2740.
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 ) (./isabelle.sty
 \isa@parindent=\dimen112
 \isa@parskip=\dimen113
@@ -110,26 +110,18 @@ Including comment 'isatagML' Including comment 'isadelimvisible'
 Including comment 'isatagvisible' Excluding comment 'isadeliminvisible'
 Excluding comment 'isataginvisible') (./isabelletags.sty) (./isabellesym.sty)
 (./pdfsetup.sty (/opt/local/share/texmf-texlive/tex/latex/graphics/color.sty
-Package: color 2016/05/09 v1.1c Standard LaTeX Color (DPC)
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
 (/opt/local/share/texmf-texlive/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package color Info: Driver file: pdftex.def on input line 144.
+Package color Info: Driver file: pdftex.def on input line 147.
 
-(/opt/local/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/opt/local/share/texmf-texlive/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
-(/opt/local/share/texmf-texlive/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count102
+(/opt/local/share/texmf-texlive/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 )))
 (/opt/local/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2016/05/05 v6.83n Hypertext links for LaTeX
+Package: hyperref 2018/02/06 v6.86b Hypertext links for LaTeX
 
 (/opt/local/share/texmf-texlive/tex/generic/oberdiek/hobsub-hyperref.sty
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
@@ -138,14 +130,14 @@ Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
 (/opt/local/share/texmf-texlive/tex/generic/oberdiek/hobsub-generic.sty
 Package: hobsub-generic 2016/05/16 v1.14 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2016/05/16 v1.14 Construct package bundles (HO)
-Package hobsub Info: Skipping package `infwarerr' (already loaded).
-Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
-Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
@@ -153,7 +145,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-Package: pdftexcmds 2016/05/10 v0.21 Utility functions of pdfTeX for LuaTeX (HO
+Package: pdftexcmds 2018/01/30 v0.27 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -171,7 +163,7 @@ Package: hopatch 2016/05/16 v1.3 Wrapper for package hooks (HO)
 Package: xcolor-patch 2016/05/16 xcolor patch
 Package: atveryend 2016/05/16 v1.9 Hooks at the very end of document (HO)
 Package atveryend Info: \enddocument detected (standard20110627).
-Package: atbegshi 2016/05/16 v1.17 At begin shipout hook (HO)
+Package: atbegshi 2016/06/09 v1.18 At begin shipout hook (HO)
 Package: refcount 2016/05/16 v3.5 Data extraction from label references (HO)
 Package: hycolor 2016/05/16 v1.8 Color options for hyperref/bookmark (HO)
 )
@@ -193,53 +185,52 @@ Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 \Hy@pagecounter=\count104
 
 (/opt/local/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2016/05/05 v6.83n Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
 )
 \Hy@SavedSpaceFactor=\count105
 
 (/opt/local/share/texmf-texlive/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 4322.
-
-
-Package hyperref Warning: Option `pagecolor' is not available anymore.
-
-Package hyperref Info: Hyper figures OFF on input line 4446.
-Package hyperref Info: Link nesting OFF on input line 4451.
-Package hyperref Info: Hyper index ON on input line 4454.
-Package hyperref Info: Plain pages OFF on input line 4461.
-Package hyperref Info: Backreferencing OFF on input line 4466.
+Package hyperref Info: Option `colorlinks' set `true' on input line 4383.
+Package hyperref Info: Option `pdfpagelabels' set `true' on input line 4383.
+Package hyperref Info: Hyper figures OFF on input line 4509.
+Package hyperref Info: Link nesting OFF on input line 4514.
+Package hyperref Info: Hyper index ON on input line 4517.
+Package hyperref Info: Plain pages OFF on input line 4524.
+Package hyperref Info: Backreferencing OFF on input line 4529.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4691.
+Package hyperref Info: Bookmarks ON on input line 4762.
 \c@Hy@tempcnt=\count106
+
 (/opt/local/share/texmf-texlive/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5044.
+LaTeX Info: Redefining \url on input line 5115.
 \XeTeXLinkMargin=\dimen115
 \Fld@menulength=\count107
 \Field@Width=\dimen116
 \Fld@charsize=\dimen117
-Package hyperref Info: Hyper figures OFF on input line 6298.
-Package hyperref Info: Link nesting OFF on input line 6303.
-Package hyperref Info: Hyper index ON on input line 6306.
-Package hyperref Info: backreferencing OFF on input line 6313.
-Package hyperref Info: Link coloring ON on input line 6316.
-Package hyperref Info: Link coloring with OCG OFF on input line 6323.
-Package hyperref Info: PDF/A mode OFF on input line 6328.
-LaTeX Info: Redefining \ref on input line 6368.
-LaTeX Info: Redefining \pageref on input line 6372.
+Package hyperref Info: Hyper figures OFF on input line 6369.
+Package hyperref Info: Link nesting OFF on input line 6374.
+Package hyperref Info: Hyper index ON on input line 6377.
+Package hyperref Info: backreferencing OFF on input line 6384.
+Package hyperref Info: Link coloring ON on input line 6387.
+Package hyperref Info: Link coloring with OCG OFF on input line 6394.
+Package hyperref Info: PDF/A mode OFF on input line 6399.
+LaTeX Info: Redefining \ref on input line 6439.
+LaTeX Info: Redefining \pageref on input line 6443.
 \Hy@abspage=\count108
 \c@Item=\count109
 \c@Hfootnote=\count110
 )
-
-Package hyperref Message: Driver (autodetected): hpdftex.
+Package hyperref Info: Driver (autodetected): hpdftex.
 
 (/opt/local/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2016/05/05 v6.83n Hyperref driver for pdfTeX
+File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
 \Fld@listcount=\count111
 \c@bookmark@seq@number=\count112
 
@@ -285,7 +276,7 @@ LaTeX Font Info:    ... okay on input line 39.
 \AtBeginShipoutBox=\box29
 Package hyperref Info: Link coloring ON on input line 39.
  (/opt/local/share/texmf-texlive/tex/latex/hyperref/nameref.sty
-Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/opt/local/share/texmf-texlive/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
@@ -307,25 +298,25 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 ) (./session.tex
 (./AxiomaticCategoryTheory.tex
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 50.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 51.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 50.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 51.
  [1
 
 {/opt/local/var/db/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 120.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 123.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <5> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 120.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 123.
 
-Overfull \hbox (0.16559pt too wide) in paragraph at lines 136--142
+Overfull \hbox (0.16559pt too wide) in paragraph at lines 139--145
 [][]\OT1/cmr/bx/n/10 abbreviation \OT1/cmr/m/it/10 fForall $\OT1/cmr/m/n/10 ($$
 \OMS/cmsy/b/n/10 8 $$\OT1/cmr/m/n/10 )$ --- Free uni-ver-sal quan-tifi-ca-tion 
 guarded by ex-is-tence pred-i-cate \OT1/cmr/m/it/10 E                   [] 
  []
 
 [2]
-Overfull \hbox (0.71509pt too wide) in paragraph at lines 184--189
+Overfull \hbox (0.71509pt too wide) in paragraph at lines 187--192
 \OT1/cmr/m/n/10.95 dled ex-actly as ex-pected: we gen-er-ally may have non-exis
 ting com-po-si-tions \OT1/cmr/m/it/10.95 x$\OMS/cmsy/m/n/10.95 ^^A$\OT1/cmr/m/i
 t/10.95 y \OT1/cmr/m/n/10.95 (i.e. $\OMS/cmsy/b/n/10.95 :$$\OT1/cmr/m/n/10.95 (
@@ -333,37 +324,26 @@ $\OT1/cmr/m/it/10.95 E$\OT1/cmr/m/n/10.95 ($\OT1/cmr/m/it/10.95 x$\OMS/cmsy/m/n
 /10.95 ^^A$\OT1/cmr/m/it/10.95 y$\OT1/cmr/m/n/10.95 )$$)$)
  []
 
-[3]
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ” in font cmr10!
- [4] [5]
+[3] [4] [5]
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <9> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 744.
- [6] [7] [8] [9] [10]
-
-LaTeX Warning: Citation `Freyd16' on page 11 undefined on input line 2063.
-
-[11] [12] [13] [14] [15])) (./root.bbl [16])
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 750.
+ [6] [7] [8] [9] [10] [11] [12] [13] [14] [15])) (./root.bbl
+[16] [17])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
- [17]
+ [18]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
  (./root.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 75.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 75.
 Package rerunfilecheck Info: File `root.out' has not changed.
 (rerunfilecheck)             Checksum: 84B9E7AF05361F3706F112140C6DDB33;626.
-
-
-LaTeX Warning: There were undefined references.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 75.
  ) 
 Here is how much of TeX's memory you used:
- 6296 strings out of 493014
- 89194 string characters out of 6135157
- 188650 words of memory out of 5000000
- 9694 multiletter control sequences out of 15000+600000
+ 6198 strings out of 492649
+ 87643 string characters out of 6131477
+ 190587 words of memory out of 5000000
+ 9940 multiletter control sequences out of 15000+600000
  22011 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  35i,11n,28p,1910b,500s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -371,27 +351,27 @@ Here is how much of TeX's memory you used:
 opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cmextra/cmbsy9.pfb></
 opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></opt/l
 ocal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></opt/local/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/local/share/
-texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-texlive/fon
-ts/type1/public/amsfonts/cm/cmmi9.pfb></opt/local/share/texmf-texlive/fonts/typ
-e1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
-lic/amsfonts/cm/cmr12.pfb></opt/local/share/texmf-texlive/fonts/type1/public/am
-sfonts/cm/cmr17.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts
-/cm/cmr6.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr
-7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb><
-/opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/lo
-cal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/local/s
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share
+/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmmi9.pfb></opt/local/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr12.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmr17.pfb></opt/local/share/texmf-texlive/fonts/type1/public/am
+sfonts/cm/cmr6.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb></
+opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/l
+ocal/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/local/s
 hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/local/share/t
 exmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></opt/local/share/texmf-
 texlive/fonts/type1/public/amsfonts/cm/cmti9.pfb></opt/local/share/texmf-texliv
 e/fonts/type1/public/amsfonts/latxfont/lasy10.pfb></opt/local/share/texmf-texli
 ve/fonts/type1/public/amsfonts/latxfont/lasy9.pfb>
-Output written on root.pdf (17 pages, 296074 bytes).
+Output written on root.pdf (18 pages, 296579 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
- 248 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
+ 301 PDF objects out of 1000 (max. 8388607)
+ 256 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
  97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

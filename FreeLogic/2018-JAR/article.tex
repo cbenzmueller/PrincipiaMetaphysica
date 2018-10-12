@@ -161,7 +161,7 @@ grestore
 
 \def\ar{\shortrightarrow}
 
-\newcommand\map[1]{\hat{#1}}
+\newcommand\map[1]{\widehat{#1}}
 \newcommand\hol[1]{\boldsymbol{#1}}
 \newcommand\lift[1]{\lceil #1 \rceil}
 \newcommand\llift[1]{\dot{#1}}
@@ -189,6 +189,12 @@ grestore
 \def\ex{\E}
 
 
+\newtheorem{thm}{Theorem} 
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{lem}[thm]{Lemma}
+
+
+
 \begin{document}
 
 \title{Automating Free Logic in HOL, with an Experimental Application in Category Theory}
@@ -201,7 +207,7 @@ grestore
 
 \author{Christoph Benzm\"uller  and Dana S. Scott}
 \institute{Christoph Benzm\"uller \at
-   University of Luxembourg, Luxembourg \& Freie Universit\"at Berlin, Berlin, Germany \\
+   Freie Universit\"at Berlin, Berlin, Germany \& University of Luxembourg, Luxembourg\\
 %   Stanford University, CSLI/Cordura Hall, Stanford, CA 94305-4115, U.S. \\
    \email{c.benzmueller@gmail.com} \\
 % \\
@@ -290,7 +296,7 @@ of mathematics and computer science.  Unfortunately, however, modern
 proof assistant systems and automated theorem provers based on
 traditional classical or intuitionistic logics provide rather
 inadequate support for these challenge concepts.  Free logic \cite{Lambert60,Scott67,lambert02:_free_logic,sep-logic-free} offers a
-theoretically appealing solution, but is has been considered as rather
+theoretically appealing solution, but it has been considered as rather
 unsuited towards practical utilization.
 
 
@@ -298,13 +304,16 @@ In the first part of this article (\S2 and \S3) we show how free logic
 can be elegantly ``implemented'' in any theorem proving system for
 classical higher-order logic (HOL) \cite{B5}. The proposed solution
 employs a semantic embedding of free logic in HOL. We present, as an
-example, one implementation of this idea in the mathematical proof
+example, one implementation of this idea in the proof
 assistant Isabelle/HOL \cite{NPW02}. Various state-of-the-art
 first-order and higher-order automated theorem provers and model
 finders are integrated (modulo suitable logic translations) with
 Isabelle via the Sledgehammer tool \cite{Sledgehammer}, so that our
 solution can be utilized, via Isabelle as foreground system, with a
-whole range of other background reasoners. As a result we obtain an
+whole range of other background reasoners, such as SMT solvers and
+first-order and higher-order automated theorem
+provers.\footnote{Cf.~\S\ref{sec-remarks-experiments} for further
+  information.} As a result we obtain an
 elegant and powerful implementation of an interactive and automated
 theorem proving (and model finding) system for free logic.
 
@@ -429,8 +438,8 @@ denotation of terms. Remember that terms in e.g. traditional classical
 and intuitionistic predicate logics always denote an (existing) object
 in a given (non-empty) domain $\D$, and that $\D$ is also exactly the set the
 quantifiers range over. In free logic these
-basic assumption are abolished. Terms do still denote objects in a
-(non-empty) domain $\D$, but a (possibly empty) set $\ex\subseteq \D$ is
+basic assumptions are abolished. Terms do still denote objects in a
+(non-empty) domain $\D$, but a (possibly empty) set $\ex\subset \D$ is
 chosen to characterize the subdomain of ``\emph{existing}'' resp. ``\emph{defined}''
 objects in $\D$. Quantification is
 now restricted to set $\ex$ of existing/defined objects only. 
@@ -454,7 +463,8 @@ The particular notion of free logic as exploited in the remainder of
 this article has been proposed by Scott \cite{Scott67}.  A graphical
 illustration of this notion of free logic is presented in
 Fig.~\ref{fig1}. It
-employs a distinguished undefined object $\star$.  
+employs a distinguished undefined object $\star$.\footnote{The $\star$
+  symbol is not to be confused with any other symbol in Isabelle/HOL.}
 % Free logic (and inclusive logic) has been proposed as an alternative
 % to remedy these shortcomings. It distinguishes between a raw domain of
 % possibly non-existing objects ‹❙D› and a particular subdomain ‹❙E› of ‹❙D›,
@@ -491,7 +501,7 @@ employs a distinguished undefined object $\star$.
 We formally introduce the syntax and semantics of free logic as
 assumed in the remainder of this article. We refer to this logic with $\FFOL$.
 
-\begin{definition}[Syntax of $\FFOL$]
+\begin{defn}[Syntax of $\FFOL$]
   We start with a denumerable set $\V$ of variable symbols, a denumerable set
   $\F$ of $n$-ary function symbols ($n\geq 0$), and a denumerable set
   $\P$ of $n$-ary predicate symbols ($n\geq 0$).
@@ -513,7 +523,7 @@ formula of $\FFOL$,
 \item given a formula $r$ of $\FFOL$, then $\Descr x\lambdot r$ is a
   term of $\FFOL$ (definite  description).
 \end{enumerate}
-\end{definition}
+\end{defn}
 
 Further terms and formulas of $\FFOL$, including various defined notions of
 equality, can be introduced as abbreviations. 
@@ -536,10 +546,10 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 
 
 
-\begin{definition}[Model of $\FFOL$]
+\begin{defn}[Model of $\FFOL$]
   A \emph{model (structure) for $\FFOL$} consists of a quadruple
   $M = \langle D, \ex, I, \star\rangle$, where $D$ is a non-empty raw domain of
-  objects, $\ex\subseteq D$ a possible empty set of existing/defined objects, and $I$ an interpretation function
+  objects, $\ex\subset D$ a possible empty set of existing/defined objects, and $I$ an interpretation function
   mapping $0$-ary function symbols (constants) to defined objects $d\in \ex$, 
  $0$-ary predicate symbols (propositions) to $\True$ or $\False$, 
   $n$-ary function symbols (for $n\geq 1$) to $n$-ary functions
@@ -548,9 +558,9 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
   $D \times \ldots \times D$. $\True$ or $\False$ denote truth and
   felshood respectively. Finally, $\star\in D\setminus \ex$ is a designated
   (non-existing/undefined) object. 
-\end{definition}
+\end{defn}
 
-\begin{definition}[Evaluation Function for $\FFOL$]
+\begin{defn}[Evaluation Function for $\FFOL$]
   The \emph{value} $\| s \|^{M,g}$ of a term or formula $s\in\FFOL$
   in a model $M=\langle D, \ex, I, \star\rangle$ under assignment $g$ 
   defined in the following way:
@@ -595,12 +605,12 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 \end{enumerate}
 \end{description}
 
-\end{definition}
+\end{defn}
  
 
-\begin{definition}[Validity]\label{ffollvalid}
+\begin{defn}[Validity]\label{ffollvalid}
   A formula $s_o$ is \emph{true} in model $M$ under assignment $g$ if and only if
-  $\|s_o\|^{M,g} = T$; this is also denoted as $M,g \models^\FFOL s_o$.  A
+  $\|s_o\|^{M,g} = True$; this is also denoted as $M,g \models^\FFOL s_o$.  A
   formula $s_o$ is called \emph{valid} in $M$, which is denoted as
   $M \models^\FFOL s_o$, if and only if $M,g \models^\FFOL s_o$ for all assignments
   $g$. Finally, a formula $s_o$ is called \emph{valid}, which we
@@ -611,7 +621,7 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
 %   $\Delta$) if and only if there is a model $M$ and an assignment $g$ such that
 %   $M,g \models^\FFOL s_o$ for all $s_o\in \Gamma$ and $M,g \models^\FFOL t_o$ for
 %   at least one $t_o\in \Delta$.
-\end{definition}
+\end{defn}
 
 
 \subsection{Classical Higher-Order Logic}
@@ -633,22 +643,22 @@ and definite description.
 
 
 
-\begin{definition}[Types]\label{holtypes}
+\begin{defn}[Types]\label{holtypes}
   The set $\hol{T}$ of simple types is freely generated from a set of
   basic types $\{\hol{o}, \hol{i}\}$ using the function type
   constructor $\hol{\ar}$. $\hol{o}$ is the type of Booleans and 
   $\hol{i}$ is the type of individuals. We
   may avoid parentheses if the structure of a complex type is clear in context.
-\end{definition}
+\end{defn}
 
-\begin{definition}[Syntax of $\HOL$]\label{holgrammar}
+\begin{defn}[Syntax of $\HOL$]\label{holgrammar}
 The terms of $\HOL$ with primitive equality and
 definite description are defined by the following
 grammar:\footnote{It is well known that we could work with a much smaller set
   of logical connectives, see e.g. \S1.4 of Andrews's overview
   article~\cite{AndrewsSEP}. The choice here closely reflects the
   set of primitive connectives as chosen in higher-order automated theorem provers such
-  as LEO-II \cite{LEO}, Leo-III \cite{Leo-III} and Satallax \cite{Satallax}.}
+  as LEO-II \cite{LEO}, Leo-III \cite{Leo-III}, and Satallax \cite{Satallax}.}
 \begin{align*} 
   \hol{s},\hol{t} \quad ::= \quad & \hol{p_\alpha} \mid \hol{X_\alpha} \mid \hol{(\lam{X_\alpha}
   s_\beta)_{\alpha\ar\beta}} \mid \hol{(s_{\alpha\ar\beta}\,
@@ -677,7 +687,7 @@ $\hol{\Impl}$, $\hol{\equiv}$ and $\hol{\exists}$, can be defined in
 the usual way. For example, $\hol{\Impl}$ can be defined as $\hol{\lam{X_o}\lam{Y_o}
   \neg X \vee Y}$ and $\hol{\wedge}$ as $\hol{\lam{X_o}\lam{Y_o}
   \neg (\neg X \vee \neg Y)}$.
-\end{definition}
+\end{defn}
 
 We assume familiarity with $\lambda$-conversion (e.g. \emph{$\alpha$-renaming} and
 \emph{$\beta\eta$-reduction}) and \emph{$\beta\eta$-normal forms}~\cite{barendregt13book}.
@@ -689,7 +699,7 @@ We assume familiarity with $\lambda$-conversion (e.g. \emph{$\alpha$-renaming} a
   % avoid variable capture.
 
 
-%\begin{definition}\label{homlbetaeta} %\footnote{\textbf{Chris:} Is Def.4 needed at all?}
+%\begin{defn}\label{homlbetaeta} %\footnote{\textbf{Chris:} Is Def.4 needed at all?}
   % Two common relations on terms are given by $\hol{\beta}$-reduction and
   % $\hol{\eta}$-reduction.  A $\hol{\beta}$-redex has the form $\hol{(\lam{X}s)t}$ and
   % $\hol{\beta}$-reduces to $\hol{[t/X]s}$.  An $\hol{\eta}$-redex has the form
@@ -706,29 +716,29 @@ We assume familiarity with $\lambda$-conversion (e.g. \emph{$\alpha$-renaming} a
 % The semantics of $\stt$ is well understood and thoroughly documented
 % in the literature \cite{Henkin50,Andrews72b,Andrews72a,BBK04}; our
 % summary below is adapted from Andrews~\cite{sep-type-theory-church}.
-%\end{definition}
+%\end{defn}
 
 
-%\begin{definition}\label{homlassignment}
+%\begin{defn}\label{homlassignment}
 A \emph{variable assignment} $\hol{g}$ maps
 variables $\hol{X_\alpha}$ to elements in $\hol{D_\alpha}$. $\hol{g[d/W]}$ denotes the
 assignment that is identical to $\hol{g}$, except for variable $\hol{W}$, which is
 now mapped to $\hol{d}$.
-%\end{definition}
+%\end{defn}
 
-\begin{definition}[Frame for \HOL]\label{homlframe}
+\begin{defn}[Frame for \HOL]\label{homlframe}
 A \emph{frame} $\hol{D}$ is a collection $\hol{\{D_\alpha\}_{\alpha\in\entity{T}}}$
 of nonempty sets $\hol{D_\alpha}$, such that $\hol{D_o} = \{\True,\False\}$
 (where, as before, $\True$ and $\False$ denote truth and falsehood).  The
 $\hol{D_{\alpha\ar\beta}}$ are collections of functions mapping
 $\hol{D_\alpha}$ into $\hol{D_\beta}$. 
-\end{definition}
+\end{defn}
 
 
 
 
 
-\begin{definition}[Model for \HOL]\label{holmodel}
+\begin{defn}[Model for \HOL]\label{holmodel}
   A \emph{model (structure)} for \HOL is a tuple $\hol{M}=\hol{\langle D, I \rangle}$, where
   $\hol{D}$ is a frame, and $\hol{I}$ is a family of typed interpretation
   functions mapping constant symbols $\hol{p_\alpha}$ to appropriate
@@ -736,10 +746,10 @@ $\hol{D_\alpha}$ into $\hol{D_\beta}$.
   (the logical connectives $\hol{\neg}$, $\hol{\vee}$, and $\hol{\forall}$ are always
   given the standard denotations, see below).  Moreover, we assume that the domains
   $\hol{D_{\alpha\ar\alpha\ar o}}$ contain the respective identity relations.
-\end{definition}
+\end{defn}
 
 
-\begin{definition}[Evaluation Function for \HOL]\label{holvalue}
+\begin{defn}[Evaluation Function for \HOL]\label{holvalue}
   The \emph{value} $\hol{\| s_\alpha\|^{M,g}}$ of a \HOL term
   $\hol{s_\alpha}$ on a model $\hol{M}=\hol{\langle D, I \rangle}$ under assignment $\hol{g}$ is an element $\hol{d}\in \hol{D_\alpha}$
   defined in the following way:
@@ -766,10 +776,10 @@ otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
     s_o))_o\|^{M,g}} = \hol{e}$ for an arbitrary element $\hol{e}\in \hol{D_{\alpha}}$
 %\item $\|(\Box_{o\ar o}\, s_o)_o\|^{M,g,w} = T$ iff for all $v \in W$ with $w R v$ we have  $\|s_o\|^{M,g,v}  = T$
 \end{enumerate}
-\end{definition}
+\end{defn}
 
 
-\begin{definition}[Standard and Henkin models]\label{homlhenkinmodel}
+\begin{defn}[Standard and Henkin models]\label{homlhenkinmodel}
  A model $\hol{M}=\hol{\langle D, I \rangle}$ is called a
  \emph{standard model} if and only if for all $\hol{\alpha,\beta}\in \hol{T}$ we have
  $\hol{D_{\alpha\ar\beta}} = \{ f \mid f : \hol{D_\alpha} \longrightarrow \hol{D_\beta}\}$. In a \emph{Henkin model} function spaces are not necessarily
@@ -778,13 +788,13 @@ otherwise  $\hol{\|(\Descr_{(\alpha\ar o)\ar \alpha}(\lam{X_\alpha}
  $\hol{\alpha,\beta}\in \hol{T}$) and that the valuation function 
  $\hol{\|\cdot\|^{M,g}}$ from above is total (i.e., every term denotes). Any standard model is obviously
  also a Henkin model. 
-\end{definition}
+\end{defn}
 
 We consider Henkin models in the remainder. For more details on Henkin
 semantics, its proof theory and examples of sound and complete calculi
 we refer to the literature (e.g. \cite{J6,J18}).
 
-\begin{definition}[Validity]\label{homlvalid}
+\begin{defn}[Validity]\label{homlvalid}
 A formula $\hol{s_o}$ is \emph{true} in model $M$ 
 under assignment $\hol{g}$ if and only if $\hol{\|s_o\|^{M,g}} = {\True}$; this is also denoted
 as $\hol{M,g \models^\HOL s_o}$.  A formula $\hol{s_o}$ is called \emph{valid} in
@@ -795,7 +805,7 @@ all $\hol{M}$.
 % Moreover, we write $\hol{\Gamma\models^\HOL \Delta}$ (for sets of
 % formulas $\hol{\Gamma}$ and $\hol{\Delta}$) if and only if there is a model $\hol{M}$ and an assignment $\hol{g}$ such that  
 % $\hol{M,g \models^\HOL s_o}$ for all $\hol{s_o}\in \hol{\Gamma}$ and $\hol{M,g \models^\HOL t_o}$ for at least one $\hol{t_o}\in \hol{\Delta}$.
-\end{definition}
+\end{defn}
 
 
 
@@ -823,14 +833,14 @@ predicate $\hol{\ex}$ of type $\hol{ i\ar o}$. Hence, we assume in the
 remainder that a respective uninterpreted constant symbol
 $\hol{\ex_{i\ar o}}$
 is given in the signature of $\HOL$. Moreover, we assume that an
-uninterpreted constant symbol $\hol{\star}$ of type $\hol{i}$ be in the
+uninterpreted constant symbol $\hol{\star}$ of type $\hol{i}$ is in the
 signature of $\HOL$. Finally, we assume that $\hol{\|E \star_i\|^{M,g}=F}$ for
 all $\hol{M,g}$, i.e. that the element denoted by $\hol{\star_i}$ is not
 an element of the domain of existing objects denoted by
 $\hol{\ex_{i\ar o}}$ (technically this can be achieved by postulating
 a respective axiom).
 
-\begin{definition}[Embedding of $\FFOL$ in \HOL]
+\begin{defn}[Embedding of $\FFOL$ in \HOL]
 Given a formula $s \in \FFOL$. We map $s$ to a corresponding term $\map{s}$ of \HOL. This
 mapping is defined as follows:
 
@@ -866,7 +876,7 @@ $$\hol{\lam{S_o}\lam{X_i}\lam{Y_i} \Descr Z_i\lambdot (S_o \wedge Z = X) \vee
 
 % Further connectives can be introduced as usual, e.g. $r \vee  s := \neg r
 % \Impl s$, $r \wedge  s := \neg (\neg r \vee \neg s)$, 
-\end{definition}
+\end{defn}
 
 
 
@@ -883,7 +893,7 @@ employed.
 This mapping utilizes a mapping of $FFOL$ variable
 assignments $g$ into corresponding $\HOL$ variable assignments
 $\hol{g}$ (remember that $\FFOL$  domains $D$ are  identified with 
-\HOL domains $\hol{D_i}$, i.e. $\map{D} = \hol{D_i}$): Let $g$ be a variable assignment for
+\HOL domains $\hol{D_i}$, i.e. $\map{D} = \hol{D_i}$): let $g$ be a variable assignment for
   $\FFOL$.  Then $\map{g}:
   \map{V}\mapsto \map{D}$ for $\HOL$ is defined such that
   $\map{g}(\hol{X_i}) = \map{g}(\map{x}) = g(x)$ 
@@ -893,7 +903,7 @@ variables by choosing
 $\map{g}(\hol{Y_\alpha}) = \hol{d}\in \hol{D_\alpha}$ arbitrary 
 whenever $\hol{Y_\alpha} \notin \map{V}$.
 
-\begin{definition}[Henkin model $\map{M}$ for $\FFOL$ model $M$]\label{def:hm}
+\begin{defn}[Henkin model $\map{M}$ for $\FFOL$ model $M$]\label{def:hm}
 Given a $\FFOL$ model $M = \langle D, \ex, I, \star\rangle$. The Henkin
 model $\map{M} = \hol{\langle \{D_\alpha\}_{\alpha \in {T}},I \rangle}$ for
 $M$ is defined as follows: 
@@ -956,10 +966,10 @@ model.\footnote{The fixings introduced in $\map{M}$
 % k_{u^n\typearrow\proptype}$, $I
 % f_{i\typearrow\proptype\typearrow\proptype}$ and $I
 % \exInW_{i\typearrow\utype\typearrow o}$ as characterized next. Interpretation $I$ is constructed as follows:
-\end{definition}
+\end{defn}
 
 
-\begin{lemma}\label{lemma:1} \sloppy
+\begin{lem}\label{lemma:1} \sloppy
   Let $\map{M}$ be a Henkin model for $\FFOL$ model $M$. For all
   terms and formulas $s\in \FFOL$ and variable assignments $g$ we have $\| s
   \|^{M,g} = \| \map s \|^{\map M, \map g}$.
@@ -985,7 +995,7 @@ model.\footnote{The fixings introduced in $\map{M}$
   which $r$ holds) or there is no such $d\in \ex$. In the former case
   we have $\| \Descr x\lambdot r \|^{M,g} = d \in \ex$. By the
   definition of the embedding $\map{\cdot}$, definition of $\map M$ and
-  $\map g$, $\lambda$-conversion, induction hypothesis and a series of tedious evaluation
+  $\map g$, $\lambda$-conversion, induction hypothesis and a series of evaluation
   steps in \HOL we get
   $\| \map{\Descr x\lambdot r} \|^{\map M, \map g} = \| \hol{\Descr
     x\lambdot} \map{r} \|^{\map M, \map g} = d \in \ex$
@@ -998,10 +1008,10 @@ model.\footnote{The fixings introduced in $\map{M}$
   \star$. The remaining cases are similar (actually simpler) and left
   to the reader. $\Box$
 \end{proof}
-\end{lemma}
+\end{lem}
 
 
-\begin{theorem}[Soundness and Completeness of the Embedding]\ \\
+\begin{thm}[Soundness and Completeness of the Embedding]\ \\
 For all formulas $s\in FFOL$ we have
  $\models^\FFOL s \text{ if and only if }  \models^\HOL \map{s}$.
 
@@ -1016,7 +1026,7 @@ For all formulas $s\in FFOL$ we have
  (Completeness, $\rightarrow$) Analogous to above by contraposition
  and Lemma \ref{lemma:1}.
 \end{proof}
-\end{theorem} 
+\end{thm} 
 
 % In this framework partial and total functions are modelled as follows: 
 % A function $f$ is total if and only if for all $x$ we have $\ex x \imp \ex(f x)$ 
@@ -1031,7 +1041,14 @@ The above results enable the employment of any theorem prover that
 supports $\HOL$ with definite description to reason with $\FFOL$,
 including TPTP THF \cite{J22} compliant systems such as Satallax,
 Nitpick, LEO-II and Leo-III. Alternatively, this theory can be encoded
-in interactive proof assistants, such as Isabelle/HOL. 
+in interactive proof assistants such as Isabelle/HOL, which is the
+option we have chosen here. We thereby significantly benefit
+from the powerful proof automation means as provided in Isabelle/HOL,
+in particular, from the integrated model finder Nitpick, the SMT
+solvers CVC4~\cite{CVC4} and Z3~\cite{Z3}, and the first-order theorem
+provers E~\cite{E} and Spass~\cite{Spass}.
+
+
   % \footnote{An example of respective abstract level proof
   % tactics in the context of a semantical embedding of an
   % hyperintensional higher-order modal logic in $\HOL$ can be found at:
@@ -1306,12 +1323,17 @@ ${\dom}$ and ${\cod}$ are total functions, as intended:
 $$E x \imp E(\dom x) \quad (\text{by } D_{ii}, S_{ii})$$
 $$E x \imp E(\cod x) \quad (\text{by } C_{ii}, S_{ii}) $$
 
-The proofs are found by Sledgehammer and verified in Isabelle/HOL. Using Sledgehammer we have also
-shown that Axioms Set II implies Axioms Set I. Vice versa, Axioms Set I
-also implies Axioms Set II. This can easily 
-be shown by semantical means on the meta-level.
+The proofs are found by the Sledgehammer tool and automatically
+reconstructed in Isabelle/HOL. Further information on these
+experiments are provided in \S\ref{sec-remarks-experiments}
+below. Using Sledgehammer we have also shown that Axioms Set II
+implies Axioms Set I. Vice versa, Axioms Set I also implies Axioms Set
+II. This can easily be shown by semantical means on the meta-level.
 
-\subsection{Remark on the Experiments}
+\subsection{Remark on the Experiments}  \label{sec-remarks-experiments}
+\marginpar{Include remark on SMT calls and the SMT tactic (see Reviewer 1)}
+\marginpar{Include remark on Sledgehammer and how it works (see Reviewer 1)}
+
 All proofs above and all proofs in the rest of this paper (unless
 stated otherwise) have been obtained fully automatically in very
 reasonable time (typically just a few seconds) with the
@@ -1328,11 +1350,16 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   in Isabelle/HOL were then able to reconstruct the external proofs on
   their own.  This way we obtain a verification of our claims in
   Isabelle/HOL, in which all the proofs have nevertheless been
-  contributed by automated theorem provers. However, there are still
+  contributed by automated theorem provers. 
+
+\marginpar{Remove this part? SMT is now called as an oracle.}
+  However, there are still
   a few calls of the \textsc{smt}-tactic contained in our document, 
    which we found are not entirely trivial to replace. In this sense, our
    Isabelle/HOL verification is modulo the correctness of the \textsc{smt} solvers
    CVC4 \cite{CVC4} and Z3 \cite{Z3}.
+
+
 
 
 
@@ -1512,7 +1539,7 @@ The provers identify the axioms $A1$,
  $A2a$ and $A3a$ to cause the problem under this assumption. A
  corresponding  human-intuitive proof argument is as follows:
  
- Let $a\in D$ be an undefined object, that is, assume $¬E a$.  By
+ Let $a\in D$ be an undefined object, that is, assume $\neg E a$.  By
  instantiating axiom $A3a$ with $a$ we have $a \comp (\dom a) \cong a$.  From
  this and definition of $\cong$ we know that $a \comp (\dom a)$ is not
  defined. This is easy to see, since if $a \comp (\dom a)$ were defined, we

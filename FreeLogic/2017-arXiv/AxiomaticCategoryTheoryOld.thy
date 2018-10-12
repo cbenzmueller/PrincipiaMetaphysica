@@ -569,8 +569,8 @@ assumes
  S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
  S3: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
  S4: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- S5: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" and
- S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
+ S5: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" and
+ S6: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x"
 (*<*)
 begin
 (*>*)
@@ -592,9 +592,9 @@ text {* The Axiom Set IV is implied. The only interesting cases are
   lemma A\<^sub>i\<^sub>vFromV: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
     using S4 by blast
   lemma C\<^sub>i\<^sub>vFromV: "(cod y)\<cdot>y \<cong> y" 
-    using S6 by blast
-  lemma D\<^sub>i\<^sub>vFromV: "x\<cdot>(dom x) \<cong> x" 
     using S5 by blast
+  lemma D\<^sub>i\<^sub>vFromV: "x\<cdot>(dom x) \<cong> x" 
+    using S6 by blast
 (*<*)
 end
 (*>*)
@@ -621,11 +621,10 @@ begin
     using E\<^sub>i\<^sub>v by metis
   lemma S4FromV:  "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
     using A\<^sub>i\<^sub>v by blast
-  lemma S5FromV:  "x\<cdot>(dom x) \<cong> x" 
-    using D\<^sub>i\<^sub>v by blast
-  lemma S6FromV:  "(cod y)\<cdot>y \<cong> y" 
+  lemma S5FromV:  "(cod y)\<cdot>y \<cong> y" 
     using C\<^sub>i\<^sub>v by blast
-
+  lemma S6FromV:  "x\<cdot>(dom x) \<cong> x" 
+    using D\<^sub>i\<^sub>v by blast
 (*<*)
 end
 (*>*)

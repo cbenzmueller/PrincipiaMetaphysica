@@ -1,48 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2016/MacPorts 2016_4)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99d (TeX Live 2018/MacPorts 2018.47642_2)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: root.aux
 The style file: plain.bst
 Database file #1: root.bib
-Warning--I didn't find a database entry for "Freyd16"
-You've used 15 entries,
+You've used 16 entries,
             2118 wiz_defined-function locations,
-            632 strings with 7652 characters,
-and the built_in function-call counts, 6224 in all, are:
-= -- 633
-> -- 239
+            635 strings with 7873 characters,
+and the built_in function-call counts, 6432 in all, are:
+= -- 652
+> -- 246
 < -- 19
-+ -- 94
-- -- 76
-* -- 425
-:= -- 942
-add.period$ -- 57
-call.type$ -- 15
-change.case$ -- 77
++ -- 97
+- -- 78
+* -- 433
+:= -- 976
+add.period$ -- 60
+call.type$ -- 16
+change.case$ -- 81
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 280
-empty$ -- 520
-format.name$ -- 76
-if$ -- 1407
+cite$ -- 16
+duplicate$ -- 287
+empty$ -- 542
+format.name$ -- 78
+if$ -- 1452
 int.to.chr$ -- 0
-int.to.str$ -- 15
+int.to.str$ -- 16
 missing$ -- 16
-newline$ -- 79
-num.names$ -- 36
-pop$ -- 98
+newline$ -- 84
+num.names$ -- 38
+pop$ -- 107
 preamble$ -- 1
-purify$ -- 64
+purify$ -- 67
 quote$ -- 0
-skip$ -- 204
+skip$ -- 211
 stack$ -- 0
-substring$ -- 381
-swap$ -- 116
+substring$ -- 386
+swap$ -- 117
 text.length$ -- 19
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 60
 warning$ -- 0
-while$ -- 61
-width$ -- 17
-write$ -- 186
-(There was 1 warning)
+while$ -- 63
+width$ -- 18
+write$ -- 196

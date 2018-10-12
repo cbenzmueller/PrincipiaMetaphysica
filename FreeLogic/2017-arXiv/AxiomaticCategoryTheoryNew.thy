@@ -2,13 +2,8 @@
 theory AxiomaticCategoryTheory imports Main
 begin 
 declare [[smt_oracle]]
-(*
-declare [[ smt_timeout = 200 ]]
-declare [[ z3_options = "-memory:1500" ]]
-*)
-(*>*)
 
-text{*
+text \<open>
 \begin{abstract}
 Starting from a generalization of the standard axioms for a monoid we present a stepwise development 
 of various, mutually equivalent foundational axiom systems for category theory. 
@@ -22,11 +17,11 @@ a technical issue (when encoded in free logic): either all operations, e.g. morp
 are total or their axiom system is inconsistent. The repair for this problem is quite 
 straightforward, however. 
 \end{abstract}
-*}
+\<close>
 
-section {* Introduction *}
+section \<open> Introduction \<close>
 
-text {* 
+text \<open> 
 We present a stepwise development of axiom systems for category theory by generalizing 
 the standard axioms for a monoid to a partial composition operation. Our purpose is not to make or
 claim any contribution to category theory but rather to show how formalizations involving the kind 
@@ -75,12 +70,12 @@ presented here has been generated directly from the verified source files mentio
 We also note that once the proofs have been mechanically checked, they are generally easy 
 to find by hand using paper and pencil.
 
-*}
+\<close>
 
 
-section {* Embedding of Free Logic in HOL *}
+section \<open> Embedding of Free Logic in HOL \<close>
 
-text {* Free logic models partial functions as total functions over a ``raw domain'' @{text "D"}. 
+text \<open> Free logic models partial functions as total functions over a ``raw domain'' @{text "D"}. 
 A subset @{text "E"} of @{text "D"} is used to characterize the subdomain of ``existing'' objects;
  cf. @{cite "Scott67"} for further details.
 
@@ -97,24 +92,24 @@ approach. However, the definite description is not required for purposes of this
 it. Note that the connectives and quantifiers of free logic are displayed below in bold-face fonts. 
 Normal,  non-bold-face connectives and quantifiers in contrast belong to the meta-logic HOL. The 
 prefix ``f'', e.g. in @{text "fNot"}, stands for ``free''. 
-*}
+\<close>
 
-typedecl i -- {* Type for individuals *}
-consts fExistence:: "i\<Rightarrow>bool" ("E") --{* Existence/definedness predicate in free logic *}
+typedecl i -- \<open> Type for individuals \<close>
+consts fExistence:: "i\<Rightarrow>bool" ("E") --\<open> Existence/definedness predicate in free logic \<close>
 
-abbreviation fNot ("\<^bold>\<not>") --{* Free negation *}                          
+abbreviation fNot ("\<^bold>\<not>") --\<open> Free negation \<close>                          
  where "\<^bold>\<not>\<phi> \<equiv> \<not>\<phi>"     
-abbreviation fImplies (infixr "\<^bold>\<rightarrow>" 13) --{* Free implication *}        
+abbreviation fImplies (infixr "\<^bold>\<rightarrow>" 13) --\<open> Free implication \<close>        
  where "\<phi> \<^bold>\<rightarrow> \<psi> \<equiv> \<phi> \<longrightarrow> \<psi>"
-abbreviation fIdentity (infixr "\<^bold>=" 13) --{* Free identity *}        
+abbreviation fIdentity (infixr "\<^bold>=" 13) --\<open> Free identity \<close>        
  where "l \<^bold>= r \<equiv> l = r"
-abbreviation fForall ("\<^bold>\<forall>") --{* Free universal quantification guarded by existence 
-                                predicate @{text "E"}*}                  
+abbreviation fForall ("\<^bold>\<forall>") --\<open> Free universal quantification guarded by existence 
+                                predicate @{text "E"}\<close>                  
  where "\<^bold>\<forall>\<Phi> \<equiv> \<forall>x. E x \<longrightarrow> \<Phi> x"   
-abbreviation fForallBinder (binder "\<^bold>\<forall>" [8] 9) --{* Binder notation *} 
+abbreviation fForallBinder (binder "\<^bold>\<forall>" [8] 9) --\<open> Binder notation \<close> 
  where "\<^bold>\<forall>x. \<phi> x \<equiv> \<^bold>\<forall>\<phi>"
 
-text {* Further free logic connectives can now be defined as usual. *}
+text \<open> Further free logic connectives can now be defined as usual. \<close>
 
 abbreviation fOr (infixr "\<^bold>\<or>" 11)                                 
  where "\<phi> \<^bold>\<or> \<psi> \<equiv> (\<^bold>\<not>\<phi>) \<^bold>\<rightarrow> \<psi>" 
@@ -129,21 +124,21 @@ abbreviation fExists ("\<^bold>\<exists>")
 abbreviation fExistsBinder (binder "\<^bold>\<exists>" [8]9)                     
  where "\<^bold>\<exists>x. \<phi> x \<equiv> \<^bold>\<exists>\<phi>"
 
-text {* In this framework partial and total functions are modelled as follows: 
+text \<open> In this framework partial and total functions are modelled as follows: 
 A function @{text "f"} is total if and only if for all @{text "x"} we have @{text "E x \<^bold>\<rightarrow> E(f x)"}. 
 For partial functions @{text "f"} we may have some @{text "x"} such that @{text "E x"} but not
  @{text "E(f x)"}. A function @{text "f"} is strict  if  and only if for all @{text "x"} 
 we have @{text "E(f x) \<^bold>\<rightarrow> E x"}.
-*} 
+\<close> 
 
-section {* Preliminaries *}
+section \<open> Preliminaries \<close>
 
-text {* Morphisms in the category are objects of type @{text "i"}. We introduce three partial 
+text \<open> Morphisms in the category are objects of type @{text "i"}. We introduce three partial 
 functions, @{text "dom"} (domain), @{text "cod"} (codomain), and @{text "\<cdot>"} (morphism composition). 
 Partiality of composition is handled exactly as expected: we generally may have 
 non-existing compositions @{text "x\<cdot>y"} (i.e.~@{text "\<^bold>\<not>(E(x\<cdot>y))"}) for some existing  
 morphisms @{text "x"} and @{text "y"} (i.e.~@{text "E x"} and @{text "E y"}).
- *}
+ \<close>
 
 
 consts 
@@ -151,57 +146,57 @@ consts
  codomain:: "i\<Rightarrow>i" ("cod _" [110] 111) 
  composition:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<cdot>" 110)
 
-text {* For composition @{text "\<cdot>"} we assume set-theoretical composition here (i.e., functional 
+text \<open> For composition @{text "\<cdot>"} we assume set-theoretical composition here (i.e., functional 
 composition from right to left). This means that
 \[@{text "(cod x)\<cdot>(x\<cdot>(dom x)) \<cong> x"}\] and that \[@{text "(x\<cdot>y)a \<cong> x(y a)"}\quad \text{when}\quad
 @{text "dom x \<simeq> cod y"}\] 
 The equality symbol @{text "\<cong>"} denotes Kleene equality and it
 is defined as follows (where @{text "="} is identity on all objects, existing or non-existing, 
-of type @{text "i"}): *}
+of type @{text "i"}): \<close>
 
-abbreviation KlEq (infixr "\<cong>" 56) -- {* Kleene equality *}
+abbreviation KlEq (infixr "\<cong>" 56) -- \<open> Kleene equality \<close>
  where "x \<cong> y \<equiv> (E x \<^bold>\<or> E y) \<^bold>\<rightarrow> x \<^bold>= y"  
 
-text {* 
+text \<open> 
 Reasoning tools in Isabelle quickly confirm that @{text "\<cong>"} is an equivalence relation. 
 But existing identity @{text "\<simeq>"}, in contrast, is only symmetric and transitive, and lacks 
 reflexivity. It is defined as:
-*}
+\<close>
 
-abbreviation ExId (infixr "\<simeq>" 56) -- {* Existing identity *}  
+abbreviation ExId (infixr "\<simeq>" 56) -- \<open> Existing identity \<close>  
  where "x \<simeq> y \<equiv> E x \<^bold>\<and> E y \<^bold>\<and> x \<^bold>= y"
 
-text {* We have: *}
+text \<open> We have: \<close>
 
 lemma "x \<cong> x \<^bold>\<and> (x \<cong> y \<^bold>\<rightarrow> y \<cong> x) \<^bold>\<and> ((x \<cong> y \<^bold>\<and> y \<cong> z) \<^bold>\<rightarrow> x \<cong> z)" 
   by blast
-lemma "x \<simeq> x" -- {* This does not hold; Nitpick finds a countermodel.\footnote{The keyword
+lemma "x \<simeq> x" -- \<open> This does not hold; Nitpick finds a countermodel.\footnote{The keyword
   ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) 
   conjecture is then not made available for further use. The simplest countermodel for the 
-  conjecture given here consists of single, non-existing element. } *}
+  conjecture given here consists of single, non-existing element. } \<close>
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops  
 lemma " (x \<simeq> y \<^bold>\<rightarrow> y \<simeq> x) \<^bold>\<and> ((x \<simeq> y \<^bold>\<and> y \<simeq> z) \<^bold>\<rightarrow> x \<simeq> z)" 
   by blast
 lemma "x \<simeq> y \<^bold>\<rightarrow> x \<cong> y" 
   by simp
-lemma "x \<simeq> y \<^bold>\<leftarrow> x \<cong> y" -- {* Nitpick finds a countermodel *}
+lemma "x \<simeq> y \<^bold>\<leftarrow> x \<cong> y" -- \<open> Nitpick finds a countermodel \<close>
   nitpick [user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* 
+text \<open> 
 Next, we define the identity morphism predicate @{text "I"} as follows: 
-*}
+\<close>
 
 abbreviation I where "I i \<equiv> (\<^bold>\<forall>x. E(i\<cdot>x) \<^bold>\<rightarrow> i\<cdot>x \<cong> x) \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>i) \<^bold>\<rightarrow> x\<cdot>i \<cong> x)"
 
-text {* This definition was suggested by an exercise in @{cite "FreydScedrov90"} on p.~4.
+text \<open> This definition was suggested by an exercise in @{cite "FreydScedrov90"} on p.~4.
 In earlier experiments we used a longer definition which can be proved equivalent on the basis
 of the other axioms. For monoids, where composition is total, @{text "I i"} means @{text "i"} is
 a two-sided identity — and such are unique. For categories the property is much weaker.
-*}
+\<close>
  
-section {* Axiom Set I *}
+section \<open> Axiom Set I \<close>
 
-text {*  Axiom Set I is our most basic axiom set for category theory generalizing the 
+text \<open>  Axiom Set I is our most basic axiom set for category theory generalizing the 
 axioms for a monoid to a partial composition operation. Remember that a monoid is an 
 algebraic structure $(S,\circ)$, where $\circ$ is a binary operator on set $S$, 
 satisfying the following properties:
@@ -220,43 +215,43 @@ addressed in the last two axioms. The notions of @{text "dom"} (Domain) and @{te
 abstract from their common meaning in the context of sets. In category theory we
 work with just a single type of objects (the type @{text "i"} of morphisms) and therefore 
 identity morphisms are employed to suitably characterize their meanings. 
-*}
+\<close>
 
 (*<*)
-context -- {* Axiom Set I *}
+locale Axiom_Set_I =
 assumes 
 (*>*)
- S\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
- E\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
- A\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y" and
- D\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x" 
+ S\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
+ E\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
+ A\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y" and
+ D\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x" 
 (*<*) 
 begin
 (*>*)
 
 
-text {* Nitpick confirms that this axiom set is consistent. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> Nitpick confirms that this axiom set is consistent. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
   
 
-text {* Even if we assume there are non-existing objects we get consistency (which is e.g. not the
-case for Axiom Set VII below). *}  
-lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model\footnote{To display the models 
+text \<open> Even if we assume there are non-existing objects we get consistency (which is e.g. not the
+case for Axiom Set VII below). \<close>  
+lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- \<open> Nitpick finds a model\footnote{To display the models 
  or countermodels from Nitpick in the Isabelle/HOL system interface simply put the mouse on the 
- expression "nitpick".}  *} 
+ expression "nitpick".}  \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* We may also assume an existing and a non-existing object and still get consistency. *}  
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+text \<open> We may also assume an existing and a non-existing object and still get consistency. \<close>  
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* The left-to-right direction of existence axiom @{text "E\<^sub>i"} is implied. *}
+text \<open> The left-to-right direction of existence axiom @{text "E\<^sub>i"} is implied. \<close>
   lemma E\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
     by (metis A\<^sub>i C\<^sub>i S\<^sub>i)
 
-text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique. The proofs can be 
+text \<open> We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique. The proofs can be 
    found automatically by Sledgehammer.\footnote{In our initial experiments proof reconstruction 
    of the external ATP proofs failed in Isabelle/HOL. The SMT reasoner Z3 @{cite "Z3"}, which is 
    employed in the @{text "smt"} tactic by default, was too weak. Therefore we first introduced 
@@ -266,7 +261,7 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
    tactic (this can be done by stating ``@{text "declare [[ smt_solver = cvc4]]"}'' in the 
    source document).
    In the latest version of the proof document we now suitably switch between the two SMT solvers 
-   to obtain best results.} *}
+   to obtain best results.} \<close>
 (* lemma L1i: "E y \<^bold>\<rightarrow> (\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<forall>j. E j \<^bold>\<rightarrow> ((I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j)))" 
     by (smt A\<^sub>i C\<^sub>i S\<^sub>i) 
   lemma L2i: "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<forall>j. E j \<^bold>\<rightarrow> ((I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j))" 
@@ -274,32 +269,32 @@ text {* We can prove that the @{text "i"} in axiom @{text "C\<^sub>i"} is unique
   lemma UC\<^sub>i: "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<^bold>\<forall>j.(I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j)" 
     by (smt A\<^sub>i C\<^sub>i S\<^sub>i)  
 
- text {* Analogously, the provers quickly show that @{text "j"} in axiom @{text "D"} is unique. *}
+ text \<open> Analogously, the provers quickly show that @{text "j"} in axiom @{text "D"} is unique. \<close>
   lemma UD\<^sub>i: "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x \<^bold>\<and> (\<^bold>\<forall>i.(I i \<^bold>\<and> x\<cdot>i \<cong> x) \<^bold>\<rightarrow> j \<cong> i)"  
     by (smt A\<^sub>i D\<^sub>i S\<^sub>i) 
 
- text {* However, the @{text "i"} and @{text "j"} need not be equal. Using the Skolem 
+ text \<open> However, the @{text "i"} and @{text "j"} need not be equal. Using the Skolem 
    function symbols @{text "C"} and @{text "D"} this can be encoded in
-   our formalization as follows: *}
+   our formalization as follows: \<close>
  lemma "(\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D \<^bold>= C))"
-   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- {* Nitpick finds a model. *}
-   text {* Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two 
+   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- \<open> Nitpick finds a model. \<close>
+   text \<open> Nitpick finds a model for cardinality @{text "i = 2"}. This model consists of two 
    non-existing objects @{text "i\<^sub>1"} and @{text "i\<^sub>2"}. @{text "C"} maps both @{text "i\<^sub>1"} and 
    @{text "i\<^sub>2"} to @{text "i\<^sub>2"}. @{text "D"} maps @{text "i\<^sub>1"} to @{text "i\<^sub>2"}, and vice versa. The 
    composition @{text "i\<^sub>2\<cdot>i\<^sub>2"} is mapped to @{text "i\<^sub>2"}. All other composition pairs are mapped 
-   to @{text "i\<^sub>1"}. *}
+   to @{text "i\<^sub>1"}. \<close>
 (* Skolem constants:
     Cod = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>2)
     Dom = (\<lambda>x. _)(i\<^sub>1 := i\<^sub>2, i\<^sub>2 := i\<^sub>1)
   Constants:
     op \<cdot> = (\<lambda>x. _)((i\<^sub>1, i\<^sub>1) := i\<^sub>1, (i\<^sub>1, i\<^sub>2) := i\<^sub>1, (i\<^sub>2, i\<^sub>1) := i\<^sub>1, (i\<^sub>2, i\<^sub>2) := i\<^sub>2)
     E = (\<lambda>x. _)(i\<^sub>1 := False, i\<^sub>2 := False) *)
- text {* Even if we require at least one existing object Nitpick still finds a model: *}
+ text \<open> Even if we require at least one existing object Nitpick still finds a model: \<close>
  lemma "(\<exists>x. E x) \<^bold>\<and> (\<exists>C D. (\<^bold>\<forall>y. I (C y) \<^bold>\<and> (C y)\<cdot>y \<cong> y) \<^bold>\<and> (\<^bold>\<forall>x. I (D x) \<^bold>\<and> x\<cdot>(D x) \<cong> x) \<^bold>\<and> \<^bold>\<not>(D \<^bold>= C))"
-   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- {* Nitpick finds a model. *}
- text {* Again the model is of cardinality @{text "i = 2"}, but now we have a non-existing @{text "i\<^sub>1"} and 
+   nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops  -- \<open> Nitpick finds a model. \<close>
+ text \<open> Again the model is of cardinality @{text "i = 2"}, but now we have a non-existing @{text "i\<^sub>1"} and 
   and an existing @{text "i\<^sub>2"}. Composition @{text "\<cdot>"} and @{text "C"} are as above, but 
-  @{text "D"} is now identity on all objects.  *}
+  @{text "D"} is now identity on all objects.  \<close>
 (* 
   Nitpick found a model for card i = 2:
   Skolem constants:
@@ -317,50 +312,50 @@ end
 
 
 
-section {* Axiom Set II *}
+section \<open> Axiom Set II \<close>
 
-text {* Axiom Set II is developed from Axiom Set I by Skolemization of @{text "i"} and @{text "j"} 
+text \<open> Axiom Set II is developed from Axiom Set I by Skolemization of @{text "i"} and @{text "j"} 
  in axioms @{text "C\<^sub>i"} and @{text "D\<^sub>i"}. We can argue semantically that every model of Axiom Set I has such 
  functions. Hence, we get a conservative extension of Axiom Set I. This could be done for any 
  theory with an ``@{text "\<forall>x.\<exists>i."}''-axiom. The strictness axiom @{text "S"} is extended, 
  so that strictness is now also postulated for the new Skolem functions @{text "dom"} 
  and @{text "cod"}. Note: the values of Skolem functions outside E can just be given by 
 the identity function.
- *}
+ \<close>
 
 (*<*)
-context -- {* Axiom Set II *}
+locale Axiom_Set_II =
 assumes 
 (*>*)
- S\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
- A\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
- D\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
+ S\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
+ A\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
+ D\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
 (*<*)
 begin  
 (*>*)
 
-text {* As above, we first check for consistency. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> As above, we first check for consistency. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i"} is implied. *}
+text \<open> The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i"} is implied. \<close>
   lemma E\<^sub>i\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
     by (metis A\<^sub>i\<^sub>i C\<^sub>i\<^sub>i S\<^sub>i\<^sub>i)
 
-text {* Axioms @{text "C\<^sub>i\<^sub>i"} and @{text "D\<^sub>i\<^sub>i"}, together with @{text "S\<^sub>i\<^sub>i"}, show that
-@{text "dom"} and @{text "cod"} are total functions -- as intended. *}
+text \<open> Axioms @{text "C\<^sub>i\<^sub>i"} and @{text "D\<^sub>i\<^sub>i"}, together with @{text "S\<^sub>i\<^sub>i"}, show that
+@{text "dom"} and @{text "cod"} are total functions -- as intended. \<close>
 lemma domTotal: "E x \<^bold>\<rightarrow> E(dom x)" 
   by (metis D\<^sub>i\<^sub>i S\<^sub>i\<^sub>i) 
 lemma codTotal: "E x \<^bold>\<rightarrow> E(cod x)" 
   by (metis C\<^sub>i\<^sub>i S\<^sub>i\<^sub>i)  
 
-text {* Axiom Set II implies Axiom Set I.\footnote{Axiom Set I also implies Axiom Set II. This can 
+text \<open> Axiom Set II implies Axiom Set I.\footnote{Axiom Set I also implies Axiom Set II. This can 
 be shown by semantical means on the meta-level. We have also attempted to prove this equivalence 
 within Isabelle/HOL, but so far without final success. However, we succeed to 
 prove that the following holds: @{text "\<exists>Cod Dom. 
@@ -369,7 +364,7 @@ prove that the following holds: @{text "\<exists>Cod Dom.
                (\<forall>x y z. x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z) \<^bold>\<and> 
                (\<^bold>\<forall>y. I (Cod y) \<^bold>\<and> (Cod y)\<cdot>y \<cong> y) \<^bold>\<and>
                (\<^bold>\<forall>x. I (Dom x) \<^bold>\<and> x\<cdot>(Dom x) \<cong> x)
-              )"}. Note that the inclusion of strictness of @{text "Cod"} and @{text "Dom"} is still missing.} *}
+              )"}. Note that the inclusion of strictness of @{text "Cod"} and @{text "Dom"} is still missing.} \<close>
   lemma S\<^sub>iFromII: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  
     using S\<^sub>i\<^sub>i by blast
   lemma E\<^sub>iFromII: "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
@@ -384,37 +379,37 @@ prove that the following holds: @{text "\<exists>Cod Dom.
 end
 (*>*)
 
-section {* Axiom Set III *}
+section \<open> Axiom Set III \<close>
 
-text {*  In Axiom Set III the existence  axiom  @{text "E"} is simplified by taking advantage of 
-  the two new Skolem functions @{text "dom"} and @{text "cod"}. *}
+text \<open>  In Axiom Set III the existence  axiom  @{text "E"} is simplified by taking advantage of 
+  the two new Skolem functions @{text "dom"} and @{text "cod"}. \<close>
 
 (*<*)
-context -- {* Axiom Set III *}
+locale Axiom_Set_III =
 assumes
 (*>*) 
- S\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
- A\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
- D\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
+ S\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
+ A\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
+ D\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
 (*<*)
 begin
 (*>*)
   
-text {* The obligatory consistency check is positive. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> The obligatory consistency check is positive. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops   
 
-text {* The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i\<^sub>i"} is implied. *}
+text \<open> The left-to-right direction of existence axiom @{text "E\<^sub>i\<^sub>i\<^sub>i"} is implied. \<close>
   lemma E\<^sub>i\<^sub>i\<^sub>iImplied: "E(x\<cdot>y) \<^bold>\<rightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" 
     by (metis (full_types) A\<^sub>i\<^sub>i\<^sub>i C\<^sub>i\<^sub>i\<^sub>i D\<^sub>i\<^sub>i\<^sub>i S\<^sub>i\<^sub>i\<^sub>i)
 
-text {* Moreover, Axiom Set II is implied. *}
+text \<open> Moreover, Axiom Set II is implied. \<close>
   lemma S\<^sub>i\<^sub>iFromIII: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>i\<^sub>i by blast
   lemma E\<^sub>i\<^sub>iFromIII: "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" 
@@ -429,7 +424,7 @@ text {* Moreover, Axiom Set II is implied. *}
 end
 (*>*)
 
-text {* A side remark on the experiments: All proofs above and all proofs in the rest of this paper 
+text \<open> A side remark on the experiments: All proofs above and all proofs in the rest of this paper 
  have been obtained fully automatically with the Sledgehammer tool in Isabelle/HOL. This
  tool interfaces to prominent first-order automated theorem provers such as CVC4 @{cite "CVC4"}, 
  Z3 @{cite "Z3"}, E @{cite "E"} and Spass @{cite "Spass"}. 
@@ -442,20 +437,20 @@ text {* A side remark on the experiments: All proofs above and all proofs in the
  example, all  axioms from Axiom Set II are required. With the provided dependency information 
  the trusted tools in Isabelle/HOL were then able to reconstruct the external proofs on their own.
  This way we obtain a verified Isabelle/HOL document in which all the proofs have nevertheless been contributed
- by automated theorem provers. *}
+ by automated theorem provers. \<close>
 
-text {* Axiom Set II also implies Axiom Set III. Hence, both theories are
+text \<open> Axiom Set II also implies Axiom Set III. Hence, both theories are
  equivalent. The only interesting case is lemma @{text "E\<^sub>i\<^sub>i\<^sub>iFromII"}, the other cases are 
- trivial. *}
+ trivial. \<close>
 
 (*<*)
-context -- {* Axiom Set II *}
+locale Axiom_Set_II_implies_III =
 assumes
- S\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
- A\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
- D\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
+ S\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
+ A\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
+ D\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
 begin
 (*>*)  
 
@@ -474,36 +469,36 @@ end
 (*>*)
 
 
-section {* Axiom Set IV *}
+section \<open> Axiom Set IV \<close>
 
-text {* Axiom Set IV simplifies the axioms @{text "C\<^sub>i\<^sub>i\<^sub>i"} and  @{text "D\<^sub>i\<^sub>i\<^sub>i"}. However, as it turned 
+text \<open> Axiom Set IV simplifies the axioms @{text "C\<^sub>i\<^sub>i\<^sub>i"} and  @{text "D\<^sub>i\<^sub>i\<^sub>i"}. However, as it turned 
  out, these simplifications also require the existence axiom @{text "E\<^sub>i\<^sub>i\<^sub>i"} to be strengthened into
- an equivalence. *}
+ an equivalence. \<close>
 
 (*<*)
-context -- {* Axiom Set IV *}
+locale Axiom_Set_IV =
 assumes
 (*>*)
- S\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
- A\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" and
- D\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" 
+ S\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
+ A\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Codomain:}\<close> "(cod y)\<cdot>y \<cong> y" and
+ D\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Domain:}\<close> "x\<cdot>(dom x) \<cong> x" 
 (*<*)
 begin
 (*>*)
 
-text {* The obligatory consistency check is again positive. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> The obligatory consistency check is again positive. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* The Axiom Set III is implied. The only interesting cases are 
+text \<open> The Axiom Set III is implied. The only interesting cases are 
  lemmata @{text "C\<^sub>i\<^sub>i\<^sub>iFromIV"} and @{text "D\<^sub>i\<^sub>i\<^sub>iFromIV"}. Note that the strengthened 
- axiom @{text "E\<^sub>i\<^sub>v"} is used here. *}
+ axiom @{text "E\<^sub>i\<^sub>v"} is used here. \<close>
   lemma S\<^sub>i\<^sub>i\<^sub>iFromIV: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>v by blast
   lemma E\<^sub>i\<^sub>i\<^sub>iFromIV: "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> (E(cod y)))" 
@@ -518,18 +513,18 @@ text {* The Axiom Set III is implied. The only interesting cases are
 end
 (*>*)
 
-text {* Vice versa, Axiom Set III implies Axiom Set IV. Hence, both theories are
+text \<open> Vice versa, Axiom Set III implies Axiom Set IV. Hence, both theories are
  equivalent. The interesting cases are lemmata @{text "E\<^sub>i\<^sub>vFromIII"}, @{text "C\<^sub>i\<^sub>vFromIII"}
- and @{text "D\<^sub>i\<^sub>vFromIII"}. *}
+ and @{text "D\<^sub>i\<^sub>vFromIII"}. \<close>
 
 (*<*)
-context -- {* Axiom Set III *}
+locale Axiom_Set_III_implies_IV =
 assumes
- S\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
- A\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
- D\<^sub>i\<^sub>i\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
+ S\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
+ A\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "E y \<^bold>\<rightarrow> (I(cod y) \<^bold>\<and> (cod y)\<cdot>y \<cong> y)" and
+ D\<^sub>i\<^sub>i\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "E x \<^bold>\<rightarrow> (I(dom x) \<^bold>\<and> x\<cdot>(dom x) \<cong> x)" 
 begin
 (*>*)  
 
@@ -548,9 +543,9 @@ end
 (*>*)
 
 
-section {* Axiom Set V *}
+section \<open> Axiom Set V \<close>
 
-text {* Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. This set of
+text \<open> Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
  ``Categories, Allegories'' @{cite "FreydScedrov90"} when encoded in free logic, corrected/adapted 
  and further simplified. Their axiom set is technically flawed when encoded in our given context. 
@@ -559,32 +554,32 @@ text {* Axiom Set V has been proposed by Scott @{cite "Scott79"} in the 1970s. T
  We have modified the axioms of @{cite "FreydScedrov90"} by replacing the original Kleene 
  equality @{text "\<cong>"} in axiom S3 by the non-reflexive, existing identity @{text "\<simeq>"}. Note that 
  the modified axiom @{text "S3"} is equivalent to @{text "E\<^sub>i\<^sub>v"}; see the mutual proofs below.  
-*}
+\<close>
 
 (*<*)
-context -- {* Axiom Set V *}
+locale Axiom_Set_V =
 assumes 
 (*>*)
- S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
- S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
- S3: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
- S4: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- S5: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" and
- S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
+ S1: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(dom x) \<^bold>\<rightarrow> E x" and
+ S2: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(cod y) \<^bold>\<rightarrow> E y" and
+ S3: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
+ S4: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ S5: --\<open>\makebox[2cm][l]{Codomain:}\<close> "(cod y)\<cdot>y \<cong> y" and
+ S6: --\<open>\makebox[2cm][l]{Domain:}\<close> "x\<cdot>(dom x) \<cong> x"
 (*<*)
 begin
 (*>*)
 
-text {* The obligatory consistency check is again positive. *}
-  lemma True -- {* Nitpick finds a model *}
+text \<open> The obligatory consistency check is again positive. \<close>
+  lemma True -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True  -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* The Axiom Set IV is implied. The only interesting cases are 
- lemmata @{text "S\<^sub>i\<^sub>vFromV"} and @{text "E\<^sub>i\<^sub>vFromV"}.*}
+text \<open> The Axiom Set IV is implied. The only interesting cases are 
+ lemmata @{text "S\<^sub>i\<^sub>vFromV"} and @{text "E\<^sub>i\<^sub>vFromV"}.\<close>
   lemma S\<^sub>i\<^sub>vFromV: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"   
     using S1 S2 S3 by blast
   lemma E\<^sub>i\<^sub>vFromV: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" 
@@ -592,25 +587,25 @@ text {* The Axiom Set IV is implied. The only interesting cases are
   lemma A\<^sub>i\<^sub>vFromV: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
     using S4 by blast
   lemma C\<^sub>i\<^sub>vFromV: "(cod y)\<cdot>y \<cong> y" 
-    using S6 by blast
-  lemma D\<^sub>i\<^sub>vFromV: "x\<cdot>(dom x) \<cong> x" 
     using S5 by blast
+  lemma D\<^sub>i\<^sub>vFromV: "x\<cdot>(dom x) \<cong> x" 
+    using S6 by blast
 (*<*)
 end
 (*>*)
 
 
-text {* Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
- equivalent. *}
+text \<open> Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
+ equivalent. \<close>
 
 (*<*)
-context -- {* Axiom Set IV *}
+locale Axiom_Set_IV_implies_V =
 assumes
- S\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Strictness:}*} "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
- E\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
- A\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" and
- D\<^sub>i\<^sub>v: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" 
+ S\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Strictness:}\<close> "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
+ E\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
+ A\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Codomain:}\<close> "(cod y)\<cdot>y \<cong> y" and
+ D\<^sub>i\<^sub>v: --\<open>\makebox[2cm][l]{Domain:}\<close> "x\<cdot>(dom x) \<cong> x" 
 begin
 (*>*)
   lemma S1FromV:  "E(dom x) \<^bold>\<rightarrow> E x" 
@@ -621,18 +616,17 @@ begin
     using E\<^sub>i\<^sub>v by metis
   lemma S4FromV:  "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" 
     using A\<^sub>i\<^sub>v by blast
-  lemma S5FromV:  "x\<cdot>(dom x) \<cong> x" 
-    using D\<^sub>i\<^sub>v by blast
-  lemma S6FromV:  "(cod y)\<cdot>y \<cong> y" 
+  lemma S5FromV:  "(cod y)\<cdot>y \<cong> y" 
     using C\<^sub>i\<^sub>v by blast
-
+  lemma S6FromV:  "x\<cdot>(dom x) \<cong> x" 
+    using D\<^sub>i\<^sub>v by blast
 (*<*)
 end
 (*>*)
 
-section {* Axiom Sets VI and VII *}
+section \<open> Axiom Sets VI and VII \<close>
 
-text {* The axiom set of Freyd and Scedrov from their textbook
+text \<open> The axiom set of Freyd and Scedrov from their textbook
  ``Categories, Allegories'' @{cite "FreydScedrov90"} becomes inconsistent in our free logic setting if we assume 
   non-existing objects of type @{text "i"}, respectively, if we assume that the operations are 
   non-total.  Freyd and Scedrov employ a different notation for 
@@ -661,12 +655,12 @@ text {* The axiom set of Freyd and Scedrov from their textbook
   that Freyd and Scedrov actually mean the Axiom Set VIII below (where the variables in the axioms range 
   over defined objects only). However, in Axiom Set VIII we had to (re-)introduce explicit 
   strictness conditions to ensure equivalence to the Axiom Set V by Scott.
-*}
+\<close>
 
-subsection {* Axiom Set VI *}
+subsection \<open> Axiom Set VI \<close>
 
 (*<*)
-context -- {* Axiom Set VI *}
+locale Axiom_Set_VI =
 assumes
 (*>*)
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
@@ -681,16 +675,16 @@ assumes
 begin
 (*>*)
 
-text {* The obligatory consistency checks are again positive. 
- But note that this only holds when we use @{text "\<simeq>"} instead of  @{text "\<cong>"} in  @{text "A1"}. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> The obligatory consistency checks are again positive. 
+ But note that this only holds when we use @{text "\<simeq>"} instead of  @{text "\<cong>"} in  @{text "A1"}. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* Axiom Set VI implies Axiom Set V. *}
+text \<open> Axiom Set VI implies Axiom Set V. \<close>
   lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x" 
     by (metis A1 A2a A3a)
   lemma S2FromVI: "E(cod y) \<^bold>\<rightarrow> E y" 
@@ -704,22 +698,22 @@ text {* Axiom Set VI implies Axiom Set V. *}
   lemma S6FromVI: "(cod y)\<cdot>y \<cong> y" 
     using A3b by blast
 
-text {* Note, too, that Axiom Set VI is redundant. For example, axioms @{text "A4a"} and @{text "A4b"} are
+text \<open> Note, too, that Axiom Set VI is redundant. For example, axioms @{text "A4a"} and @{text "A4b"} are
   implied from the others. This kind of flaw in presenting axioms in our view is a more serious oversight.
-  The automated theorem provers can quickly reveal such redundancies. *}
+  The automated theorem provers can quickly reveal such redundancies. \<close>
   lemma A4aRedundant: "dom(x\<cdot>y) \<cong> dom((dom x)\<cdot>y)" 
     using A1 A2a A3a A5 by metis
   lemma A4bRedundant: "cod(x\<cdot>y) \<cong> cod(x\<cdot>(cod y))"  
     using A1 A2b A3b A5 by metis
-text {* Our attempts to further reduce the axioms set @{text "(A1 A2a A2b A3a A3b A5)"}  were not successful.
+text \<open> Our attempts to further reduce the axioms set @{text "(A1 A2a A2b A3a A3b A5)"}  were not successful.
 Alternatively, we can e.g. keep @{text "A4a"} and @{text "A4b"} and show that axioms @{text "A2a"} 
-and @{text "A2b"} are implied. *}
+and @{text "A2b"} are implied. \<close>
 (*<*)declare [[ smt_solver = z3]](*>*) 
   lemma A2aRedundant: "cod(dom x) \<cong> dom x" 
     using A1 A3a A3b A4a A4b by smt
   lemma A2bRedundant: "dom(cod y) \<cong> cod y" 
     using  A1 A3a A3b A4a A4b by smt 
-text {* Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5)"} were not successful.
+text \<open> Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5)"} were not successful.
    Other reduced sets of axioms we identified in experiments are @{text "(A1 A2a A3a A3b A4b A5)"} and
     @{text "(A1 A2b A3a A3b A4a A5)"}. Attempts to remove axioms @{text "A1"}, @{text "A3a"}, 
     @{text "A3b"}, and @{text "A5"} from Axiom Set VI failed. Nitpick shows that they are independent. 
@@ -730,20 +724,20 @@ text {* Again, attempts to further reduce the set @{text "(A1 A3a A3b A4a A4b A5
    set, which then exactly matches the Axiom Set V from above.\footnote{This minimal set of axioms 
    is also mentioned by Freyd in @{cite "Freyd16"} and attributed to Martin Knopman. However, the proof
    sketch presented there seems to fail when the adapted version of A1 (with @{text "\<simeq>"}) is employed.}
-*}
+\<close>
 (*<*)
 end
 (*>*) 
-text {* Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent. *}
+text \<open> Axiom Set V implies Axiom Set VI. Hence, both theories are equivalent. \<close>
 (*<*)
-context -- {* Axiom Set V (Freyd and Scedrov) when adapted/corrected and simplified)  *}
+locale Axiom_Set_V_implies_IV =  -- \<open> (Freyd and Scedrov) when adapted/corrected and simplified) \<close>
 assumes
- S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
- S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
- S3: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and 
- S4: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- S5: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" and
- S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
+ S1: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(dom x) \<^bold>\<rightarrow> E x" and
+ S2: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(cod y) \<^bold>\<rightarrow> E y" and
+ S3: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and 
+ S4: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ S5: --\<open>\makebox[2cm][l]{Domain:}\<close> "x\<cdot>(dom x) \<cong> x" and
+ S6: --\<open>\makebox[2cm][l]{Codomain:}\<close> "(cod y)\<cdot>y \<cong> y" 
 begin
 (*>*)
   lemma  A1FromV: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" 
@@ -767,16 +761,16 @@ end
 (*>*)
 
 
-subsection {* Axiom Set VII *}
+subsection \<open> Axiom Set VII \<close>
 
-text {* We now study the constricted inconsistency in Axiom Set VI when replacing  @{text "\<simeq>"}  
+text \<open> We now study the constricted inconsistency in Axiom Set VI when replacing  @{text "\<simeq>"}  
  in  @{text "A1"} by  @{text "\<cong>"}. We call this Axiom Set VII. This set corresponds
  modulo representational transformation to the axioms as presented by Freyd and Scedrov. Remember, however,
  that the free variables are ranging here over all objects, defined or undefined. Below, when we study
- Axiom Set VIII, we will restrict the variables to range only over existing objects.  *}
+ Axiom Set VIII, we will restrict the variables to range only over existing objects.  \<close>
 
 (*<*)
-context -- {* Axiom Set VII (Freyd and Scedrov in our notation) *}
+locale Axiom_Set_VII =   -- \<open>(Freyd and Scedrov in our notation) \<close>
 assumes
 (*>*)
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
@@ -791,12 +785,12 @@ assumes
 begin
 (*>*)
 
-text {* A model can still be constructed if we do not make assumptions about non-existing
-  objects. In fact, the model presented by Nitpick consists of a single, existing morphism.  *}
+text \<open> A model can still be constructed if we do not make assumptions about non-existing
+  objects. In fact, the model presented by Nitpick consists of a single, existing morphism.  \<close>
   lemma True 
-    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- {* Nitpick finds a model *}
+    nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops -- \<open> Nitpick finds a model \<close>
 
-text {* However, one can see directly that axiom  @{text "A1"} is problematic as written:
+text \<open> However, one can see directly that axiom  @{text "A1"} is problematic as written:
 If  @{text "x"} and  @{text "y"} are undefined, then (presumably)  @{text "dom x"} and 
 @{text "cod y"} are undefined as well, and by the definition of Kleene equality,
  @{text "dom x \<cong> cod y"}. @{text "A1"} stipulates that @{text "x\<cdot>y"}  
@@ -809,45 +803,45 @@ The theory described by these axioms ``collapses'' to the theory of
 monoids. (If all objects are defined, then one can conclude from @{text "A1"} that 
 @{text "dom x \<cong> dom y"} (resp.~@{text "dom x \<cong> cod y"} and @{text "cod x \<cong> cod y"}), 
 and according to 1.14 of @{cite "FreydScedrov90"}, 
-the category reduces to a monoid provided that it is not empty.) *}
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick does *not* find a model *} 
+the category reduces to a monoid provided that it is not empty.) \<close>
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- \<open> Nitpick does *not* find a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = none] oops
 
-text {* In fact, the automated theorem provers quickly prove falsity when assuming a 
+text \<open> In fact, the automated theorem provers quickly prove falsity when assuming a 
  non-existing object of type @{text "i"}. The provers identify the axioms @{text "A1"}, @{text "A2a"}
- and @{text "A3a"} to cause the problem under this assumption.*}
+ and @{text "A3a"} to cause the problem under this assumption.\<close>
   lemma InconsistencyAutomaticVII: "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False" 
     by (metis A1 A2a A3a)
 
-   text {* Hence, all morphisms must be defined in theory of Axiom Set VII, or in other 
-      words, all operations must be total. *}
+   text \<open> Hence, all morphisms must be defined in theory of Axiom Set VII, or in other 
+      words, all operations must be total. \<close>
   lemma "\<forall>x. E x" using InconsistencyAutomaticVII by auto
 
-text {* The constricted inconsistency proof can be turned into an interactive mathematical argument: *}
+text \<open> The constricted inconsistency proof can be turned into an interactive mathematical argument: \<close>
 
   lemma InconsistencyInteractiveVII: 
     assumes NEx: "\<exists>x. \<^bold>\<not>(E x)" shows False 
   proof -
-    -- {* Let @{text "a"} be an undefined object *}
+    -- \<open> Let @{text "a"} be an undefined object \<close>
    obtain a where 1: "\<^bold>\<not>(E a)" using NEx by auto
-    -- {* We instantiate axiom @{text "A3a"} with @{text "a"}. *}
+    -- \<open> We instantiate axiom @{text "A3a"} with @{text "a"}. \<close>
    have 2: "a\<cdot>(dom a) \<cong> a" using A3a by blast  
-    -- {* By unfolding the definition of @{text "\<cong>"} we get from 1 that
+    -- \<open> By unfolding the definition of @{text "\<cong>"} we get from 1 that
         @{text "a\<cdot>(dom a)"} is not defined. This is 
         easy to see, since if @{text "a\<cdot>(dom a)"} were defined, we also had that @{text "a"} is 
-        defined, which is not the case by assumption.*}
+        defined, which is not the case by assumption.\<close>
    have 3: "\<^bold>\<not>(E(a\<cdot>(dom a)))" using 1 2 by metis
-    -- {* We instantiate axiom @{text "A1"} with @{text "a"} and @{text "dom a"}. *}
+    -- \<open> We instantiate axiom @{text "A1"} with @{text "a"} and @{text "dom a"}. \<close>
    have 4: "E(a\<cdot>(dom a)) \<^bold>\<leftrightarrow> dom a \<cong> cod(dom a)" using A1 by blast
-    -- {* We instantiate axiom @{text "A2a"} with @{text "a"}. *}
+    -- \<open> We instantiate axiom @{text "A2a"} with @{text "a"}. \<close>
    have 5: "cod(dom a) \<cong> dom a" using A2a by blast 
-    -- {* We use 5 (and symmetry and transitivity of @{text "\<cong>"}) to rewrite the 
-         right-hand of the equivalence 4 into @{text "dom a \<cong> dom a"}. *} 
+    -- \<open> We use 5 (and symmetry and transitivity of @{text "\<cong>"}) to rewrite the 
+         right-hand of the equivalence 4 into @{text "dom a \<cong> dom a"}. \<close> 
    have 6: "E(a\<cdot>(dom a)) \<^bold>\<leftrightarrow> dom a \<cong> dom a" using 4 5 by auto
-    -- {* By reflexivity of @{text "\<cong>"} we get that @{text "a\<cdot>(dom a)"} must be defined. *}
+    -- \<open> By reflexivity of @{text "\<cong>"} we get that @{text "a\<cdot>(dom a)"} must be defined. \<close>
    have 7: "E(a\<cdot>(dom a))" using 6 by blast
-    -- {* We have shown in 7 that @{text "a\<cdot>(dom a)"} is defined, and in 3 
-         that it is undefined. Contradiction. *}
+    -- \<open> We have shown in 7 that @{text "a\<cdot>(dom a)"} is defined, and in 3 
+         that it is undefined. Contradiction. \<close>
    then show ?thesis using 7 3 by blast
   qed
 (*<*)
@@ -855,8 +849,8 @@ end
 (*>*)
 
 
-text {* We present the constricted inconsistency argument once again, but this time in the original
-  notation of Freyd and Scedrov. *}
+text \<open> We present the constricted inconsistency argument once again, but this time in the original
+  notation of Freyd and Scedrov. \<close>
 
 consts  
    source:: "i\<Rightarrow>i" ("\<box>_" [108] 109) 
@@ -864,7 +858,7 @@ consts
    compositionF:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<^bold>\<cdot>" 110)
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov) in their notation *}   
+locale Axiom_Set_VI_orig =   -- \<open> (Freyd and Scedrov) in their notation \<close>   
 assumes           
 (*>*)
 
@@ -880,50 +874,50 @@ assumes
 begin
 (*>*)
 
-text {* \label{subsec:FreydNotation} Again, the automated theorem provers via Sledgehammer 
-       find the constricted inconsistency very quickly and they identify the  exact dependencies. *}
+text \<open> \label{subsec:FreydNotation} Again, the automated theorem provers via Sledgehammer 
+       find the constricted inconsistency very quickly and they identify the  exact dependencies. \<close>
 
 lemma InconsistencyAutomatic: "(\<exists>x. \<^bold>\<not>(E x)) \<^bold>\<rightarrow> False" 
   by (metis A1 A2a A3a)
 
-text {* The following alternative interactive proof is slightly shorter than the one 
-        presented above. *}
+text \<open> The following alternative interactive proof is slightly shorter than the one 
+        presented above. \<close>
   lemma InconsistencyInteractive: assumes NEx: "\<exists>x. \<^bold>\<not>(E x)" shows False 
   proof -
-    -- {* Let @{text "a"} be an undefined object *}
+    -- \<open> Let @{text "a"} be an undefined object \<close>
    obtain a where 1: "\<^bold>\<not>(E a)" using assms by auto
-    -- {* We instantiate axiom @{text "A3a"} with @{text "a"}. *}
+    -- \<open> We instantiate axiom @{text "A3a"} with @{text "a"}. \<close>
    have 2: "(\<box>a)\<^bold>\<cdot>a \<cong> a" using A3a by blast
-    -- {* By unfolding the definition of @{text "\<cong>"} we get from 1 that @{text "(\<box>a)\<^bold>\<cdot>a"} is 
+    -- \<open> By unfolding the definition of @{text "\<cong>"} we get from 1 that @{text "(\<box>a)\<^bold>\<cdot>a"} is 
          not defined. This is 
          easy to see, since if @{text "(\<box>a)\<^bold>\<cdot>a"} were defined, we also had that  @{text "a"} is 
-         defined, which is not the case by assumption. *}
+         defined, which is not the case by assumption. \<close>
    have 3: "\<^bold>\<not>(E((\<box>a)\<^bold>\<cdot>a))" using 1 2 by metis
-    -- {* We instantiate axiom @{text "A1"} with @{text "\<box>a"} and @{text "a"}. *}
+    -- \<open> We instantiate axiom @{text "A1"} with @{text "\<box>a"} and @{text "a"}. \<close>
    have 4: "E((\<box>a)\<^bold>\<cdot>a) \<^bold>\<leftrightarrow> (\<box>a)\<box> \<cong> \<box>a" using A1 by blast
-    -- {* We instantiate axiom @{text "A2a"} with @{text "a"}. *}
+    -- \<open> We instantiate axiom @{text "A2a"} with @{text "a"}. \<close>
    have 5: "(\<box>a)\<box> \<cong> \<box>a" using A2a by blast 
-    -- {* From 4 and 5 we obtain @{text "\<^bold>(E((\<box>a)\<^bold>\<cdot>a))"} by propositional logic. *} 
+    -- \<open> From 4 and 5 we obtain @{text "\<^bold>(E((\<box>a)\<^bold>\<cdot>a))"} by propositional logic. \<close> 
    have 6: "E((\<box>a)\<^bold>\<cdot>a)" using 4 5 by blast 
-    -- {* We have @{text "\<^bold>\<not>(E((\<box>a)\<^bold>\<cdot>a))"} and @{text "E((\<box>a)\<^bold>\<cdot>a)"}, hence Falsity. *}
+    -- \<open> We have @{text "\<^bold>\<not>(E((\<box>a)\<^bold>\<cdot>a))"} and @{text "E((\<box>a)\<^bold>\<cdot>a)"}, hence Falsity. \<close>
    then show ?thesis using 6 3 by blast
   qed
 
-text {* Obviously Axiom Set VII is also redundant, and we have previously reported 
+text \<open> Obviously Axiom Set VII is also redundant, and we have previously reported 
 on respective redundancies @{cite "C57"}. However, this was before the discovery of the above 
 constricted inconsistency issue, which tells us that the system (in our setting) can even be reduced 
-to @{text "A1"}, @{text "A2a"} and @{text "A3a"} (when we additionally assume @{text "NEx"}). *}
+to @{text "A1"}, @{text "A2a"} and @{text "A3a"} (when we additionally assume @{text "NEx"}). \<close>
 (*<*)
 end
 (*>*)
 
-section {* Axiom Set VIII *}
+section \<open> Axiom Set VIII \<close>
 
-text {* We study the axiom system by Freyd and Scedrov once again. However, this time we restrict 
+text \<open> We study the axiom system by Freyd and Scedrov once again. However, this time we restrict 
 the free variables in their system to range over existing objects only. By employing the free logic 
-universal quantifier @{text "\<^bold>\<forall>"} we thus modify Axiom Set VII as follows:*}   
+universal quantifier @{text "\<^bold>\<forall>"} we thus modify Axiom Set VII as follows:\<close>   
 (*<*)
-context -- {* Axiom Set VII (Freyd and Scedrov) in our notation *}
+locale Axiom_Set_VII_adapted =    -- \<open> (Freyd and Scedrov) in our notation \<close>
 assumes
 (*>*)
   B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
@@ -937,37 +931,37 @@ assumes
 (*<*)
 begin
 (*>*)
-text {* Now, the two consistency checks succeed. *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> Now, the two consistency checks succeed. \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
-text {* However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
-the @{text "V"}-axioms are implied: *}
+text \<open> However, this axiom set is obviously weaker than our Axiom Set V. In fact, none of 
+the @{text "V"}-axioms are implied: \<close>
 
-  lemma S1: "E(dom x) \<^bold>\<rightarrow> E x"  -- {* Nitpick finds a countermodel *}  
+  lemma S1: "E(dom x) \<^bold>\<rightarrow> E x"  -- \<open> Nitpick finds a countermodel \<close>  
     nitpick [user_axioms, show_all, format = 2] oops 
-  lemma S2: "E(cod y) \<^bold>\<rightarrow> E y"  -- {* Nitpick finds a countermodel *}  
+  lemma S2: "E(cod y) \<^bold>\<rightarrow> E y"  -- \<open> Nitpick finds a countermodel \<close>  
     nitpick [user_axioms, show_all, format = 2] oops 
-  lemma S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y"   -- {* Nitpick finds a countermodel *} 
+  lemma S3: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y"   -- \<open> Nitpick finds a countermodel \<close> 
     nitpick [user_axioms, show_all, format = 2] oops 
-  lemma S4: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"   -- {* Nitpick finds a countermodel *} 
+  lemma S4: "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z"   -- \<open> Nitpick finds a countermodel \<close> 
     nitpick [user_axioms, show_all, format = 2] oops 
-  lemma S5: "x\<cdot>(dom x) \<cong> x"   -- {* Nitpick finds a countermodel *} 
+  lemma S5: "x\<cdot>(dom x) \<cong> x"   -- \<open> Nitpick finds a countermodel \<close> 
     nitpick [user_axioms, show_all, format = 2] oops 
-  lemma S6: "(cod y)\<cdot>y \<cong> y"   -- {* Nitpick finds a countermodel *} 
+  lemma S6: "(cod y)\<cdot>y \<cong> y"   -- \<open> Nitpick finds a countermodel \<close> 
     nitpick [user_axioms, show_all, format = 2] oops 
 (*<*)
 end
 (*>*)
 
-text {* The situation changes when we explicitly postulate strictness of @{text "dom"},
-@{text "cod"} and @{text "\<cdot>"}. We thus obtain our Axiom Set VIII: *}
+text \<open> The situation changes when we explicitly postulate strictness of @{text "dom"},
+@{text "cod"} and @{text "\<cdot>"}. We thus obtain our Axiom Set VIII: \<close>
 (*<*)
-context -- {* Axiom Set VIII. *}
+locale Axiom_Set_VIII =
 assumes
 (*>*)
  B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
@@ -984,16 +978,16 @@ assumes
 (*<*)
 begin
 (*>*)
-text {* Again, the two consistency checks succeed *}
-  lemma True  -- {* Nitpick finds a model *}
+text \<open> Again, the two consistency checks succeed \<close>
+  lemma True  -- \<open> Nitpick finds a model \<close>
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- {* Nitpick finds a model *}  
+  lemma assumes "\<exists>x. \<^bold>\<not>(E x)" shows True   -- \<open> Nitpick finds a model \<close>  
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops
-  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- {* Nitpick finds a model *} 
+  lemma assumes "(\<exists>x. \<^bold>\<not>(E x)) \<and> (\<exists>x. (E x))" shows True  -- \<open> Nitpick finds a model \<close> 
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 
 
-text {* Now Axiom Set V is implied. *}
+text \<open> Now Axiom Set V is implied. \<close>
   lemma S1FromVIII: "E(dom x) \<^bold>\<rightarrow> E x"  using B0b by blast
   lemma S2FromVIII: "E(cod y) \<^bold>\<rightarrow> E y"  using B0c by blast 
   lemma S3FromVIII: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" by (metis B0a B0b B0c B1 B3a)
@@ -1004,18 +998,18 @@ text {* Now Axiom Set V is implied. *}
 end
 (*>*)
 
-text {* Vive versa, Axiom Set V implies Axiom Set VIII. Hence, both theories are equivalent. *}
+text \<open> Vive versa, Axiom Set V implies Axiom Set VIII. Hence, both theories are equivalent. \<close>
 
 (*<*)
-context -- {* Axiom Set V (Freyd and Scedrov) when adapted/corrected and simplified)  *}
+locale Axiom_Set_V_implies_VIII =    -- \<open> Axiom Set V (Freyd and Scedrov) when adapted/corrected and simplified)  \<close>
 assumes
 (*>*)
- S1: --{*\makebox[2cm][l]{Strictness:}*} "E(dom x) \<^bold>\<rightarrow> E x" and
- S2: --{*\makebox[2cm][l]{Strictness:}*} "E(cod y) \<^bold>\<rightarrow> E y" and
- S3: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and 
- S4: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- S5: --{*\makebox[2cm][l]{Domain:}*} "x\<cdot>(dom x) \<cong> x" and
- S6: --{*\makebox[2cm][l]{Codomain:}*} "(cod y)\<cdot>y \<cong> y" 
+ S1: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(dom x) \<^bold>\<rightarrow> E x" and
+ S2: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(cod y) \<^bold>\<rightarrow> E y" and
+ S3: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and 
+ S4: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ S5: --\<open>\makebox[2cm][l]{Domain:}\<close> "x\<cdot>(dom x) \<cong> x" and
+ S6: --\<open>\makebox[2cm][l]{Codomain:}\<close> "(cod y)\<cdot>y \<cong> y" 
 
 (*<*)
 begin
@@ -1036,11 +1030,11 @@ begin
 end
 (*>*)
 
-text {* Axiom Set VIII is redundant (as expected from previous observations).
-The theorem provers quickly confirm that axioms @{text "B2a, B2b, B4a, B4b"} are implied. *}
+text \<open> Axiom Set VIII is redundant (as expected from previous observations).
+The theorem provers quickly confirm that axioms @{text "B2a, B2b, B4a, B4b"} are implied. \<close>
 
 (*<*)
-context -- {* Axiom Set VII (Freyd and Scedrov) in our notation *}
+locale Axiom_Set_VII_redundant =    -- \<open> Axiom Set VII (Freyd and Scedrov) in our notation \<close>
 assumes
 (*>*)
  B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
@@ -1063,18 +1057,18 @@ begin
 end
 (*>*)
 
-text {* Again, note the relation and similarity of the reduced Axiom Set VIII to Axiom Set V by Scott, 
+text \<open> Again, note the relation and similarity of the reduced Axiom Set VIII to Axiom Set V by Scott, 
 which we prefer, since it avoids a mixed use of free and bound variables in the encoding and 
-since it is smaller. *}
+since it is smaller. \<close>
 
 
-paragraph {* Acknowledgements *}
-text {* We thank G\"unter Rote and Lutz Schr\"oder for their valuable comments to earlier drafts of this paper. *}
+paragraph \<open> Acknowledgements \<close>
+text \<open> We thank G\"unter Rote and Lutz Schr\"oder for their valuable comments to earlier drafts of this paper. \<close>
 
 (*
-section {* Observations during Experiments *}
+section \<open> Observations during Experiments \<close>
 
-text {*
+text \<open>
 \begin{itemize}
  \item ATPs often found proofs which couldn't be verified in Isabelle
  \item In many cases we had to remove certain axioms from ATP proof attempts in order to be successful:
@@ -1094,21 +1088,21 @@ exception Option raised (line 82 of "General/basics.ML")
  \item The strengths of ATPs are surprisingly complementary. They all contributed.
  \item Nitpick's results could be better supported in the interface.
 \end{itemize}
-*}
+\<close>
 
 
 
-section {* Conclusion *}
-text {* todo *}      
+section \<open> Conclusion \<close>
+text \<open> todo \<close>      
 
 
-context -- {* Axiom Set I *}
+context -- \<open> Axiom Set I \<close>
 assumes 
- S\<^sub>i: --{*\makebox[2cm][l]{Strictness:}*} "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  and
- E\<^sub>i: --{*\makebox[2cm][l]{Existence:}*} "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
- A\<^sub>i: --{*\makebox[2cm][l]{Associativity:}*} "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
- C\<^sub>i: --{*\makebox[2cm][l]{Codomain:}*} "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y" and
- D\<^sub>i: --{*\makebox[2cm][l]{Domain:}*} "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x" 
+ S\<^sub>i: --\<open>\makebox[2cm][l]{Strictness:}\<close> "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  and
+ E\<^sub>i: --\<open>\makebox[2cm][l]{Existence:}\<close> "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
+ A\<^sub>i: --\<open>\makebox[2cm][l]{Associativity:}\<close> "x\<cdot>(y\<cdot>z) \<cong> (x\<cdot>y)\<cdot>z" and
+ C\<^sub>i: --\<open>\makebox[2cm][l]{Codomain:}\<close> "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y" and
+ D\<^sub>i: --\<open>\makebox[2cm][l]{Domain:}\<close> "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x" 
  
 begin
 (*>*)
@@ -1147,8 +1141,8 @@ begin
   lemma UC\<^sub>i': "\<^bold>\<forall>y.\<^bold>\<exists>i. I i \<^bold>\<and> i\<cdot>y \<cong> y \<^bold>\<and> (\<^bold>\<forall>j.(I j \<^bold>\<and> j\<cdot>y \<cong> y) \<^bold>\<rightarrow> i \<cong> j)"  
     using L2i' by blast 
 
- text {* Analogously, the provers quickly shor that @{text "j"} in axiom @{text "D"} is unique. 
-  Again, lemmata are need to succeed with proof reconstruction and verification. *}
+ text \<open> Analogously, the provers quickly shor that @{text "j"} in axiom @{text "D"} is unique. 
+  Again, lemmata are need to succeed with proof reconstruction and verification. \<close>
   lemma L3i': "E(x) \<^bold>\<rightarrow> (\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x \<^bold>\<and> (\<forall>i. E i \<^bold>\<rightarrow> ((I i \<^bold>\<and> x\<cdot>i \<cong> x) \<^bold>\<rightarrow> j \<cong> i)))" 
     by (smt A\<^sub>i D\<^sub>i S\<^sub>i) 
   lemma L4i': "\<^bold>\<forall>x.\<^bold>\<exists>j. I j \<^bold>\<and> x\<cdot>j \<cong> x \<^bold>\<and> (\<forall>i. E i \<^bold>\<rightarrow> ((I i \<^bold>\<and> x\<cdot>i \<cong> x) \<^bold>\<rightarrow> j \<cong> i))" 
@@ -1249,7 +1243,7 @@ end
 
 
 (*<*)
-context -- {* Axiom Set VI (Freyd and Scedrov in their notation *}   
+context -- \<open> Axiom Set VI (Freyd and Scedrov in their notation \<close>   
 assumes           
 (*>*)
 

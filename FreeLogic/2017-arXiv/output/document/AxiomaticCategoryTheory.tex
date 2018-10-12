@@ -25,8 +25,9 @@ in classical higher-order logic. The modeling and formal analysis of our axiom s
 significantly supported  by series of experiments with automated reasoning tools integrated 
 with Isabelle/HOL. We also address the relation of our axiom systems to alternative proposals 
 from the literature, including an axiom set proposed by Freyd and Scedrov for which we reveal 
-a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, are total or 
-their axiom system is inconsistent. The repair for this problem is quite straightforward, however. 
+a technical issue (when encoded in free logic): either all operations, e.g. morphism composition, 
+are total or their axiom system is inconsistent. The repair for this problem is quite 
+straightforward, however. 
 \end{abstract}%
 \end{isamarkuptext}\isamarkuptrue%
 %
@@ -47,8 +48,9 @@ notational transformation) the set of axioms as proposed by  Freyd and Scedrov i
 see also Subsection \ref{subsec:FreydNotation} where we present their original system.
 While the axiom systems I-VI are shown to be  consistent, a constricted inconsistency result is 
 obtained for system VII (when encoded in free logic where free variables range over all 
-objects): We can prove \isa{{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False}, where \isa{E} is the existence predicate. Read this as: If there 
-are undefined objects, e.g. the value of an undefined composition \isa{x{\isasymcdot}y}, then we have falsity.
+objects): We can prove \isa{{\isacharparenleft}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ False}, where \isa{E} is the existence 
+predicate. Read this as: If there are undefined objects, e.g. the value of an undefined composition 
+\isa{x{\isasymcdot}y}, then we have falsity.
 By contraposition, all objects (and thus all compositions) must exist. But when we assume the latter,
 then the axiom system VII essentially reduces categories to monoids.
 We note that axiom system V, which avoids this problem, corresponds to a set of axioms proposed 
@@ -56,10 +58,11 @@ by Scott \cite{Scott79} in the 1970s. The problem can also be avoided by restric
 in axiom system VII to range only over existing objects and by postulating strictness conditions. 
 This gives us axiom system VIII.
 
-Our exploration has been significantly supported by series of experiments in which automated reasoning tools 
-have been called from within the proof assistant Isabelle/HOL \cite{Isabelle} via the Sledgehammer 
-tool \cite{Sledgehammer}. Moreover, we have obtained very useful feedback at various stages 
-from the model finder Nitpick \cite{Nitpick} saving us from making several mistakes.
+Our exploration has been significantly supported by series of experiments in which automated 
+reasoning tools  have been called from within the proof assistant Isabelle/HOL \cite{Isabelle} 
+via the Sledgehammer tool \cite{Sledgehammer}. Moreover, we have obtained very useful feedback 
+at various stages from the model finder Nitpick \cite{Nitpick} saving us from making several
+ mistakes.
 
 At the conceptual level this paper exemplifies a new style of explorative mathematics which rests 
 on a significant amount of human-machine interaction with integrated interactive-auto\-ma\-ted 
@@ -88,11 +91,11 @@ to find by hand using paper and pencil.%
 %
 \begin{isamarkuptext}%
 Free logic models partial functions as total functions over a ``raw domain'' \isa{D}. 
-A subset \isa{E} of \isa{D} is used to characterize the subdomain of ``existing'' objects; cf.
-\cite{Scott67} for further details.
+A subset \isa{E} of \isa{D} is used to characterize the subdomain of ``existing'' objects;
+ cf. \cite{Scott67} for further details.
 
-The experiments presented in the subsequent sections exploit our embedding of free logic 
-in HOL \cite{C57}. This embedding is trivial for the standard Boolean connectives. The interesting
+The experiments presented in the subsequent sections exploit our embedding of free logic in 
+HOL \cite{C57}. This embedding is trivial for the standard Boolean connectives. The interesting
 aspect is that free logic quantifiers are guarded in the embedding by an explicit existence 
 predicate \isa{E} (associated with the subdomain \isa{E} of \isa{D}), so 
 that quantified variables range only over existing objects, while free 
@@ -100,10 +103,10 @@ variables and arbitrary terms may also denote undefined/non-existing objects out
 This way we obtain an 
 elegant treatment of partiality resp. undefinednes as required in category theory. In our related 
 paper \cite{C57} we also show how definite description can be appropriately modeled in this
-approach. However, the definite description is not required for purposes of this paper, so we omit it.
-Note that the connectives and quantifiers of free logic are displayed below in bold-face fonts. Normal, 
-non-bold-face connectives and quantifiers in contrast belong to the meta-logic HOL. The prefix ``f'',
-e.g. in \isa{fNot}, stands for ``free''.%
+approach. However, the definite description is not required for purposes of this paper, so we omit 
+it. Note that the connectives and quantifiers of free logic are displayed below in bold-face fonts. 
+Normal,  non-bold-face connectives and quantifiers in contrast belong to the meta-logic HOL. The 
+prefix ``f'', e.g. in \isa{fNot}, stands for ``free''.%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{typedecl}\isamarkupfalse%
 \ i\ %
@@ -181,8 +184,8 @@ we have \isa{E{\isacharparenleft}f\ x{\isacharparenright}\ \isactrlbold {\isasym
 \isamarkuptrue%
 %
 \begin{isamarkuptext}%
-Morphisms in the category are objects of type \isa{i}. We introduce three partial functions, 
-\isa{dom} (domain), \isa{cod} (codomain), and \isa{{\isasymcdot}} (morphism composition). 
+Morphisms in the category are objects of type \isa{i}. We introduce three partial 
+functions, \isa{dom} (domain), \isa{cod} (codomain), and \isa{{\isasymcdot}} (morphism composition). 
 Partiality of composition is handled exactly as expected: we generally may have 
 non-existing compositions \isa{x{\isasymcdot}y} (i.e.~\isa{\isactrlbold {\isasymnot}{\isacharparenleft}E{\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isacharparenright}}) for some existing  
 morphisms \isa{x} and \isa{y} (i.e.~\isa{E\ x} and \isa{E\ y}).%
@@ -241,9 +244,9 @@ We have:%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}x\ {\isasymsimeq}\ x{\isachardoublequoteclose}\ %
 \isamarkupcmt{This does not hold; Nitpick finds a countermodel.\footnote{The keyword
-  ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) conjecture is 
-  then not made available for further use. The simplest countermodel for the conjecture given
-  here consists of single, non-existing element. }%
+  ``oops'' in Isabelle/HOL indicates a failed/incomplete proof attempt; the respective (invalid) 
+  conjecture is then not made available for further use. The simplest countermodel for the 
+  conjecture given here consists of single, non-existing element. }%
 }
 \isanewline
 \ \ \isacommand{nitpick}\isamarkupfalse%
@@ -402,10 +405,11 @@ Nitpick confirms that this axiom set is consistent.%
 Even if we assume there are non-existing objects we get consistency (which is e.g. not the
 case for Axiom Set VII below).%
 \end{isamarkuptext}\isamarkuptrue%
-\ \ \isacommand{lemma}\isamarkupfalse%
+\isacommand{lemma}\isamarkupfalse%
 \ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymexists}x{\isachardot}\ \isactrlbold {\isasymnot}{\isacharparenleft}E\ x{\isacharparenright}{\isachardoublequoteclose}\ \isakeyword{shows}\ True\ \ %
-\isamarkupcmt{Nitpick finds a model\footnote{To display the models or countermodels from Nitpick in the Isabelle/HOL system interface 
-simply put the mouse on the expression "nitpick".}%
+\isamarkupcmt{Nitpick finds a model\footnote{To display the models 
+ or countermodels from Nitpick in the Isabelle/HOL system interface simply put the mouse on the 
+ expression "nitpick".}%
 }
 \ \isanewline
 \ \ \ \ \isacommand{nitpick}\isamarkupfalse%
@@ -470,14 +474,16 @@ The left-to-right direction of existence axiom \isa{E\isactrlsub i} is implied.%
 %
 \begin{isamarkuptext}%
 We can prove that the \isa{i} in axiom \isa{C\isactrlsub i} is unique. The proofs can be 
-   found automatically by Sledgehammer.\footnote{In our initial experiments proof reconstruction of the
-   external ATP proofs failed in Isabelle/HOL. The SMT reasoner Z3 \cite{Z3}, which is employed
-   in the \isa{smt} tactic by default, was too weak. Therefore we first introduced further lemmata, 
-   which helped. 
-   However, an alternative way out, which we discovered later, has been to replace Z3 by CVC4 \cite{CVC4} 
-   in Isabelle's \isa{smt} 
-   tactic (this can be done by stating ``\isa{declare\ {\isacharbrackleft}{\isacharbrackleft}\ smt{\isacharunderscore}solver\ {\isacharequal}\ cvc{\isadigit{4}}{\isacharbrackright}{\isacharbrackright}}'' in the source document).
-   In the latest version of the proof document we now suitably switch between the two SMT solvers to obtain best results.}%
+   found automatically by Sledgehammer.\footnote{In our initial experiments proof reconstruction 
+   of the external ATP proofs failed in Isabelle/HOL. The SMT reasoner Z3 \cite{Z3}, which is 
+   employed in the \isa{smt} tactic by default, was too weak. Therefore we first introduced 
+   further lemmata, which helped. 
+   However, an alternative way out, which we discovered later, has been to replace Z3 by 
+   CVC4 \cite{CVC4} in Isabelle's \isa{smt} 
+   tactic (this can be done by stating ``\isa{declare\ {\isacharbrackleft}{\isacharbrackleft}\ smt{\isacharunderscore}solver\ {\isacharequal}\ cvc{\isadigit{4}}{\isacharbrackright}{\isacharbrackright}}'' in the 
+   source document).
+   In the latest version of the proof document we now suitably switch between the two SMT solvers 
+   to obtain best results.}%
 \end{isamarkuptext}\isamarkuptrue%
 \ \ \isacommand{lemma}\isamarkupfalse%
 \ UC\isactrlsub i{\isacharcolon}\ {\isachardoublequoteopen}\isactrlbold {\isasymforall}y{\isachardot}\isactrlbold {\isasymexists}i{\isachardot}\ I\ i\ \isactrlbold {\isasymand}\ i{\isasymcdot}y\ {\isasymcong}\ y\ \isactrlbold {\isasymand}\ {\isacharparenleft}\isactrlbold {\isasymforall}j{\isachardot}{\isacharparenleft}I\ j\ \isactrlbold {\isasymand}\ j{\isasymcdot}y\ {\isasymcong}\ y{\isacharparenright}\ \isactrlbold {\isasymrightarrow}\ i\ {\isasymcong}\ j{\isacharparenright}{\isachardoublequoteclose}\ \isanewline
@@ -531,7 +537,7 @@ However, the \isa{i} and \isa{j} need not be equal. Using the Skolem
 %
 \isatagproof
 \isacommand{oops}\isamarkupfalse%
-\ \ %
+\ %
 \isamarkupcmt{Nitpick finds a model.%
 }
 %
@@ -543,11 +549,11 @@ However, the \isa{i} and \isa{j} need not be equal. Using the Skolem
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Nitpick finds a model for cardinality \isa{i\ {\isacharequal}\ {\isadigit{2}}}. This model consists of two non-existing
-   objects \isa{i\isactrlsub {\isadigit{1}}} and \isa{i\isactrlsub {\isadigit{2}}}. \isa{C} maps both \isa{i\isactrlsub {\isadigit{1}}} and \isa{i\isactrlsub {\isadigit{2}}} to
-   \isa{i\isactrlsub {\isadigit{2}}}. \isa{D} maps \isa{i\isactrlsub {\isadigit{1}}} to \isa{i\isactrlsub {\isadigit{2}}}, and vice versa. The composition 
-   \isa{i\isactrlsub {\isadigit{2}}{\isasymcdot}i\isactrlsub {\isadigit{2}}}
-   is mapped to \isa{i\isactrlsub {\isadigit{2}}}. All other composition pairs are mapped to \isa{i\isactrlsub {\isadigit{1}}}.%
+Nitpick finds a model for cardinality \isa{i\ {\isacharequal}\ {\isadigit{2}}}. This model consists of two 
+   non-existing objects \isa{i\isactrlsub {\isadigit{1}}} and \isa{i\isactrlsub {\isadigit{2}}}. \isa{C} maps both \isa{i\isactrlsub {\isadigit{1}}} and 
+   \isa{i\isactrlsub {\isadigit{2}}} to \isa{i\isactrlsub {\isadigit{2}}}. \isa{D} maps \isa{i\isactrlsub {\isadigit{1}}} to \isa{i\isactrlsub {\isadigit{2}}}, and vice versa. The 
+   composition \isa{i\isactrlsub {\isadigit{2}}{\isasymcdot}i\isactrlsub {\isadigit{2}}} is mapped to \isa{i\isactrlsub {\isadigit{2}}}. All other composition pairs are mapped 
+   to \isa{i\isactrlsub {\isadigit{1}}}.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
@@ -1439,14 +1445,13 @@ Vice versa, Axiom Set III implies Axiom Set IV. Hence, both theories are
 \begin{isamarkuptext}%
 Axiom Set V has been proposed by Scott \cite{Scott79} in the 1970s. This set of
  axioms is equivalent to the axiom set presented by Freyd and Scedrov in their textbook
- ``Categories, Allegories'' \cite{FreydScedrov90} when encoded in free logic, corrected/adapted and further simplified. 
- Their axiom set is technically flawed when encoded in our given context. This issue has been detected by automated theorem provers
- with the same technical infrastructure as employed so far. See the subsequent section  
- for more details. 
+ ``Categories, Allegories'' \cite{FreydScedrov90} when encoded in free logic, corrected/adapted 
+ and further simplified. Their axiom set is technically flawed when encoded in our given context. 
+ This issue has been detected by automated theorem provers with the same technical infrastructure 
+ as employed so far. See the subsequent section for more details. 
  We have modified the axioms of \cite{FreydScedrov90} by replacing the original Kleene 
- equality \isa{{\isasymcong}} in axiom S3 by the
- non-reflexive, existing identity \isa{{\isasymsimeq}}. Note that the modified axiom \isa{S{\isadigit{3}}} is equivalent to \isa{E\isactrlsub i\isactrlsub v};
- see the mutual proofs below.%
+ equality \isa{{\isasymcong}} in axiom S3 by the non-reflexive, existing identity \isa{{\isasymsimeq}}. Note that 
+ the modified axiom \isa{S{\isadigit{3}}} is equivalent to \isa{E\isactrlsub i\isactrlsub v}; see the mutual proofs below.%
 \end{isamarkuptext}\isamarkuptrue%
 \ S{\isadigit{1}}{\isacharcolon}\ %
 \isamarkupcmt{\makebox[2cm][l]{Strictness:}%
@@ -1465,13 +1470,13 @@ Axiom Set V has been proposed by Scott \cite{Scott79} in the 1970s. This set of
 }
 \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}y{\isasymcdot}z{\isacharparenright}\ {\isasymcong}\ {\isacharparenleft}x{\isasymcdot}y{\isacharparenright}{\isasymcdot}z{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
 \ S{\isadigit{5}}{\isacharcolon}\ %
-\isamarkupcmt{\makebox[2cm][l]{Codomain:}%
-}
-\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
-\ S{\isadigit{6}}{\isacharcolon}\ %
 \isamarkupcmt{\makebox[2cm][l]{Domain:}%
 }
-\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}%
+\ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isakeyword{and}\isanewline
+\ S{\isadigit{6}}{\isacharcolon}\ %
+\isamarkupcmt{\makebox[2cm][l]{Codomain:}%
+}
+\ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}%
 \begin{isamarkuptext}%
 The obligatory consistency check is again positive.%
 \end{isamarkuptext}\isamarkuptrue%
@@ -1605,7 +1610,7 @@ The Axiom Set IV is implied. The only interesting cases are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
+\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -1623,7 +1628,7 @@ The Axiom Set IV is implied. The only interesting cases are
 %
 \isatagproof
 \isacommand{using}\isamarkupfalse%
-\ S{\isadigit{6}}\ \isacommand{by}\isamarkupfalse%
+\ S{\isadigit{5}}\ \isacommand{by}\isamarkupfalse%
 \ blast%
 \endisatagproof
 {\isafoldproof}%
@@ -1709,25 +1714,7 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 %
 \endisadelimproof
 \ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{5}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
-%
-\isadelimproof
-\ \ \ \ %
-\endisadelimproof
-%
-\isatagproof
-\isacommand{using}\isamarkupfalse%
-\ C\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
-\ blast%
-\endisatagproof
-{\isafoldproof}%
-%
-\isadelimproof
-\isanewline
-%
-\endisadelimproof
-\ \ \isacommand{lemma}\isamarkupfalse%
-\ S{\isadigit{6}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
+\ S{\isadigit{5}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}x{\isasymcdot}{\isacharparenleft}dom\ x{\isacharparenright}\ {\isasymcong}\ x{\isachardoublequoteclose}\ \isanewline
 %
 \isadelimproof
 \ \ \ \ %
@@ -1737,6 +1724,25 @@ Vice versa, Axiom Set IV implies Axiom Set V. Hence, both theories are
 \isacommand{using}\isamarkupfalse%
 \ D\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
 \ blast%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+\isanewline
+%
+\endisadelimproof
+\ \ \isacommand{lemma}\isamarkupfalse%
+\ S{\isadigit{6}}FromV{\isacharcolon}\ \ {\isachardoublequoteopen}{\isacharparenleft}cod\ y{\isacharparenright}{\isasymcdot}y\ {\isasymcong}\ y{\isachardoublequoteclose}\ \isanewline
+%
+\isadelimproof
+\ \ \ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{using}\isamarkupfalse%
+\ C\isactrlsub i\isactrlsub v\ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+%
 \endisatagproof
 {\isafoldproof}%
 %
