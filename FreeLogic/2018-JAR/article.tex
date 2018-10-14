@@ -275,8 +275,8 @@ Visiting Scholar at University of California, Berkeley,  USA \\
  starting from a generalization of the standard axioms
   for a monoid we present a stepwise development of various, mutually
   equivalent foundational axiom systems for category theory. As a
-  side-effect of this work some (minor) issue in a prominent category
-  theory textbook has been revealed.
+  side-effect of this work some (minor) issues in a prominent category
+  theory textbook have been revealed.
 
   The purpose of this article is not to claim any novel results in
   category theory, but to demonstrate an elegant way to ``implement''
@@ -457,12 +457,13 @@ Moreover, a function $f$ is \emph{total} if and only if for all $x$ we
 have $\ex x \imp \ex(f x)$.\footnote{The predication $\ex x$ represents that $x$ is a
   member of $E$.}
 For \emph{partial} functions $f$ we may have some $x$ such that $\ex x$ but not
-$\ex(f x)$. A function $f$ is \emph{strict}  if  and only if for all $x$
+$\ex(f x)$. A function $f$ is called \emph{strict}  if  and only if
+for all $x\in \D$
  we have $\ex(f x) \imp \ex x$.
 
 
-The particular notion of free logic as exploited in the remainder of
-this article has been proposed by Scott \cite{Scott67}.  A graphical
+The particular version of free logic as exploited in the remainder of
+this article was proposed by Scott \cite{Scott67}.  A graphical
 illustration of this notion of free logic is presented in
 Fig.~\ref{fig1}. It
 employs a distinguished undefined object $\star$.\footnote{The $\star$
@@ -500,8 +501,9 @@ employs a distinguished undefined object $\star$.\footnote{The $\star$
 \caption{Illustration of the Semantical Domains of Free Logic \label{fig1}}
 \end{figure}
 
-We formally introduce the syntax and semantics of free logic as
-assumed in the remainder of this article. We refer to this logic with $\FFOL$.
+We next  formally introduce the syntax and semantics of free logic as
+to be used in the remainder of this article. We refer to this logic as
+$\FFOL$.
 
 \begin{defn}[Syntax of $\FFOL$]
   We start with a denumerable set $\V$ of variable symbols, a denumerable set
@@ -634,14 +636,14 @@ $\lambda$-calculus~\cite{barendregt13book}.
     %Although \sys~actually supports a polymorphic typed $\lambda$-calculus
     %we will
     %stick here to the simply typed $\lambda$-calculus for a better understanding.}
-  HOL has its origin in the work by
+  HOL has its origin in the work of
   Church~\cite{Church40}.
 
 For a detailed discussion of the syntax, semantics and automation
 of  HOL we refer to the literature (see e.g.
 \cite{AndrewsSEP,B5,J6} and the
 references therein). Below we introduce a variant of \HOL with primitive equality
-and definite description. 
+and definite descriptions. 
 
 
 
@@ -1062,11 +1064,11 @@ The different properties of $\FFOL$ could now be experimentally explored with
 automated reasoning tools for $\HOL$. We have conducted such
 experiments in 
 an earlier paper \cite{ICMS}. These experiments confirm the
-illustrating examples discussed in Scott's paper \cite{Scott67}.
+illustrative examples discussed in Scott's paper \cite{Scott67}.
 
 
 \section{Exploring Axioms Systems for Category Theory}
-In an experimental theory exploration study, utilizing the
+In an experimental theory-exploration study, utilizing the
 free logic reasoning framework from above, 
 we have shown how Scott's
 \cite{Scott79} axiom system for category theory can be derived from a
@@ -1378,7 +1380,7 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   community. However, since about a year, the \textsc{smt} method is
   now even eligible in submissions to the Archive of Formal
   Proofs. For the work presented here this community internal discussion is 
-  of little relevance, since we could replace all uses of the\textsc{smt} method
+  of little relevance, since we could replace all uses of the \textsc{smt} method
   by alternative proofs (which we avoid in order to keep
   our formalisation concise).
 
@@ -1472,7 +1474,7 @@ details.
 \hline
 \\
 \multicolumn{2}{c}{Axioms Set VI: Freyd and Scedrov in our notation
-  and corrected} \\
+(corrected)} \\
 %\hline
 \\
   $A1'$  & $\ex (x \comp y) \longleftrightarrow \dom x \simeq\cod y$ \\
@@ -1773,12 +1775,17 @@ simplified.
 
 Comparisons with other theorem provers for free logic are not possible at this stage, since we are not aware of any other existing systems.
 
-Further work includes the extension of our work towards an embedding of
-free higher-order logic, the continuation of our formalization studies in
-category theory and the application of free logic to various other
-mathematical domains, including, for example,  projective geometry.
-Regarding extensions towards free  higher-order logic some first steps
-have already been taken \cite{W56,makarenko16:_autom_logik_logik_stufe}.
+Further work includes the extension of our work towards an embedding
+of free higher-order logic, the continuation of our formalization
+studies in category theory (especially extensions of the theory
+involving functors) and the application of free logic to
+various other mathematical domains, including, for example, projective
+geometry.  Regarding extensions towards free higher-order logic some
+first steps have already been taken
+\cite{W56,makarenko16:_autom_logik_logik_stufe}, and a recent
+continuation of our formalisation studies \cite{J39} now also includes 
+an early axiom system for category theory by Saunders MacLane
+\cite{maclane48:_group}.
 
 
 Moreover, as an alternative to always unfolding the mapping from
