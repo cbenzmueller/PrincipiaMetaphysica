@@ -560,11 +560,11 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
   $D \times \ldots \times D \longrightarrow D$ and $n$-ary predicate
   symbols (for $n\geq 1$) to $n$-ary relations
   $D \times \ldots \times D$. $\True$ or $\False$ denote truth and
-  felshood respectively. Finally, $\star\in D\setminus \ex$ is a designated
+  falsehood respectively. Finally, $\star\in D\setminus \ex$ is a designated
   (non-existing/undefined) object. 
 \end{defn}
 
-\begin{defn}[Evaluation Function for $\FFOL$]
+\begin{defn}[Evaluation Function for $\FFOL$] \sloppy
   The \emph{value} $\| s \|^{M,g}$ of a term or formula $s\in\FFOL$
   in a model $M=\langle D, \ex, I, \star\rangle$ under assignment $g$ 
   defined in the following way:
@@ -693,7 +693,7 @@ the usual way. For example, $\hol{\Impl}$ can be defined as $\hol{\lam{X_o}\lam{
   \neg (\neg X \vee \neg Y)}$.
 \end{defn}
 
-We assume familiarity with $\lambda$-conversion (e.g. \emph{$\alpha$-renaming} and
+\sloppy We assume familiarity with $\lambda$-conversion (e.g. \emph{$\alpha$-renaming} and
 \emph{$\beta\eta$-reduction}) and \emph{$\beta\eta$-normal forms}~\cite{barendregt13book}.
 
 
@@ -907,7 +907,8 @@ variables by choosing
 $\map{g}(\hol{Y_\alpha}) = \hol{d}\in \hol{D_\alpha}$ arbitrary 
 whenever $\hol{Y_\alpha} \notin \map{V}$.
 
-\begin{defn}[Henkin model $\map{M}$ for $\FFOL$ model $M$]\label{def:hm}
+\begin{defn}[Henkin model $\map{M}$ for $\FFOL$ model
+  $M$]\label{def:hm} \sloppy
 Given a $\FFOL$ model $M = \langle D, \ex, I, \star\rangle$. The Henkin
 model $\map{M} = \hol{\langle \{D_\alpha\}_{\alpha \in {T}},I \rangle}$ for
 $M$ is defined as follows: 
@@ -1121,7 +1122,7 @@ An excerpt of these experiments is shown in Fig.~\ref{pic2}.
 \begin{table}[htp] \centering \normalsize
 \begin{tabular}{ll}
 \hline
-\\
+\\[-.8em]
 \multicolumn{2}{c}{Axioms Set I} \\
 %\hline
 \\
@@ -1133,7 +1134,7 @@ An excerpt of these experiments is shown in Fig.~\ref{pic2}.
  $D_{i}$ & $\forall x\lambdot \exists j\lambdot  \id j \wedge x \comp j \cong x$  \\
 \\
 \hline
-\\
+\\[-.8em]
 \multicolumn{2}{c}{Axioms Set II} \\
 %\hline
 \\
@@ -1147,7 +1148,7 @@ $S_{ii}$ & $\ex(x \comp y) \imp (\ex x \wedge \ex y) \wedge (\ex (\dom x) \imp \
  $D_{ii}$ & $\ex x \imp (\id(\dom x) \wedge x \comp (\dom x) \cong x)$ \\
 \\
 \hline
-\\
+\\[-.8em]
 \multicolumn{2}{c}{Axioms Set III} \\
 %\hline
 \\
@@ -1160,7 +1161,7 @@ $S_{iii}$ & $\ex(x \comp y) \imp (\ex x \wedge \ex y) \wedge (\ex (\dom x) \imp 
  $D_{iii}$ & $\ex x \imp (\id(\dom x) \wedge x \comp (\dom x) \cong x)$ \\
 \\
 \hline
-\\
+\\[-.8em]
 \multicolumn{2}{c}{Axioms Set IV} \\
 %\hline
 \\
@@ -1173,7 +1174,7 @@ $S_{iv}$ & $\ex(x \comp y) \imp (\ex x \wedge \ex y) \wedge (\ex (\dom x) \imp \
  $D_{iv}$ & $x \comp (\dom x) \cong x$  \\
 \\
 \hline
-\\
+\\[-.8em]
 \multicolumn{2}{c}{Axioms Set V (Scott 79, \cite{Scott79})} \\
 %\hline
 \\

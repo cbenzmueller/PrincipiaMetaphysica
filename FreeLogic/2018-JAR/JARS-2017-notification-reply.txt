@@ -1,12 +1,15 @@
-Dear Armin, Cesare and Christoph,
+Dear Armin, Cesare and Christoph, dear JARS editors, 
 
-thank you (and reviewers) for your response to our submission to JARS-2017 from May 1, 2017.
+thank you and the reviewers for your response (dated ???) to our submission to JARS-2017 from May 1, 2017.
 
-Yes, we are interested in the offered (very timely) publication in JAR. Attached is the revised version of our paper. Attached as also the new source files		
-AxiomaticCategoryTheory2018_FullFreeLogic.thy
+We have carefully studied the reviews and we have addressed them in the attached/uploaded revision of our article. In fact, many comments of the reviewers were mislead and we hope that we have now clarified things better. Attached are also the new source files
+ AxiomaticCategoryTheory2018_FullFreeLogic.thy
 and
-AxiomaticCategoryTheory2018.thy	
+ AxiomaticCategoryTheory2018.thy	
+The former file show that we in fact do combine in our contribution an embedding of full free first-order logic with an axiomatisation of category (see the main concern raised in Review 2 who questioned this).
+Detailed replies to all points as raised in the reviews is given below.
 
+Yes, we are interested in the offered, very timely publication in JAR (also given the very unfortunately long reviewing process so far). 
 We looking forward to hear from you.
 
 Best regards,
@@ -61,7 +64,7 @@ We have added the following text to section 4.4 which is addressing this point:
 This paper is *not* about Sledgehammer, and it *not* heavily relies on it. In fact, Sledgehammer is *not* even mentioned anymore in the source files (see below). Hence, there is *no* dependency in these sources on Sledgehammer. We have simply used Sledgehammer to produce these source files.
 Moreover, Sledgehammer and its cooperation with SMT solvers has (e.g.) been described in: Blanchette, J.C., Böhme, S., Paulson, L.C.: Extending Sledgehammer with SMT
 solvers. Journal of Automated Reasoning 51(1), 109–128 (2013). 
-We have referenced this article. We have now also added a reference to the Sledgehammer tutorial by Jasmin Blanchette. We see no point in extensively copying text from these papers (which we  are not an author of) to our submission.
+We have referenced this article. We have now also added a reference to the Sledgehammer tutorial by Jasmin Blanchette. We see no point in extensively copying text from these papers (which we are not an author of) to our submission.
 
 Moreover, we have slightly adapted and extended the text in section 4.4. 
 
@@ -121,8 +124,8 @@ We have rewritten the sentence as follows:
 
 The proofs are found by the Sledgehammer tool and automatically
 reconstructed in Isabelle/HOL. Further information on these
-experiments are provided in section 4.4
-below. Using Sledgehammer we have also shown that Axioms Set II
+experiments are provided in section 4.4 below. 
+Using Sledgehammer we have also shown that Axioms Set II
 implies Axioms Set I. Vice versa, Axioms Set I also implies Axioms Set
 II. This can easily be shown by semantical means on the meta-level.
 
@@ -130,7 +133,6 @@ Then the subsection 4.4 (which provides further information) starts right away. 
 
 %   ⁃ Same for the SMT tactic. Why is it different from the other tactics?
 %     What is the tactic doing
-
 
 We have added some further explanations on this in subsection 4.4.
 
@@ -323,9 +325,9 @@ done
 %     "sublocale AxiomSet1 ⊆ AxiomSet2" to show inclusion.
 
 To address this critique we have now modified the files accordingly. We now do make proper use of "locales" and "context"; see the new files attached: 		
-AxiomaticCategoryTheory2018_FullFreeLogic.thy
+ AxiomaticCategoryTheory2018_FullFreeLogic.thy
 and 
-AxiomaticCategoryTheory2018.thy	
+ AxiomaticCategoryTheory2018.thy	
 
 %   ⁃ You mention issues with z3, SPASS, and Sledgehammer. Have you
 %     reported them?
@@ -336,9 +338,9 @@ We added a footnote (footnote 10) about the errors with Z3.
 %     be better.
 
 In files 
-AxiomaticCategoryTheory2018_FullFreeLogic.thy
+ AxiomaticCategoryTheory2018_FullFreeLogic.thy
 and 
-AxiomaticCategoryTheory2018.thy	
+ AxiomaticCategoryTheory2018.thy	
 we do not make use of @{text } or @{term } anymore.
 
 
@@ -387,7 +389,7 @@ fixed
 The reviewer has been mislead here with his comment: 
 (a) There is no problem with adding * and definite description to our experiments and we have done this now; see Figure 2 and the attached file AxiomaticCategoryTheory2018_FullFreeLogic.thy (available also via http://christoph-benzmueller.de/papers/2018-JAR-sources.zip)
 (b) There is also no major effort (or vice versa a big simplification) involved as claimed above.
-(c) The only (very minor) point is that one single Nitpick model (consisting of one existing morphism only), which we previously mentioned in the paper, can now  no longer be generated (since * is now always present as an non-existing object). But this model was anyway included only for illustration purposes and is not essential for the presented material; we accordingly adapted the text in the paper. E.g. we now write:
+(c) The only (very minor) point is that one single Nitpick model (consisting of one existing morphism only), which we previously mentioned in the paper, can now no longer be generated (since * is now always present as an non-existing object). But this model was anyway included only for illustration purposes and is not essential for the presented material; we accordingly adapted the text in the paper. E.g. we now write:
 
 The sources of our experiments as conducted here are available at
 \url{http://christoph-benzmueller.de/papers/2018-JAR-sources.zip}.
