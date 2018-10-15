@@ -68,9 +68,9 @@ lemma "x \<simeq> y \<^bold>\<leftarrow> x \<cong> y" nitpick [user_axioms, show
 abbreviation I where "I i \<equiv> (\<^bold>\<forall>x. E(i\<cdot>x) \<^bold>\<rightarrow> i\<cdot>x \<cong> x) \<^bold>\<and> (\<^bold>\<forall>x. E(x\<cdot>i) \<^bold>\<rightarrow> x\<cdot>i \<cong> x)"
 
 
-section \<open> Axiom Set I \<close>
+section \<open> Axioms Set I \<close>
 
-locale Axiom_Set_I =
+locale Axioms_Set_I =
 assumes 
  S\<^sub>i: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
  E\<^sub>i: "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
@@ -97,9 +97,9 @@ begin
 end
 
 
-section \<open> Axiom Set II \<close>
+section \<open> Axioms Set II \<close>
 
-locale Axiom_Set_II =
+locale Axioms_Set_II =
 assumes 
  S\<^sub>i\<^sub>i: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
  E\<^sub>i\<^sub>i: "E(x\<cdot>y) \<^bold>\<leftarrow> (E x \<^bold>\<and> E y \<^bold>\<and> (\<^bold>\<exists>z. z\<cdot>z \<cong> z \<^bold>\<and> x\<cdot>z \<cong> x \<^bold>\<and> z\<cdot>y \<cong> y))" and
@@ -121,7 +121,7 @@ begin
     by (metis C\<^sub>i\<^sub>i S\<^sub>i\<^sub>i)  
 end
 
-context Axiom_Set_II
+context Axioms_Set_II
 begin
   lemma S\<^sub>iFromII: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)"  
     using S\<^sub>i\<^sub>i by blast
@@ -136,9 +136,9 @@ begin
 end
 
 
-section \<open> Axiom Set III \<close>
+section \<open> Axioms Set III \<close>
 
-locale Axiom_Set_III =
+locale Axioms_Set_III =
 assumes
  S\<^sub>i\<^sub>i\<^sub>i: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
  E\<^sub>i\<^sub>i\<^sub>i: "E(x\<cdot>y) \<^bold>\<leftarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
@@ -156,7 +156,7 @@ begin
     by (metis (full_types) A\<^sub>i\<^sub>i\<^sub>i C\<^sub>i\<^sub>i\<^sub>i D\<^sub>i\<^sub>i\<^sub>i S\<^sub>i\<^sub>i\<^sub>i)
 end
 
-context Axiom_Set_III
+context Axioms_Set_III
 begin
   lemma S\<^sub>i\<^sub>iFromIII: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>i\<^sub>i by blast
@@ -170,7 +170,7 @@ begin
     using D\<^sub>i\<^sub>i\<^sub>i by auto
 end
 
-context Axiom_Set_II
+context Axioms_Set_II
 begin 
   lemma S\<^sub>i\<^sub>i\<^sub>iFromII: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>i by blast
@@ -185,9 +185,9 @@ begin
 end
 
 
-section \<open> Axiom Set IV \<close>
+section \<open> Axioms Set IV \<close>
 
-locale Axiom_Set_IV =
+locale Axioms_Set_IV =
 assumes
  S\<^sub>i\<^sub>v: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  and
  E\<^sub>i\<^sub>v: "E(x\<cdot>y) \<^bold>\<leftrightarrow> (dom x \<cong> cod y \<^bold>\<and> E(cod y))" and
@@ -203,7 +203,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_IV
+context Axioms_Set_IV
 begin
   lemma S\<^sub>i\<^sub>i\<^sub>iFromIV: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>v by blast
@@ -217,7 +217,7 @@ begin
     by (metis C\<^sub>i\<^sub>v D\<^sub>i\<^sub>v E\<^sub>i\<^sub>v)
 end
 
-context Axiom_Set_III
+context Axioms_Set_III
 begin
   lemma S\<^sub>i\<^sub>vFromIII: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"  
     using S\<^sub>i\<^sub>i\<^sub>i by blast
@@ -232,9 +232,9 @@ begin
 end
 
 
-section \<open> Axiom Set V \<close>
+section \<open> Axioms Set V \<close>
 
-locale Axiom_Set_V =
+locale Axioms_Set_V =
 assumes 
  S1: "E(dom x) \<^bold>\<rightarrow> E x" and
  S2: "E(cod y) \<^bold>\<rightarrow> E y" and
@@ -251,7 +251,7 @@ begin  --\<open>The obligatory consistency checks\<close>
     nitpick [satisfy, user_axioms,  expect=genuine] oops --\<open>model found\<close>
 end
 
-context Axiom_Set_V   --\<open>Axiom Set IV is implied by Axiom Set V\<close>
+context Axioms_Set_V   --\<open>Axioms Set IV is implied by Axioms Set V\<close>
 begin
   lemma S\<^sub>i\<^sub>vFromV: "(E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)) \<^bold>\<and> (E(dom x ) \<^bold>\<rightarrow> E x) \<^bold>\<and> (E(cod y) \<^bold>\<rightarrow> E y)"   
     using S1 S2 S3 by blast
@@ -261,7 +261,7 @@ begin
   lemma D\<^sub>i\<^sub>vFromV: "x\<cdot>(dom x) \<cong> x"  using S5 by blast
 end
 
-context Axiom_Set_IV  --\<open>Axiom Set V is implied by Axiom Set IV\<close>
+context Axioms_Set_IV  --\<open>Axioms Set V is implied by Axioms Set IV\<close>
 begin
   lemma S1FromIV:  "E(dom x) \<^bold>\<rightarrow> E x"  using S\<^sub>i\<^sub>v by blast
   lemma S2FromIV:  "E(cod y) \<^bold>\<rightarrow> E y"  using S\<^sub>i\<^sub>v by blast
@@ -272,14 +272,14 @@ begin
 end
 
 
-section \<open> Axiom Set FS-I \<close>
+section \<open> Axioms Set FS-I \<close>
 
 consts  
    source:: "i\<Rightarrow>i" ("\<box>_" [108] 109) 
    target:: "i\<Rightarrow>i" ("_\<box>" [110] 111) 
    compositionF:: "i\<Rightarrow>i\<Rightarrow>i" (infix "\<^bold>\<cdot>" 110)
 
-locale Axiom_Set_FS_I =
+locale Axioms_Set_FS_I =
 assumes           
   A1: "E(x\<^bold>\<cdot>y) \<^bold>\<leftrightarrow> (x\<box> \<cong> \<box>y)" and 
  A2a: "((\<box>x)\<box>) \<cong> \<box>x" and 
@@ -321,9 +321,9 @@ begin
 end
 
 
-section \<open> Axiom Set FS-II \<close>
+section \<open> Axioms Set FS-II \<close>
 
-locale Axiom_Set_FS_II =
+locale Axioms_Set_FS_II =
 assumes
   A1: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
  A2a: "cod(dom x) \<cong> dom x " and  
@@ -372,9 +372,9 @@ begin
 end
 
 
-section \<open> Axiom Set VI \<close>
+section \<open> Axioms Set VI \<close>
 
-locale Axiom_Set_VI =
+locale Axioms_Set_VI =
 assumes
  A1': "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
  A2a: "cod(dom x) \<cong> dom x" and  
@@ -401,7 +401,7 @@ begin
     using A1' A3a A3b A4a A4b by smt 
 end
 
-context Axiom_Set_VI
+context Axioms_Set_VI
 begin
   lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x" 
     by (metis A1' A2a A3a)
@@ -417,7 +417,7 @@ begin
     using A3b by blast
 end
 
-context Axiom_Set_V
+context Axioms_Set_V
 begin
   lemma A1'FromV: "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" 
     using S3 by blast
@@ -438,9 +438,9 @@ begin
 end
 
 
-section \<open> Axiom Set VI reduced a\<close>
+section \<open> Axioms Set VI reduced a\<close>
 
-locale Axiom_Set_VI_reduced_a =
+locale Axioms_Set_VI_reduced_a =
 assumes
  A1': "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
  A3a: "x\<cdot>(dom x) \<cong> x" and 
@@ -457,7 +457,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_VI_reduced_a
+context Axioms_Set_VI_reduced_a
 begin
   lemma S1FromVI: "E(dom x) \<^bold>\<rightarrow> E x" 
     using A1' A3a A4a by smt
@@ -474,9 +474,9 @@ begin
 end
 
 
-section \<open> Axiom Set VI reduced b \<close>
+section \<open> Axioms Set VI reduced b \<close>
 
-locale Axiom_Set_VI_reduced_b =
+locale Axioms_Set_VI_reduced_b =
 assumes
  A1': "E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<simeq> cod y" and
  A2a: "cod(dom x) \<cong> dom x" and  
@@ -493,7 +493,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_VI_reduced_b
+context Axioms_Set_VI_reduced_b
 begin
   lemma S1FromVI_new': "E(dom x) \<^bold>\<rightarrow> E x" 
     by (metis A1' A2a A3a)
@@ -510,9 +510,9 @@ begin
 end
 
 
-section \<open> Axiom Set VI reduced c\<close>
+section \<open> Axioms Set VI reduced c\<close>
 
-locale Axiom_Set_VI_reduced_c =
+locale Axioms_Set_VI_reduced_c =
 assumes
  S1\<^sub>v: "E(dom x) \<^bold>\<rightarrow> E x" and
  S2\<^sub>v: "E(cod y) \<^bold>\<rightarrow> E y" and
@@ -529,7 +529,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_VI_reduced_c
+context Axioms_Set_VI_reduced_c
 begin
   lemma S1FromVI_new'': "E(dom x) \<^bold>\<rightarrow> E x" 
     using S1\<^sub>v by blast
@@ -546,9 +546,9 @@ begin
 end
 
 
-section \<open> Axiom Set FS-III \<close>
+section \<open> Axioms Set FS-III \<close>
 
-locale Axiom_Set_FS_III =
+locale Axioms_Set_FS_III =
   assumes
   B1: "\<^bold>\<forall>x.\<^bold>\<forall>y. E(x\<cdot>y) \<^bold>\<leftrightarrow> dom x \<cong> cod y" and
  B2a: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " and  
@@ -567,7 +567,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_FS_III
+context Axioms_Set_FS_III
 begin
   lemma S1: "E(dom x) \<^bold>\<rightarrow> E x" 
     nitpick [user_axioms, show_all, format = 2, expect = genuine] oops 
@@ -584,9 +584,9 @@ begin
 end
 
 
-section \<open> Axiom Set FS-IV \<close>
+section \<open> Axioms Set FS-IV \<close>
 
-locale Axiom_Set_FS_IV =
+locale Axioms_Set_FS_IV =
 assumes
  B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" and
  B0b: "E(dom x) \<^bold>\<rightarrow> E x" and
@@ -608,7 +608,7 @@ begin
     nitpick [satisfy, user_axioms, show_all, format = 2, expect = genuine] oops 
 end
 
-context Axiom_Set_FS_IV
+context Axioms_Set_FS_IV
 begin
   lemma S1FromVIII: "E(dom x) \<^bold>\<rightarrow> E x"  using B0b by blast
   lemma S2FromVIII: "E(cod y) \<^bold>\<rightarrow> E y"  using B0c by blast 
@@ -618,7 +618,7 @@ begin
   lemma S6FromVIII: "(cod y)\<cdot>y \<cong> y" using B0a B3b by blast
 end
 
-context Axiom_Set_V
+context Axioms_Set_V
 begin
   lemma B0a: "E(x\<cdot>y) \<^bold>\<rightarrow> (E x \<^bold>\<and> E y)" using S1 S2 S3 by blast
   lemma B0b: "E(dom x) \<^bold>\<rightarrow> E x" using S1 by blast
@@ -634,7 +634,7 @@ begin
 end
 
 
-context Axiom_Set_FS_IV  
+context Axioms_Set_FS_IV  
 begin
   lemma B2aRedundant: "\<^bold>\<forall>x. cod(dom x) \<cong> dom x " by (metis B0a B1 B3a) 
   lemma B2bRedundant: "\<^bold>\<forall>y. dom(cod y) \<cong> cod y" by (metis B0a B1 B3b) 
