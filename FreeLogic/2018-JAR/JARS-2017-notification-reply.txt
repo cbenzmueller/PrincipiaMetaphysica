@@ -1,16 +1,18 @@
-Dear Armin, Cesare and Christoph, dear JARS editors, 
+Dear Armin, Cesare and Christoph, dear JAR editors, 
 
-thank you and the reviewers for your response (dated ???) to our submission to JARS-2017 from May 1, 2017.
+thank you and the reviewers for your response (from Aug 29, 2018) to our submission to the Special Issue of JAR on Automated Reasoning Systems (from May 1, 2017).
 
-We have carefully studied the reviews and we have addressed them in the attached/uploaded revision of our article. In fact, many comments of the reviewers were mislead and we hope that we have now clarified things better. Attached are also the new source files
- AxiomaticCategoryTheory2018_FullFreeLogic.thy
+We have carefully studied the reviews and we have addressed them in the attached/uploaded revision of our article. In fact, we found that several comments of the reviewers were mislead, and we hope that we have now clarified things much better. Attached are also the new source files
+  AxiomaticCategoryTheory2018_FullFreeLogic.thy
 and
- AxiomaticCategoryTheory2018.thy	
-The former file show that we in fact do combine in our contribution an embedding of full free first-order logic with an axiomatisation of category (see the main concern raised in Review 2 who questioned this).
-Detailed replies to all points as raised in the reviews is given below.
+  AxiomaticCategoryTheory2018.thy
+  
+The former file shows that we in fact do combine in our contribution an embedding of full free first-order logic with an axiomatisation of category (see the main concern raised by Review 2 who had concerns about this).
 
-Yes, we are interested in the offered, very timely publication in JAR (also given the very unfortunately long reviewing process so far). 
-We looking forward to hear from you.
+Replies to all points as raised in the reviews are given in the
+attached file JARS-2017-notification-reply.txt
+
+Yes, we are interested in the offered, very timely publication in JAR (given the very unfortunately long reviewing process so far) . 
 
 Best regards,
    Christoph and Dana

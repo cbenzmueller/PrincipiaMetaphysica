@@ -2,7 +2,7 @@
 with * and definite description) and that the model consisting of only one existing object that 
 was previously constructed by nitpick for the axiom system FS-I (resp. FS-II) by Freyd Scedrov can 
 obviously no longer be obtained. This is because * has now been axiomatized as a 
-distinguished non-existing  object; therefore lines 307-310 (resp. 351-354) have been 
+distinguished non-existing  object; therefore lines 293-296 (resp. 337-340) have been 
 commented. *) 
 
 theory AxiomaticCategoryTheory2018_FullFreeLogic imports Main
