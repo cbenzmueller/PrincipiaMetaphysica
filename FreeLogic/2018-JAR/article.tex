@@ -206,7 +206,10 @@ grestore
 \titlerunning{Automating Free Logic in HOL}        % if too long for running head
 
 
-\author{Christoph Benzm\"uller  and Dana S. Scott}
+\author{Christoph Benzm\"uller\thanks{Benzmüller received funding from the German National Research
+  Foundation DFG under Heisenberg grant \emph{Towards Computational
+    Metaphysics} (BE 2501/9-2) and from VolkswagenStiftung under grant
+  Consistent Rational Argumentation in Politics (CRAP).}  and Dana S. Scott}
 \institute{Christoph Benzm\"uller \at
    Freie Universit\"at Berlin, Berlin, Germany \& University of Luxembourg, Luxembourg\\
 %   Stanford University, CSLI/Cordura Hall, Stanford, CA 94305-4115, U.S. \\
@@ -557,9 +560,9 @@ follow the notion of free logic as proposed by Scott \cite{Scott67}.
   mapping $0$-ary function symbols (constants) to defined objects $d\in \ex$, 
  $0$-ary predicate symbols (propositions) to $\True$ or $\False$, 
   $n$-ary function symbols (for $n\geq 1$) to $n$-ary functions
-  $D \times \ldots \times D \longrightarrow D$ and $n$-ary predicate
+  $D \times \dotsb \times D \longrightarrow D$ and $n$-ary predicate
   symbols (for $n\geq 1$) to $n$-ary relations
-  $D \times \ldots \times D$. $\True$ or $\False$ denote truth and
+  $D \times \dotsb \times D$. $\True$ or $\False$ denote truth and
   falsehood respectively. Finally, $\star\in D\setminus \ex$ is a designated
   (non-existing/undefined) object. 
 \end{defn}
@@ -1084,7 +1087,7 @@ The sources of our experiments as conducted here are available at
 \url{http://christoph-benzmueller.de/papers/2018-JAR-sources.zip}.
 These sources contain an embedding of full free logic in Isabelle/HOL,
 that is, with $\star$ and definite description
-(cf.~Fig.\ref{pic1}). In \cite{ArXiv}, $\star$ and definite
+(cf.~Fig.~\ref{pic1}). In \cite{ArXiv}, $\star$ and definite
 description were still avoided; they are in fact not really 
 relevant for the conducted experiments.
 % Note that
@@ -1242,14 +1245,14 @@ where composition is total, $\id i$ means $i$ is a two-sided identity
 
 \subsection{Consistency}
 The model finder Nitpick confirms consistency for all of the axioms
-sets from Table \ref{axioms-sets-1}. For example, when asked to consider at least one defined and one undefined object, then
+sets from Table~\ref{axioms-sets-1}. For example, when asked to consider at least one defined and one undefined object, then
 Nitpick generates for all cases the following model (called $M_1$ in the remainder):
 $D=\{i_i,i_2\}$ and $E=\{i_1\}$;  $i_1\comp i_1$ is $i_1$,  and $i_2$
 in all other cases; $cod$ and $dom$ are identity on $D$. Without constraining the request, Nitpick
 generates an even simpler model (called $M_0$ in the remainder):
 $D=\{i_i\}$ and $E=\emptyset$; $i_1\comp i_1$ is $i_1$; $cod$ and
 $dom$ are identity on $D$. It is trivial to check that these models
-indeed confirm the consistency of all axioms sets from Table \ref{axioms-sets-1}.
+indeed confirm the consistency of all axioms sets from Table~\ref{axioms-sets-1}.
 
   % Constants:
    % codomain = (λx. _)(i⇩1 := i⇩1)
@@ -1372,18 +1375,25 @@ first-order automated theorem provers such as CVC4 \cite{CVC4}, Z3
   user-supplied facts to the SMT solvers’ many-sorted first-order
   logic, invokes a solver, and (depending on the solver) either trusts
   the result or attempts to reconstruct the proof in Isabelle.''
-  (\cite[p.~5]{Sledgehammer}).\footnote{Technical remark: We have
+  \cite[p.~5]{Sledgehammer}.\footnote{Technical remark: We have
     selected CVC4 in our experiments as the default SMT solver, since
     we did run into errors when working with Z3. These errors can
     easily be reconstructed in the provided source files when
-    switching back to Z3 as default.}  For quite some time the use of the \textsc{smt}
-  method has been controversially discussed in the Isabelle/HOL
-  community. However, since about a year, the \textsc{smt} method is
-  now even eligible in submissions to the Archive of Formal
-  Proofs. For the work presented here this community internal discussion is 
-  of little relevance, since we could replace all uses of the \textsc{smt} method
-  by alternative proofs (which we avoid in order to keep
-  our formalisation concise).
+    switching back to Z3 as default.}  For quite some time the use of
+  the \textsc{smt} method has been controversially discussed in the
+  Isabelle/HOL community, and there is in fact a significant difference
+  between using the \textsc{smt} method in combination with Z3 or with
+  CVC4, as we prefer. When setting the solver to CVC4, the contributed
+  proofs are accepted and being trusted without replaying them in the
+  Isabelle kernel. Proofs contributed by Z3, in contrast, are never
+  trusted and always replayed in Isabelle's kernel. For the work
+  presented here this community internal discussion is of minor
+  relevance, so that we decided to continue working with CVC4 in order
+  to keep our formalisation concise and also because CVC4
+  performed surprisingly well in our experiments.\footnote{An expert
+    reviewer of this article, to whom we are very grateful, provided
+    alternative proofs which can be
+    fully replayed in the kernel of Isabelle.}
 
 % \marginpar{Remove this part? SMT is now called as an oracle.}
 %   However, there are still
@@ -1435,8 +1445,8 @@ details.
  \section{Assessment of the Axiom System by Freyd and
    Scedrov} \label{sec-freyd-scedrov} In this section we study the
  axioms set of Freyd and Scedrov from their textbook ``Categories,
- Allegories'' \cite{FreydScedrov90}.  In \S\ref{subsec-freyd-scedrov-1} we show, that their axioms set,
- replicated in Table \ref{axioms-sets-2} as Axioms Set FS-I, becomes
+ Allegories'' \cite{FreydScedrov90}.  In \S\ref{subsec-freyd-scedrov-1} we show that their axioms set,
+ replicated in Table~\ref{axioms-sets-2} as Axioms Set FS-I, becomes
  inconsistent in our free logic setting if we assume non-existing
  objects in $D$, respectively, if we assume that the operations
  are non-total.
@@ -1520,8 +1530,7 @@ details.
 
  \subsection{Constricted Inconsistency in Free Logic
    Setting} \label{subsec-freyd-scedrov-1} A main difference in the
- system by Freyd and Scedrov to our Axioms Set V from Table
- \ref{axioms-sets-1} concerns axiom $S3$, respectively $A1$. Namely,
+ system by Freyd and Scedrov to our Axioms Set V from Table~\ref{axioms-sets-1} concerns axiom $S3$, respectively $A1$. Namely,
  instead of the non-reflexive existing identity $\simeq$, they use
  Kleene equality $\cong$, cf. definition 1.11 on page 3 of their textbook
  \cite{FreydScedrov90}.\footnote{Def. 1.11 in Freyd Scedrov: ``The
@@ -1539,7 +1548,7 @@ details.
  }
 
   The (constricted) inconsistency of Axioms Set FS-I, respectively
-  Axioms Set FS-II, from Table \ref{axioms-sets-2} has been 
+  Axioms Set FS-II, from Table~\ref{axioms-sets-2} has been 
   detected first by the model finder Nitpick. When we asked Nitpick to
   generate a model with at least one non-existing object, it claimed
   that there is no such model. However, a model can still be
@@ -1731,11 +1740,10 @@ Axioms-Set FS-III as displayed in Table~\ref{axioms-sets-4}.
 
 For Axioms Set FS-III the consistency checks with Nitpick succeed,
 even if we assume undefined objects. However, this axioms set is
-obviously weaker than Axioms Set V from Table
-\ref{axioms-sets-1}. In fact, as has been shown by Nitpick, none of
+obviously weaker than Axioms Set V from Table~\ref{axioms-sets-1}. In fact, as has been shown by Nitpick, none of
 the axioms of this set are implied.  The situation changes when we
 explicitly postulate strictness of $dom$, $cod$ and $\comp$. Doing
-so we obtain Axioms Set FS-IV from Table \ref{axioms-sets-4}, which,
+so we obtain Axioms Set FS-IV from Table~\ref{axioms-sets-4}, which,
 as Nitpick confirms, is consistent even if we assume undefined
 objects. And the automated theorem provers via Sledgehammer confirm
 that Axioms Set FS-IV is equivalent to Axioms Set V, as
@@ -1795,14 +1803,13 @@ e.g. in Isabelle/HOL to support intuitive interaction (and even
 automation) in $\FFOL$ on top the semantical embedding.
 
 \begin{acknowledgements}
-This work has been supported by the DFG Heisenberg fellowship (BE
-2501/9-2, \emph{Towards Computational Metaphysics}) of the first
-author.
-
-We thank G{\"u}nter Rote, Lutz Schr\"oder and and Emil Weydert for their
+ We thank G{\"u}nter Rote, Lutz Schr\"oder and and Emil Weydert for their
 comments to \cite{ArXiv}, which together with \cite{ICMS} forms the
 basis for this article.
 
+We also want to express our gratitude to the reviewers of this
+article.  Their fruitful feedback definitely helped to improve the
+final version.
 \end{acknowledgements}
 
 % BibTeX users please use one of

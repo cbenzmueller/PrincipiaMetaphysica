@@ -1,0 +1,59 @@
+
+Detailed Response to Reviewers
+==============================
+
+Reviewer #1: I am happy with all changes, except for:
+> For quite some time the use of the \textsc{smt}
+> method has been controversially discussed in the Isabelle/HOL
+> community. However, since about a year, the \textsc{smt} method is > now even eligible in submissions to the Archive of Formal
+> Proofs.
+Not really : Setting the solver to CVC4 means that the proof are accepted without replaying them, effectively bypassing the Isabelle kernel. This means that you are currently trusting the translation and the SMT solver CVC4. The smt method when used with z3 does not have this issue, as Isabelle is able to replay the proofs. Remark that since Isabelle2018, 'smt_oracle' must be explicitly written in the theory.
+I am fine with trusting SMT solvers, as long as it is acknowledged in the paper.
+If this point is addressed, I am fine with accepting the paper.
+
+
+Response:
+=========
+Thank you. We have now rewritten the text on page 15/16 as follows; this should hopefully solve the issue.
+
+  In our experiments we have also made use of the Isabelle/HOL's
+  \textsc{smt} method, which ``translates the conjecture and any
+  user-supplied facts to the SMT solvers’ many-sorted first-order
+  logic, invokes a solver, and (depending on the solver) either trusts
+  the result or attempts to reconstruct the proof in Isabelle.''
+  \cite[p.~5]{Sledgehammer}.\footnote{Technical remark: We have
+    selected CVC4 in our experiments as the default SMT solver, since
+    we did run into errors when working with Z3. These errors can
+    easily be reconstructed in the provided source files when
+    switching back to Z3 as default.}  For quite some time the use of
+  the \textsc{smt} method has been controversially discussed in the
+  Isabelle/HOL community, and there is in fact a significant difference
+  between using the \textsc{smt} method in combination with Z3 or with
+  CVC4, as we prefer. When setting the solver to CVC4, the contributed
+  proofs are accepted and being trusted without replaying them in the
+  Isabelle kernel. Proofs contributed by Z3, in contrast, are never
+  trusted and always replayed in Isabelle's kernel. For the work
+  presented here this community internal discussion is of minor
+  relevance, so that we decided to continue working with CVC4 in order
+  to keep our formalisation very concise and also because CVC4
+  performed surprisingly well in our experiments.\footnote{An expert
+    reviewer of this article, to whom we are very grateful, provided
+    alternative proofs which can be
+    fully replayed in the kernel of Isabelle.}
+
+
+Note:
+=====
+See the latter footnote, and also the mentioning of the reviewers in the extended acknowledgement. The mentioning of the funding projects has moved now to the front page.
+
+
+Some additional typos:
+Def 2: D × . . . × D ~> \dotsb
+Section 4: " (cf. Fig.2)." add space "Fig. 2"
+Section 4.2: Table~1 to avoid the odd line break between the table and the number Section 4.4: "in Isabelle." ( [15, p. 5]).10 For quite some time": extra space
+Sect 5. "we show, that their axiom set": no comma needed
+
+Response: 
+=========
+These typos have all been addressed. 
+
