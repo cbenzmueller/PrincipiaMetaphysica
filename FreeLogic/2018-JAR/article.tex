@@ -209,7 +209,7 @@ grestore
 \author{Christoph Benzm\"uller\thanks{Benzmüller received funding from the German National Research
   Foundation DFG under Heisenberg grant \emph{Towards Computational
     Metaphysics} (BE 2501/9-2) and from VolkswagenStiftung under grant
-  Consistent Rational Argumentation in Politics (CRAP).}  and Dana S. Scott}
+  \emph{Consistent Rational Argumentation in Politics} (CRAP).}  and Dana S. Scott}
 \institute{Christoph Benzm\"uller \at
    Freie Universit\"at Berlin, Berlin, Germany \& University of Luxembourg, Luxembourg\\
 %   Stanford University, CSLI/Cordura Hall, Stanford, CA 94305-4115, U.S. \\
@@ -673,7 +673,8 @@ grammar:\footnote{It is well known that we could work with a much smaller set
                                     \hol{s_\alpha = t_\alpha} \mid
                                     \hol{\neg_{o\ar o}\, s_o} \mid\\
   & \hol{(({\vee_{o\ar o\ar o}}\,s_o)\,t_o)} \mid \hol{\forall_{(\alpha\ar
-    o)\ar o}(\lam{X_\alpha} s_o)} \mid \hol{\Descr(\lam{X_\alpha} s_o)}
+    o)\ar o}(\lam{X_\alpha} s_o)} \mid \hol{\Descr_{(\alpha\ar
+  o)\ar \alpha}(\lam{X_\alpha} s_o)}
 \end{align*}
 where $\hol{\alpha},\hol{\beta}\in \hol{T}$. $\hol{p_\alpha}$ denotes typed constants and
 $\hol{X_\alpha}$ typed variables (distinct from $\hol{p_\alpha}$).  Complex typed
@@ -686,7 +687,7 @@ $\hol{\neg_{o\ar o}}$, $\hol{\vee_{o\ar
   o)\ar \alpha}}$ (where $\hol{\alpha\in T}$).  Type subscripts may be dropped if
 irrelevant or obvious. Similarly, parentheses may be avoided.  Binder
 notation $\hol{\all{X_\alpha} s_o}$ and $\hol{\Descr {X_\alpha}\lambdot s_o}$ is used as shorthand for
-$\hol{\forall_{(\alpha\ar o)\ar o}
+$\hol{\forall 
 (\lam{X_\alpha} s_o)}$ and $\hol{\Descr(\lam{X_\alpha} s_o)}$, and infix notation $\hol{s \vee t}$ is employed
 instead of $\hol{((\vee s)\, t)}$. From the above connectives, other logical
 connectives, such as $\hol{\top}$, $\hol{\bot}$, $\hol{\wedge}$,
@@ -1297,7 +1298,7 @@ We can prove that the $i$ in axiom $C_i$ and the $j$ in axiom $D_i$
 are unique. The proofs and the dependencies can be 
    found automatically by Sledgehammer.
 $$  \forall y\lambdot \exists i\lambdot \id i \wedge i \comp y \cong y
-\wedge (\forall j\lambdot d(\id j \wedge j \comp y \cong y) \imp i \cong j)
+\wedge (\forall j\lambdot (\id j \wedge j \comp y \cong y) \imp i \cong j)
 \quad 
     (\text{by } A_i, C_i, S_i) $$
 $$ \forall x\lambdot \exists j\lambdot \id j \wedge x \comp j \cong x \wedge
@@ -1569,7 +1570,7 @@ even stronger. It implies that \emph{all} objects are defined,
 that is, composition (as well as $dom$ and $cod$) become total operations.
 The theory described by these axioms ``collapses'' to the theory of
 monoids: If all objects are defined, then one can conclude from $A1$ that 
-$\dom x \cong \dom y$ (resp.~$\dom x \cong \cod y$) and $\cod x \cong \cod y$), 
+$\dom x \cong \dom y$ (resp.~$\dom x \cong \cod y$ and $\cod x \cong \cod y$), 
 and according to 1.14 of \cite{FreydScedrov90}, 
 the category reduces to a monoid provided that it is not empty.
 
@@ -1587,7 +1588,7 @@ The provers identify the axioms $A1$,
  this and definition of $\cong$ we know that $a \comp (\dom a)$ is not
  defined. This is easy to see, since if $a \comp (\dom a)$ were defined, we
  also had that $a$ is defined, which is not the case by assumption.
-  Hence, $\neg E (a \comp (\dom a)$.
+  Hence, $\neg E (a \comp (\dom a))$.
 Next, we instantiate $A1$ with $a$ and $\dom a$ to obtain
    $E(a \comp (\dom a)) \biimp \dom a \cong \cod(\dom a)$. Moreover,
    by instantiating $A2a$ with $a$ we obtain $\cod(\dom a) \cong \dom a$,
@@ -1596,7 +1597,7 @@ Next, we instantiate $A1$ with $a$ and $\dom a$ to obtain
    $E(a \comp (\dom a)) \biimp \dom a \cong \dom a$. By reflexivity of
    $\cong$ we thus get $E(a \comp (\dom a))$, i.e. that $a \comp
    (\dom a)$ is defined, which contradicts $\neg E (a \comp (\dom
-   a)$. $\Box$
+   a))$. $\Box$
 
 As a corollary from the above constricted inconsistency result we get
 that all morphisms (objects in $D$) must be
@@ -1971,7 +1972,7 @@ MacLane, S.: Groups, categories and duality.
   263--267 (1948)
 
 \bibitem{makarenko16:_autom_logik_logik_stufe}
-Makarenko, I.: Automatisierung von freier logik in logik h{\"o}herer stufe
+Makarenko, I.: Automatisierung von Freier Logik in Logik h{\"o}herer Stufe
   (2016).
 \newblock Bachelorarbeit, Institut f{\"u}r Informatik, Freie Universit{\"a}t
   Berlin
