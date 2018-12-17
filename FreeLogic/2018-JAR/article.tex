@@ -1816,22 +1816,223 @@ final version.
 %\bibliographystyle{spbasic}      % basic style, author-year citations
 \bibliographystyle{spmpsci}      % mathematics and physical sciences
 %\bibliographystyle{spphys}       % APS-like style for physics
-\bibliography{bibliography}   % name your BibTeX data base
+%\bibliography{bibliography}   % name your BibTeX data base
 
-% % Non-BibTeX users please use
-% \begin{thebibliography}{}
-% %
-% % and use \bibitem to create references. Consult the Instructions
-% % for authors for reference list style.
-% %
-% \bibitem{RefJ}
-% % Format for Journal Reference
-% Author, Article title, Journal, Volume, page numbers (year)
-% % Format for books
-% \bibitem{RefB}
-% Author, Book title, page numbers. Publisher, place (year)
-% % etc
-% \end{thebibliography}
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{Andrews:gmae72}
+Andrews, P.: General models and extensionality.
+\newblock Journal of Symbolic Logic \textbf{37}(2), 395--397 (1972)
+
+\bibitem{AndrewsSEP}
+Andrews, P.: Church's type theory.
+\newblock In: E.~Zalta (ed.) The Stanford Encyclopedia of Philosophy, spring
+  2014 edn. (2014)
+
+\bibitem{barendregt13book}
+Barendregt, H., Dekkers, W., Statman, R.: Lambda Calculus with Types.
+\newblock Perspectives in Logic. Cambridge University Press (2013)
+
+\bibitem{C37}
+Benzm{\"u}ller, C.: Automating quantified conditional logics in {HOL}.
+\newblock In: F.~Rossi (ed.) Proc. of IJCAI-23. Beijing, China (2013)
+
+\bibitem{J31}
+Benzm{\"u}ller, C.: Cut-elimination for quantified conditional logic.
+\newblock Journal of Philosophical Logic  (2016)
+
+\bibitem{J6}
+Benzm{\"u}ller, C., Brown, C., Kohlhase, M.: Higher-order semantics and
+  extensionality.
+\newblock Journal of Symbolic Logic \textbf{69}(4), 1027--1088 (2004)
+
+\bibitem{J18}
+Benzm{\"u}ller, C., Brown, C., Kohlhase, M.: Cut-simulation and
+  impredicativity.
+\newblock Logical Methods in Computer Science \textbf{5}(1:6), 1--21 (2009)
+
+\bibitem{B5}
+Benzm{\"u}ller, C., Miller, D.: Automation of higher-order logic.
+\newblock In: J.~Siekmann, D.~Gabbay, J.~Woods (eds.) Handbook of the History
+  of Logic, Volume 9 --- Logic and Computation. Elsevier (2014)
+
+\bibitem{ICMS}
+Benzm{\"u}ller, C., Scott, D.: Automating free logic in {Isabelle/HOL}.
+\newblock In: G.M. Greuel, T.~Koch, P.~Paule, A.~Sommese (eds.) Mathematical
+  Software -- ICMS 2016, 5th International Congress, Proceedings, \emph{LNCS},
+  vol. 9725, pp. 43--50. Springer, Berlin, Germany (2016)
+
+\bibitem{ArXiv}
+Benzm{\"{u}}ller, C., Scott, D.S.: Axiomatizing category theory in free logic.
+\newblock CoRR \textbf{abs/1609.01493} (2016)
+
+\bibitem{J39}
+Benzm\"uller, C., Scott, D.S.: Axiom systems for category theory in free logic.
+\newblock Archive of Formal Proofs  (2018).
+\newblock
+  \urlprefix\url{https://www.isa-afp.org/entries/AxiomaticCategoryTheory.html}
+
+\bibitem{Leo-III}
+Benzm{\"u}ller, C., Steen, A., Wisniewski, M.: {Leo-III} version 1.1 (system
+  description).
+\newblock In: T.~Eiter, D.~Sands (eds.) Logic for Programming, Artificial
+  Intelligence, and Reasoning (LPAR) --- Short Papers, Kalpa Puplications.
+  EasyChair, Maun, Botswana (2017).
+\newblock To appear
+
+\bibitem{LEO}
+Benzm{\"{u}}ller, C., Sultana, N., Paulson, L.C., Theiss, F.: The higher-order
+  prover {Leo-II}.
+\newblock Journal of Automated Reasoning \textbf{55}(4), 389--404 (2015)
+
+\bibitem{SledgehammerTutorial}
+Blanchette, J.C.: {Hammering Away -- A User’s Guide to Sledgehammer for
+  Isabelle/HOL}.
+\newblock Institut f{\"u}r Informatik, Technische Universit{\"a}t M{\"u}nchen
+  (2018).
+\newblock \urlprefix\url{https://isabelle.in.tum.de/doc/sledgehammer.pdf}.
+\newblock With contributions from Lawrence C. Paulson
+
+\bibitem{Sledgehammer}
+Blanchette, J.C., B\"ohme, S., Paulson, L.C.: Extending {Sledgehammer} with
+  {SMT} solvers.
+\newblock Journal of Automated Reasoning \textbf{51}(1), 109--128 (2013)
+
+\bibitem{Nitpick}
+Blanchette, J.C., Nipkow, T.: Nitpick: {A} counterexample generator for
+  higher-order logic based on a relational model finder.
+\newblock In: M.~Kaufmann, L.C. Paulson (eds.) Interactive Theorem Proving,
+  First International Conference, {ITP} 2010, Edinburgh, UK, July 11-14, 2010.
+  Proceedings, \emph{Lecture Notes in Computer Science}, vol. 6172, pp.
+  131--146. Springer (2010)
+
+\bibitem{Spass}
+Blanchette, J.C., Popescu, A., Wand, D., Weidenbach, C.: {More {SPASS} with
+  Isabelle -- Superposition with Hard Sorts and Configurable Simplification}.
+\newblock In: L.~Beringer, A.P. Felty (eds.) Interactive Theorem Proving -
+  Third International Conference, {ITP} 2012, Princeton, NJ, USA, August 13-15,
+  2012. Proceedings, \emph{Lecture Notes in Computer Science}, vol. 7406, pp.
+  345--360. Springer (2012)
+
+\bibitem{Satallax}
+Brown, C.E.: Satallax: An automatic higher-order prover.
+\newblock In: B.~Gramlich, D.~Miller, U.~Sattler (eds.) Automated Reasoning -
+  6th International Joint Conference, {IJCAR} 2012, Manchester, UK, June 26-29,
+  2012. Proceedings, \emph{Lecture Notes in Computer Science}, vol. 7364, pp.
+  111--117. Springer (2012)
+
+\bibitem{Church40}
+Church, A.: A formulation of the simple theory of types.
+\newblock Journal of Symbolic Logic \textbf{5}, 56--68 (1940)
+
+\bibitem{CVC4}
+Deters, M., Reynolds, A., King, T., Barrett, C.W., Tinelli, C.: A tour of
+  {CVC4:} {How} it works, and how to use it.
+\newblock In: K.~Claessen, V.~Kuncak (eds.) Formal Methods in Computer-Aided
+  Design, {FMCAD} 2014, Lausanne, Switzerland, October 21-24, 2014, p.~7.
+  {IEEE} (2014)
+
+\bibitem{Freyd16}
+Freyd, P.: {Amplifications, Diminutions, Subscorings for Categories,
+  Allegories} (2016).
+\newblock University of Pennsylvania. Unpublished. Available at
+  \url{https://www.math.upenn.edu/~pjf/amplifications.pdf}; (accessed in
+  {August} 2016)
+
+\bibitem{FreydScedrov90}
+Freyd, P., Scedrov, A.: Categories, Allegories.
+\newblock North Holland (1990)
+
+\bibitem{Vampire}
+Kov{\'{a}}cs, L., Voronkov, A.: {First-Order Theorem Proving and Vampire}.
+\newblock In: N.~Sharygina, H.~Veith (eds.) Computer Aided Verification - 25th
+  International Conference, {CAV} 2013, Saint Petersburg, Russia, July 13-19,
+  2013. Proceedings, \emph{Lecture Notes in Computer Science}, vol. 8044, pp.
+  1--35. Springer (2013)
+
+\bibitem{Lambert60}
+Lambert, K.: The definition of e(xistence)! in free logic.
+\newblock In: Abstracts: The International Congress for Logic, Methodology and
+  Philosophy of Science. Stanford: Stanford University Press (1960)
+
+\bibitem{lambert02:_free_logic}
+Lambert, K.: Free Logic: Selected Essays.
+\newblock Cambridge: Cambridge University Press (2002)
+
+\bibitem{maclane48:_group}
+MacLane, S.: Groups, categories and duality.
+\newblock Proceedings of the National Academy of Sciences \textbf{34}(6),
+  263--267 (1948)
+
+\bibitem{makarenko16:_autom_logik_logik_stufe}
+Makarenko, I.: Automatisierung von freier logik in logik h{\"o}herer stufe
+  (2016).
+\newblock Bachelorarbeit, Institut f{\"u}r Informatik, Freie Universit{\"a}t
+  Berlin
+
+\bibitem{Z3}
+de~Moura, L.M., Bj{\o}rner, N.: {Z3: An Efficient {SMT} Solver}.
+\newblock In: C.R. Ramakrishnan, J.~Rehof (eds.) Tools and Algorithms for the
+  Construction and Analysis of Systems, 14th International Conference, {TACAS}
+  2008, Held as Part of the Joint European Conferences on Theory and Practice
+  of Software, {ETAPS} 2008, Budapest, Hungary, March 29-April 6, 2008.
+  Proceedings, \emph{Lecture Notes in Computer Science}, vol. 4963, pp.
+  337--340. Springer (2008)
+
+\bibitem{NPW02}
+Nipkow, T., Paulson, L.C., Wenzel, M.: {Isabelle/HOL: A Proof Assistant for
+  Higher-Order Logic}.
+\newblock No. 2283 in LNCS. Springer (2002)
+
+\bibitem{sep-logic-free}
+Nolt, J.: Free logic.
+\newblock In: E.N. Zalta (ed.) The Stanford Encyclopedia of Philosophy, winter
+  2014 edn. (2014)
+
+\bibitem{E}
+Schulz, S.: System description: {E} 1.8.
+\newblock In: K.L. McMillan, A.~Middeldorp, A.~Voronkov (eds.) Logic for
+  Programming, Artificial Intelligence, and Reasoning - 19th International
+  Conference, LPAR-19, Stellenbosch, South Africa, December 14-19, 2013.
+  Proceedings, \emph{Lecture Notes in Computer Science}, vol. 8312, pp.
+  735--743. Springer (2013).
+\newblock \doi{10.1007/978-3-642-45221-5}.
+\newblock \urlprefix\url{http://dx.doi.org/10.1007/978-3-642-45221-5}
+
+\bibitem{Scott67}
+Scott, D.: Existence and description in formal logic.
+\newblock In: R.~Schoenman (ed.) Bertrand Russell: Philosopher of the Century,
+  pp. 181--200. George Allen \& Unwin, London (1967).
+\newblock (Reprinted with additions in: Philosophical Application of Free
+  Logic, edited by K. Lambert. Oxford Universitry Press, 1991, pp. 28 - 48)
+
+\bibitem{Scott79}
+Scott, D.: Identity and existence in intuitionistic logic.
+\newblock In: M.~Fourman, C.~Mulvey, D.~Scott (eds.) Applications of Sheaves:
+  Proceedings of the Research Symposium on Applications of Sheaf Theory to
+  Logic, Algebra, and Analysis, Durham, July 9--21, 1977, \emph{Lecture Notes
+  in Mathematics}, vol. 752, pp. 660--696. Springer Berlin Heidelberg (1979)
+
+\bibitem{J22}
+Sutcliffe, G., Benzm{\"u}ller, C.: Automated reasoning in higher-order logic
+  using the {TPTP THF} infrastructure.
+\newblock Journal of Formalized Reasoning \textbf{3}(1), 1--27 (2010)
+
+\bibitem{W56}
+Wisniewski, M., Steen, A., Benzm\"uller, C.: {TPTP} and beyond: Representation
+  of quantified non-classical logics.
+\newblock In: C.~Benzm{\"u}ller, J.~Otten (eds.) ARQNL 2016. Automated
+  Reasoning in Quantified Non-Classical Logics, vol. 1770, pp. 51--65. CEUR
+  Workshop Proceedings, http://ceur-ws.org (2016)
+
+\end{thebibliography}
+
 
 \end{document}
 % end of file template.tex
